@@ -1,0 +1,4 @@
+Options +FollowSymlinks
+RewriteEngine on
+RewriteBase /modules/edito/
+RewriteRule	([0-9]+)(-).*(\.html)$	content.php?id=$1	[L]

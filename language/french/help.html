@@ -1,0 +1,262 @@
+<style type="text/css">
+div.xoopsCode {
+	color: #000000;
+    background: #F0F0F0;
+    font-weight: normal;
+    border: 1px inset #000080;
+    font-family: "Courier New",Courier,monospace;
+    margin : 2px 0px 0px 20px;
+    padding: 2px 5px 2px 5px;
+	width: 600px;
+	height: auto;
+	overflow: none;
+    text-align: left;
+}
+.Style1 {font-weight: bold}
+.Style2 {font-weight: bold}
+</style>
+
+<div align="left">
+<h1 align="center">Édito 3.x: l'&eacute;diteur de contenu polyvalent </h1>
+<br />
+<p><strong><u>GENERAL</u>
+</strong></p>
+<p>Édito est un &eacute;diteur de contenu puissant et simple d'emploi. <br />
+  <br />
+  <strong><u>POSSIBILITES</u> </strong></p>
+<p>L'objectif principal de ce module est de permettre aux utilisateurs - webmasters ou adminstrateurs de site - de mettre en ligne tr&egrave;s simplement tous types de contenu :</p>
+<ul><ol>
+    <li>articles et images bien s&ucirc;r (&Eacute;dito s'interface avec tous les &eacute;diteurs wysiwyg disponibles pour Xoops : TinyEditor, Koivi, Inbetween, etc.)</li>
+    <li>scripts (html, javascript, php)</li>
+    <li>flash, musiques et vid&eacute;os (tous les formats standards sont accept&eacute;s par d&eacute;faut et il est possible d'en ajouter manuellement)</li>
+</ol></ul>
+
+<p>De nombreuses fonctions facilitent l'emploi du module &Eacute;dito, notamment :</p>
+<ul><ol>
+	<li>un utilitaire d'upload des media et des images</li>
+    <li>le clonage du module en 1 clic (avec la possibilit&eacute; d'exporter / importer les donn&eacute;es d'un cl&ocirc;ne &agrave; l'autre</li>
+    <li>la protection des media par .htaccess </li>
+</ol></ul>
+
+<p>Parmi les atouts d'&Eacute;dito, citons quelques possibilit&eacute;s de param&eacute;trages :</p>
+<ul><ol>
+    <li>affichage extr&ecirc;mement flexible des blocs</li>
+    <li>option permettant la gestion automatis&eacute;e de l'url Rewriting</li>
+    <li>3 modes de gestion  des metas  (de la singularisation manuelle des balises meta-title, meta-description et meta-keywords &agrave; l'automatisation int&eacute;grale via la technologie metagen)</li>
+	<li>choix du mode d'affichage de la page d'index (images, style news, style blog ou en tableau)</li>
+</ol></ul>
+
+<p><strong><u>CREDITS</u></strong></p>
+<p>En remerciement pour le travail r&eacute;alis&eacute;, les cr&eacute;dits vont aux  xoopers qui ont contribu&eacute; directement ou indirectement &agrave; cette version d'&Eacute;dito : </p>
+<ul><ol>
+    <li>Christian </li>
+    <li>Hervé</li>
+    <li>Marcan </li>
+    <li>Carnuke </li>
+    <li>DuGRis</li>
+    <li>Blueteen</li>
+</ol></ul>
+<p>Merci d'avoir choisi &Eacute;dito ; tous les commentaires et retours d'exp&eacute;rience seront les bienvenus afin de perfectionner ce module. <br />
+  <br />
+- Solo</p>
+<hr />
+<div style="text-align:center;"><img src="../images/icon/settings.gif" /></div>
+<p align="center"><strong>Pr&eacute;f&eacute;rences (ou Param&egrave;tres g&eacute;n&eacute;raux du module)</strong></p>
+<div align="left"></div>
+<div align="left">
+  <p>Avant d'utiliser &Eacute;dito, nous vous sugg&eacute;rons de regarder de plus  pr&egrave;s la page de param&egrave;trage du module. C'est l'endroit o&ugrave; vous  d&eacute;finirez les param&egrave;tres personnels et fonctionnels du module. Ces  param&egrave;tres ont un impact direct sur la page d'index, les blocs et les param&egrave;tres g&eacute;n&eacute;raux du site.</p>
+  <p>Ils sont class&eacute;s par section, signal&eacute;es entre [CROCHETS], comme suit : <br />
+    <br />
+    <strong><em>~</em>[INDEX] Banni&egrave;re de l'index ou des pages</strong> : saisir dans ce champ l'url de la banni&egrave;re du module (formats : jpg, gif, png et swf)<br />
+    <br />
+    <strong><em>~</em>[INDEX] Intro</strong> : texte d'introduction &agrave; afficher sur la page d'index du module <br />
+    <br />
+    <strong><em>~</em>[OPTION] Texte par d&eacute;faut</strong> : texte qui appara&icirc;tra au sommet de chaque page cr&eacute;&eacute;e (&agrave; utiliser par exemple pour conserver / d&eacute;finir une mise en forme coh&eacute;rente). La balise <em><strong>{lorem} </strong></em>vous permettra d'effectuer des tests de &quot;remplissage&quot;. </p>
+  <p><strong><em>~</em>[INDEX] Pied de page </strong>: saisir le contenu du pied de page du module.</p>
+  <p><strong><em>~</em></strong><strong>[INDEX] Mode</strong> :     s&eacute;lectionner le mode d'affichage de la page d'index, du plus sommaire au plus complet : <ol>
+    <li><strong> Images :</strong> simple affichage du logo des pages, sans aucun contenu.</li>
+    <li><strong>Table :</strong> affichage d'un tableau plus complet, contenant diverses informations &agrave; propos de chacune des page (affiche le contenu du bloc).</li>
+    <li><strong>News :</strong> affichage &agrave; la mani&egrave;re d'une page d'articles (affiche le contenu du bloc).</li>
+	<li><strong>Blog :</strong> affichage pleine page, &agrave; la mani&egrave;re d'un blog (affiche le contenu du bloc et le contenu de la page) </li>
+  </ol>
+  <p><strong><em>~</em>[INDEX] Affichage de l'index</strong> :  d&eacute;finir le nombre de colonnes d'images &agrave; afficher en page d'index (de 1 &agrave; 5 colonnes, <strong>Mode images</strong> exclusivement) <br />
+    <br />
+    <strong><em>~</em></strong><strong>[INDEX] Classement</strong> : fixe l'ordre dans lequel les pages sont list&eacute;es (ce param&egrave;tre affecte l'ensemble du module, blocs mis &agrave; part). Remarque : si l'une des deux derni&egrave;res m&eacute;thodes est employ&eacute;e, le titre de la page se contextualise et affiche soit la date de publication, soit le nombre de lectures.</p>
+<ul><ol>
+    <li><strong>Titre croissant</strong> : ordre alphab&eacute;tique</li>
+    <li><strong>Le plus r&eacute;cent</strong> : ordre chronologique de publication</li>
+    <li><strong>Le plus lu</strong> : ordonn&eacute; par popularit&eacute;</li>
+</ol></ul>
+<div align="left">
+  <p><strong><em>~</em>[INDEX] Nombre maximum d'articles par page</strong> : s&eacute;lectionner la quantit&eacute; de titres  &agrave; faire figurer sur la page d'accueil (de 6 &agrave; 50). Si la quantit&eacute; d&eacute;passe les 50 entr&eacute;es, un menu s'affiche automatiquement au sommet de la page d'index. Remarque : ce param&egrave;tre affecte le nombre de titres affich&eacute;s dans tout le module (administration, blocs et listing des titres).</p>
+  <p><strong><em>~</em>[LOGO] Affichage des images</strong> : saisir les dimensions 'largeur | hauteur' des images qui figureront sur chaque page d'images. Remarque : si les dimensions de l'image upload&eacute;e sont sup&eacute;rieures, le redimensionnement s'effectue automatiquement et proportionnellement ; inversement, pour une image dont les dimensions sont inf&eacute;rieures aux limites indiqu&eacute;es, la taille originale est conserv&eacute;e. </p>
+  <p><strong><em>~</em>[LOGO] Alignement du logo</strong> : pour chaque page, s&eacute;lectionner l'alignement du logo (gauche / centre / droite) ; ce param&egrave;tre n'a pas d'incidence sur le module, les logos affich&eacute;s dans les blocs ou l'affichage des media (vid&eacute;o, flash, etc.) </p>
+  <p><strong><em>~</em>[PAGE] Compteur de lectures Admin</strong> : comptabiliser ou non les clics de l'administrateur dans le nombre de visites (Non est s&eacute;lectionn&eacute; par d&eacute;faut).</p>
+  <p><strong><em>~</em>[LOGO] Taille max. des images</strong> : saisir respectivement la largeur, la hauteur et le poids des images qui peuvent &ecirc;tre upload&eacute;es sur le serveur (s&eacute;parer chacun des param&egrave;tres par | sans espace). Remarque : les restrictions fix&eacute;es par l'h&eacute;bergeur sont prioritaires. </p>
+  <p><strong><em>~</em>[LOGO] R&eacute;pertoire des images</strong> :     indiquer le r&eacute;pertoire dans lequel seront upload&eacute;es les images d'illustration (par d&eacute;faut &quot;uploads/edito/images&quot;, sans &quot;/&quot; &agrave; la fin). Remarque : si un nouveau r&eacute;pertoire est indiqu&eacute; dans le champ, il est automatiquement cr&eacute;&eacute;. </p>
+  <p><strong><em>~</em>[MEDIA] Dossier de base des m&eacute;dias</strong> : indiquer le r&eacute;pertoire dans lequel seront upload&eacute;es les media (par d&eacute;faut &quot;uploads/edito/media&quot;, sans &quot;/&quot; &agrave; la fin). Remarque : si un nouveau r&eacute;pertoire est indiqu&eacute; dans le champ, il est automatiquement cr&eacute;&eacute;.
+    <br />
+    <br />
+    <strong><em>~</em>[MEDIA] T&eacute;l&eacute;chargeable</strong>    : accorder ou non la possibilit&eacute; de t&eacute;l&eacute;charger de nouveaux media depuis les pages media (Non est s&eacute;lectionn&eacute; par d&eacute;faut, l'ic&ocirc;ne de t&eacute;l&eacute;chargement ne s'affiche pas)  </p>
+  <p><strong><em>~</em>[OPTION] Acc&egrave;s aux groupes</strong> : S&eacute;lectionner les groupes qui auront acc&egrave;s aux pages (la modification de ce param&egrave;tre n&rsquo;aura d&rsquo;incidence que sur les nouvelles cr&eacute;ations de page ; celles d&eacute;j&agrave; existantes conserveront leur propri&eacute;t&eacute; initiale).</p>
+  <p><strong><em>~</em>[INDEX] Soumission de pages</strong> : S&eacute;lectionner les groupes qui seront autoris&eacute;s &agrave; proposer des pages depuis le formulaire public de soumission. </p>
+  <p><strong><em>~</em>[OPTION] Afficher le bloc</strong> : Afficher ou masquer le contenu du bloc dans la page (la modification de ce param&egrave;tre n&rsquo;aura d&rsquo;incidence que sur les nouvelles cr&eacute;ations de page ; celles d&eacute;j&agrave; existantes conserveront leur propri&eacute;t&eacute; initiale).</p>
+  <p><strong><em>~</em>[OPTION] Afficher titre</strong> : Afficher ou masquer le titre de la page (la modification de ce param&egrave;tre n&rsquo;aura d&rsquo;incidence que sur les nouvelles cr&eacute;ations de page ; celles d&eacute;j&agrave; existantes conserveront leur propri&eacute;t&eacute; initiale). </p>
+  <p><span class="Style1"><em>~</em>[OPTION] Afficher logos</span>    : Afficher ou masquer le logo / l&rsquo;image (la modification de ce param&egrave;tre n&rsquo;aura d&rsquo;incidence que sur les nouvelles cr&eacute;ations de page ; celles d&eacute;j&agrave; existantes conserveront leur propri&eacute;t&eacute; initiale).</p>
+  <p><em>~</em><strong>[OPTION] Commentaires autoris&eacute;s</strong> :     Afficher ou non la fonctionnalit&eacute; des commentaires (la modification de ce param&egrave;tre n&rsquo;aura d&rsquo;incidence que sur les nouvelles cr&eacute;ations de page ; celles d&eacute;j&agrave; existantes conserveront leur propri&eacute;t&eacute; initiale). <br />
+    <br />
+    <em>~</em><strong>[ADMIN] Utiliser l'Editeur Wysiwyg</strong> : s&eacute;lectionner l'&eacute;diteur wysiwyg &agrave; utiliser avec &Eacute;dito ; pour fonctionner les modules Koivi, FCK, Inbetween, TinyEditor doivent &ecirc;tre install&eacute;s. <br />
+    <br />
+    <em>~</em><strong>[INDEX] Afficher les ic&ocirc;nes</strong> :     afficher ou non les ic&ocirc;nes 'populaires' et 'nouveau' sur les pages (le choix s'appliquer &agrave; pour toutes les pages, y compris l'index du module). </p>
+  <p><strong><em>~</em>[INDEX] Ic&ocirc;ne nouveau</strong> :     saisir le nombre du jours durant lesquels l'ic&ocirc;ne 'nouveau' doit s'afficher sur la page (7 jours par d&eacute;faut, mais il n'y a pas de limites). <br />
+    <br />
+    <strong><em>~</em>[INDEX] Ic&ocirc;ne populaire</strong> :     saisir le nombre de lectures &agrave; partir duquel une page doit afficher l'ic&ocirc;ne 'populaire' (100 hits par d&eacute;faut, mais il n'y a pas de limites). </p>
+  <p><strong><em>~</em>[META] Meta Generateur</strong> :     &Eacute;dito permet de choisir entre 3 modes de g&eacute;n&eacute;ration des m&eacute;ta-balises &quot;titre&quot; et &quot;description&quot;. Le choix effectu&eacute; ici s'applique pour toutes les pages. <br />
+  </p>
+</div>
+<ol><li><strong>Auto :</strong> utilisation du script metagen pour renseigner automatiquement les m&eacute;ta-balises (synth&egrave;se du contenu de la page)
+</li>
+<li><strong>Semi-auto :</strong>
+ utilisation  du script metagen combin&eacute;e aux informations saisies  (pas d'analyse du contenu de la page)</li>
+<li><strong>Manuel :</strong> les m&eacute;ta-balises retenues sont uniquement celles saisies dans le formulaire de cr&eacute;ation de la page</li>
+</ol>
+<div align="left">
+  <p><strong><em>~</em>[META] Mots cl&eacute;s du module</strong> : saisir les mots cl&eacute;s qui s'ajouteront &agrave; ceux extraits du titre de la page.</p>
+</div>
+<div align="left">
+  <p><strong><em>~</em>[META] Meta Description du module</strong> : personnalisation de la m&eacute;ta-balise &quot;description&quot; pour chaque page du module. Laisser vide pour appliquer les r&egrave;gles de r&eacute;f&eacute;rencement d&eacute;finies dans l'Admin system.</p>
+</div>
+<div align="left"><p><strong><em>~</em>[INDEX] Page de redirection</strong> : saisir l'url de la page (ou l'id d'une page &Eacute;dito) que l'on souhaite voir s'afficher &agrave; la place de la page d'index du module.</p>
+</div>
+<div align="left">
+  <p><strong><em>~</em>[PAGE] Liens de navigation</strong> : pour toutes les pages, affichage ou non  d'une bo&icirc;te permettant de naviguer entre les pages </p>
+</div>
+<div><ol><li><strong>Aucune :</strong> ne pas afficher le syst&egrave;me de navigation
+</li>
+<li><strong>Bloc :</strong>
+ afficher sous la forme d'un bloc un menu liste  plac&eacute; directement sur la page</li>
+<li><strong>Liste :</strong> afficher la liste des titres au bas de chaque page</li>
+<li><strong>Chemin  :</strong>
+ afficher la liste des pages sous la forme Article 1 | Article 2 | Article | ...</li>
+</ol>
+  <p><strong><em>~</em>[LIENS] Mode Rewriting</strong> : activation ou non de la r&eacute;-&eacute;criture automatique des url. Les sources consid&eacute;r&eacute;es sont le titre de la page et sa balise meta-titre. Les options de formatage sont :</p>
+  <ul><ol>
+    <li><strong>3 lettres minimum </strong>: les mots composés de moins de 3 lettres ne sont pas retenus dans l’url</li>
+    <li><strong>5 lettres minimum </strong>: les mots composés de moins de 5 lettres ne sont pas retenus dans l’url</li>
+    <li><strong>Tous</strong> : aucun filtre sur la taille des mots</li>
+</ol></ul>
+  <p><strong><em>~</em>[MEDIA] Affichage des Medias </strong>:  s&eacute;lectionner le mode d'affichage des media display a navigation box under each and every module content pages.</p>
+</div>
+<ol><li><strong>Popup :</strong>
+ affichage dans un pop-up
+</li>
+<li><strong>Page :</strong>
+ affichage dans une page</li>
+<li><strong>Popup &amp; Page :</strong>
+ permet &agrave; l&rsquo;utilisateur de choisir entre les deux affichages</li>
+</ol>
+<p align="left"><strong><em>~</em>[MEDIA] Taille personnalis&eacute;e</strong> : D&eacute;finir la taille des media (largeur|hauteur) ; ce param&egrave;tre n&rsquo;a d&rsquo;incidence qu&rsquo;en mode <strong>Personnalis&eacute;</strong></p>
+<p align="left"><strong><em>~</em>[MEDIA] Medias personnalis&eacute;s</strong> : saisir les extensions des fichiers media qui devront &ecirc;tre ouverts avec Windows Media Player </p>
+<p align="left"><strong><em>~</em>[MEDIA] Jouer en boucle </strong>: jouer ou non les media en mode perp&eacute;tuel 
+  <br /><br />
+  <strong><em>~</em>[MEDIA] Taille du Media </strong>:
+s&eacute;lectionner le format d'affichage des media (le choix s'applique aux pages media existantes et &agrave; toute nouvelle cr&eacute;ation) </p>
+<ol>
+  <li><strong>Aucun</strong> (conserver les dimensions originales des media) </li>
+  <li><strong>Personnalis&eacute;</strong> (afficher les media aux dimensions d&eacute;finies dans le champ '<strong>Taille personnalis&eacute;e</strong>')</li>
+  <li><strong>TV Petit </strong></li>
+  <li><strong>TV Moyen </strong></li>
+  <li><strong>TV Large</strong></li>
+  <li><strong>Cinescope Petit</strong></li>
+  <li><strong>Cinescope Moyen</strong></li>
+  <li><strong>Cinescope Large</strong></li>
+</ol>
+<p align="left"><strong><em>~</em>R&egrave;gles des commentaires</strong> : s&eacute;lectionner les r&egrave;gles de commentaire du module
+<ul><ol>
+    <li>Désactiver les commentaires</li>
+    <li>Approuver automatiquement les commentaires, pour tous les utilisateurs</li>
+    <li>Approuver automatiquement les commentaires, pour les membres uniquement</li>
+	<li>Approbation soumis au contrôle de l'administrateur<br />
+</li>
+</ol>
+</ul><br />
+  <strong><em>~</em>Autoriser les anonymes &agrave; poster des commentaires ?</strong> :
+  Non par d&eacute;faut. <br />
+  <br />
+<hr /></p>
+<p align="center"><strong>Param&eacute;trage des blocs   </strong></p>
+<p align="left">&Eacute;dito dispose de 2 types de blocs :</p>
+<ul><ol>
+    <li>les blocs de menu (x2) affichent des listes de pages issues du module. Par d&eacute;faut ils sont intitul&eacute;s   				Menu 1 et   				Menu 2</li>
+    <li>les blocs de contenu (x4) affichent le contenu sp&eacute;cifique d'une page. Par d&eacute;faut ils sont intitul&eacute;s    				Page 1,   				Al&eacute;atoire,   				Dernier et   				Populaire  				</li>
+</ol></ul>
+<p align="left">Cette &quot;profusion&quot; de blocs autorise une multitude de combinaisons et met &agrave; disposition du webmestre un grande vari&eacute;t&eacute; d'options.</p>
+<p align="left">Au moment d'&eacute;diter un bloc via Blocks/Groups permissions, utiliser les options en cliquant sur le lien Editer.<br />
+  <br />
+  <strong>a) <u>Les blocs de Menu</u></strong><br /> 
+<br />
+<strong>~Format d'affichage</strong> : s&eacute;lectionner la mani&egrave;re d'afficher la liste contenue dans le bloc </p>
+<ul><ol>
+    <li><strong>Menu </strong>(aucune image)</li>
+    <li><strong>Liste</strong> (aucune image)</li>
+    <li><strong>Images</strong></li>
+	<li><strong>Etendu</strong> (images et informations)</li>
+</ol></ul>
+<p><strong><em>~</em>Taille des images</strong> : saisir les dimensions du logo qui s'affichera dans le bloc (quelque soit la taille originale du logo t&eacute;l&eacute;charg&eacute; sur le serveur). Cette valeur, largeur-hauteur, s'appliquera &agrave; toutes les images contenues dans le bloc. Remarque : pour les logos dont les dimensions sont inf&eacute;rieures &agrave; celles indiqu&eacute;es dans le champ, la taille originale est pr&eacute;serv&eacute;e.</p>
+<p><strong>~Nombre de colonnes</strong> : s&eacute;lectionner le nombre de colonnes  &agrave; afficher dans le bloc (entre 1 et 4). Ce param&egrave;tre ne vaut que si le format d'affichage Images est actif. </p>
+<p align="left"><strong><em>~</em>Classement par</strong> : s&eacute;lectionner le crit&egrave;re de classement de la liste</p>
+<ul><ol>
+    <li><strong>Titre croissant</strong> : affichage dans l'ordre alphab&eacute;tique </li>
+    <li><strong>Le plus récent </strong> : affichage dans l'ordre chronologique de parution </li>
+    <li><strong>Le plus lu </strong> : affichage en fonction de la popularit&eacute; </li>
+</ol></ul>
+<p align="left"><strong><em>~</em>Nombre de liens &agrave; afficher</strong> : s&eacute;lectionner le nombre de liens &agrave; faire appara&icirc;tre dans le bloc (de 6 &agrave; 50)</p>
+<p align="left"><br />
+  <strong>b) <u>Les blocs de contenu</u></strong>
+  <u> </u></p>
+<p align="left"><strong>~[TEXT] Taille maximum dans le bloc</strong> : saisir le nombre maximum de caract&egrave;res &agrave; afficher dans le bloc </p>
+<p><strong>~[TEXT] Choisir une page</strong> : s&eacute;lectionner la page dont le  contenu doit appara&icirc;tre dans le bloc </p>
+<ul><ol>
+    <li><strong>Au hasard </strong> : affiche dans le bloc une page au hasard (parmi celles en ligne) </li>
+    <li><strong>Le plus r&eacute;cent </strong> : affiche dans le bloc la page la plus r&eacute;cente (la page doit &ecirc;tre en ligne) </li>
+    <li><strong>Le plus lu </strong>: affiche dans le bloc la page la plus populaire (parmi celles en ligne) </li>
+    <li><strong>Li&eacute; &agrave; la page </strong> : affiche dans le bloc la page active &agrave; l'&eacute;cran </li>
+    <li><strong>Chaque jour de l'ann&eacute;e </strong> : affiche dans le bloc la page dont l'ID correspond au jour (exemple : le 1er f&eacute;vrier, le page cibl&eacute;e sera celle ayant l'ID 32) </li>
+    <li><strong>Chaque semaine de l'ann&eacute;e</strong> : affiche dans le bloc la page dont l'ID correspond &agrave; la semaine du calendrier </li>
+    <li><strong>Chaque jour de la semaine</strong> : affiche dans le bloc la page dont l'ID correspond au jour de la semaine (limit&eacute; &agrave; une rotation de 7 articles donc) </li>
+    <li><strong>Page s&eacute;pcifique</strong>  : affiche une page pr&eacute;cise parmi la liste de pages cr&eacute;&eacute;es (qu'elle soit ou non en ligne) </li>
+</ol></ul>
+
+<p><strong><em>~</em>[TEXT] Afficher le titre</strong> : afficher ou non dans le bloc le titre de la page (Oui par d&eacute;faut) </p>
+<p><span class="Style2"><em>~</em>[TEXT] Afficher le logo</span> :
+afficher ou non le logo dans le bloc (Non par d&eacute;faut) </p>
+<p><strong>~[MEDIA] Affichage du media </strong>:</p>
+<ul><ol>
+    <li><strong>Popup</strong> : affiche les media dans un pop-up</li>
+    <li><strong>Bloc</strong> : affiche les media sans la page </li>
+    <li><strong>Les 2 </strong>: permet le choix entre les deux options pr&eacute;c&eacute;dentes </li>
+</ol></ul>
+<p align="left"><hr /></p>
+<div style="text-align:center;"><img src="../images/icon/utilities.gif" /></div>
+<p align="center"><strong>Utilitaires</strong></p>
+<p align="left">Une section Utilitaires met &agrave; disposition une s&eacute;rie d'outils pour la mise &agrave; jour et la maintenance du module. <br />
+  <br />
+  <strong>a) <u>T&eacute;l&eacute;verser des media</u></strong></p>
+<p align="left">Formulaire de mise &agrave; jour des media (acc&egrave;s direct au contenu du r&eacute;pertoire <strong>Dossier de base des m&eacute;dias</strong> permettant d'ajouter / effacer des media)<br />
+  <br />
+<strong>b) <u>Cloner le module</u></strong></p>
+<p align="left">Formulaire permettant de dupliquer d'un clic le module &Eacute;dito. Concernant l'intitul&eacute; du cl&ocirc;ne, eiller &agrave; respecter les restrictions suivantes : </p>
+<ul><ol>
+    <li>Pas de chiffre </li>
+    <li>Pas plus de 16 caract&egrave;res </li>
+    <li>Pas de caract&egrave;res sp&eacute;ciaux  (lettres capitales, espaces, _ et - sont autoris&eacute;s)</li>
+    <li>Pas d'intitul&eacute; d&eacute;j&agrave; existant (le terme 'content' est &eacute;galement prohib&eacute;) </li>
+</ol></ul>
+
+<p>Une fois cl&ocirc;n&eacute;, il convient de proc&eacute;der &agrave; l'installation du nouveau module &Eacute;dito. Pour mieux diff&eacute;rencier les cl&ocirc;nes dans l'interface d'administration, il est possible de leur associer une ic&ocirc;ne sp&eacute;cifique en modifiant, dans le r&eacute;pertoire <strong>images</strong> du module, le fichier edito_slogo.</p>
+<p><strong>c) <u>Exporter SQL</u></strong> - <strong><u>Importer SQL</u></strong></p>
+<p>Les formulaires d'export et d'import SQL sont con&ccedil;us pour faciliter les transferts de donn&eacute;es entre les diff&eacute;rents cl&ocirc;nes. </p>
+<p><strong>d) <u>Editeurs disponibles</u></strong></p>
+<p>Cette rubrique permet de faire le point sur les &eacute;diteurs op&eacute;rationnels sur le site. Remarque : un clic sur le titre du module redirige sur son site de d&eacute;veloppement. </p>
+<p><strong>f) <u>Prot&eacute;ger les media</u></strong></p>
+<p>Le formulaire permet d'indiquer les sites autoris&eacute;s &agrave; contourner la protection des media et logos. </p>
