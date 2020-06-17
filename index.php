@@ -41,7 +41,7 @@ if ($xoopsModuleConfig['index_content']) {
 		header ("location: ".$xoopsModuleConfig['index_content']);
 		exit();
 	} else {
-		$sql = "SELECT COUNT(*) FROM " . $xoopsDB->prefix("content_" . $xoopsModule->dirname())."
+	    $sql = "SELECT COUNT(*) FROM " . $xoopsDB->prefix($xoopsModule->dirname() . "_content")."
 				WHERE id=".$xoopsModuleConfig['index_content']." AND status=2";
 
         $result = $xoopsDB -> queryF( $sql );
@@ -129,7 +129,7 @@ $xoopsTpl->assign("width", number_format(100/$xoopsModuleConfig['columns'], 2, '
 /* ----------------------------------------------------------------------- */
 /*                              Count number of available pages            */
 /* ----------------------------------------------------------------------- */
-$result = $xoopsDB -> queryF( "SELECT COUNT(*) FROM " . $xoopsDB->prefix("content_" . $xoopsModule->dirname())." WHERE status>2");
+$result = $xoopsDB -> queryF( "SELECT COUNT(*) FROM " . $xoopsDB->prefix($xoopsModule->dirname() . "_content" )." WHERE status>2");
 list( $numrows )=$xoopsDB->fetchRow($result);
 
 $count = $startart;
@@ -150,14 +150,14 @@ if ($numrows > 0) {	// That is, if there ARE editos in the system
     /*                              Create query                               */
     /* ----------------------------------------------------------------------- */
 	$sql = "SELECT id, uid, datesub, counter, subject,  block_text, body_text, image, media, meta, groups, options
-    		FROM ".$xoopsDB->prefix("content_" . $xoopsModule->dirname())." WHERE status>2 ORDER BY ".$xoopsModuleConfig['order'];
+    		FROM ".$xoopsDB->prefix($xoopsModule->dirname() . "_content")." WHERE status>2 ORDER BY ".$xoopsModuleConfig['order'];
 
 	$result = $xoopsDB->queryF($sql, $xoopsModuleConfig['perpage'], $startart );
 	while(list( $id, $uid, $datesub, $counter, $subject, $block_text, $body_text, $image, $media, $meta, $groups, $options) = $xoopsDB->fetchRow($result)) {
 		/* ----------------------------------------------------------------------- */
 		/*                              Check group access                         */
 		/* ----------------------------------------------------------------------- */
-		$groups = explode(" ",$groups);    
+		$groups = explode(" ",$groups);
 		if (count(array_intersect($group,$groups)) > 0) {
 			$info = array();
 
@@ -176,7 +176,7 @@ if ($numrows > 0) {	// That is, if there ARE editos in the system
                 $media_file     =  $media[0];
                 $media_url      =  $media[1];
                 $media_size     =  $media[2];
-                
+
                 $meta = explode("|", $meta);
                 $meta_title       =  $meta[0];
 
@@ -188,7 +188,7 @@ if ($numrows > 0) {	// That is, if there ARE editos in the system
                 $block           = $option[4];
                 $title           = $option[5];
                 $cancomment      = $option[6];
-                
+
 
 			if ( $xoopsModuleConfig['tags'] ){
             	if ( $startdate < $datesub ) {
@@ -215,8 +215,8 @@ if ($numrows > 0) {	// That is, if there ARE editos in the system
 						include_once ("include/functions_mediasize.php");
 						$media    =  $media_url;
 						$format   = edito_checkformat( $media, $xoopsModuleConfig['custom_media'] );
-						$fileinfo .= ' <img 
-                                                                    src="images/icon/'.$format[1].'.gif" 
+						$fileinfo .= ' <img
+                                                                    src="images/icon/'.$format[1].'.gif"
                                                                     alt="'.$format[1].': '.$format[0].' ['.$media.']" />
                         			   <img src="images/icon/ext.gif" alt="'._EDITO_MEDIAURL.'"/>';
             		}
@@ -306,7 +306,7 @@ if ($numrows > 0) {	// That is, if there ARE editos in the system
             } else {
                 	$block_text     = '';
             }
-                
+
                 $info['subject']     = edito_createlink($link, $subject, '', '', '', '', '', $meta_title, $xoopsModuleConfig['url_rewriting']);
                 $info['alt_subject'] = $meta_title;
                 $info['readmore']    = $readmore;

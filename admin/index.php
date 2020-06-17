@@ -88,7 +88,7 @@ switch ( $op ) {
 
         $all	= '<a href="index.php?ord='.$ord.'">
 				  <img src="../images/icon/all.gif"       alt="'._MD_EDITO_ALL.'"    align="absmiddle" /></a>';
-				  
+
         $waiting	= '<a href="index.php?stat=waiting&ord='.$ord.'">
 				  <img src="../images/icon/waiting.gif"       alt="'._MD_EDITO_WAITING.'"    align="absmiddle" /></a>';
 				  $waiting_c = $waiting;
@@ -124,10 +124,10 @@ switch ( $op ) {
 			$status = '>=0';
 			$status_text = _MD_EDITO_ALL;
 		}
-		
+
 
   // Count submited pages
-		$sql =  " ( SELECT COUNT(id) FROM " . $xoopsDB -> prefix('content_'.$xoopsModule->dirname() )." WHERE status = 1 )";
+		$sql =  " ( SELECT COUNT(id) FROM " . $xoopsDB -> prefix($xoopsModule->dirname() . '_content' )." WHERE status = 1 )";
                 $result = $xoopsDB->queryF( $sql );
                 list( $total_sub ) = $xoopsDB -> fetchRow( $result );
                 if ( $total_sub ) { // $waiting_c = "|".$waiting_c ."=<b>". $total_sub . "</b>";
@@ -168,7 +168,7 @@ switch ( $op ) {
 		echo "</tr>";
 
         // Check edito total
-		$sql =  " ( SELECT COUNT(id) FROM " . $xoopsDB -> prefix('content_'.$xoopsModule->dirname() )." WHERE status".$status." ) ";
+		$sql =  " ( SELECT COUNT(id) FROM " . $xoopsDB -> prefix($xoopsModule->dirname() . '_content' )." WHERE status".$status." ) ";
                 $result = $xoopsDB->queryF( $sql );
                 list( $total ) = $xoopsDB -> fetchRow( $result );
 
@@ -176,11 +176,11 @@ switch ( $op ) {
 
 		if ( $total > 0 ) {				// That is, if there ARE editos in the system
 			$sql = "SELECT id, subject, image, media, meta, counter, status
-            		FROM " . $xoopsDB->prefix( 'content_'.$xoopsModule->dirname() )."
+            		FROM " . $xoopsDB->prefix( $xoopsModule->dirname() . '_content' )."
                     WHERE status".$status." ORDER BY ".$ord." ".$sort;
 
 		$pop_sql = "SELECT id, uid, subject, left(block_text, 260) as xblock_text, left(body_text, 360) as xbody_text, datesub
-					FROM " . $xoopsDB->prefix( 'content_'.$xoopsModule->dirname() )."
+					FROM " . $xoopsDB->prefix( $xoopsModule->dirname() . '_content' )."
 					WHERE status".$status." ORDER BY ".$ord." ".$sort;
 
 		$result = $xoopsDB->queryF( $sql, $xoopsModuleConfig['perpage'], $startart );
@@ -230,7 +230,7 @@ switch ( $op ) {
             } else {
             	$logo = '';
             }
-            
+
             if($urw) {
             $meta = explode("|", $meta);
             $meta_title       =  $meta[0];

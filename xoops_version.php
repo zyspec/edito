@@ -1,47 +1,72 @@
 <?php
-/**
-* XOOPS - PHP Content Management System
-* Copyright (c) 2004 <http://www.xoops.org/>
-*
-* Module: edito 3.0 RC 1.1
-* Licence : GPL
-* Authors :
-*           - solo (http://www.wolfpackclan.com/wolfactory)
-*			- DuGris (http://www.dugris.info)
-*/
+/*
+ You may not change or alter any portion of this comment or credits of
+ supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit
+ authors.
 
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+/**
+ * Module: Edito
+ *
+ * @package   \XoopsModules\Edito
+ * @copyright Copyright {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @author    Solo (http://www.wolfpackclan.com/wolfactory)
+ * @author    DuGris (http://www.dugris.info)
+ * @author    XOOPS Module Development Team
+ * @link      https://github.com/XoopsModules25x/edito
+ */
 
 global $xoopsDB, $xoopsUser, $xoopsModule, $xoopsModuleConfig;
 include_once (XOOPS_ROOT_PATH . "/modules/edito/include/functions_block.php");
 
+$moduleDirName                = basename(__DIR__);
+
 //InfoModule
-$modversion['name'] = _MI_EDITO_NAME;
-$modversion['version'] = 3.07;
-$modversion['description'] = _MI_EDITO_DESC;
-$modversion['credits'] = "<a href='http://www.wolfpackclan.com/wolfactory' target='_blank'>Wolfactory</a>, <a href='http://www.dugris.info' target='_blank'>dugris</a>";
-$modversion['author'] = "Solo, DuGris";
-$modversion['license'] = "GPL";
-$modversion['dirname'] = "edito";
-$modversion['image'] = "images/edito_slogo.png";
+/*  @var array $modversion */
+$modversion['version']        = '3.10';
+$modversion['module_status']  = 'Alpha 1';
+$modversion['release_date']   = '2020/06/17';
+$modversion['name']           = _MI_EDITO_NAME;
+$modversion['description']    = _MI_EDITO_DESC;
+$modversion['author']         = 'Brandycoke Productions, Dylian Melgert, Juan Garcés';
+$modversion['credits']        = 'XOOPS Development Team: Black_beard, Cesag, Philou, Mamba, ZySpec';
+$modversion['license']        = 'GNU GPL 2.0 or later';
+$modversion['license_url']    = 'www.gnu.org/licenses/gpl-2.0.html';
+$modversion['official']       = 0;
+$modversion['image']          = 'images/edito_slogo.png';
+$modversion['dirname']        = $moduleDirName;
+
+//About
+$modversion['module_website_url']  = 'https://xoops.org/';
+$modversion['module_website_name'] = 'XOOPS';
+$modversion['min_php']             = '5.6';
+$modversion['min_xoops']           = '2.5.10';
+$modversion['min_admin']           = '1.2';
+$modversion['min_db']              = array('mysql' => '5.6', 'mysqli' => '5.6');
 
 //install
-$modversion['onInstall'] = 'include/edito_install.php';
+$modversion['onInstall']      = 'include/edito_install.php';
 //update
-$modversion['onUpdate'] = 'include/edito_update.php';
+$modversion['onUpdate']       = 'include/edito_update.php';
 //uninstall
-$modversion['onUninstall'] = 'include/edito_uninstall.php';
+$modversion['onUninstall']    = 'include/edito_uninstall.php';
 
 //SQL
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
-$modversion['tables'][0] = "content_".$modversion['dirname'];
+$modversion['tables'][0]        = $modversion['dirname'] . "_content";
 
 //Admin
-$modversion['hasAdmin'] = 1;
+$modversion['hasAdmin']   = 1;
 $modversion['adminindex'] = "admin/index.php";
-$modversion['adminmenu'] = "admin/menu.php";
+$modversion['adminmenu']  = "admin/menu.php";
 
 // Search
-$modversion['hasSearch'] = 1;
+$modversion['hasSearch']      = 1;
 $modversion['search']['file'] = "include/search.inc.php";
 $modversion['search']['func'] = "edito_search";
 
@@ -74,7 +99,7 @@ if( @defined('_EDITO_ADD') ) {
 
     // Display menu pages list
 	// Start comment here to not display pages'list
-	$sql = "SELECT id, subject, meta, groups FROM ".$xoopsDB->prefix("content_" . $modversion['dirname'])."
+$sql = "SELECT id, subject, meta, groups FROM ".$xoopsDB->prefix($modversion['dirname'] . "_content")."
           WHERE status >= 3 ORD BY " . edito_getmoduleoption('order');
 
 	$result = $xoopsDB->queryF($sql, edito_getmoduleoption('perpage'), 0 ) ;
@@ -243,9 +268,9 @@ $modversion['config'][$i]['description'] = '_MI_EDITO_COLUMNSDSC';
 $modversion['config'][$i]['formtype'] = 'select';
 $modversion['config'][$i]['valuetype'] = 'int';
 $modversion['config'][$i]['default'] = 2;
-$modversion['config'][$i]['options'] = array( '1' => 1, 
-                                              '2' => 2, 
-                                              '3' => 3, 
+$modversion['config'][$i]['options'] = array( '1' => 1,
+                                              '2' => 2,
+                                              '3' => 3,
                                               '4' => 4,
                                               '5' => 5  );
 $i++;
@@ -335,8 +360,8 @@ $modversion['config'][$i]['valuetype'] = 'int';
 $modversion['config'][$i]['default'] = 0;
 
 if ( $xoopsModule && $xoopsModule -> getVar( 'dirname' ) == 'system' ) {
-	$member_handler =& xoops_gethandler('member');
-	$xoopsgroups = &$member_handler->getGroupList();
+	$member_handler = xoops_gethandler('member');
+	$xoopsgroups    = $member_handler->getGroupList();
 	foreach ($xoopsgroups as $key=>$group) {
 		$groups[$group] = $key;
 	}
@@ -674,6 +699,5 @@ $modversion['mimetypes'][15]['mperm_maxheight']	= 240;
 $modversion['mimetypes'][15]['mperm_maxsize']	= 500000;
 
 if( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
-	include dirname( __FILE__ ) . "/include/onupdate.inc.php" ;
+	include __DIR__ . "/include/onupdate.inc.php" ;
 }
-?>

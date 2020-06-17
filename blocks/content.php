@@ -21,7 +21,7 @@ function a_edito_show($options) {
     $module = "edito";
     include_once (XOOPS_ROOT_PATH. "/modules/".$module."/include/functions_block.php");
     include_once (XOOPS_ROOT_PATH. "/modules/".$module."/include/functions_content.php");
-	// Mise à Zero des variables
+	// Mise ï¿½ Zero des variables
     $group = is_object($xoopsUser) ? $xoopsUser->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
     $where = 'id='.$options[1];
     $order = '';
@@ -31,19 +31,19 @@ function a_edito_show($options) {
 	/*                            Query settings                               */
 	/* ----------------------------------------------------------------------- */
     if ($options[1] == "random")	{
-    	$result = $xoopsDB->queryF("SELECT COUNT(*) FROM " . $xoopsDB->prefix('content_'.$module)." WHERE status >= 3");
+    	$result = $xoopsDB->queryF("SELECT COUNT(*) FROM " . $xoopsDB->prefix($module . '_content')." WHERE status >= 3");
         list( $total )=$xoopsDB->fetchRow($result);
         $total = $total-1;
         $rand  = rand(0,$total);
         $where = "status >= 3";}
 
-		// Afficher un edito pour chaque jours de l'année
+		// Afficher un edito pour chaque jours de l'annï¿½e
         if ($options[1] == "day")	{
         	$rand = date("z");
             $where = " >= 3";
         }
 
-		// Afficher un edito pour chaque semaine de l'année
+		// Afficher un edito pour chaque semaine de l'annï¿½e
         if ($options[1] == "week")	{
         	$rand = date("W");
 	        $where = "status >= 3";
@@ -67,14 +67,14 @@ function a_edito_show($options) {
             $where = "status >= 3";
         }
 
-        // Afficher un edito lié
+        // Afficher un edito liï¿½
         if ($options[1] == "linked") {
         	$content_link = isset($_GET['id']) ? intval($_GET['id']) : 0;
 	        $where = 'id='.$content_link;
         }
 
         $sql="SELECT id, status, subject, block_text, body_text, image, media, groups, options
-        	  FROM ".$xoopsDB->prefix('content_'.$module)."
+        	  FROM ".$xoopsDB->prefix($module . '_content')."
               WHERE $where $order";
 
         $result=$xoopsDB->queryF($sql ,1 ,$rand);
@@ -140,7 +140,7 @@ function a_edito_show($options) {
     	$contents	= $myrow['body_text'];
 //        $content	= edito_substr($myts->makeTareaData4Show($myrow['body_text'], $html, $smiley, $xcode),0,$options[0],'');
 
-        
+
 	if ( $myrow["status"] == '4' ) {
 	  $content  = $myrow['body_text'];  // Html mode
         } elseif($myrow["status"] == '5') {
@@ -154,12 +154,12 @@ function a_edito_show($options) {
 	// Content TagReplace
 	// include_once (XOOPS_ROOT_PATH. "/modules/".$module."/include/tagreplace.php");
 	// $informations = edito_tagreplace($myrow["informations"]);
-	// Création du media/logo
+	// Crï¿½ation du media/logo
 
 	/* ----------------------------------------------------------------------- */
 	/*                            Create media content                         */
 	/* ----------------------------------------------------------------------- */
-	
+
 if ( $options[3] )	{
 	include_once(XOOPS_ROOT_PATH. "/modules/".$module."/include/functions_mediasize.php");
 
@@ -269,7 +269,7 @@ if ( $options[3] )	{
                              '</div>';
        }
        if ( strlen(strip_tags($contents)) >= $options[0] && !$myrow['block_text'] && $myrow["status"] != '4') { $goon = '...'; }
-       
+
 	/* ----------------------------------------------------------------------- */
 	/*                            Return data to template                      */
 	/* ----------------------------------------------------------------------- */
@@ -291,7 +291,7 @@ function a_edito_edit($options) {
     $lst='';
     $module = 'edito';
 
-    $sql = "SELECT id, subject, status FROM ".$xoopsDB->prefix('content_'.$module)." WHERE status >= 2";
+    $sql = "SELECT id, subject, status FROM ".$xoopsDB->prefix($module . '_content')." WHERE status >= 2";
     $result = $xoopsDB->queryF($sql);
     while( $myrow = $xoopsDB->fetchArray($result) ) {
     	$selected='';
@@ -434,7 +434,7 @@ function a_edito_menu_show($options) {
 
 
 	$sql = "SELECT id, uid, subject, block_text, media, meta, groups, image, datesub, counter, options
-			FROM ".$xoopsDB->prefix('content_'.$module)."
+			FROM ".$xoopsDB->prefix($module . '_content')."
 			WHERE status >= 3
 			ORDER BY ". $options[3];
 
@@ -497,10 +497,10 @@ function a_edito_menu_show($options) {
 			$media_file     =  $media[0];
 			$media_url      =  $media[1];
 			$media_size     =  $media[2];
-			
+
 			$meta = explode("|", $meta);
                         if( $meta[0] ) { $meta_title = $meta[0]; } else { $meta_title = strip_tags($subject); }
-			
+
                         $option = explode("|", $content_options);
 			$html            =  $option[0];
 			$xcode           =  $option[1];

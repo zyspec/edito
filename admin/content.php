@@ -78,7 +78,7 @@ function editarticle( $id = '', $op = '' ) {
  	if(!isset($cancomment)) { $cancomment = $xoopsModuleConfig['cancomment']; } else { $cancomment = intval($cancomment); }
 
         $option_def = '1\|1\|1\|' .
-    		  $xoopsModuleConfig['option_logo'] . 
+    		  $xoopsModuleConfig['option_logo'] .
                   '\|.\|' .
                   $xoopsModuleConfig['option_title'] . '\|' .
                   $xoopsModuleConfig['cancomment'];
@@ -94,7 +94,7 @@ function editarticle( $id = '', $op = '' ) {
                     onclick="toggle(this, \'helpblock\');">[-]</a>['._MD_EDITO_HELP.']</div>';
 
 	if ( $id ) {
-		$result = $xoopsDB -> queryF( "SELECT * FROM " . $xoopsDB -> prefix( "content_" .$xoopsModule->dirname() ) . " WHERE id = $id" );
+	    $result = $xoopsDB -> queryF( "SELECT * FROM " . $xoopsDB -> prefix( $xoopsModule->dirname() . "_content" ) . " WHERE id = $id" );
 
 		if ( !$xoopsDB -> getRowsNum( $result ) ) {
 			redirect_header( "index.php", 1, _MD_EDITO_NOEDITOTOEDIT );
@@ -702,7 +702,7 @@ switch ( $op ) {
                    } elseif ( $xoopsModuleConfig['moduleMetaKeywords'] ) {
                                                $meta_keywords = $xoopsModuleConfig['moduleMetaKeywords'];
                    } else {                    $meta_keywords = ''; }
-                   
+
                    $meta_description = $metagen['description'];
         }
 
@@ -722,7 +722,7 @@ switch ( $op ) {
                    } elseif ( $xoopsModuleConfig['moduleMetaKeywords'] ) {
                                                $meta_keywords = $xoopsModuleConfig['moduleMetaKeywords'];
                    } else {                    $meta_keywords = ''; }
-                   
+
               if ( $_POST['meta_description'] ) { $meta_description = $myts -> htmlSpecialChars($_POST['meta_description']);
                    } elseif ( $metagen['description'] ) {
                                                   $meta_description = $metagen['description'];
@@ -759,7 +759,7 @@ switch ( $op ) {
 		$datesub = time();
 
         /* --------------------------------------------------------------------	*/
-		/* 					Traitement des images et des médias					*/
+		/* 					Traitement des images et des mï¿½dias					*/
         /* --------------------------------------------------------------------	*/
         $image = ($_POST["image"] AND $_POST["image"] != 'blank.gif') ? $myts -> addSlashes( $_POST["image"] ) : '';
 		$media_file = ($_POST["media_file"] AND $_POST["media_file"] != 'blank.gif') ? $myts -> addSlashes( $_POST["media_file"] ) : '';
@@ -776,7 +776,7 @@ switch ( $op ) {
 			}
         }
         /* --------------------------------------------------------------------	*/
-        /* 					Traitement des images et des médias					*/
+        /* 					Traitement des images et des mï¿½dias					*/
         /* --------------------------------------------------------------------	*/
 
 
@@ -788,7 +788,7 @@ switch ( $op ) {
 
 		// Save to database
 		if ( !$id ) {
-			if ( $xoopsDB -> queryF( "INSERT INTO " . $xoopsDB -> prefix( "content_" . $xoopsModule->dirname() ) .
+			if ( $xoopsDB -> queryF( "INSERT INTO " . $xoopsDB -> prefix( $xoopsModule->dirname() . "_content" ) .
 				" ( uid,
                 	datesub,
                     counter,
@@ -822,7 +822,7 @@ switch ( $op ) {
 		} else {  // That is, $id exists, thus we're editing an article
 
 
-			// Vérifier la validité de l'insert
+			// Vï¿½rifier la validitï¿½ de l'insert
 /*
 			$sql = $xoopsDB->queryF( "SELECT COUNT(*)
             	   FROM ".$xoopsDB -> prefix( $module)."
@@ -833,7 +833,7 @@ switch ( $op ) {
                    }
 */
 
-			if ( $xoopsDB -> queryF( "UPDATE " . $xoopsDB -> prefix( "content_" . $xoopsModule->dirname() ) . "
+		    if ( $xoopsDB -> queryF( "UPDATE " . $xoopsDB -> prefix( $xoopsModule->dirname() . "_content" ) . "
             					SET uid    =     '$uid',
                                 datesub    =     '$datesub',
                                 counter    =     '$counter',
@@ -863,14 +863,14 @@ switch ( $op ) {
 
         $confirm = ( isset($confirm)) ? 1 : 0;
         if ($confirm) {
-           $xoopsDB->queryF( "DELETE FROM " . $xoopsDB->prefix("content_" . $xoopsModule->dirname() ) . " WHERE id = $id" );
+            $xoopsDB->queryF( "DELETE FROM " . $xoopsDB->prefix($xoopsModule->dirname() . "_content" ) . " WHERE id = $id" );
            xoops_comment_delete($xoopsModule->getVar('mid'), $id);
            redirect_header( "index.php", 1, sprintf( _MD_EDITO_DELETED, $subject) );
            exit();
 		} else {
            include_once( "admin_header.php" );
         	$id = ( isset( $_POST['id'] ) ) ? intval($_POST['id']) : intval($id);
-            $result = $xoopsDB -> queryF( "SELECT id, subject FROM " . $xoopsDB -> prefix("content_" . $xoopsModule->dirname() ) . " WHERE id = $id" );
+        	$result = $xoopsDB -> queryF( "SELECT id, subject FROM " . $xoopsDB -> prefix($xoopsModule->dirname() . "_content" ) . " WHERE id = $id" );
             list( $id, $subject ) = $xoopsDB -> fetchrow( $result );
             xoops_confirm( array( 'op' => 'del', 'id' => $id, 'confirm' => 1, 'subject' => $subject ), 'content.php', _MD_EDITO_DELETETHIS . "<br /><br>" . $myts->displayTarea($subject), _MD_EDITO_DELETE );
            include_once( 'admin_footer.php' );

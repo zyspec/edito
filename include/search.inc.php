@@ -15,7 +15,7 @@ if (!defined("XOOPS_ROOT_PATH")) { die("XOOPS root path not defined"); }
 
 function edito_search($queryarray, $andor, $limit, $offset, $userid){
 	global $xoopsDB, $xoopsUser;
-	$sql = "SELECT id, uid, subject, datesub, groups  FROM ".$xoopsDB->prefix("content_edito")." WHERE status > 0 ";
+	$sql = "SELECT id, uid, subject, datesub, groups  FROM ".$xoopsDB->prefix("edito_content")." WHERE status > 0 ";
 
 	if ( $userid != 0 ) {
 		$sql .= " AND uid=".$userid." ";

@@ -25,7 +25,7 @@ if(!isset($id))
 	exit();
 }
 
-$sql=" SELECT * FROM ".$xoopsDB->prefix("content_" . $xoopsModule->dirname())." WHERE id=$id AND status > 0";
+$sql=" SELECT * FROM ".$xoopsDB->prefix($xoopsModule->dirname() . "_content")." WHERE id=$id AND status > 0";
 $result = $xoopsDB->queryF($sql);
 
 if($xoopsDB->getRowsNum($result) == 0) {
@@ -171,14 +171,14 @@ if ( $media && ($xoopsModuleConfig['downloadable'] || ( is_object($xoopsUser) &&
                                      target="wclose"
                                      title="'._EDITO_DOWNLOAD.'"
                                      href="'.$media.'">
-	                          <img src="images/icon/download.gif" 
+	                          <img src="images/icon/download.gif"
                                        alt="'._EDITO_DOWNLOAD.'" />
 	                          </a>';
 	                          */
-	                          
+
         $info['downloadable'] = ' <a title="'._EDITO_DOWNLOAD.'"  target="_blank"
                                      href="download.php?id='.$id.'">
-	                          <img src="images/icon/download.gif" 
+	                          <img src="images/icon/download.gif"
                                        alt="'._EDITO_DOWNLOAD.'" />
 	                          </a>';
 
@@ -267,7 +267,7 @@ if ( $xoopsModuleConfig['media_display'] == 'page' AND $media ) {
 	/* ----------------------------------------------------------------------- */
 } else {
 	/*                       Generate logo                                     */
-	if ( $image ) { 
+	if ( $image ) {
 		$logo =  $xoopsModuleConfig['sbuploaddir'] .'/'. $image;
 		$image_size = explode('|', $xoopsModuleConfig['logo_size']);
 		$info['logo'] = edito_createlink('', '', '', $logo, $logo_align, '800', '600', $alt_subject, $xoopsModuleConfig['url_rewriting']);
@@ -381,7 +381,7 @@ if ( is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid()) AND $myro
                          <img src='images/icon/delete.gif' alt='"._EDITO_DELETE."' /></a> |
                          <a href='print.php?id=$id' target='_blank' title='"._EDITO_PRINT."'/>
                          <img src='images/icon/print.gif' alt='"._EDITO_PRINT."' /></a>";
- 
+
 	$info['infos'] = $datesub.'&nbsp;|&nbsp;(' . $count .' '._READS.')'.$fileinfo;
 	$info['adminlinks'] = "<a href='admin/content.php' title='"._EDITO_ADD."'>
                            <img src='images/icon/add.gif' alt='"._EDITO_ADD."' /></a> |
@@ -453,7 +453,7 @@ if ( $metagen['keywords'] || $xoopsModuleConfig['metamanager'] == 'manual' ) {
 /*                             Page Counter                                */
 /* ----------------------------------------------------------------------- */
 if ( !$xoopsUser || ( $xoopsUser->isAdmin($xoopsModule->mid()) && $xoopsModuleConfig['adminhits'] == 1 )) {
-	$xoopsDB->queryF( "UPDATE " . $xoopsDB -> prefix("content_" . $xoopsModule->dirname()) . "
+    $xoopsDB->queryF( "UPDATE " . $xoopsDB -> prefix($xoopsModule->dirname() . "_content") . "
 					  SET counter=counter+1 WHERE id = $id " );
 }
 

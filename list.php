@@ -17,7 +17,7 @@ $new_list = '';
 $pop_list = '';
 $readmore_list = '';
 
-$result = "SELECT COUNT(*) FROM " . $xoopsDB -> prefix('content_'.$xoopsModule->dirname() ) . " WHERE status > 2";
+$result = "SELECT COUNT(*) FROM " . $xoopsDB -> prefix($xoopsModule->dirname() . '_content' ) . " WHERE status > 2";
 list( $totals ) = $xoopsDB -> fetchRow( $xoopsDB->queryF($result) );
 
 $total_list = $totals/$xoopsModuleConfig["columns"];
@@ -27,7 +27,7 @@ if( $totals > $xoopsModuleConfig['perpage'] ) {
 
 $xoopsTpl->assign('readmore', $readmore_list);
 
-$sql = "SELECT id, subject, groups, datesub, counter, meta FROM ".$xoopsDB->prefix("content_" . $xoopsModule->dirname())."
+$sql = "SELECT id, subject, groups, datesub, counter, meta FROM ".$xoopsDB->prefix($xoopsModule->dirname() . "_content")."
 		WHERE status > 2 ORDER BY " . $xoopsModuleConfig["order"];
 
 $listing = $xoopsDB->queryF($sql, $xoopsModuleConfig['perpage'], 0 );

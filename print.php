@@ -28,7 +28,7 @@ $myts =& MyTextSanitizer::getInstance();
 /* ----------------------------------------------------------------------- */
 
 $sql = "SELECT uid, groups, options, block_text, body_text, image, subject, datesub
-		FROM ".$xoopsDB->prefix("content_" . $xoopsModule->dirname())."
+		FROM ".$xoopsDB->prefix($xoopsModule->dirname() . "_content")."
         WHERE id=$id AND status > 0 AND status < 4";
 
 $result=$xoopsDB->queryF($sql);

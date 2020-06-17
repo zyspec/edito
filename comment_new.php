@@ -28,8 +28,8 @@ include '../../mainfile.php';
 $com_itemid = isset($_GET['com_itemid']) ? intval($_GET['com_itemid']) : 0;
 if ($com_itemid > 0) {
   $myts =& MyTextSanitizer::getInstance();
-  
-$sql=" SELECT subject, uid, image, block_text, body_text, options, datesub FROM ".$xoopsDB->prefix("content_edito")." WHERE id=$com_itemid AND status > 0";
+
+$sql=" SELECT subject, uid, image, block_text, body_text, options, datesub FROM ".$xoopsDB->prefix("edito_content")." WHERE id=$com_itemid AND status > 0";
 $result = $xoopsDB->queryF($sql);
 $myrow 	= $xoopsDB->fetchArray($result);
 $info = array();

@@ -23,7 +23,7 @@ if(!isset($id)) {
 	exit();
 }
 
-$sql=" SELECT media, groups FROM ".$xoopsDB->prefix( 'content_'.$xoopsModule->dirname() )." WHERE id = $id AND status != 0 ";
+$sql=" SELECT media, groups FROM ".$xoopsDB->prefix( $xoopsModule->dirname() . '_content' )." WHERE id = $id AND status != 0 ";
 $result = $xoopsDB->queryF($sql);
 
 // Does edito exist?

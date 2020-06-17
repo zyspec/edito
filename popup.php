@@ -27,7 +27,7 @@ include_once(XOOPS_ROOT_PATH. "/modules/".$xoopsModule->dirname()."/include/func
 include_once(XOOPS_ROOT_PATH. "/modules/".$xoopsModule->dirname()."/include/functions_mediasize.php");
 include_once(XOOPS_ROOT_PATH. "/modules/".$xoopsModule->dirname()."/include/functions_block.php");
 
-$sql=" SELECT * FROM ".$xoopsDB->prefix( 'content_'.$xoopsModule->dirname() )." WHERE id = $id AND status != 0 ";
+$sql=" SELECT * FROM ".$xoopsDB->prefix( $xoopsModule->dirname() . '_content' )." WHERE id = $id AND status != 0 ";
 $result = $xoopsDB->queryF($sql);
 
 // Does edito exist?
@@ -97,7 +97,7 @@ if ($xoopsModuleConfig['logo_align'] == "center") {
 $media_display =  edito_media_size($media_size, $xoopsModuleConfig['custom']);
 if ( $media_file ) {
 	$media_url =  XOOPS_URL . '/'. $xoopsModuleConfig['sbmediadir'] .'/'. $media_file;
-} 
+}
 
 $media_data = edito_media($media_url,'', $media_display, $option, $myrow["subject"], $xoopsModuleConfig['custom_media']);
 

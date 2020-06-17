@@ -45,8 +45,8 @@ if ( isset($_POST['subject']) && $_POST['subject'] != '')
         $datesub = time();
         $media = edito_function_checkurl($media);
         $media = '|' . $media . '|';
-  
-  		if ( $xoopsDB -> queryF( "INSERT INTO " . $xoopsDB -> prefix( "content_edito" ) .
+
+  		if ( $xoopsDB -> queryF( "INSERT INTO " . $xoopsDB -> prefix( "edito_content" ) .
                   " ( uid,
                       datesub,
                       status,

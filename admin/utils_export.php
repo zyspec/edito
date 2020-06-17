@@ -5,7 +5,7 @@
 * Authors :
 *           - solo (http://www.wolfpackclan.com)
 */
-               
+
 
 	 include_once( '../../../mainfile.php');
 	 include_once( '../../../include/cp_header.php');
@@ -25,9 +25,9 @@ function select($table='')
 		$sform = new XoopsThemeForm( _MD_EDITO_DB_EXPORT, "op", xoops_getenv( 'PHP_SELF' ) );
 		$sform -> setExtra( 'enctype="multipart/form-data"' );
 // Tables
-	// Code to create the tables selector 
+	// Code to create the tables selector
 /*
-                $tables = array('content_edito');
+                $tables = array('edito_content');
 
         	$tables_array = $tables;
          	$tables_select = new XoopsFormSelect( '', 'table', $table);
@@ -53,7 +53,7 @@ function select($table='')
 	 }
 
 function display( $result, $count, $table ) {
-  
+
          	$sform = new XoopsThemeForm( _MD_EDITO_DB_DATAS, '', '' );
          	$sform->addElement($javascript01);
 		$sform->addElement(new XoopsFormTextArea('Table : '.$table.'<br />Total : '.$count.' '._MD_EDITO_DB_DATAS,    '', $result, 20 ), FALSE );
@@ -143,7 +143,7 @@ UPDATE " . $table . " SET ';
                 $ret .= ' WHERE \''.$id.'\'=$'.$id.';";';
                 $ret .= '}';
 
-// UPDATE 214_edito_bot SET botid = 1, status = 1, bot_name = 'Francis', bot_description = 'Responsable du département bois.', bot_image = '', bot_directory = 'uploads/edito/francis/', bot_background = 'francis_bkg.jpg|', text_color = 'black|white no-repeat top left|green|white|2px', topics = ' Eliza', start = 'Bonjour, comment puis-je vous aider ?|Bienvenue dans le département bois, comment puis-je vous être utile ?|Bonjour. Si vous avez des questions, je suis à votre disposition.', dumb = 'Hmm...|Intéressant.|Ah ?|Ah !|Oh oh...', zero = 'Excusez-moi, mais je ne comprend pas votre question.|Je ne suis pas sûr de bien comprendre...|Pourriez-vous préciser votre demande ?|Pour que je puisse bien vous comprendre, il vaut mieux poser des questions simples.|Si ma réponse ne vous satisfait pas, n''hésitez pas à me contacter en direct.', end = 'Nous avons fait le tour de la question.|Je n''ai rien d''autre à ajouter à ce sujet pour le moment.|Pour plus d''information, contactez-moi directement.|Vous pouvez passer au magasin pour plus d''information.|Que puis-je faire d''autre pour vous ?|Souhaitez-vous avoir d''autres renseignements ? Dans quel domaine ?', groups = '1 2 3'
+// UPDATE 214_edito_bot SET botid = 1, status = 1, bot_name = 'Francis', bot_description = 'Responsable du dï¿½partement bois.', bot_image = '', bot_directory = 'uploads/edito/francis/', bot_background = 'francis_bkg.jpg|', text_color = 'black|white no-repeat top left|green|white|2px', topics = ' Eliza', start = 'Bonjour, comment puis-je vous aider ?|Bienvenue dans le dï¿½partement bois, comment puis-je vous ï¿½tre utile ?|Bonjour. Si vous avez des questions, je suis ï¿½ votre disposition.', dumb = 'Hmm...|Intï¿½ressant.|Ah ?|Ah !|Oh oh...', zero = 'Excusez-moi, mais je ne comprend pas votre question.|Je ne suis pas sï¿½r de bien comprendre...|Pourriez-vous prï¿½ciser votre demande ?|Pour que je puisse bien vous comprendre, il vaut mieux poser des questions simples.|Si ma rï¿½ponse ne vous satisfait pas, n''hï¿½sitez pas ï¿½ me contacter en direct.', end = 'Nous avons fait le tour de la question.|Je n''ai rien d''autre ï¿½ ajouter ï¿½ ce sujet pour le moment.|Pour plus d''information, contactez-moi directement.|Vous pouvez passer au magasin pour plus d''information.|Que puis-je faire d''autre pour vous ?|Souhaitez-vous avoir d''autres renseignements ? Dans quel domaine ?', groups = '1 2 3'
 // WHERE  `botid` = 1;
                 eval($ret);
 return $sql_datas;
@@ -157,8 +157,8 @@ switch ( $op )
         edito_adminmenu(6, _MD_EDITO_INSERT);
         edito_statmenu(2, '');
         select('content_edito');
-        $datas = create_db_results_insert('content_edito','id');
-        display( $datas["db"], $datas["count"], 'content_edito' );
+        $datas = create_db_results_insert('edito_content','id');
+        display( $datas["db"], $datas["count"], 'edito_content' );
         include_once( 'admin_footer.php' );
 
     exit();
@@ -168,7 +168,7 @@ switch ( $op )
     	include_once( "admin_header.php" );
         edito_adminmenu(6, _MD_EDITO_UPDATE);
         edito_statmenu(2, '');
-        select('content_edito');
+        select('edito_content');
         $datas = create_db_results_update($table,'id');
         display( $datas["db"], $datas["count"], $table );
         include_once( 'admin_footer.php' );
