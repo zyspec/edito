@@ -43,7 +43,7 @@ $adminmenu[$i++]['link']	= "admin/utils_uploader.php";
 $adminmenu[$i]['title']		= _MI_EDITO_BLOCKS_GRPS;
 $adminmenu[$i++]['link']	= "admin/blocks.php";
 
-$hModule = &xoops_gethandler('module');
+$hModule = xoops_gethandler('module');
 
 include_once( XOOPS_ROOT_PATH . '/class/uploader.php');
 if ( defined("_XI_MIMETYPE") ) {

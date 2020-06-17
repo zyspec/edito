@@ -32,7 +32,7 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '') {
 
     // global $xoopsDB, $xoopsModule, $xoopsConfig, $xoopsModuleConfig;
 	global $xoopsModule, $xoopsConfig;
-	$myts = &MyTextSanitizer::getInstance();
+	$myts = MyTextSanitizer::getInstance();
 
 	$tblColors = Array_Fill(0,8,'');
 	$tblColors[$currentoption] = 'current';
@@ -89,7 +89,7 @@ function edito_statmenu($currentoption = 0, $breadcrumb = '') {
           </style>";
 
 	global $xoopsModule, $xoopsConfig;
-	$myts = &MyTextSanitizer::getInstance();
+	$myts = MyTextSanitizer::getInstance();
 
 	$tblColors = Array_Fill(0,8,'');
 	$tblColors[$currentoption] = 'current';
@@ -129,7 +129,7 @@ function edito_metamenu($currentoption = 0, $breadcrumb = '') {
           </style>";
 
 	global $xoopsModule, $xoopsConfig;
-	$myts = &MyTextSanitizer::getInstance();
+	$myts = MyTextSanitizer::getInstance();
 
 	$tblColors = Array_Fill(0,8,'');
 	$tblColors[$currentoption] = 'current';
@@ -220,7 +220,7 @@ function edito_GetOption($option, $repmodule = '.$xoopsModule->dirname().' ) {
 function edito_checkRight( $refererid ) {
 	global $xoopsUser;
     $groups = is_object( $xoopsUser ) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler = &xoops_gethandler( 'groupperm' );
+    $gperm_handler = xoops_gethandler( 'groupperm' );
 
 	$module_handler =& xoops_gethandler('module');
 	$editoModule =& $module_handler->getByDirname($xoopsModule->dirname());

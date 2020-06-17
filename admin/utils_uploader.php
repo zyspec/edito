@@ -3,7 +3,7 @@
 * XOOPS - PHP Content Management System
 * Copyright (c) 2004 <http://www.xoops.org/>
 *
-* Module: edito 
+* Module: edito
 * Licence : GPL
 * Authors :
 *           - solo (http://www.wolfpackclan.com/wolfactory)
@@ -37,7 +37,7 @@ $select_form = '
 
         $sform = new XoopsThemeForm( _MD_EDITO_UPLOAD .' : '.$select_form , "op", xoops_getenv( 'PHP_SELF' ) );
         $sform -> setExtra( 'enctype="multipart/form-data"' );
-        
+
 // Media
         $dirs = array('logo','media');
  	$pagedir_array = $dirs;
@@ -65,9 +65,9 @@ $select_form = '
 	$button_tray->addElement( $butt_cancel );
 
 	$sform -> addElement( $button_tray );
-	
+
 	//	Code to create the media selector
-	$graph_array = & XoopsLists :: getImgListAsArray( XOOPS_ROOT_PATH . '/'.$current_dir );
+	$graph_array = XoopsLists::getImgListAsArray( XOOPS_ROOT_PATH . '/'.$current_dir );
 	$image_select = new XoopsFormSelect( '', 'image', '' );
 	$image_select -> addOptionArray( $graph_array );
 	$image_select -> setExtra( 'onchange=\'showImgSelected("image5", "image", "' . $current_dir . '", "", "' . XOOPS_URL . '")\'' );
@@ -98,7 +98,7 @@ function edito_uploader( $file_name='',
     $uploaddir      = XOOPS_ROOT_PATH . "/" . $dir;
     $file           = $uploaddir .'/'. $file_name;
     if( is_file($file) ) { unlink($file); $comment=_MD_EDITO_UPDATED;} else { $comment=_MD_EDITO_UPLOADED; }
-    
+
     $uploader = new XoopsMediaUploader( $uploaddir, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight );
 
     if ( $uploader -> fetchMedia( $HTTP_POST_VARS['xoops_upload_file'][$num] ) )
@@ -121,15 +121,15 @@ function edito_uploader( $file_name='',
 switch ( $op ) {
 	case "uploadmedia":
 	// $xoopsModuleConfig['sbuploaddir'],$xoopsModuleConfig['sbmediadir']
-	$allowed_mimetypes = array( 'image/gif', 
-                                    'image/jpeg', 
-                                    'image/pjpeg', 
-                                    'image/x-png', 
+	$allowed_mimetypes = array( 'image/gif',
+                                    'image/jpeg',
+                                    'image/pjpeg',
+                                    'image/x-png',
                                     'image/png' );
         $file_name = $HTTP_POST_FILES['cmedia']['name'];
         if($dir=='media') { $current_dir=$xoopsModuleConfig['sbmediadir'];  } else { $current_dir=$xoopsModuleConfig['sbuploaddir']; }
         edito_uploader( $file_name,
-                           $allowed_mimetypes, 
+                           $allowed_mimetypes,
                            $current_dir,
                            'utils_uploader.php?dir='.$dir );
         break;

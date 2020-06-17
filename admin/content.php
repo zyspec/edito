@@ -457,7 +457,7 @@ function editarticle( $id = '', $op = '' ) {
 	}
 
     // Code to create the image selector
-	$graph_array = & XoopsLists :: getImgListAsArray( XOOPS_ROOT_PATH . "/" . $xoopsModuleConfig['sbuploaddir'] );
+	$graph_array = XoopsLists::getImgListAsArray( XOOPS_ROOT_PATH . "/" . $xoopsModuleConfig['sbuploaddir'] );
 	$image_select = new XoopsFormSelect( '', 'image', $image );
 	$image_select -> addOption( 'blank.gif' );
 	$image_select -> addOptionArray( $graph_array );
@@ -481,7 +481,7 @@ function editarticle( $id = '', $op = '' ) {
 	}
 
     // Code to create the media selector
-	$media_array = & XoopsLists :: getFileListAsArray( XOOPS_ROOT_PATH . "/" . $xoopsModuleConfig['sbmediadir'] );
+	$media_array = XoopsLists::getFileListAsArray( XOOPS_ROOT_PATH . "/" . $xoopsModuleConfig['sbmediadir'] );
  	$media_select = new XoopsFormSelect( '', 'media_file', $media_file );
 	$media_select -> addOption( '' );
 	$media_select -> addOptionArray( $media_array );

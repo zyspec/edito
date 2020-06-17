@@ -14,7 +14,7 @@
 function install_MimeTypes( $dirname= '' ) {
 
 	global $xoopsDB;
-	$hModule = &xoops_gethandler('module');
+	$hModule = xoops_gethandler('module');
 
 	if ( $ModuleInfo = $hModule->getByDirname( $dirname ) ) {
 		if ( ($hModule->getByDirName('xoopsinfo') && substr( XOOPS_VERSION , 6 , 3) == '2.0' && substr( XOOPS_VERSION , 10 , 2) < 16 ) ||

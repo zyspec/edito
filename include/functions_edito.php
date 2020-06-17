@@ -24,7 +24,7 @@ $edito_allowed_media = array( 'gif'		=>	'image/gif',
                               'jpeg'	        =>	'image/pjpeg',
                               'png'		=>	'image/x-png',
                               'png'		=>	'image/png',
-                              
+
                               'aiff' 	        =>	'audio/aiff',
                               'mid'		=>	'audio/mid',
                               'mpg'		=>	'audio/mpeg',
@@ -69,15 +69,15 @@ function edito_uploading_image( $filename ) {
 	$redirect = 0;
 
 	$uploader = new XoopsMediaUploader( $uploaddir, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight );
-        
+
 	if ( $uploader -> fetchMedia( $filename ) ) {
 		if ( !$uploader -> upload() ) {
 			xoops_error('<font color="#000000">' . $uploader->getErrors() . '</font>');
 			return( false);
 		} else {
 			return( true );
-		} 
-	} else {   
+		}
+	} else {
 		xoops_error('<font color="#000000">' . $uploader->getErrors() . '</font>');
 		return( false);
 	}
@@ -106,15 +106,15 @@ function edito_uploading_media( $filename ) {
 	$redirect = 0;
 
 	$uploader = new XoopsMediaUploader( $uploaddir, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight );
-        
+
 	if ( $uploader -> fetchMedia( $filename ) ) {
 		if ( !$uploader -> upload() ) {
 			xoops_error('<font color="#000000">' . $uploader->getErrors() . '</font>');
 			return( false);
 		} else {
 			return( true );
-		} 
-	} else {   
+		}
+	} else {
 		xoops_error('<font color="#000000">' . $uploader->getErrors() . '</font>');
 		return( false);
 	}
@@ -137,7 +137,7 @@ function editoreturn_bytes($val) {
 }
 
 
-/* 
+/*
 function edito_media_uploading( $allowed_mimetypes, $httppostfiles, $redirecturl = "index.php", $num = 0, $dir = "uploads", $redirect = 0 ) {
 	include_once XOOPS_ROOT_PATH . "/class/uploader.php";
 
@@ -194,7 +194,7 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '') {
           </style>";
 
 	global $xoopsModule, $xoopsConfig;
-	$myts = &MyTextSanitizer::getInstance();
+	$myts = MyTextSanitizer::getInstance();
 
 	$tblColors = Array_Fill(0,8,'');
 	$tblColors[$currentoption] = 'current';
@@ -247,14 +247,14 @@ function edito_statmenu($currentoption = 0, $breadcrumb = '') {
 		#statbar a:hover span { color:#008; }
 		#statbar #current a { background-color: #EEE; border: 1px inset #008; border-bottom: 0px;}
 		#statbar #current a span { background-color: #EEE; color:#800; }
-		#statbar a:hover { background-position:0% -150px; background-color: #FEE; 
+		#statbar a:hover { background-position:0% -150px; background-color: #FEE;
                                    border: 1px inset #008; border-bottom: 0px;}
 		#statbar a:hover span { background-position:100% -150px; background-color: #FEE; }
 		</style>
     ";
 	// global $xoopsDB, $xoopsModule, $xoopsConfig, $xoopsModuleConfig;
 	global $xoopsModule, $xoopsConfig;
-	$myts = &MyTextSanitizer::getInstance();
+	$myts = MyTextSanitizer::getInstance();
 
 	$tblColors = Array_Fill(0,6,'');
 	$tblColors[$currentoption] = 'current';
@@ -359,7 +359,7 @@ function edito_substr($str, $start, $length, $trimmarker = '...')
 function edito_checkRight( $refererid ) {
 	global $xoopsUser;
     $groups = is_object( $xoopsUser ) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler = &xoops_gethandler( 'groupperm' );
+    $gperm_handler = xoops_gethandler( 'groupperm' );
 
 	$module_handler =& xoops_gethandler('module');
 	$editoModule =& $module_handler->getByDirname($xoopsModule->dirname());
@@ -427,7 +427,7 @@ function edito_admin_chmod($target, $mode = 0777)
 // destination, caption, display, size, options
 function edito_selector( $sel=0,
                            $sql='|||||',
-                           $destination='', 
+                           $destination='',
                            $caption='',
                            $display='select',
                            $size=1,
@@ -465,15 +465,15 @@ while ( list( $id, $name, $image, $groups ) = $xoopsDB -> fetchrow( $result ) )
           if( is_numeric($name) && $name >= 10000 ) { $name = formatTimestamp($name,'m'); }
           $select .= '<option value="'.$id.'"'.$selected[$id].'>'.edito_short_title($name, 24).'</option>
           ';}
-          $select .= '</select> 
+          $select .= '</select>
           ';
         if($groups!=$name) {
             $groups = explode(" ",$groups);
             if (count(array_intersect($group,$groups))==0) { $select = $select_tmp; }
 	}
  }
- 
- 
+
+
 
 // Unordered list
 if($display=='list' ) {
@@ -487,7 +487,7 @@ while ( list( $id, $name, $image, $groups ) = $xoopsDB -> fetchrow( $result ) )
           ';}
           $select .= '</ul>
           ';
-          
+
            if($groups!=$name) {
             $groups = explode(" ",$groups);
             if (count(array_intersect($group,$groups))==0) { $select = $select_tmp; }
@@ -518,7 +518,7 @@ if($display=='tab' ) {
 		#edito_tabs a:hover span { color:".$colors_txt."; }
 		#edito_tabs #current a { background-color: ".$colors_bck_current."; border: 1px inset ".$colors_txt."; border-bottom: 0px;}
 		#edito_tabs #current a span { background-color: ".$colors_bck_current."; color:".$colors_txt."; }
-		#edito_tabs a:hover { background-position:0% -150px; background-color: ".$colors_bck_hover."; 
+		#edito_tabs a:hover { background-position:0% -150px; background-color: ".$colors_bck_hover.";
                                    border: 1px inset ".$colors_txt."; border-bottom: 0px;}
 		#edito_tabs a:hover span { background-position:100% -150px; background-color: ".$colors_bck_hover."; }
 		</style>

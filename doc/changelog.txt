@@ -4,6 +4,8 @@
 - updated SQL - changed table name from 'content_edito' to 'edito_content'
 - changed ereg[i] & ereg[i]_replace with preg_match & preg_replace respectively
 - fixed bug loading myblocksadmin2.php in ./admin/blocks.php
+- fixed pass-by-reference instances
+- cleanup language files
 
 <h5>3.07 [2007-10-19]</h5>
 Last known release by Wolfpackclan Solo and DuGris
