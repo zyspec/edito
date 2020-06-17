@@ -21,7 +21,7 @@ if ( isset( $_POST['dir'] )) $dir = $_POST['dir'];
 if ( isset( $_POST['sitelist'] )) $sitelist = $_POST['sitelist'];
 
 function copy_htaccess($target, $file_content) {
-  
+
        	$handle = fopen($target, 'w+');
 		if ($handle) {
 			if ( fwrite($handle, $file_content) ) {
@@ -51,7 +51,7 @@ $current_dir=$xoopsModuleConfig['sbuploaddir']; $select[1]='';
 	$sform -> addElement( $pagedir_tray );
 
         $hidden = new XoopsFormHidden( 'dir', $dir );
-        
+
         $sform->addElement(new XoopsFormTextArea(_MD_EDITO_SITELIST, 'sitelist', $sitelist, 5 ), FALSE );
 
         $button_tray = new XoopsFormElementTray( '', '' );
@@ -74,13 +74,13 @@ $current_dir=$xoopsModuleConfig['sbuploaddir']; $select[1]='';
 
 function create_htaccess ( $dir, $sitelist='' ) {
   global $xoopsModule, $xoopsModuleConfig;
-    	$domain = ereg_replace('http://', '', XOOPS_URL);
-    	$domain = ereg_replace('www.', '', $domain);
+    	$domain = preg_replace('/http[s]:\/\//', '', XOOPS_URL);
+    	$domain = preg_replace('/www\./', '', $domain);
     	$domain = explode('/', $domain);
     	$domain = $domain[0].pathinfo($domain[1],PATHINFO_EXTENSION);
 
     $media_list = 'gif|tif|jpg|jpeg|png|mpg|mpeg|avi|mp3|flx|swf|wmv|asx|ram|rm|mp3|wav|mid';
-
+    //@todo need to allow for both http and https here
     $code = "
 RewriteEngine On
 RewriteCond %{HTTP_REFERER} !^$
@@ -88,16 +88,17 @@ RewriteCond %{HTTP_REFERER} !^http://(www\.)?".$domain."/.*$ [NC]";
 if($sitelist) {
     $sitelist=explode('|',$sitelist);
     foreach($sitelist as $siteurl) {
-    	$domain = ereg_replace('http://', '', trim($siteurl));
-    	$domain = ereg_replace('www.', '', $domain);
+    	$domain = preg_replace('/http[s]:\/\//', '', trim($siteurl));
+    	$domain = preg_replace('/www\./', '', $domain);
     	$domain = explode('/', $domain);
-    	$domain = ereg_replace('\.', '\\.', $domain[0]);
-    $code .= "
+    	$domain = preg_replace('/\./', '\\.', $domain[0]);
+	    //@todo need to allow for both http and https here
+        $code .= "
 RewriteCond %{HTTP_REFERER} !^http://(www\.)?".$domain."/.*$ [NC]
 ";
     }
 }
-    
+
     $code .= "
 RewriteRule [^/]+.(".$media_list.")$ ".XOOPS_URL."/images/logo.gif [NC,F,L]";
 if($dir=='media') { $current_dir=$xoopsModuleConfig['sbmediadir'];  } else { $current_dir=$xoopsModuleConfig['sbuploaddir']; }
@@ -121,8 +122,8 @@ function display_htaccess( $dir, $sitelist='' ) {
                        </td></tr>';
 
 
-    	$domain = ereg_replace('http://', '', XOOPS_URL);
-    	$domain = ereg_replace('www.', '', $domain);
+    	$domain = preg_replace('/http:\/\//', '', XOOPS_URL);
+    	$domain = preg_replace('/www\./', '', $domain);
     	$domain = explode('/', $domain);
     	$domain = $domain[0].pathinfo($domain[1],PATHINFO_EXTENSION);
 
@@ -135,16 +136,17 @@ RewriteCond %{HTTP_REFERER} !^http://(www\.)?".$domain."/.*$ [NC]";
 if($sitelist) {
     $sitelist=explode('|',$sitelist);
     foreach($sitelist as $siteurl) {
-    	$domain = ereg_replace('http://', '', trim($siteurl));
-    	$domain = ereg_replace('www.', '', $domain);
+    	$domain = preg_replace('/http[s]:\/\//', '', trim($siteurl));
+    	$domain = preg_replace('/www\./', '', $domain);
     	$domain = explode('/', $domain);
-    	$domain = ereg_replace('\.', '\\.', $domain[0]);
-    $code .= "
+    	$domain = preg_replace('/\./', '\\.', $domain[0]);
+    	//@todo need to allow for both http and https here
+        $code .= "
 RewriteCond %{HTTP_REFERER} !^http://(www\.)?".$domain."/.*$ [NC]
 ";
     }
 }
-    
+
     $code .= "
 RewriteRule [^/]+.(".$media_list.")$ ".XOOPS_URL."/images/logo.gif [NC,F,L]";
 
@@ -194,7 +196,7 @@ switch ( $op ) {
 	utilities( $dir, $sitelist );
         include_once( 'admin_footer.php' );
     break;
-    
+
 
 	case "protect":
 	if($dir=='media') { $current_dir=$xoopsModuleConfig['sbmediadir'];  } else { $current_dir=$xoopsModuleConfig['sbuploaddir']; }
@@ -204,10 +206,9 @@ switch ( $op ) {
 	edito_statmenu(5, '');
 	if( function_exists('fopen') ) {create_htaccess( $dir, $sitelist );}
           utilities( $dir, $sitelist );
-          display_htaccess( $dir, $sitelist ); 
+          display_htaccess( $dir, $sitelist );
         include_once( 'admin_footer.php' );
 
 
     break;
 }
-?>

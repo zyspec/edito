@@ -61,21 +61,23 @@ return $popup_size;
 }
 
 
-// Check url and if on local, wether the destination file exists or not
+// Check url and if on local, whether the destination file exists or not
 function edito_checkurl( $url ) {
-	if (	!eregi("mailto:", $url  ) &&
-		!eregi("http://", $url  ) &&
-		!eregi("https://", $url ) &&
-		!eregi("ftp://", $url ) )
+	if (!preg_match("/mailto:/i", $url  ) &&
+		!preg_match("/http[s]:\/\//i", $url  ) &&
+		!preg_match("/ftp[s]:\/\//i", $url ) )
  		{
-		$url = XOOPS_ROOT_PATH."/".$url ;
+		$url = XOOPS_ROOT_PATH . "/" . $url ;
 		} else {
-		$url = eregi_replace( XOOPS_URL, XOOPS_ROOT_PATH, $url );
+		$url = preg_replace("/" . XOOPS_URL . "/i", XOOPS_ROOT_PATH, $url );
 		}
 
-	if ( ereg( XOOPS_ROOT_PATH, $url ) ) {
-		if ( file_exists( $url ) ) { $url = eregi_replace( XOOPS_ROOT_PATH, XOOPS_URL, $url ); }
-	    else { $url = ''; }
+	if (preg_match(XOOPS_ROOT_PATH, $url ) ) {
+		if ( file_exists( $url ) ) {
+		    $url = preg_replace('/' . XOOPS_ROOT_PATH . '/i', XOOPS_URL, $url );
+		} else {
+		    $url = '';
+		}
 	}
 	return $url;
 }
@@ -87,26 +89,28 @@ function edito_checkformat( $url, $custom_media='' ) {
 
 	if( $custom_media ) {
 	    $custom_medias = explode('|', $custom_media);
-            foreach($custom_medias as $custom_media) {
-                               if(eregi($custom_media, '.'.$format)) { $is_mpeg=1; }
+        foreach($custom_medias as $custom_media) {
+            if(preg_match("/{$custom_media}/i", '.'.$format)) {
+                $is_mpeg=1;
             }
         }
+    }
 
 	if ( $format == 'swf' || $format == 'flv' )	{ $formats[1] = 'flash'; }
 	if ( $format == 'mov' )	{ $formats[1] = 'mov'; }
 	if ( $format == 'ram' || $format == 'rm' ){ $formats[1] = 'ram'; }
 	if ( $format == 'gif' || $format == 'jpg' || $format == 'jpeg' || $format == 'png')	{ $formats[1] = 'image'; }
-	if ( $format == 'avi' || $format == 'wmv' || $format == 'mpg' || $format == 'mpeg' 
-             || eregi('asx', $format) || $is_mpeg
+	if ( $format == 'avi' || $format == 'wmv' || $format == 'mpg' || $format == 'mpeg'
+         || preg_match('/asx/i', $format) || $is_mpeg
 	     || $format == 'mp3' || $format == 'wav' || $format == 'mid' )         { $formats[1] = 'wmp'; }
 
-    if ( eregi('asx', $format) ) { $formats[0] = 'asx'; }
-    if ( eregi('php', $format) ) { $formats[0] = 'php'; }
+    if ( preg_match('/asx/i', $format) ) { $formats[0] = 'asx'; }
+    if ( preg_match('/php/i', $format) ) { $formats[0] = 'php'; }
 	return $formats;
 }
 
 function edito_fileweight( $file ) {
-	$file = eregi_replace( XOOPS_URL, XOOPS_ROOT_PATH, $file );
+	$file = preg_replace( '/' . XOOPS_URL . '/i', XOOPS_ROOT_PATH, $file );
 
 	if ( @filesize($file) ) {
 		$filesize = sprintf("%u", filesize($file));

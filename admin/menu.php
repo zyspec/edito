@@ -22,7 +22,8 @@ if (!isset($_POST["op"])) {
 }
 $i=0;
 
- if ( ereg('_ok', $op) ) {
+if (preg_match('/_ok/', $op)) {
+//if (ereg('_ok', $op) ) {
 	$adminmenu[$i]['title']		= _MI_EDITO_GOTO_INDEX;
 	$adminmenu[$i++]['link']	= "index.php";
 }

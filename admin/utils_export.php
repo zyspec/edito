@@ -87,7 +87,7 @@ $sql_datas["db"] = '
 ';
                 foreach($rows as $row) { $variables .= '$'.$row['name'].', ';
                 $isnum=0;$isnul=0;
-                foreach($pattern_num as $num) { if( ereg($num,$row['format']) ) { $isnum=1; } }
+                foreach($pattern_num as $num) { if(preg_match("/{$num}/", $row['format']) ) { $isnum=1; } }
                 foreach($pattern_nul as $nul) { if( $row['name']==$nul )        { $isnul=1; } }
                                          if( $isnum && !$isnul) {  $variables_data .= '" . $'.$row['name'].' . ", '; }
                                      elseif( $isnul ) {  $variables_data .= '\'\', '; }
@@ -125,7 +125,7 @@ $sql_datas["db"] = '
                 foreach($rows as $row) { $variables .= '$'.$row['name'].', ';
                 $isnum=0;$isnul=0;
                 if($i==0) { $id = $row['name'];$i++; }
-                foreach($pattern_num as $num) { if( ereg($num,$row['format']) ) { $isnum=1; } }
+                foreach($pattern_num as $num) { if( preg_match("/{$num}/",$row['format']) ) { $isnum=1; } }
                 foreach($pattern_nul as $nul) { if( $row['name']==$nul )        { $isnul=1; } }
                                          if( $isnum && !$isnul) {  $variables_data .= ' '.$row['name'].'=" . $'.$row['name'].' . ", '; }
                                      elseif( $isnul ) {  // $id = $row['name'];

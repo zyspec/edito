@@ -13,22 +13,20 @@
 if (!defined("XOOPS_ROOT_PATH")) { die("XOOPS root path not defined"); }
 
 // Check url and if on local, wether the destination file exists or not
-function edito_function_checkurl( $url ) {  
-	if (    !eregi("mailto:", $url  ) &&
-		!eregi("http://", $url  ) &&
-                !eregi("https://", $url ) &&
-                !eregi("ftp://", $url ) )  {
-        
-            	$url = XOOPS_ROOT_PATH."/".$url ;    
+function edito_function_checkurl($url) {
+	if (!preg_match("/mailto:/i", $url) &&
+		!preg_match("/http[s]:\/\//i", $url) &&
+        !preg_match("/ftp[s]:\/\//i", $url)) {
+    	$url = XOOPS_ROOT_PATH."/".$url ;
 	} else {
-		$url = eregi_replace( XOOPS_URL, XOOPS_ROOT_PATH, $url );
+		$url = preg_replace('/' . XOOPS_URL . '/i', XOOPS_ROOT_PATH, $url );
 	}
-        
-		if ( file_exists( $url ) ) {
-        	$url = str_replace( XOOPS_ROOT_PATH, XOOPS_URL, $url );
-        } else {
-        	$url = '';
-        }
+
+	if ( file_exists( $url ) ) {
+    	$url = str_replace( XOOPS_ROOT_PATH, XOOPS_URL, $url );
+    } else {
+    	$url = '';
+    }
 
 	return $url;
 }
@@ -40,11 +38,11 @@ function edito_cleankeywords( $content, $urw ) {
         $content = htmlentities($content);
         $content = preg_replace('/&([a-zA-Z])(uml|acute|grave|circ|tilde);/','$1',$content);
         $content = html_entity_decode($content);
-        $content = eregi_replace('quot',' ', $content);
-        $content = eregi_replace("'",' ', $content);
-        $content = eregi_replace('-',' ', $content);
-        $content = eregi_replace('[[:punct:]]','', $content);
-        $content = eregi_replace('[[:digit:]]','', $content);
+        $content = preg_replace('/quot/i',' ', $content);
+        $content = preg_replace("/\'/",' ', $content);
+        $content = preg_replace('/-/',' ', $content);
+        $content = preg_replace('/\[\[:punct:\]\]/i','', $content);
+        $content = preg_replace('/\[\[:digit:\]\]/i','', $content);
 
         $words = explode(' ', $content);
         $keywords = '';
@@ -58,7 +56,7 @@ function edito_urw($link_url='', $title='', $alt_title='', $urw=0) {
  // Rewrite urls
  $target = XOOPS_ROOT_PATH.'/modules/edito/.htaccess';
  if(    is_file($target)
-     && !ereg('127.0.0.1', XOOPS_URL)
+     && !preg_match('/127\.0\.0\.1/', XOOPS_URL)
    ) {
         if( $alt_title ) { $title = $alt_title; }
         $title = edito_cleankeywords( $title, $urw );
@@ -76,7 +74,7 @@ $target = XOOPS_ROOT_PATH.'/modules/edito/.htaccess';
 if(    !is_file($target)
     && function_exists('fopen')
     && function_exists('fwrite')
-    && !ereg('127.0.0.1', XOOPS_URL)
+    && !preg_match('/127\.0\.0\.1/', XOOPS_URL)
    ) {
        	$handle =  @fopen($target, 'w+');
 		if ( $handle ) {
@@ -86,8 +84,8 @@ if(    !is_file($target)
                       fclose($handle);
 		} else { return FALSE; }
  return TRUE;
- } 
- 
+ }
+
  if( is_file($target)) { return TRUE; }
  else { return FALSE; }
 }
@@ -108,17 +106,17 @@ function edito_createlink( $link_url='', $title='', $target='_self', $image_url=
 
 	// Create link
     if ( $link_url ) {
-    	if ( !eregi('self', $target) AND $target ) {
+    	if (!preg_match('/self/i', $target) AND $target ) {
         	if( !substr($target, 0, 1) == '_' ) { $target = '_'.$target; }
          $link_target = 'target="'.$target.'" ';
 		}
 
         if( $urw && edito_check_urw_htaccess() ) { $link_url = edito_urw($link_url, $title, $alt_title, $urw); }
-        $alt_title = eregi_replace('"','', $alt_title);
+        $alt_title = preg_replace('/\"/','', $alt_title);
         $link = '<a href="'.$link_url.'" '.$link_target.'title="'.strip_tags($alt_title).'">';
         $a    = '</a>';
 	}
-        
+
     // Create image
 	if ( $image_url ) {
 		$image_size = @getimagesize( $image_url );

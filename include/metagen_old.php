@@ -118,8 +118,8 @@ function edito_cleanContent( $content ) {
 	$content = $myts->displayTarea($content);
 	$content = strip_tags($content);
 	$content = $myts->undoHtmlSpecialChars($content);
-	$content = eregi_replace("[[:punct:]]"," ", $content);
- 	$content = eregi_replace("[[:digit:]]"," ", $content);
+	$content = preg_replace("/\[\[:punct:\]\]/i"," ", $content);
+ 	$content = preg_replace("/\[\[:digit:\]\]/i"," ", $content);
 	$content = trim($content);
 
 	return $content;

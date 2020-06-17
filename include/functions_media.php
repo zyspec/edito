@@ -19,12 +19,12 @@ function edito_media( $media_url, $thumb, $media_size, $options, $description, $
 	$ext = strtolower( $ext );
 	$ext_thumb = pathinfo( $thumb, PATHINFO_EXTENSION ) ;
 	$ext_thumb = strtolower( $ext_thumb );
-	if( $custom_media ) {
+	if ($custom_media) {
 	    $custom_medias = explode('|', $custom_media);
-            foreach($custom_medias as $custom_media) {
-                               if(eregi($custom_media, '.'.$ext)) { $is_mpeg=1; }
-            }
+        foreach($custom_medias as $custom_media) {
+           if(preg_match("/{$custom_media}/i", '.'.$ext)) { $is_mpeg=1; }
         }
+    }
 
 	// $myts =& MyTextSanitizer::getInstance();
 	// $description = $myts->makeTareaData4Show($description);
@@ -35,7 +35,7 @@ function edito_media( $media_url, $thumb, $media_size, $options, $description, $
 		$media = edito_media_flv( $media_url, $thumb, $media_size, $options, $description );
 	} elseif ( $ext == 'mov' ) {
 		$media = edito_media_mov( $media_url, $thumb, $media_size, $options, $description );
-	} elseif ( $ext == 'avi' || $ext == 'mpg' || $ext == 'mpeg' || $ext == 'wmv'  || eregi('asx', $ext) ||  $is_mpeg ) {
+	} elseif ( $ext == 'avi' || $ext == 'mpg' || $ext == 'mpeg' || $ext == 'wmv'  || preg_match('/asx/i', $ext) ||  $is_mpeg ) {
 		$media = edito_media_mpg( $media_url, $thumb, $media_size, $options, $description );
 	} elseif ( $ext == 'ram' || $ext == 'rm' ) {
 		$media = edito_media_ram( $media_url, $thumb, $media_size, $options, $description );

@@ -37,7 +37,7 @@ $startart = isset( $_GET['startart'] ) ? intval( $_GET['startart'] ) : 0;
 /*                    Redirect index to a specific page                    */
 /* ----------------------------------------------------------------------- */
 if ($xoopsModuleConfig['index_content']) {
-	if ((eregi("http://", $xoopsModuleConfig['index_content'])) || (eregi("https://", $xoopsModuleConfig['index_content']))) {
+	if ((preg_match("/http[s]:\/\//i", $xoopsModuleConfig['index_content']))) {
 		header ("location: ".$xoopsModuleConfig['index_content']);
 		exit();
 	} else {
@@ -74,7 +74,7 @@ $xoopsTpl->assign("lang_block_texte", _EDITO_BLOCK_TEXTE);
 /*                              Generate banner                            */
 /* ----------------------------------------------------------------------- */
 // Module Banner
-if ( eregi('.swf', $xoopsModuleConfig['index_logo']) ) {
+if (preg_match('/.swf/i', $xoopsModuleConfig['index_logo']) ) {
 	$banner = '<object
     			classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
                 codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/ swflash.cab#version=6,0,40,0" ;=""

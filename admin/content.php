@@ -319,12 +319,12 @@ function editarticle( $id = '', $op = '' ) {
 
     $misc_out = "</table></div>";
 
-	if ( (ereg($option_def, $options) OR $option_def==$options) && $groups == $xoopsModuleConfig['groups'] ) {
+    //if ( (ereg($option_def, $options) OR $option_def==$options) && $groups == $xoopsModuleConfig['groups'] ) {
+    if ( (preg_match("/{$option_def}/", $options) OR $option_def == $options) && $groups == $xoopsModuleConfig['groups'] ) {
 		$misc_out .= '<script type="text/javascript" language="javascript">toggle(getObject("selectmisc_link"), "selectmisc");</script>';
     }
 
     $misc_out .= "<!-- flooble Expandable Content box end  --><table width='100%' class='outer' cellspacing='1'>";
-
 
     $sform -> addElement($script);
     $sform -> setExtra( 'enctype="multipart/form-data"' );
@@ -887,5 +887,3 @@ switch ( $op ) {
         include_once( 'admin_footer.php' );
 	break;
 }
-
-?>

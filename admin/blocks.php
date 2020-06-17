@@ -8,7 +8,7 @@
 include_once( '../../../include/cp_header.php' ) ;
 
 if( substr( XOOPS_VERSION , 6 , 3 ) > 2.0 ) {
-	include 'myblocksadmin2.php' ;
+	include './blocks/myblocksadmin2.php' ;
 	exit ;
 }
 

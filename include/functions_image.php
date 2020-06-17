@@ -22,12 +22,12 @@ function edito_createlink( $link_url='', $title='', $target='_self', $image_url=
     $link = '';
     $a = '';
     $link_target = '';
-    
+
 
 
 	// Create link
     if ( $link_url ) {
-    	if ( !eregi('self', $target) AND $target ) {
+    	if (!preg_match('/self/i', $target) AND $target ) {
 			if( !substr($target, 0, 1) == '_' ) { $target = '_'.$target; }
            	$link_target = 'target="'.$target.'" ';
         }

@@ -79,7 +79,7 @@ $cancomment      =  $option[6];
 /* ----------------------------------------------------------------------- */
 
 // Module Banner
-if ( eregi('.swf', $xoopsModuleConfig['index_logo']) && $myrow["status"]>=3 ) {
+if (preg_match('/.swf/i', $xoopsModuleConfig['index_logo']) && $myrow["status"]>=3 ) {
 	$banner = '<object
 			   classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
                codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/ swflash.cab#version=6,0,40,0" ;=""
@@ -292,7 +292,7 @@ $pattern_media=array();
 $pattern_media[] = "/\{media\}/sU";
 $pattern_media[] = "/\{media align=(['\"]?)(left|center|right)\\1}/sU";
 
- if ( eregi('{media', $texte) ) {
+ if (preg_match('/{media/i', $texte) ) {
  	$texte = preg_replace( $pattern_media, $info['media'], $texte); $info['media'] = '';
 }
 //	$info['body_text']  = $myts->makeTareaData4Show($texte, $html, $smiley, $xcode);
@@ -301,7 +301,7 @@ $pattern_block=array();
 $pattern_block[] = "/\{block\}/sU";
 $pattern_block[] = "/\{block align=(['\"]?)(left|center|right)\\1}/sU";
 
-if ( eregi('{block', $texte) AND $block ) {
+if (preg_match('/{block/i', $texte) AND $block ) {
 	$replacement_block=array();
 
     $block_text =  $myts->makeTareaData4Show($myrow["block_text"], $html, $smiley, $xcode);

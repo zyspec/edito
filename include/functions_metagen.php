@@ -36,7 +36,7 @@ function edito_createMetaTags( $page_title='',
                                $minChar=3,
                                $min_occ=1,
                                $max_occ=12 ) {
-                                 
+
 //        echo  $module_meta_description;
 	global $xoopsTpl, $xoopsModule;
 	$myts =& MyTextSanitizer::getInstance();
@@ -59,7 +59,7 @@ function edito_createMetaTags( $page_title='',
 
                 $metagen['title'] = $page_meta_title;
 
- 
+
 	// 2. Meta Description
 	if ( $page_meta_description ) {
 		 $metagen['description'] = $page_meta_description;
@@ -72,7 +72,7 @@ function edito_createMetaTags( $page_title='',
 				 $metagen['description'] = preg_replace('#\r\n|\n|\r#', ' ', trim($metagen['description']));}
     else {       $metagen['description'] = $metagen['title'];
 				 $metagen['description'] = preg_replace('#\r\n|\n|\r#', ' ', trim($metagen['description']));}
-    
+
          if ($metagen['description'] == ' ') { $metagen['description'] = ''; }
 
 	// 3. Meta Keywords
@@ -160,13 +160,13 @@ function edito_cleanContent( $content ) {
 
         $content = html_entity_decode($content);
         $content = strip_tags($content);
-        $content = eregi_replace('"',' ', $content);
-        $content = eregi_replace("'",' ', $content);
+        $content = preg_replace('/\"/',' ', $content);
+        $content = preg_replace("/\'/",' ', $content);
         $content = $myts->displayTarea($content);
 
         $content = strip_tags($content);
-        $content = eregi_replace('[[:punct:]]','', $content);
-        $content = eregi_replace('[[:digit:]]','', $content);
+        $content = preg_replace('/\[\[:punct:\]\]/i','', $content);
+        $content = preg_replace('/\[\[:digit:\]\]/','', $content);
         $content = substr($content, 0, 61464);
         $content = trim($content);
 
@@ -194,13 +194,13 @@ function edito_findKeyWordsInSting( $content, $minChar, $min_occ, $max_occ ) {
 	$idx = array();
 	foreach($arr as $word) {
 		$word = trim($word);
-		
+
 		if(strlen($word) >= $MIN_SIZE) {
 			if ( !isset($idx[$word]) ) {  $idx[$word] = 0; }
 			$idx[$word]++;
 		}
 	}
-        
+
 	//  Keywords ordering
 	$i=0;
 	arsort($idx);

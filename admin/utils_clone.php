@@ -88,7 +88,7 @@ function utilities()
         }
       }
               chmod(XOOPS_ROOT_PATH.'/modules', 0444);
-    }	 
+    }
 
 // Check wether the cloning function is available
 // work around for PHP < 5.0.x
@@ -111,33 +111,31 @@ function utilities()
 switch ( $op )
 {
   case "clonemodule":
-  
+
     if ( isset( $_GET['clone'] ) ) { $clone = $_GET['clone']; }  else { $clone =''; }
     if ( isset( $_POST['clone'] ) ) { $clone = $_POST['clone']; }
- 
+
 // Define Cloning parameters : check clone name
       $clone = trim($clone);
       $clone_orig = $clone;
       if ( function_exists('mb_convert_encoding') ) { $clone = mb_convert_encoding($clone, "", "auto"); }
 //    $clone = eregi_replace("[[:digit:]]","", $clone);
       $clone = str_replace('-', 'xyz', $clone);
-      $clone = eregi_replace("[[:punct:]]","", $clone);
+      $clone = preg_replace("/[[:punct:]]/","", $clone);
       $clone = str_replace('xyz', '-', $clone);
-      $clone = ereg_replace(' ', '_', $clone);
+      $clone = preg_replace('/ /', '_', $clone);
 
 // Check wether the cloned module exists or not
-    if ( $clone && is_dir(XOOPS_ROOT_PATH.'/modules/'.$clone))
-		{
-        redirect_header( "utils_clone.php", 2, _MD_EDITO_MODULEXISTS );
+        if ( $clone && is_dir(XOOPS_ROOT_PATH.'/modules/'.$clone)) {
+            redirect_header( "utils_clone.php", 2, _MD_EDITO_MODULEXISTS );
         }
 
 // Define clone naming parameteres
     $module = $xoopsModule->dirname();
- 
-    if ( $clone )
-		{
-		$CLONE  = strtoupper(eregi_replace("-","_", $clone));
-		$clone  = strtolower(eregi_replace("-","_", $clone));
+
+    if ( $clone ) {
+		$CLONE  = strtoupper(preg_replace("/-/", "_", $clone));
+		$clone  = strtolower(preg_replace("/-/", "_", $clone));
 		$Clone  = ucfirst($clone_orig);
 		$MODULE = strtoupper($module);
 		$Module = ucfirst($module);
@@ -171,51 +169,50 @@ function copy_dir ($dir2copy,$dir_paste) {
   global $clone;
   global $module;
 
-	// On vérifie si $dir2copy est un dossier
+	// On vï¿½rifie si $dir2copy est un dossier
 	if (is_dir($dir2copy)) {
-   
+
 			// Si oui, on l'ouvre
-			if ($dh = opendir($dir2copy)) {     
+			if ($dh = opendir($dir2copy)) {
 
 					// On liste les dossiers et fichiers de $dir2copy
 					while (($file = readdir($dh)) !== false) {
-				   
-							// Si le dossier dans lequel on veut coller n'existe pas, on le créé
+
+							// Si le dossier dans lequel on veut coller n'existe pas, on le crï¿½ï¿½
 							if (!is_dir($dir_paste))
 								{
 								$oldumask = umask(0000);
 								mkdir ($dir_paste);
 								umask($oldumask);
 								}
-				   
-							// S'il s'agit d'un dossier, on relance la fonction récursive
+
+							// S'il s'agit d'un dossier, on relance la fonction rï¿½cursive
 							if(is_dir($dir2copy.$file) && $file != '..'  && $file != '.')
-								copy_dir ( $dir2copy.$file.'/' , $dir_paste.$file.'/' );     
+								copy_dir ( $dir2copy.$file.'/' , $dir_paste.$file.'/' );
 							// S'il sagit d'un fichier, on le copie simplement
 							elseif($file != '..'  && $file != '.')
 						{
-								if (eregi($module,$file)) //je cherche le mot 'edito' dans le nom du fichier
-									{
-									$filedest = eregi_replace($module, $clone, $file); //si je trouve je remplace par le nom du clone
-									copy ( $dir2copy.$file , $dir_paste.$filedest );//et je copie le fichier avec le bon nom
-									$file = $filedest;
-									}
-									else copy ( $dir2copy.$file , $dir_paste.$file );
+                            if (preg_match(mb_strtolower($module), mb_strtolower($file))) { //je cherche le mot 'edito' dans le nom du fichier
+                                $filedest = preg_replace(mb_strtolower($module), mb_strtolower($clone), $file); //si je trouve je remplace par le nom du clone
+								copy ( $dir2copy.$file , $dir_paste.$filedest );//et je copie le fichier avec le bon nom
+								$file = $filedest;
+                            } else {
+                                copy ( $dir2copy.$file , $dir_paste.$file );
+                            }
 
-								if(!preg_match('/(.jpg|.gif|.png|.zip)$/i', $dir_paste.$file))
-								{
+							if (!preg_match('/(.jpg|.gif|.png|.zip)$/i', $dir_paste.$file)) {
 							  $content = file_get_contents($dir_paste.$file);
 							  $content = str_replace($safeKeys, $safeValues, $content); // Save 'Editor' values
 							  $content = str_replace($patKeys, $patValues, $content);   // Rename Clone values
 							  $content = str_replace($safeValues, $safeKeys, $content);  // Restore 'Editor' values
 							  file_put_contents($dir_paste.$file, $content);
-								}
+							}
 						}
 					}
 			// On ferme $dir2copy
 			closedir($dh);
 			}
-	}       
+	}
 }
 
 $dir2copy = '../../'.$module.'/';
@@ -225,13 +222,12 @@ $dir_paste = '../../../cache/'.$clone.'/';
 
 $module_dir = XOOPS_ROOT_PATH.'/modules';
 $fileperm = fileperms($module_dir);
-if ( @chmod($module_dir, 0777) )
-   {
+if (@chmod($module_dir, 0777)) {
 	cloneFileFolder('../../'.$module);
 	chmod(XOOPS_ROOT_PATH.'/modules', $fileperm);
 	redirect_header( "../../system/admin.php?fct=modulesadmin&op=install&module=".$clone, 1, _MD_EDITO_CLONED );
 	exit();
-   }
+}
 
 	copy_dir ($dir2copy,$dir_paste);
 	redirect_header( "utils_clone.php?type_clonage=cache", 1, _MD_EDITO_CLONED );
@@ -253,5 +249,3 @@ if ( @chmod($module_dir, 0777) )
     break;
 
 }
-
-?>

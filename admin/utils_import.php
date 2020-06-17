@@ -5,7 +5,7 @@
 * Authors :
 *           - solo (http://www.wolfpackclan.com)
 */
-               
+
 
 	 include_once( '../../../mainfile.php');
 	 include_once( '../../../include/cp_header.php');
@@ -33,7 +33,7 @@ function utilities()
         while(list( $catid, $cat_subject ) = $xoopsDB->fetchRow($result))
 	           {
                      $topics[$catid] = $cat_subject;
-                   }  
+                   }
 
         	$topics_array = $topics;
          	$topics_select = new XoopsFormSelect( '', 'catid', ' ');
@@ -56,7 +56,7 @@ function utilities()
 		$sform -> display();
 		unset( $hidden );
 	 }
-	 
+
 
 /* -- Available operations -- */
 switch ( $op )
@@ -72,20 +72,20 @@ switch ( $op )
           		 $replacements = array();
           		 $patterns[] = "/\`/";                                               // Clean queries
           		 $replacements[] = "";
-          	if( ereg('INSERT INTO', $db_datas) ) {
-                         $patterns[]     = "/VALUES \(([0-9]+), /";                               // Id suppression if insert
-          		 $replacements[] = "VALUES ('', ";
-                }
-                if( $topic && ereg('edito_content', $db_datas) ) {
-                         if( ereg('UPDATE', $db_datas) ) {
-                             $patterns[]     = "/catid = ([0-9]+), /";                                // Topics definition & Id suppression
+          	if(preg_match('/INSERT INTO/', $db_datas) ) {
+                $patterns[]     = "/VALUES \(([0-9]+), /";                               // Id suppression if insert
+          		$replacements[] = "VALUES ('', ";
+            }
+            if ($topic && preg_match('/edito_content/', $db_datas) ) {
+                 if (preg_match('/UPDATE/', $db_datas) ) {
+                         $patterns[]     = "/catid = ([0-9]+), /";                                // Topics definition & Id suppression
               		     $replacements[] = "catid = ".$topic.", ";
           		 }
-          		 if( ereg('INSERT INTO', $db_datas) ) {                        // VALUES ('', 1, 1,
+          		 if (preg_match('/INSERT INTO/', $db_datas) ) {                        // VALUES ('', 1, 1,
           		     $patterns[]     = "/VALUES \('', ([0-9]+), /";      // Topics definition & Id suppression
           		     $replacements[] = "VALUES ('', ".$topic.", ";
           		 }
-                }
+            }
           		 $patterns[]     = "/INSERT INTO (.*)edito_/";                         // Table prefix : insert
           		 $replacements[] = "INSERT INTO ".XOOPS_DB_PREFIX."_edito_";
           		 $patterns[]     = "/REPLACE INTO (.*)edito_/";                         // Table prefix : replace
@@ -98,21 +98,20 @@ switch ( $op )
                 $i=0;
                 $ii=0;
                 $inserted = '';
-                foreach( $db_datas as $db_data) {                                         // For each insert, insert into DB if insert is valid
-                if( ereg('_edito_', substr($db_data, 7, 35)) ) {                          // Insert datas for this module only ! ! !
-                    if ( $xoopsDB -> queryF( $db_data ) ) { $inserted .= $db_data.';<br />'; $i++;}  else { $inserted .= '<font color="red">'.$db_data.';</font><br />'; }
+                foreach( $db_datas as $db_data) {                        // For each insert, insert into DB if insert is valid
+                if (preg_match('/_edito_/', substr($db_data, 7, 35)) ) { // Insert datas for this module only ! ! !
+                    if ( $xoopsDB -> queryF( $db_data ) ) { $inserted .= $db_data.';<br>'; ++$i;}  else { $inserted .= '<font color="red">'.$db_data.';</font><br>'; }
                     }
-                $ii++;
+                ++$ii;
                 }
 
-		if ( $inserted )                                                              // Report results
-			{       redirect_header( "utils_import.php", $i+2, $i.'/'.$ii.' '._MD_EDITO_UPDATED . '<p style="text-align:left;">' . $inserted . '</p>' );
+            if ( $inserted ) { // Report results
+                redirect_header( "utils_import.php", $i+2, $i.'/'.$ii.' '._MD_EDITO_UPDATED . '<p style="text-align:left;">' . $inserted . '</p>' );
 			} else {
 				redirect_header( "utils_import.php", $i+2, _MD_EDITO_NOTUPDATED);
 			}
     exit();
     break;
-
 
   case "utilities":
   	default:

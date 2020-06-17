@@ -3,8 +3,8 @@
 #                                                                                                               #
 #  Preferences admin manager for Xoops 2.0.x	                                                                #
 #  						                                                                #
-#  © 2007, Solo ( wolfactory.wolfpackclan.com )                                                                 #
-#  Special thanks to Hervé and DuGris for their suggestions     	                                        #
+#  ï¿½ 2007, Solo ( wolfactory.wolfpackclan.com )                                                                 #
+#  Special thanks to Hervï¿½ and DuGris for their suggestions     	                                        #
 #  Licence : GPL 	         		                                                                #
 #                                                                                                               #
 #################################################################################################################
@@ -85,11 +85,11 @@ include_once ("admin_header.php");
    <h2 align='center'>How to customise this script in your module in 4 steps.</h1>
 <ul>
   <li>Put the current page 'settings.php' in your admin directory.</li>
-                                                                                                               
+
   <li>Edit your 'xoops_version.php' and rename all your preferences variables using category tags as following
-                                                                                                               
-    [category-name]_[preference-variable]                                                                      
-                                                                                                               
+
+    [category-name]_[preference-variable]
+
     Exemple :<ol>
             <li>index_banner</li>            <li>index_texte_index </li>            <li>meta_value1</li>            <li>meta_value2</li>
   </li></ol>
@@ -104,10 +104,10 @@ include_once ("admin_header.php");
             <li>_MI_EDITO_BANNER</li>     <li>_MI_EDITO_TEXTE_INDEX</li>        <li>_MI_EDITO_VALUE1</li>      <li>_MI_EDITO_VALUE2</li></ol>
   </li>
   <li>Customise the tabs display.
-                                                                                                               
+
    Edit file for options.</li>
    </ul>
-   
+
    NOTE : To remove this help note and it's tab, edit the setting.php file and set 'display_help' value to 0.
    NOTE 2 : If you experience weird display, edit the file and quote the following line (line 167): 'xoops_cp_header();'.
 
@@ -121,10 +121,10 @@ include_once ("admin_header.php");
                                     );
 
                 foreach( $op as $op_name=>$op_value ) {
-                
+
                                   if (!isset($_POST[$op_name])) {
                                       $$op_name       = isset($_GET[$op_name]) ? $_GET[$op_name] : $op_value;
-                                      if( eregi('\|', $$op_name) ) {
+                                      if (preg_match('/\|/', $$op_name)) {
                                         $operator_array = explode('|', $$op_name);
                                         $$op_name = $operator_array;
                                       }
@@ -136,7 +136,7 @@ include_once ("admin_header.php");
 // Select operation
 switch( $op )
   {
-    
+
   default:
 // Display editor
 
@@ -174,13 +174,13 @@ switch( $op )
                             ${$k} = $v;
                         }
                       }
-                      
+
                       if (!$GLOBALS['xoopsSecurity']->check()) {
                         redirect_header("settings.php", 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
                     }
-            
+
                     $count = count($conf_ids);
-            
+
                     if ($count > 0) {
                         for ($i = 0; $i < $count; $i++) {
                             $config =& $config_handler->getConfig($conf_ids[$i]);
@@ -203,7 +203,7 @@ switch( $op )
 // Function to generate settings' form
 function settings_display( $sub='' ) {
         Global $xoopsConfig, $xoopsModule;
-        
+
                 $mod = $xoopsModule -> getVar( "mid" );
                 $like  = $sub?$sub . '_%':'%';
 
@@ -326,15 +326,15 @@ function settings_display( $sub='' ) {
         $form->addElement(new XoopsFormButton('', 'button', _GO, 'submit'));
         Return $form->display();
 
- } 
- 
- 
+ }
+
+
  // Functiont to detect the various settings' variables
  function settings_sub_menu_list() {
 Global $xoopsModule, $xoopsConfig, $xoopsModuleConfig, $alpha_sort, $colors, $default_color, $display_help;
 
 $i=0;
-// Default : General préférences
+// Default : General prï¿½fï¿½rences
            $sub_menu[$i]['title']   = _PREFERENCES;
            $sub_menu[$i]['link']    = "settings.php";
            $sub_menu[$i]['color']   = isset($colors[$i])?$colors[$i]:$default_color;
@@ -345,12 +345,12 @@ $alpha_sort?ksort($xoopsModuleConfig,SORT_STRING):'';
 foreach( $xoopsModuleConfig as $name=>$value ) {
          $cat = explode('_',$name);
 
-         if( !ereg($cat[0],$cat_liste) && isset($cat[1]) ) {
+         if (!preg_match($cat[0], $cat_liste) && isset($cat[1]) ) {
 
-           $NAME         = @constant( strtoupper('_MI_'. $xoopsModule->dirname() . '_' . $cat[0]) );
-           $NAME_DESC    = @constant( strtoupper('_MI_'. $xoopsModule->dirname() . '_' . $cat[0] . 'DSC') );
-           $ALT_NAME     = '<span title="' . $NAME_DESC . '">
-                           ' . ucfirst($cat[0]) . '
+           $NAME        = @constant( strtoupper('_MI_'. $xoopsModule->dirname() . '_' . $cat[0]) );
+           $NAME_DESC   = @constant( strtoupper('_MI_'. $xoopsModule->dirname() . '_' . $cat[0] . 'DSC') );
+           $ALT_NAME    = '<span title="' . $NAME_DESC . '">
+                          ' . ucfirst($cat[0]) . '
                            <font color="red">*</font>
                            </span>';
            $title       = $NAME       ? $NAME                         :$ALT_NAME;
@@ -362,7 +362,7 @@ foreach( $xoopsModuleConfig as $name=>$value ) {
            $cat_liste .='|'.$cat[0];
          }
   }
-  if($display_help) {
+  if ($display_help) {
            $sub_menu[++$i]['title'] = 'Help';
            $sub_menu[$i]['link']    = '?sub=Help';
            $sub_menu[$i]['color']   = 'Salmon|LightSalmon ';
@@ -402,7 +402,7 @@ foreach( $xoopsModuleConfig as $name=>$value ) {
 
 
             $previous['color']='';
-    
+
           foreach( $sub_menu as $submenu ) {
             $submenu['color'] = explode('|',$submenu['color']);
             $submenu['color'][1] = isset($submenu['color'][1])?$submenu['color'][1]:$submenu['color'][0];
@@ -421,7 +421,7 @@ foreach( $xoopsModuleConfig as $name=>$value ) {
             ';
           foreach( $sub_menu as $submenu ) {
                 $submenu['color'] = explode('|',$submenu['color']);
-                $tblColors = eregi( $currentoption?$currentoption:'settings', $submenu['link'] )?'current':$submenu['color'][0];
+                $tblColors = preg_match($currentoption ? mb_strtolower($currentoption) : 'settings', mb_strtolower($submenu['link'])) ? 'current' : $submenu['color'][0];
             $ret.= '<li id="' . $tblColors . '"><a href="' . $submenu['link'] . '"><span>' . $submenu['title'] . '</span></a></li>
             ';
         	}
@@ -430,8 +430,7 @@ foreach( $xoopsModuleConfig as $name=>$value ) {
             $ret.= '<div style="float: left; width: 100%;">
             ';
     break;
-    
-    
+
      case ('select'):
             $i=0;
             $ret ='<div style="padding-left:36px;">' . _SELECT . ' ' . strtolower(_PREFERENCES) . ' : ';
@@ -439,8 +438,8 @@ foreach( $xoopsModuleConfig as $name=>$value ) {
                           onchange="location=this.options[this.selectedIndex].value">
                  ';
           foreach( $sub_menu as $submenu ) {
-                   $selected = eregi( $currentoption?$currentoption:'settings', $submenu['link'] )?'selected':'';
-                   $nbsp = $i++?'&nbsp;&deg; ':'';
+                   $selected = preg_match($currentoption ? mb_strtolower($currentoption) : 'settings', mb_strtolower($submenu['link'])) ? 'selected' : '';
+                   $nbsp = ++$i ? '&nbsp;&deg; ' : '';
                    $ret.='<option value="'.$submenu['link'].'"'.$selected.'>' . $nbsp . $submenu['title'].'</option>';
         	}
             $ret.='</select>
@@ -450,6 +449,5 @@ foreach( $xoopsModuleConfig as $name=>$value ) {
 
     break;
     }
- Return $ret;
+    return $ret;
 }
-?>
