@@ -50,13 +50,13 @@ if( $meta_title_list ) { $alt_subject_list=$meta_title_list; } else { $alt_subje
 
 			if ($startdate_list < $datesub_list) {
             	$datesub_list = formatTimestamp($datesub_list,'m');
-                $new_list = '&nbsp;<img src="images/icon/new.gif" alt="'.$datesub_list_list.'" />';
+                $new_list = '&nbsp;<img src="assets/images/icon/new.gif" alt="'.$datesub_list_list.'" />';
             } else {
 				$new_list ='';
          	}
 
 			if ( $counter_list >= $xoopsModuleConfig['tags_pop'] ) {
-				$pop_list = '&nbsp;<img src="images/icon/pop.gif" alt="'.$counter_list.'&nbsp;'._READS.'" />';
+				$pop_list = '&nbsp;<img src="assets/images/icon/pop.gif" alt="'.$counter_list.'&nbsp;'._READS.'" />';
 			} else {
 				$pop_list ='';
 			}
@@ -70,7 +70,7 @@ if( $meta_title_list ) { $alt_subject_list=$meta_title_list; } else { $alt_subje
 		if ( $image ) {
 			$logo =  '<img src="'.XOOPS_URL . '/'. $xoopsModuleConfig['sbuploaddir'] .'/'. $image.'" align="absmiddle" height="32" />';
 		} else {
-			$logo =  '<img src="images/blank.gif" align="absmiddle" height="32" />';
+			$logo =  '<img src="assets/images/blank.gif" align="absmiddle" height="32" />';
 		}
 		*/
 

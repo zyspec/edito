@@ -5,11 +5,12 @@
  - convert to using namespace
  - rename templates from .html to .tpl
  - create class / handler for edito content
- - create update script to switch SQL table from content_edito to edito_content
- - move js and images to ./assets folder
+ - create update script to:
+   - switch SQL table from content_edito to edito_content
+   - remove old ./images and ./script folders
  - create new module logo image
  - harden var input by using Xmf\Request
- - remove code specifically creaetdfor XOOPS < 2.5
+ - remove code specifically created for XOOPS < 2.5
  - convert arrays to use short array syntax
  - reduce/eliminate use of globals
  - cleanup file includes (use require where appropriate), eliminate duplicate inclusions
@@ -27,6 +28,7 @@
 - remove closing ?> in PHP files
 - replace use of deprecated ModuleTextSanitizer methods
 - updated phpDoc comments
+- movee javascript and images to ./assets folder
 
 <h5>3.07 [2007-10-19]</h5>
 Last known release by Wolfpackclan Solo and DuGris

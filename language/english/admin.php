@@ -216,14 +216,14 @@ Indicate the short title of the page (See also meta title). This title is used i
 <ul><b>2) <u>Statuses</u></b>
 There are 6 possible statuses for your page.
 <ul><ol>
-    <li><img src='../images/icon/online.gif' align='absmiddle' /> <b>Display: </b> Normal display of the page in the module.</li>
-    <li><img src='../images/icon/waiting.gif' align='absmiddle' /> <b>Pending: </b> The page is awaiting validation. It is only visible to administrators.</li>
-    <li><img src='../images/icon/hidden.gif' align='absmiddle' /> <b>Cacher :</b> Display of the page regardless of any information relating to the module.
+    <li><img src='../assets/images/icon/online.gif' align='absmiddle' /> <b>Display: </b> Normal display of the page in the module.</li>
+    <li><img src='../assets/images/icon/waiting.gif' align='absmiddle' /> <b>Pending: </b> The page is awaiting validation. It is only visible to administrators.</li>
+    <li><img src='../assets/images/icon/hidden.gif' align='absmiddle' /> <b>Cacher :</b> Display of the page regardless of any information relating to the module.
 The page is not included in the module indexes, nor in the menu block.</li>
-	<li><img src='../images/icon/offline.gif' align='absmiddle' /> <b>Disable: </b> The page is completely inaccessible.</li>
-    <li><img src='../images/icon/html.gif' align='absmiddle' /> <b>Mode HTML :</b> Displays the content of the page only in html mode.
+	<li><img src='../assets/images/icon/offline.gif' align='absmiddle' /> <b>Disable: </b> The page is completely inaccessible.</li>
+    <li><img src='../assets/images/icon/html.gif' align='absmiddle' /> <b>Mode HTML :</b> Displays the content of the page only in html mode.
 Does not interpret XOOPS codes and any other line breaks.</li>
-	<li><img src='../images/icon/php.gif' align='absmiddle' /> <b>Mode php :</b> Interprets the content of the page as php code.</li>
+	<li><img src='../assets/images/icon/php.gif' align='absmiddle' /> <b>Mode php :</b> Interprets the content of the page as php code.</li>
 </ol></ul>
 <ul>
 <b>3) <u>Content of the Block</u></b>
@@ -239,7 +239,7 @@ By checking this option, the content of the block will be displayed in the linke
 The content entered in this text box is used on the main page.
 The content of this area is also used to automatically generate metakeywords.
 In php mode, it is in this area that the php code to be interpreted must be indicated. Note that the <b> &#139; tags should not be filled in? php </b> and <b>? &#155; </b> usual.</ul>
-<img src='../images/icon/tip.gif' align='absleft' /><b>Special tags </b>: The following tags can be used in the text:
+<img src='../assets/images/icon/tip.gif' align='absleft' /><b>Special tags </b>: The following tags can be used in the text:
 <ul><ol>
     <li><i><b>[pagebreak]</b></i> : to display content on multiple pages.</li>
     <li><i><b>{media}</b></i> to display the current media in the text. By using this tag, the media will no longer be displayed at the top of the page.</li>

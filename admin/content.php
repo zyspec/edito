@@ -147,7 +147,7 @@ function editarticle( $id = '', $op = '' )
 		$sform = new XoopsThemeForm( _AM_EDITO_CREATE . $block_help, "op", xoops_getenv( 'PHP_SELF' ) );
 	}
 
-  $script = '<script language="JavaScript" type="text/javascript" src="../script/expandable.js"></script>
+  $script = '<script language="JavaScript" type="text/javascript" src="../assets/js/expandable.js"></script>
   <style type="text/css">td .head { width: 25%; }</style>';
 
 	// Activate Content options

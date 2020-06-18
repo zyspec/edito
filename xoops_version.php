@@ -38,7 +38,7 @@ $modversion['credits']        = 'XOOPS Development Team: Black_beard, Cesag, Phi
 $modversion['license']        = 'GNU GPL 2.0 or later';
 $modversion['license_url']    = 'www.gnu.org/licenses/gpl-2.0.html';
 $modversion['official']       = 0;
-$modversion['image']          = 'images/edito_slogo.png';
+$modversion['image']          = 'assets/images/edito_slogo.png';
 $modversion['dirname']        = $moduleDirName;
 
 //About
@@ -79,20 +79,20 @@ $i = 0 ;
 // Menu admin links
 if(@defined('_MD_EDITO_ADD')) {
     if (count(array_intersect($group, $xoopsModuleConfig['submit_groups'])) > 0) {
- 		$modversion['sub'][$i]['name'] = "<img src='images/icon/submit.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_SUBMIT . "' />&nbsp;<i>" . _MD_EDITO_SUBMIT . "</i></img>";
+ 		$modversion['sub'][$i]['name'] = "<img src='assets/images/icon/submit.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_SUBMIT . "' />&nbsp;<i>" . _MD_EDITO_SUBMIT . "</i></img>";
 		$modversion['sub'][$i++]['url'] = 'submit.php';
     }
 
 	if ( is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid()) ) {
- 		$modversion['sub'][$i]['name']  = "<img src='images/icon/add.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_ADD . "'>&nbsp;<i>" . _MD_EDITO_ADD . "</i></img>";
+ 		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/add.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_ADD . "'>&nbsp;<i>" . _MD_EDITO_ADD . "</i></img>";
 		$modversion['sub'][$i++]['url'] = 'admin/content.php';
-		$modversion['sub'][$i]['name']  = "<img src='images/icon/list.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_LIST . "'>&nbsp;<i>" . _MD_EDITO_LIST . "</i></img>";
+		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/list.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_LIST . "'>&nbsp;<i>" . _MD_EDITO_LIST . "</i></img>";
 		$modversion['sub'][$i++]['url'] = 'admin/index.php';
-		$modversion['sub'][$i]['name']  = "<img src='images/icon/utilities.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_UTILITIES . "'>&nbsp;<i>" . _MD_EDITO_UTILITIES . "</i></img>";
+		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/utilities.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_UTILITIES . "'>&nbsp;<i>" . _MD_EDITO_UTILITIES . "</i></img>";
 		$modversion['sub'][$i++]['url'] = 'admin/utils_uploader.php';
-        $modversion['sub'][$i]['name']  = "<img src='images/icon/settings.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_SETTINGS . "'>&nbsp;<i>" . _MD_EDITO_SETTINGS . "</i></img>";
+        $modversion['sub'][$i]['name']  = "<img src='assets/images/icon/settings.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_SETTINGS . "'>&nbsp;<i>" . _MD_EDITO_SETTINGS . "</i></img>";
 		$modversion['sub'][$i++]['url'] = '../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=' . $xoopsModule->getVar('mid');
-		$modversion['sub'][$i]['name']  = "<img src='images/icon/blocks.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_BLOCKS . "'>&nbsp;<i>" . _MD_EDITO_BLOCKS . "</i></img>";
+		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/blocks.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_BLOCKS . "'>&nbsp;<i>" . _MD_EDITO_BLOCKS . "</i></img>";
 		$modversion['sub'][$i++]['url'] = 'admin/blocks.php';
 	}
 }
@@ -228,7 +228,7 @@ $modversion['config'][$i]['title'] = '_MI_EDITO_INDEX_LOGO';
 $modversion['config'][$i]['description'] = '_MI_EDITO_INDEX_LOGODSC';
 $modversion['config'][$i]['formtype'] = 'textbox';
 $modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'modules/edito/images/logo.gif';
+$modversion['config'][$i]['default'] = 'modules/edito/assets/images/logo.gif';
 $i++;
 $modversion['config'][$i]['name'] = 'textindex';
 $modversion['config'][$i]['title'] = '_MI_EDITO_TEXTINDEX';

@@ -89,7 +89,7 @@ function utilities( $dir ) {
 	$image_select->setExtra( 'onchange=\'showImgSelected("image5", "image", "' . $current_dir . '", "", "' . XOOPS_URL . '")\'' );
 	$image_tray = new XoopsFormElementTray( _AM_EDITO_MEDIA, '&nbsp;' );
 	$image_tray->addElement( $image_select );
- 	$image_tray->addElement( new XoopsFormLabel( '', '<p /><img src="' . XOOPS_URL . '/modules/edito/images/blank.gif" name="image5" id="image5" alt="" />' ) );
+ 	$image_tray->addElement( new XoopsFormLabel( '', '<p /><img src="' . XOOPS_URL . '/modules/edito/assets/images/blank.gif" name="image5" id="image5" alt="" />' ) );
 	$sform->addElement( $image_tray );
 
 	$sform->display();

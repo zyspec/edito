@@ -120,17 +120,17 @@ $xoopsTpl->assign("footer",  $myts->displayTarea($xoopsModuleConfig['footer']));
 $adminlinks = ''; //init administration links
 if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
 	$adminlinks = "<a href='admin/content.php' title='"._MD_EDITO_ADD."'>
-    			 <img src='images/icon/add.gif' alt='"._MD_EDITO_ADD."' /></a> |
+    			 <img src='assets/images/icon/add.gif' alt='"._MD_EDITO_ADD."' /></a> |
                  <a href='admin/index.php' title='"._MD_EDITO_LIST."'>
-                 <img src='images/icon/list.gif' alt='"._MD_EDITO_LIST."' /></a> |
+                 <img src='assets/images/icon/list.gif' alt='"._MD_EDITO_LIST."' /></a> |
                  <a href='admin/utils_uploader.php' title='"._MD_EDITO_UTILITIES."'>
-                 <img src='images/icon/utilities.gif' alt='"._MD_EDITO_UTILITIES."' /></a> |
+                 <img src='assets/images/icon/utilities.gif' alt='"._MD_EDITO_UTILITIES."' /></a> |
                  <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid'). "' title='"._MD_EDITO_SETTINGS."'>
-                 <img src='images/icon/settings.gif' alt='"._MD_EDITO_SETTINGS."' /></a> |
+                 <img src='assets/images/icon/settings.gif' alt='"._MD_EDITO_SETTINGS."' /></a> |
                  <a href='admin/myblocksadmin.php' title='"._MD_EDITO_BLOCKS."'>
-                 <img src='images/icon/blocks.gif' alt='"._MD_EDITO_BLOCKS."' /></a> |
+                 <img src='assets/images/icon/blocks.gif' alt='"._MD_EDITO_BLOCKS."' /></a> |
                  <a href='admin/help.php' title='"._MD_EDITO_HELP."'>
-                 <img src='images/icon/help.gif' alt='"._MD_EDITO_HELP."' /></a></span>";
+                 <img src='assets/images/icon/help.gif' alt='"._MD_EDITO_HELP."' /></a></span>";
 }
 
 $xoopsTpl->assign('adminlinks', $adminlinks);

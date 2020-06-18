@@ -29,8 +29,8 @@ $op = '';
 function check_wysiwyg() {
 	global $xoopsConfig, $modify, $xoopsModuleConfig, $xoopsModule, $XOOPS_URL;
 
-    $on   = '<img src="../images/icon/online.gif"   alt=""  align="absmiddle" />';
-    $off  = '<img src="../images/icon/offline.gif"  alt="" align="absmiddle" />';
+    $on   = '<img src="../assets/images/icon/online.gif"   alt=""  align="absmiddle" />';
+    $off  = '<img src="../assets/images/icon/offline.gif"  alt="" align="absmiddle" />';
 
     // Spaw
     if ( is_readable(XOOPS_ROOT_PATH . "/class/spaw/formspaw.php"))	{

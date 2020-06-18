@@ -15,11 +15,11 @@ if (!defined("XOOPS_ROOT_PATH")) { die("XOOPS root path not defined"); }
 function edito_adminmenu($currentoption = 0, $breadcrumb = '') {
 	echo "<style type='text/css'>
 		  #buttontop { float:left; width:100%; background: #e7e7e7; font-size:93%; line-height:normal; border-top: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; margin: 0; }
-          #buttonbar { float:left; width:100%; background: #e7e7e7 url('" . XOOPS_URL . "/modules/'.$xoopsModule->dirname().'/images/bg.gif') repeat-x left bottom; font-size: 10px; line-height:normal; border-left: 1px solid black; border-right: 1px solid black; margin-bottom: 12px; }
+          #buttonbar { float:left; width:100%; background: #e7e7e7 url('" . XOOPS_URL . "/modules/'.$xoopsModule->dirname().'/assets/images/bg.gif') repeat-x left bottom; font-size: 10px; line-height:normal; border-left: 1px solid black; border-right: 1px solid black; margin-bottom: 12px; }
           #buttonbar ul { margin:0; margin-top: 15px; padding:0px 5px 0; list-style:none; }
           #buttonbar li { display:inline; margin:0; padding:0; }
-          #buttonbar a { float:left; background:url('" . XOOPS_URL . "/modules/'.$xoopsModule->dirname().'/images/left_both.gif') no-repeat left top; margin:0; padding:0 0 0 9px; border-bottom:1px solid #000; text-decoration:none; white-space: nowrap}
-          #buttonbar a span { float:left; display:block; background:url('" . XOOPS_URL . "/modules/'.$xoopsModule->dirname().'/images/right_both.gif') no-repeat right top; padding:5px 15px 4px 6px; font-weight:bold; color:#765; white-space: nowrap}
+          #buttonbar a { float:left; background:url('" . XOOPS_URL . "/modules/'.$xoopsModule->dirname().'/assets/images/left_both.gif') no-repeat left top; margin:0; padding:0 0 0 9px; border-bottom:1px solid #000; text-decoration:none; white-space: nowrap}
+          #buttonbar a span { float:left; display:block; background:url('" . XOOPS_URL . "/modules/'.$xoopsModule->dirname().'/assets/images/right_both.gif') no-repeat right top; padding:5px 15px 4px 6px; font-weight:bold; color:#765; white-space: nowrap}
           /* Commented Backslash Hack hides rule from IE5-Mac \*/
           #buttonbar a span {float:none;}
           /* End IE5-Mac hack */
@@ -162,7 +162,7 @@ function edito_search() {
 function edito_adminfooter() {
 	echo '<p/>';
     OpenTable();
-//	echo '<div style="text-align: right; vertical-align: center"><img src="../images/'.$xoopsModule->dirname().'.gif" border="0" align="center" valign="absmiddle" />';
+    //	echo '<div style="text-align: right; vertical-align: center"><img src="../assets/images/'.$xoopsModule->dirname().'.gif" border="0" align="center" valign="absmiddle" />';
     echo sprintf(_MD_EDITO_CREDIT,'<a href="http://wolfactory.wolfpackclan.com" target="_blank">WolFactory</a>', '<a href="http://www.dugris.info" target="_blank">DuGris</a>' );
     echo '</div>';
 	CloseTable();

@@ -119,7 +119,7 @@ RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?".$domain."/.*$ [NC]
 }
 
     $code .= "
-RewriteRule [^/]+.(".$media_list.")$ ".XOOPS_URL."/images/logo.gif [R,L,NC]";
+RewriteRule [^/]+.(".$media_list.")$ ".XOOPS_URL."/assets/images/logo.gif [R,L,NC]";
 if($dir=='media') { $current_dir=$xoopsModuleConfig['sbmediadir'];  } else { $current_dir=$xoopsModuleConfig['sbuploaddir']; }
 
    $target = XOOPS_ROOT_PATH . "/" . $current_dir . "/.htaccess";
@@ -167,10 +167,10 @@ RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?".$domain."/.*$ [NC]
 }
 
     $code .= "
-RewriteRule [^/]+.(".$media_list.")$ ".XOOPS_URL."/images/logo.gif [R,L,NC]";
+RewriteRule [^/]+.(".$media_list.")$ ".XOOPS_URL."/assets/images/logo.gif [R,L,NC]";
 
 	// To display a picture insert this code
-	// RewriteRule [^/]+.(".$media_list.")$ ".XOOPS_URL."/modules/" . $xoopsModule->dirname()."/images/restricted.gif [R,L]
+    // RewriteRule [^/]+.(".$media_list.")$ ".XOOPS_URL."/modules/" . $xoopsModule->dirname()."/assets/images/restricted.gif [R,L]
 
 	$htaccess = '<tr class="odd"><td colspan="2">
     			 <script type="text/javascript" language="Javascript">

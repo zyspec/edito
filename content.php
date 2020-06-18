@@ -148,15 +148,15 @@ if ( $media_file ) {
 	$media_display =  edito_media_size($media_size, $xoopsModuleConfig['custom']);
 	$format = edito_checkformat( $media, $xoopsModuleConfig['custom_media'] );
 	$filesize =  edito_fileweight( $media, $xoopsModuleConfig['custom_media'] );
-	$fileinfo = '<img src="images/icon/'.$format[1].'.gif" alt="'.$format[1].': '.$format[0].' ['.$filesize.'] ['.$media_file.']" />';
+	$fileinfo = '<img src="assets/images/icon/'.$format[1].'.gif" alt="'.$format[1].': '.$format[0].' ['.$filesize.'] ['.$media_file.']" />';
 } elseif ( $media_url ) {
 	include_once("include/functions_media.php");
 	include_once("include/functions_mediasize.php");
 	$media =  $media_url;
     $media_display =  edito_media_size($media_size, $xoopsModuleConfig['custom']);
     $format = edito_checkformat( $media, $xoopsModuleConfig['custom_media'] );
-    $fileinfo = '|&nbsp;<img src="images/icon/'.$format[1].'.gif" alt="'.$format[1].': '.$format[0].' ['.$media.']" />
-				<img src="images/icon/ext.gif" alt="'._MD_EDITO_MEDIAURL.'"/>';
+    $fileinfo = '|&nbsp;<img src="assets/images/icon/'.$format[1].'.gif" alt="'.$format[1].': '.$format[0].' ['.$media.']" />
+				<img src="assets/images/icon/ext.gif" alt="'._MD_EDITO_MEDIAURL.'"/>';
 } else {
 	$media = '';
     $fileinfo = '';
@@ -171,14 +171,14 @@ if ( $media && ($xoopsModuleConfig['downloadable'] || ( is_object($xoopsUser) &&
                                      target="wclose"
                                      title="'._MD_EDITO_DOWNLOAD.'"
                                      href="'.$media.'">
-	                          <img src="images/icon/download.gif"
+	                          <img src="assets/images/icon/download.gif"
                                        alt="'._MD_EDITO_DOWNLOAD.'" />
 	                          </a>';
 	                          */
 
         $info['downloadable'] = ' <a title="'._MD_EDITO_DOWNLOAD.'"  target="_blank"
                                      href="download.php?id='.$id.'">
-	                          <img src="images/icon/download.gif"
+	                          <img src="assets/images/icon/download.gif"
                                        alt="'._MD_EDITO_DOWNLOAD.'" />
 	                          </a>';
 
@@ -218,7 +218,7 @@ if ( $xoopsModuleConfig['media_display'] == 'page' AND $media ) {
 /* -----------------------------------------------------------------------  */
 } elseif ( $xoopsModuleConfig['media_display'] == 'popup' AND $media ) {
 	$logo =  XOOPS_URL . '/'. $xoopsModuleConfig['sbuploaddir'] .'/'. $image;
-	if ( !$image ) { $logo = 'images/media_video.gif'; }
+	if ( !$image ) { $logo = 'assets/images/media_video.gif'; }
 	$option = 'align='.$logo_align;
 		if ( $format[1] == 'image' ) {
 			$info['logo'] = $align_in.edito_media($media, $logo, '', $option, $myrow["subject"], $xoopsModuleConfig['custom_media']).$align_out;
@@ -239,7 +239,7 @@ if ( $xoopsModuleConfig['media_display'] == 'page' AND $media ) {
         $align = ', align='.$logo_align;
 	$media_options = 'AutoStart=1, ShowControls=1, ShowTracker=1, AnimationAtStart=1, TransparentAtStart=0, enableContextMenu=0, BufferingProgress=1, PreBuffer=1, VideoDelay=999, VideoBufferSize=9, loop='.$xoopsModuleConfig['repeat'].$align;
 	$logo =  XOOPS_URL . '/'. $xoopsModuleConfig['sbuploaddir'] .'/'. $image;
-	if ( !$image ) { $logo = 'images/media_video.gif'; }
+	if ( !$image ) { $logo = 'assets/images/media_video.gif'; }
         /*                       Media is an image                                */
 	if ( $format[1] == 'image' ) {
 		$info['logo'] = $align_in.edito_media($media, $logo, '', '', $myrow["subject"], $xoopsModuleConfig['custom_media']).$align_out;
@@ -334,7 +334,7 @@ $info['block_text'] = $block_text;
 /* ----------------------------------------------------------------------- */
 // Admin Links
 if ($myrow["status"] == 1) {
-	$status = "<img src='images/icon/waiting.gif' alt='"._MD_EDITO_WAITING."' align='left' />";
+	$status = "<img src='assets/images/icon/waiting.gif' alt='"._MD_EDITO_WAITING."' align='left' />";
 	$online = 1;
 	$path = "<a href='.'>".$xoopsModule -> getVar('name')."</a> > " . $subject_org ;
 	if($xoopsModuleConfig['navlink_type'] != 'none' ) {
@@ -343,7 +343,7 @@ if ($myrow["status"] == 1) {
     	          include_once("list.php");
         }
 } elseif ($myrow["status"] == 3) {
-	$status = "<img src='images/icon/online.gif' alt='"._MD_EDITO_ONLINE."' align='left' />";
+	$status = "<img src='assets/images/icon/online.gif' alt='"._MD_EDITO_ONLINE."' align='left' />";
 	$online = 1;
 	$path = "<a href='.'>".$xoopsModule -> getVar('name')."</a> > " . $subject_org ;
 	if($xoopsModuleConfig['navlink_type'] != 'none' ) {
@@ -352,17 +352,17 @@ if ($myrow["status"] == 1) {
     	          include_once("list.php");
         }
 } elseif ($myrow["status"] == 4 ) {
-	$status = "<img src='images/icon/html.gif' alt='"._MD_EDITO_HTML."' align='left' />";
+	$status = "<img src='assets/images/icon/html.gif' alt='"._MD_EDITO_HTML."' align='left' />";
 	$online = 1;
       	         $xoopsTpl->assign('navlink', '');
       	         $xoopsTpl->assign('navlink_type', 'none');
 } elseif ($myrow["status"] == 5 ) {
-	$status = "<img src='images/icon/php.gif' alt='"._MD_EDITO_PHP."' align='left' />";
+	$status = "<img src='assets/images/icon/php.gif' alt='"._MD_EDITO_PHP."' align='left' />";
 	$online = 1;
 	         $xoopsTpl->assign('navlink', '');
                  $xoopsTpl->assign('navlink_type', 'none');
 } else {
-	$status = "<img src='images/icon/hidden.gif' alt='"._MD_EDITO_HIDDEN."' align='left' />";
+	$status = "<img src='assets/images/icon/hidden.gif' alt='"._MD_EDITO_HIDDEN."' align='left' />";
 	         $xoopsTpl->assign('navlink', '');
                  $xoopsTpl->assign('navlink_type', 'none');
 	$online = 0;
@@ -374,40 +374,40 @@ if ($myrow["status"] == 1) {
 /* ----------------------------------------------------------------------- */
 if ( is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid()) AND $myrow["status"] != 5 ) {
 	$info['adminlink'] = $status.    "<a href='admin/content.php?op=mod&id=$id' title='"._MD_EDITO_EDIT."'>
-						 <img src='images/icon/edit.gif' alt='"._MD_EDITO_EDIT."' /></a> |
+						 <img src='assets/images/icon/edit.gif' alt='"._MD_EDITO_EDIT."' /></a> |
 						 <a href='admin/content.php?op=dup&id=$id' title='"._MD_EDITO_DUPLICATE."'>
-                         <img src='images/icon/duplicate.gif' alt='"._MD_EDITO_DUPLICATE."' /></a> |
+                         <img src='assets/images/icon/duplicate.gif' alt='"._MD_EDITO_DUPLICATE."' /></a> |
                          <a href='admin/content.php?op=del&id=$id' title='"._MD_EDITO_DELETE."'>
-                         <img src='images/icon/delete.gif' alt='"._MD_EDITO_DELETE."' /></a> |
+                         <img src='assets/images/icon/delete.gif' alt='"._MD_EDITO_DELETE."' /></a> |
                          <a href='print.php?id=$id' target='_blank' title='"._MD_EDITO_PRINT."'/>
-                         <img src='images/icon/print.gif' alt='"._MD_EDITO_PRINT."' /></a>";
+                         <img src='assets/images/icon/print.gif' alt='"._MD_EDITO_PRINT."' /></a>";
 
 	$info['infos'] = $datesub.'&nbsp;|&nbsp;(' . $count .' '._READS.')'.$fileinfo;
 	$info['adminlinks'] = "<a href='admin/content.php' title='"._MD_EDITO_ADD."'>
-                           <img src='images/icon/add.gif' alt='"._MD_EDITO_ADD."' /></a> |
+                           <img src='assets/images/icon/add.gif' alt='"._MD_EDITO_ADD."' /></a> |
                            <a href='admin/index.php' title='"._MD_EDITO_LIST."'>
-                           <img src='images/icon/list.gif' alt='"._MD_EDITO_LIST."' /></a> |
+                           <img src='assets/images/icon/list.gif' alt='"._MD_EDITO_LIST."' /></a> |
                            <a href='admin/utils_uploader.php' title='"._MD_EDITO_UTILITIES."'>
-                           <img src='images/icon/utilities.gif' alt='"._MD_EDITO_UTILITIES."' /></a> |
+                           <img src='assets/images/icon/utilities.gif' alt='"._MD_EDITO_UTILITIES."' /></a> |
                            <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid'). "'  title='"._MD_EDITO_SETTINGS."'>
-                           <img src='images/icon/settings.gif' alt='"._MD_EDITO_SETTINGS."' /></a> |
+                           <img src='assets/images/icon/settings.gif' alt='"._MD_EDITO_SETTINGS."' /></a> |
                            <a href='admin/myblocksadmin.php' title='"._MD_EDITO_BLOCKS."'>
-                           <img src='images/icon/blocks.gif' alt='"._MD_EDITO_BLOCKS."' /></a> |
+                           <img src='assets/images/icon/blocks.gif' alt='"._MD_EDITO_BLOCKS."' /></a> |
                            <a href='admin/help.php' title='"._MD_EDITO_HELP."'>
-                           <img src='images/icon/help.gif' alt='"._MD_EDITO_HELP."' /></a></span>";
+                           <img src='assets/images/icon/help.gif' alt='"._MD_EDITO_HELP."' /></a></span>";
 
 } elseif ( is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid()) AND $myrow["status"] == 5 ) {
 	$info['adminlink'] = $status . "<a href='admin/content.php?op=mod&id=$id'>
-    								<img src='images/icon/edit.gif' alt='"._MD_EDITO_EDIT."' /></a> |
+    								<img src='assets/images/icon/edit.gif' alt='"._MD_EDITO_EDIT."' /></a> |
                                     <a href='admin/content.php?op=dup&id=$id'>
-                                    <img src='images/icon/duplicate.gif' alt='"._MD_EDITO_DUPLICATE."' /></a> |
+                                    <img src='assets/images/icon/duplicate.gif' alt='"._MD_EDITO_DUPLICATE."' /></a> |
                                     <a href='admin/content.php?op=del&id=$id'>
-                                    <img src='images/icon/delete.gif' alt='"._MD_EDITO_DELETE."' /></a>";
+                                    <img src='assets/images/icon/delete.gif' alt='"._MD_EDITO_DELETE."' /></a>";
 	$info['infos'] = '';
 	$info['adminlinks'] = '';
 } elseif( $myrow["status"] != 5 ) {
 	$info['adminlink'] = "<a href='print.php?id=$id' target='_blank'>
-    					  <img src='images/icon/print.gif' alt='"._MD_EDITO_PRINT."' /></a>";
+    					  <img src='assets/images/icon/print.gif' alt='"._MD_EDITO_PRINT."' /></a>";
 
 	$info['infos'] = '';
 	$info['adminlinks'] = '';

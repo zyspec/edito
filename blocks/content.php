@@ -169,7 +169,7 @@ if ( $options[3] )	{
         $media_size =  edito_media_size($media_sizes, edito_getmoduleoption('custom'));
         $format = edito_checkformat( $media, edito_getmoduleoption('custom_media') );
         $filesize =  edito_fileweight( $media );
-        $fileinfo = '<img src="images/icon/'.$format[1].'.gif" alt="'.$filesize.'" />';
+        $fileinfo = '<img src="assets/images/icon/'.$format[1].'.gif" alt="'.$filesize.'" />';
 	} elseif ( $media_url ) {
     	include_once(XOOPS_ROOT_PATH. "/modules/".$module."/include/functions_media.php");
         include_once(XOOPS_ROOT_PATH. "/modules/".$module."/include/functions_mediasize.php");
@@ -204,7 +204,7 @@ if ( $options[3] )	{
     } elseif ( $options[4] == 'popup' AND $media ) {
     	//  include_once(XOOPS_ROOT_PATH. "/modules/".$module."/include/functions_media.php");
 	    $logo =  XOOPS_URL . '/'. edito_getmoduleoption('sbuploaddir') .'/'. $image;
-   		if ( !$image ) { $image = XOOPS_URL . '/modules/'. $module .'/images/media_video.gif'; }
+   		if ( !$image ) { $image = XOOPS_URL . '/modules/'. $module .'/assets/images/media_video.gif'; }
         if ( $format[1] == 'image' ) {
         	$image_display = $align_in.edito_media($media, $logo, '', '', $myrow["subject"], edito_getmoduleoption('custom_media')).$align_out;
         } else {
@@ -222,7 +222,7 @@ if ( $options[3] )	{
 	    include_once(XOOPS_ROOT_PATH. "/modules/".$module."/include/functions_media.php");
 	$media_options = 'AutoStart=1, ShowControls=1, ShowTracker=1, AnimationAtStart=1, TransparentAtStart=0, enableContextMenu=0, BufferingProgress=1, PreBuffer=1, VideoDelay=999, VideoBufferSize=9, loop='.edito_getmoduleoption('repeat').$align_media;
 	    $logo =  XOOPS_URL . '/'. edito_getmoduleoption('sbuploaddir') .'/'. $image;
-    	if ( !$image ) { $logo = XOOPS_URL . '/modules/'. $module .'/images/media_video.gif'; }
+    	if ( !$image ) { $logo = XOOPS_URL . '/modules/'. $module .'/assets/images/media_video.gif'; }
 	    if ( $format[1] == 'image' ) {
     		$image_display = $align_in.edito_media($media, $logo, '', '', $myrow["subject"], edito_getmoduleoption('custom_media')).$align_out;
 	    	$logo = $media;
@@ -521,11 +521,11 @@ function a_edito_menu_show($options) {
 
 			if ( $tags ){
             	if ( $startdate < $datesub ) {
-                	$fileinfo  .= '&nbsp;<img src="'.XOOPS_URL.'/modules/'.$module.'/images/icon/new.gif" alt="'.$alt_date.'" />';
+                	$fileinfo  .= '&nbsp;<img src="'.XOOPS_URL.'/modules/'.$module.'/assets/images/icon/new.gif" alt="'.$alt_date.'" />';
                 }
 
                 if ( $counter >= $tags_pop ) {
-                	$fileinfo .= '&nbsp;<img src="'.XOOPS_URL.'/modules/'.$module.'/images/icon/pop.gif" alt="'.$counter.'&nbsp;'._READS.'" />';
+                	$fileinfo .= '&nbsp;<img src="'.XOOPS_URL.'/modules/'.$module.'/assets/images/icon/pop.gif" alt="'.$counter.'&nbsp;'._READS.'" />';
                 }
 
 				if ( $media_file ) {
@@ -533,14 +533,14 @@ function a_edito_menu_show($options) {
                     $media    =  XOOPS_URL . '/'. $sbmediadir .'/'. $media_file;
                     $format   = edito_checkformat( $media, edito_getmoduleoption('custom_media') );
                     $filesize = edito_fileweight( $media );
-                    $fileinfo .= ' <img src="'.XOOPS_URL.'/modules/'.$module.'/images/icon/'.$format[1].'.gif" alt="'.$format[1].': '.$format[0].' ['.$filesize.'] ['.$media_file.']" />
+                    $fileinfo .= ' <img src="'.XOOPS_URL.'/modules/'.$module.'/assets/images/icon/'.$format[1].'.gif" alt="'.$format[1].': '.$format[0].' ['.$filesize.'] ['.$media_file.']" />
                     			   &nbsp;&nbsp;&nbsp;&nbsp;';
 				} elseif ( $media_url ) {
 					include_once (XOOPS_ROOT_PATH. "/modules/".$module."/include/functions_mediasize.php");
                     $media    =  $media_url;
                     $format   = edito_checkformat( $media, edito_getmoduleoption('custom_media') );
-                    $fileinfo .= ' <img src="'.XOOPS_URL.'/modules/'.$module.'/images/icon/'.$format[1].'.gif" alt="'.$format[1].': '.$format[0].' ['.$media.']" />
-                    			   <img src="'.XOOPS_URL.'/modules/'.$module.'/images/icon/ext.gif" alt="'._MB_EDITO_MEDIAURL.'"/>';
+                    $fileinfo .= ' <img src="'.XOOPS_URL.'/modules/'.$module.'/assets/images/icon/'.$format[1].'.gif" alt="'.$format[1].': '.$format[0].' ['.$media.']" />
+                    			   <img src="'.XOOPS_URL.'/modules/'.$module.'/assets/images/icon/ext.gif" alt="'._MB_EDITO_MEDIAURL.'"/>';
 				}
 			}
 

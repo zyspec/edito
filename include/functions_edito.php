@@ -178,11 +178,11 @@ function edito_GetExtensionName( $file, $dot=false) {
 function edito_adminmenu($currentoption = 0, $breadcrumb = '') {
 	echo "<style type='text/css'>
     	  #buttontop { float:left; width:100%; background: #e7e7e7; font-size:93%; line-height:normal; border-top: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; margin: 0; }
-          #buttonbar { float:left; width:100%; background: #e7e7e7 url('" . XOOPS_URL . "/modules/edito/images/bg.gif') repeat-x left bottom; font-size: 10px; line-height:normal; border-left: 1px solid black; border-right: 1px solid black; margin-bottom: 12px; }
+          #buttonbar { float:left; width:100%; background: #e7e7e7 url('" . XOOPS_URL . "/modules/edito/assets/images/bg.gif') repeat-x left bottom; font-size: 10px; line-height:normal; border-left: 1px solid black; border-right: 1px solid black; margin-bottom: 12px; }
           #buttonbar ul { margin:0; margin-top: 15px; padding:0px 5px 0; list-style:none; }
           #buttonbar li { display:inline; margin:0; padding:0; }
-          #buttonbar a { float:left; background:url('" . XOOPS_URL . "/modules/edito/images/left_both.gif') no-repeat left top; margin:0; padding:0 0 0 9px; border-bottom:1px solid #000; text-decoration:none; white-space: nowrap}
-          #buttonbar a span { float:left; display:block; background:url('" . XOOPS_URL . "/modules/edito/images/right_both.gif') no-repeat right top; padding:5px 15px 4px 6px; font-weight:bold; color:#765; white-space: nowrap}
+          #buttonbar a { float:left; background:url('" . XOOPS_URL . "/modules/edito/assets/images/left_both.gif') no-repeat left top; margin:0; padding:0 0 0 9px; border-bottom:1px solid #000; text-decoration:none; white-space: nowrap}
+          #buttonbar a span { float:left; display:block; background:url('" . XOOPS_URL . "/modules/edito/assets/images/right_both.gif') no-repeat right top; padding:5px 15px 4px 6px; font-weight:bold; color:#765; white-space: nowrap}
           * Commented Backslash Hack hides rule from IE5-Mac \*/
           #buttonbar a span {float:none;}
           /* End IE5-Mac hack */
@@ -269,7 +269,7 @@ function edito_statmenu($currentoption = 0, $breadcrumb = '') {
 	include 'menu.php';
 /*
 echo '<div id="adminmenu" style="visibility:hidden;position:absolute;z-index:100;top:-100"></div>';
-echo '<script language="JavaScript1.2" src="../script/popmenu.js" type="text/javascript"></script>';
+echo '<script language="JavaScript1.2" src="../assets/js/popmenu.js" type="text/javascript"></script>';
 echo'
      <script language="JavaScript1.2"  type="text/javascript">
      ';
@@ -406,9 +406,9 @@ function edito_admin_mkdir($target)
 			$res = mkdir($target, 0777); // crawl back up & create dir tree
 			edito_admin_chmod($target);
 			Global $xoopsModule;
-		  $blank_file = XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/images/blank.gif';
+		  $blank_file = XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/assets/images/blank.gif';
 		  copy($blank_file, $final_target.'/blank.gif');
-		  $logo_file = XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/images/content_slogo.png';
+		  $logo_file = XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/assets/images/content_slogo.png';
 		  copy($logo_file, $final_target.'/content_slogo.png');
 	  	return $res;
 	  }

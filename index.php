@@ -1,15 +1,25 @@
 <?php
-/**
-* XOOPS - PHP Content Management System
-* Copyright (c) 2004 <http://www.xoops.org/>
-*
-* Module: edito 3.0
-* Licence : GPL
-* Authors :
-*           - solo (http://www.wolfpackclan.com/wolfactory)
-*			- DuGris (http://www.dugris.info)
-*/
+/*
+ You may not change or alter any portion of this comment or credits of
+ supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit
+ authors.
 
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+/**
+ * Module: Edito
+ *
+ * @package   \XoopsModules\Edito
+ * @copyright Copyright {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @author    Solo (http://www.wolfpackclan.com/wolfactory)
+ * @author    DuGris (http://www.dugris.info)
+ * @author    XOOPS Module Development Team
+ * @link      https://github.com/XoopsModules25x/edito
+ */
 
 // This script is used to display the page list
 require_once __DIR__ . '/header.php';
@@ -101,24 +111,22 @@ $xoopsTpl->assign("banner", $banner);
 /* ----------------------------------------------------------------------- */
 /*                            Create admin links                           */
 /* ----------------------------------------------------------------------- */
-
-if ( $xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid()) ) {
+$adminlink = ''; // init admin links
+if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
 	$adminlink = "<a href='admin/content.php' title='" . _MD_EDITO_ADD."'>
-    			 <img src='images/icon/add.gif' alt='" . _MD_EDITO_ADD."' /></a> |
+    			   <img src='assets/images/icon/add.gif' alt='" . _MD_EDITO_ADD."'></a> |
                  <a href='admin/index.php' title='" . _MD_EDITO_LIST."'>
-                 <img src='images/icon/list.gif' alt='" . _MD_EDITO_LIST."' /></a> |
+                   <img src='assets/images/icon/list.gif' alt='" . _MD_EDITO_LIST."'></a> |
                  <a href='admin/utils_uploader.php' title='". _MD_EDITO_UTILITIES."'>
-                 <img src='images/icon/utilities.gif' alt='". _MD_EDITO_UTILITIES."' /></a> |
+                   <img src='assets/images/icon/utilities.gif' alt='". _MD_EDITO_UTILITIES."'></a> |
                  <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid'). "' title='" . _MD_EDITO_SETTINGS."'>
-                 <img src='images/icon/settings.gif' alt='" . _MD_EDITO_SETTINGS."' /></a> |
+                   <img src='assets/images/icon/settings.gif' alt='" . _MD_EDITO_SETTINGS."'></a> |
                  <a href='admin/myblocksadmin.php' title='" . _MD_EDITO_BLOCKS."'>
-                 <img src='images/icon/blocks.gif' alt='" . _MD_EDITO_BLOCKS."' /></a> |
+                   <img src='assets/images/icon/blocks.gif' alt='" . _MD_EDITO_BLOCKS."'></a> |
                  <a href='admin/help.php' title='" . _MD_EDITO_HELP."'>
-                 <img src='images/icon/help.gif' alt='" . _MD_EDITO_HELP."' /></a></span>";
-}else{
-	$adminlink = '';
+                   <img src='assets/images/icon/help.gif' alt='" . _MD_EDITO_HELP."'></a></span>";
 }
-$xoopsTpl->assign("adminlink", $adminlink);
+$xoopsTpl->assign('adminlink', $adminlink);
 
 /* ----------------------------------------------------------------------- */
 /*                              Define columns settings                    */
@@ -169,7 +177,7 @@ if ($numrows > 0) {	// That is, if there ARE editos in the system
             $user     = '<a href="../userinfo.php?uid='.$uid.'">'.$alt_user.'</a>';
             $alt_date = formatTimestamp($datesub,'m');
 
-            				/* ----------------------------------------------------------------------- */
+				/* ----------------------------------------------------------------------- */
 				/*                              Retrieve options                           */
 				/* ----------------------------------------------------------------------- */
                 $media = explode("|", $media);
@@ -193,11 +201,11 @@ if ($numrows > 0) {	// That is, if there ARE editos in the system
 			if ( $xoopsModuleConfig['tags'] ){
             	if ( $startdate < $datesub ) {
 					$datesub = formatTimestamp($datesub,'m');
-					$fileinfo  .= '&nbsp;<img src="images/icon/new.gif" alt="'.$alt_date.'" />';
+					$fileinfo  .= '&nbsp;<img src="assets/images/icon/new.gif" alt="'.$alt_date.'" />';
         		}
 
                 if ($counter >= $xoopsModuleConfig['tags_pop']) {
-					$fileinfo .= '&nbsp;<img src="images/icon/pop.gif" alt="'.$counter.'&nbsp;'._READS.'" />';
+					$fileinfo .= '&nbsp;<img src="assets/images/icon/pop.gif" alt="'.$counter.'&nbsp;'._READS.'" />';
         		}
 
 				if ( $xoopsModuleConfig['index_display'] == 'table' OR $xoopsModuleConfig['index_display'] == 'news') {
@@ -207,18 +215,16 @@ if ($numrows > 0) {	// That is, if there ARE editos in the system
 					if ( $media_file ) {
 						include_once ("include/functions_mediasize.php");
 						$media    =  XOOPS_URL . '/'. $xoopsModuleConfig['sbmediadir'] .'/'. $media_file;
-                                                $format   = edito_checkformat( $media, $xoopsModuleConfig['custom_media'] );
-                                                $filesize = edito_fileweight( $media );
-                                                $fileinfo .= ' <img src="images/icon/'.$format[1].'.gif" alt="'.$format[1].': '.$format[0].' ['.$filesize.'] ['.$media_file.']" />
- 				     ';
+                        $format   = edito_checkformat( $media, $xoopsModuleConfig['custom_media'] );
+                        $filesize = edito_fileweight( $media );
+                        $fileinfo .= ' <img src="assets/images/icon/'.$format[1].'.gif" alt="'.$format[1].': '.$format[0].' ['.$filesize.'] ['.$media_file.']" />';
 					} elseif ( $media_url ) {
 						include_once ("include/functions_mediasize.php");
 						$media    =  $media_url;
 						$format   = edito_checkformat( $media, $xoopsModuleConfig['custom_media'] );
-						$fileinfo .= ' <img
-                                                                    src="images/icon/'.$format[1].'.gif"
-                                                                    alt="'.$format[1].': '.$format[0].' ['.$media.']" />
-                        			   <img src="images/icon/ext.gif" alt="' . _MD_EDITO_MEDIAURL.'"/>';
+						$fileinfo .= ' <img src="assets/images/icon/'.$format[1].'.gif"
+                                         alt="'.$format[1].': '.$format[0].' ['.$media.']">
+                        			   <img src="assets/images/icon/ext.gif" alt="' . _MD_EDITO_MEDIAURL.'">';
             		}
 
             		if ( $media_file || $media_url ) {
@@ -246,11 +252,11 @@ if ($numrows > 0) {	// That is, if there ARE editos in the system
 			/* ----------------------------------------------------------------------- */
             if ( $xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid()) ) {
             	$adminlinks = "<a href='admin/content.php?op=mod&id=".$id."' title='" . _MD_EDITO_EDIT."'>
-       			      <img src='images/icon/edit.gif' alt='" . _MD_EDITO_EDIT."' /></a> |
-                              <a href='admin/content.php?op=del&id=".$id."' title='" . _MD_EDITO_DELETE."'>
-                              <img src='images/icon/delete.gif' alt='" . _MD_EDITO_DELETE."' /></a> |
-                              <a href='print.php?id=".$id."' target='_blank'  title='" . _MD_EDITO_PRINT."'/>
-                              <img src='images/icon/print.gif' alt='" . _MD_EDITO_PRINT."' /></a>";
+       			                 <img src='assets/images/icon/edit.gif' alt='" . _MD_EDITO_EDIT."'></a> |
+                               <a href='admin/content.php?op=del&id=".$id."' title='" . _MD_EDITO_DELETE."'>
+                                 <img src='assets/images/icon/delete.gif' alt='" . _MD_EDITO_DELETE."'></a> |
+                               <a href='print.php?id=".$id."' target='_blank'  title='" . _MD_EDITO_PRINT."'>
+                                 <img src='assets/images/icon/print.gif' alt='" . _MD_EDITO_PRINT."'></a>";
 			} else {
 				$adminlinks = '';
    			}

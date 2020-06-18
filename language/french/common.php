@@ -23,11 +23,11 @@
 
 define("_MD_EDITO_CREDIT",	        "Edito 3.0 est une creation de Solo (%s), %s et %s - (c) Juin - Novembre 2006 <p />
                                         <a href='http://wolfactory.wolfpackclan.com/' title='wolFactory' target='_blank'>&nbsp;
-                                        <img src='../images/wolfactory_tag.png' alt='wolFactory' align='absmiddle' />
+                                        <img src='../assets/images/wolfactory_tag.png' alt='wolFactory' align='absmiddle' />
                                         </a>
-                                        <img src='../images/edito_tag.png'   alt='Edito' align='absmiddle' />
-                                        <img src='../images/clone_tag.png'   alt='Clone Powered' align='absmiddle' />
-                                        <img src='../images/metagen_tag.png' alt='Metagen Powered' align='absmiddle' />");
+                                        <img src='../assets/images/edito_tag.png'   alt='Edito' align='absmiddle' />
+                                        <img src='../assets/images/clone_tag.png'   alt='Clone Powered' align='absmiddle' />
+                                        <img src='../assets/images/metagen_tag.png' alt='Metagen Powered' align='absmiddle' />");
 
 define("_MD_EDITO_LOREMIPSUM",			"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. In eget odio et dolor eleifend vulputate. Integer molestie rhoncus purus. Phasellus vitae est. Nullam pretium cursus leo. Praesent non ligula. Ut quis velit posuere mauris malesuada rutrum. Vivamus vestibulum lacus luctus sapien. Nam magna pede, mattis in, interdum sit amet, adipiscing vitae, massa. Sed leo est, sagittis eget, sodales vitae, venenatis ac, nisl. Aenean ac massa at justo tempor mollis. Aliquam aliquam vulputate justo. Nunc fermentum diam mattis pede iaculis porta. Integer arcu. Vestibulum molestie quam non eros. Suspendisse sed mauris eget orci vehicula fermentum. Sed placerat metus. Sed nibh. Pellentesque vel elit nec mauris dapibus aliquet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.<br />
 <br />

@@ -1,4 +1,4 @@
-![Edito Module](../images/edito_slogo.png)
+![Edito Module](../assets/images/edito_slogo.png)
 ![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
 ## Edito module for [XOOPS CMS 2.5.10+](https://xoops.org)
 [![XOOPS CMS Module](https://img.shields.io/badge/XOOPS%20CMS-Module-blue.svg)](https://xoops.org)

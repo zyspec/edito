@@ -53,23 +53,23 @@ if ( defined("_XI_MIMETYPE") ) {
 
 if (isset($xoopsModule)) {
   	$i=0;
-  	$headermenu[$i]['title']	= '<img src="../images/icon/home.gif" align="absmiddle" alt="'._MI_EDITO_GOTO_INDEX.'"/>';
+  	$headermenu[$i]['title']	= '<img src="../assets/images/icon/home.gif" align="absmiddle" alt="'._MI_EDITO_GOTO_INDEX.'"/>';
   	$headermenu[$i]['alt']	        = _MI_EDITO_GOTO_INDEX;
 	$headermenu[$i++]['link']	= '../';
 
-	$headermenu[$i]['title']	= '<img src="../images/icon/submit.gif" align="absmiddle" alt="'._MI_EDITO_SUBMIT.'"/>';
+	$headermenu[$i]['title']	= '<img src="../assets/images/icon/submit.gif" align="absmiddle" alt="'._MI_EDITO_SUBMIT.'"/>';
 	$headermenu[$i]['alt']	        = _MI_EDITO_SUBMIT;
 	$headermenu[$i++]['link']	= "../submit.php";
 
-	$headermenu[$i]['title']	= '<img src="../images/icon/settings.gif" align="absmiddle" alt="'._MI_EDITO_SETTINGS.'"/>';
+	$headermenu[$i]['title']	= '<img src="../assets/images/icon/settings.gif" align="absmiddle" alt="'._MI_EDITO_SETTINGS.'"/>';
 	$headermenu[$i]['alt']	        = _MI_EDITO_SETTINGS;
 	$headermenu[$i++]['link']	= '../../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=' . $xoopsModule->getVar('mid');
 
-	$headermenu[$i]['title']	= '<img src="../images/icon/update.gif" align="absmiddle" alt="'._MI_EDITO_UPDATE_MODULE.'"/>';
+	$headermenu[$i]['title']	= '<img src="../assets/images/icon/update.gif" align="absmiddle" alt="'._MI_EDITO_UPDATE_MODULE.'"/>';
 	$headermenu[$i]['alt']	        = _MI_EDITO_UPDATE_MODULE;
 	$headermenu[$i++]['link']	= "../../system/admin.php?fct=modulesadmin&op=update&module=" . $xoopsModule->getVar('dirname');
 
-	$headermenu[$i]['title']	= '<img src="../images/icon/help.gif" align="absmiddle" alt="'._MI_EDITO_HELP.'"/>';
+	$headermenu[$i]['title']	= '<img src="../assets/images/icon/help.gif" align="absmiddle" alt="'._MI_EDITO_HELP.'"/>';
 	$headermenu[$i]['alt']	        = _MI_EDITO_HELP;
 	$headermenu[$i++]['link']	= "help.php";
 }

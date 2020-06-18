@@ -41,7 +41,7 @@ function edito_search($queryarray, $andor, $limit, $offset, $userid){
 		$groups = explode(" ",$myrow['groups']);
 		if (count(array_intersect($group,$groups)) > 0)
 		{
-			$ret[$i]['image'] = "images/content.gif";
+			$ret[$i]['image'] = "assets/images/content.gif";
 			$ret[$i]['link'] = "content.php?id=".$myrow['id']."";
 			$ret[$i]['title'] = $myrow['subject'];
 			$ret[$i]['time'] = $myrow['datesub'];

@@ -29,8 +29,8 @@ if ( file_exists(XOOPS_ROOT_PATH . '/modules/xoopsinfo/include/mimetypes.php') )
 edito_create_all_dir();
 
 function edito_create_all_dir() {
-	$img_edito = EDITO_ROOT_PATH . "images/edito_slogo.png";
-	$img_source = EDITO_ROOT_PATH . "images/blank.gif";
+	$img_edito = EDITO_ROOT_PATH . "assets/images/edito_slogo.png";
+	$img_source = EDITO_ROOT_PATH . "assets/images/blank.gif";
 	$ind_source = XOOPS_ROOT_PATH . "/uploads/index.html";
 
 	$dest = edito_create_dir();

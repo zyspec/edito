@@ -225,14 +225,14 @@ Indiquez le titre court de la page (Voir aussi meta titre). Ce titre est employï
 <ul><b>2) <u>Statuts</u></b>
 Il y a 6 statuts possibles pour votre page.
 <ul><ol>
-    <li><img src='../images/icon/online.gif' align='absmiddle' /> <b>Afficher :</b> Affichage normal de la page dans le module.</li>
-    <li><img src='../images/icon/waiting.gif' align='absmiddle' /> <b>En attente :</b> La page est en attente de validation. Elle n'est visible que par les administrateurs.</li>
-    <li><img src='../images/icon/hidden.gif' align='absmiddle' /> <b>Cacher :</b> Affichage de la page indï¿½pendamment de toute information relative au module.
+    <li><img src='../assets/images/icon/online.gif' align='absmiddle' /> <b>Afficher :</b> Affichage normal de la page dans le module.</li>
+    <li><img src='../assets/images/icon/waiting.gif' align='absmiddle' /> <b>En attente :</b> La page est en attente de validation. Elle n'est visible que par les administrateurs.</li>
+    <li><img src='../assets/images/icon/hidden.gif' align='absmiddle' /> <b>Cacher :</b> Affichage de la page indï¿½pendamment de toute information relative au module.
 	La page n'est pas reprise dans les indexes du module, ni dans le bloc de menu.</li>
-	<li><img src='../images/icon/offline.gif' align='absmiddle' /> <b>Dï¿½sactiver :</b> La page est totalement innaccessible.</li>
-    <li><img src='../images/icon/html.gif' align='absmiddle' /> <b>Mode HTML :</b> Affiche le contenu de la page uniquement en mode html.
+	<li><img src='../assets/images/icon/offline.gif' align='absmiddle' /> <b>Dï¿½sactiver :</b> La page est totalement innaccessible.</li>
+    <li><img src='../assets/images/icon/html.gif' align='absmiddle' /> <b>Mode HTML :</b> Affiche le contenu de la page uniquement en mode html.
 	N'interprï¿½te pas les codes XOOPS et autre retours ï¿½ la ligne ï¿½ventuels.</li>
-	<li><img src='../images/icon/php.gif' align='absmiddle' /> <b>Mode php :</b> Interprï¿½te le contenu de la page comme du code php.</li>
+	<li><img src='../assets/images/icon/php.gif' align='absmiddle' /> <b>Mode php :</b> Interprï¿½te le contenu de la page comme du code php.</li>
 </ol></ul><ul>
 <b>3) <u>Contenu du Block</u></b>
 Le contenu renseignï¿½ dans cette zone de texte, s'affichera prioritairement dans les blocs de contenu du module.
@@ -248,7 +248,7 @@ Le contenu renseignï¿½ dans cette zone de texte est utilisï¿½ sur la page princi
 Le contenu de cette zone est aussi utilisï¿½ pour gï¿½nï¿½rer automatiquement les metakeywords.
 En mode php, c'est dans cette zone que doit ï¿½tre indiquï¿½e le code php ï¿½ interprï¿½ter. A noter qu'il ne faut pas renseigner les balises <b>&#139;? php</b> et <b>?&#155;</b> habituelles.
 </ul>
-<img src='../images/icon/tip.gif' align='absleft' /><b>Balises spï¿½ciales</b> : les balises suivantes peuvent ï¿½tre utilisï¿½es dans le texte :
+<img src='../assets/images/icon/tip.gif' align='absleft' /><b>Balises spï¿½ciales</b> : les balises suivantes peuvent ï¿½tre utilisï¿½es dans le texte :
 <ul><ol>
     <li><i><b>[pagebreak]</b></i> : pour afficher le contenu sur plusieurs pages.</li>
     <li><i><b>{media}</b></i> pour afficher le media courant dans le texte. En utilisant cette balise, le media ne s'affichera plus en tï¿½te de page.</li>

@@ -21,9 +21,9 @@
  */
 
 define('_MD_EDITO_CREDIT', "Edito 3.x is a creation of Solo (Solo71)<br>
-                            <img src='../images/edito_tag.gif' alt='Edito' align='absmiddle'>
+                            <img src='../assets/images/edito_tag.gif' alt='Edito' align='absmiddle'>
                             <a href='http://wolfactory.wolfpackclan.com/' target='_blank'>
-                            <img src='../images/wolfactory_tag.gif' alt='wolFactory' align='absmiddle'>
+                            <img src='../assets/images/wolfactory_tag.gif' alt='wolFactory' align='absmiddle'>
                             </a>(c) June 2006
                             ");
 
