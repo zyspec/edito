@@ -1,17 +1,25 @@
 <?php
-/**
-* XOOPS - PHP Content Management System
-* Copyright (c) 2001 - 2006 <http://www.xoops.org/>
-*
-* Module: xoopsinfo 2.0
-* Licence : GPL
-* Authors :
-*              - Jmorris
-*              - Marco
-*              - Christian
-*              - DuGris (http://www.dugris.info)
-*/
+/*
+ You may not change or alter any portion of this comment or credits of
+ supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit
+ authors.
 
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+/**
+ * Module: Edito
+ *
+ * @package   \XoopsModules\Edito
+ * @copyright Copyright {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @author    Solo (http://www.wolfpackclan.com/wolfactory)
+ * @author    DuGris (http://www.dugris.info)
+ * @author    XOOPS Module Development Team
+ * @link      https://github.com/XoopsModules25x/edito
+ */
 
 global $xoopsDB, $xoopsConfig, $xoopsModule;
 
@@ -66,7 +74,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' && !$create) {
 		$mperm_maxsize   = (isset($_REQUEST['mperm_maxsize']))   ? intval($_REQUEST['mperm_maxsize'])    : 0 ;
 		$result    = true;
 
-		$mimetypes_Handler =& xoops_gethandler('mimetypes_perms');
+		$mimetypes_Handler = xoops_gethandler('mimetypes_perms');
 		if ( $mperm_id != 0 ) {
 			$mimeObj = new XoopsMimetypes_perms($mperm_id);
 			if ( $mperm_mime == $mimeObj->mperm_mime() ) {
@@ -90,11 +98,11 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' && !$create) {
 				}
 			}
 		}
-		redirect_header( 'mimetypes.php?' . $uri, 3, _MD_AM_DBUPDATED);
+		redirect_header( 'mimetypes.php?' . $uri, 3, _AM_AM_DBUPDATED);
 	}
 
 	if ( $op == 'saveall' ) {
-		$mimetypes_Handler =& xoops_gethandler('mimetypes_perms');
+		$mimetypes_Handler = xoops_gethandler('mimetypes_perms');
 		$mperm_ids = ($_REQUEST['mperm_id']) ? ($_REQUEST['mperm_id']) : array();
 		foreach( $mperm_ids as $mperm_id => $value) {
 			$mperm_mime = $_REQUEST['mperm_mime'][$mperm_id];
@@ -141,24 +149,24 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' && !$create) {
 				}
 			}
 		}
-		redirect_header( 'mimetypes.php?' . $uri, 3, _MD_AM_DBUPDATED);
+		redirect_header( 'mimetypes.php?' . $uri, 3, _AM_AM_DBUPDATED);
 		exit();
 	}
 
 	if ( $op == 'dele' && $confirm) {
-		$mimetypes_Handler =& xoops_gethandler('mimetypes_perms');
+		$mimetypes_Handler = xoops_gethandler('mimetypes_perms');
 		$mimeObj = new XoopsMimetypes_perms($mperm_id);
 		if (!$mimetypes_Handler->deletebyMime($mimeObj, true) ) {
 			redirect_header('mimetypes.php?' . $uri, 3, $mimetypes_Handler->getHtmlErrors() );
 		}
-		redirect_header( 'mimetypes.php?mid=' . $mid . '&status=' . $status, 3, _MD_AM_DBUPDATED );
+		redirect_header( 'mimetypes.php?mid=' . $mid . '&status=' . $status, 3, _AM_AM_DBUPDATED );
 		exit();
 	}
 }
 
 switch($op) {
 	case 'hide':
-	$mimetypes_Handler =& xoops_gethandler('mimetypes_perms');
+	$mimetypes_Handler = xoops_gethandler('mimetypes_perms');
 	$mimeObjs = $mimetypes_Handler->get_byMimeModule($mime_id, $mid);
 	foreach ($mimeObjs as $mimeObj) {
 		$mimeObj->setVar('mperm_status', 0);
@@ -166,11 +174,11 @@ switch($op) {
 			redirect_header('mimetype.php?' . $uri, 3, $mimetypes_Handler->getHtmlErrors() );
 		}
 	}
-	redirect_header( 'mimetypes.php?' . $uri, 3, _MD_AM_DBUPDATED);
+	redirect_header( 'mimetypes.php?' . $uri, 3, _AM_AM_DBUPDATED);
 	break;
 
 	case 'view':
-	$mimetypes_Handler =& xoops_gethandler('mimetypes_perms');
+	$mimetypes_Handler = xoops_gethandler('mimetypes_perms');
 	$mimeObjs = $mimetypes_Handler->get_byMimeModule($mime_id, $mid);
 	foreach ($mimeObjs as $mimeObj) {
 		$mimeObj->setVar('mperm_status', 1);
@@ -178,7 +186,7 @@ switch($op) {
 			redirect_header('mimetypes.php?' . $uri, 3, $mimetypes_Handler->getHtmlErrors() );
 		}
 	}
-	redirect_header( 'mimetypes.php?' . $uri, 3, _MD_AM_DBUPDATED);
+	redirect_header( 'mimetypes.php?' . $uri, 3, _AM_AM_DBUPDATED);
 	break;
 
 	case 'dele':
@@ -209,4 +217,3 @@ switch($op) {
 	}
 	break;
 }
-?>

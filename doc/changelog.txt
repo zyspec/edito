@@ -1,4 +1,18 @@
 <!-- TODO
+ - replace WYSIWYG editors with XOOPS Editor class
+ - replace gticketing system with XOOPS Security
+ - update Admin to XOOPS GUI admin (Xmf\Module\Admin)
+ - convert to using namespace
+ - rename templates from .html to .tpl
+ - create class / handler for edito content
+ - create update script to switch SQL table from content_edito to edito_content
+ - move js and images to ./assets folder
+ - create new module logo image
+ - harden var input by using Xmf\Request
+ - remove code specifically creaetdfor XOOPS < 2.5
+ - convert arrays to use short array syntax
+ - reduce/eliminate use of globals
+ - cleanup file includes (use require where appropriate), eliminate duplicate inclusions
 -->
 <h5>3.1 Alpha 1 [Unreleased]<h5>  Dev: XOOPS 2.5.10, PHP 7.2.31
 - updated SQL - changed table name from 'content_edito' to 'edito_content'
@@ -6,6 +20,13 @@
 - fixed bug loading myblocksadmin2.php in ./admin/blocks.php
 - fixed pass-by-reference instances
 - cleanup language files
+  - convert admin language defines to use _AM_ prefix
+  - convert main language defines to use _MD_ prefix
+  - added missing defines in english admin translation
+- update $HTTP_GET & $HTTP_POST with $_GET & $POST respectively
+- remove closing ?> in PHP files
+- replace use of deprecated ModuleTextSanitizer methods
+- updated phpDoc comments
 
 <h5>3.07 [2007-10-19]</h5>
 Last known release by Wolfpackclan Solo and DuGris

@@ -191,11 +191,11 @@ function edito_GetOption($option, $repmodule = '.$xoopsModule->dirname().' ) {
 			$retval= $xoopsModuleConfig[$option];
 		}
 	} else {
-		$module_handler =& xoops_gethandler('module');
-		$module =& $module_handler->getByDirname($repmodule);
-		$config_handler =& xoops_gethandler('config');
+		$module_handler = xoops_gethandler('module');
+		$module = $module_handler->getByDirname($repmodule);
+		$config_handler = xoops_gethandler('config');
 		if ($module) {
-		    $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+		    $moduleConfig = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
 	    	if(isset($moduleConfig[$option])) {
 	    		$retval= $moduleConfig[$option];
 	    	}
@@ -222,8 +222,8 @@ function edito_checkRight( $refererid ) {
     $groups = is_object( $xoopsUser ) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gperm_handler = xoops_gethandler( 'groupperm' );
 
-	$module_handler =& xoops_gethandler('module');
-	$editoModule =& $module_handler->getByDirname($xoopsModule->dirname());
+	$module_handler = xoops_gethandler('module');
+	$editoModule = $module_handler->getByDirname($xoopsModule->dirname());
 	if ( $gperm_handler->checkRight( 'edito_wiew', $refererid, $groups, $editoModule->getVar('mid') ) ) {
     	return true;
     }
@@ -239,7 +239,7 @@ function edito_checkRight( $refererid ) {
  */
 function edito_GetMeta($key)
 {
-    $xoopsDB =& Database::getInstance();
+    $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
     $sql = sprintf("SELECT conf_value FROM %s WHERE conf_name=%s", $xoopsDB->prefix('myref_config'), $xoopsDB->quoteString($key));
     $ret = $xoopsDB->query($sql);
     if (!$ret) {
@@ -304,7 +304,7 @@ function edito_admin_chmod($target, $mode = 0777)
  */
 function edito_SetMeta($key, $value)
 {
-    $xoopsDB =& Database::getInstance();
+    $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
     if(edito_GetMeta($key)){
         $sql = sprintf("UPDATE %s SET conf_value = %s WHERE conf_name = %s", $xoopsDB->prefix('myref_config'), $xoopsDB->quoteString($value), $xoopsDB->quoteString($key));
     } else {
@@ -329,7 +329,7 @@ function edito_SetMeta($key, $value)
 function edito_FieldnameExists($table, $field)
 {
     $bRetVal = false;
-    $xoopsDB =& Database::getInstance();
+    $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
     $sql = 'SHOW COLUMNS FROM ' . $xoopsDB->prefix($table);
     $ret = $xoopsDB->queryF($sql);
     while (list($m_fieldname)=$xoopsDB->fetchRow($ret)) {
@@ -355,7 +355,7 @@ function edito_TableExists($table)
 
     $bRetVal = false;
     //Verifies that a MySQL table exists
-    $xoopsDB =& Database::getInstance();
+    $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
     $realname = $xoopsDB->prefix($table);
     $sql = "SHOW TABLES FROM " . XOOPS_DB_NAME;
     $ret = $xoopsDB->queryF($sql);
@@ -369,5 +369,3 @@ function edito_TableExists($table)
     $xoopsDB->freeRecordSet($ret);
     return ($bRetVal);
 }
-
-?>

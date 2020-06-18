@@ -27,13 +27,13 @@ if ($modid <= 0 || !is_object($xoopsUser) || !$xoopsUser->isAdmin($modid)) {
 	redirect_header(XOOPS_URL.'/user.php', 1, _NOPERM);
 	exit();
 }
-$module_handler =& xoops_gethandler('module');
-$module =& $module_handler->get($modid);
+$module_handler = xoops_gethandler('module');
+$module = $module_handler->get($modid);
 if (!is_object($module) || !$module->getVar('isactive')) {
 	redirect_header(XOOPS_URL.'/admin.php', 1, _MODULENOEXIST);
 	exit();
 }
-$member_handler =& xoops_gethandler('member');
+$member_handler = xoops_gethandler('member');
 $group_list = $member_handler->getGroupList();
 if (is_array($_POST['perms']) && !empty($_POST['perms'])) {
 	$gperm_handler = xoops_gethandler('groupperm');
@@ -60,7 +60,7 @@ if (is_array($_POST['perms']) && !empty($_POST['perms'])) {
 								}
 							}
 						}
-						$gperm =& $gperm_handler->create();
+						$gperm = $gperm_handler->create();
 						$gperm->setVar('gperm_groupid', $group_id);
 						$gperm->setVar('gperm_name', $perm_name);
 						$gperm->setVar('gperm_modid', $modid);
@@ -92,4 +92,3 @@ $msg[] = '<br /><br /><a href="'.$backlink.'">'._BACK.'</a>';
 xoops_cp_header();
 xoops_result($msg);
 xoops_cp_footer();  GIJ */
-?>

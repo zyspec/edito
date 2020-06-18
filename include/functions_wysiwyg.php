@@ -99,4 +99,3 @@ function edito_getWysiwygForm($type = 'dhtml', $caption, $name, $value = '', $wi
 	}
 	return $wysiwyg;
 }
-?>

@@ -21,12 +21,10 @@ $group = is_object($xoopsUser) ? $xoopsUser->getGroups() : array(XOOPS_GROUP_ANO
 // $groups = explode(" ",$xoopsModuleConfig['submit_groups']);
 if (count(array_intersect($group,$xoopsModuleConfig['submit_groups'])) <= 0) {
 	redirect_header("index.php",2,_NOPERM);
-	exit();
 }
 
 
-if ( isset($_POST['subject']) && $_POST['subject'] != '')
-{
+if ( isset($_POST['subject']) && $_POST['subject'] != '') {
   $subject = $_POST['subject'];
   if ( isset($_POST['media'])   )      { $media = $_POST['media']; } else { $media = ''; }
   if ( isset($_POST['description']) )  { $description = $_POST['description']; } else { $description = ''; }
@@ -68,11 +66,11 @@ if ( isset($_POST['subject']) && $_POST['subject'] != '')
                             '$groups',
                             '$options')" ) )
 			{
-				$redirect = _EDITO_THANKS_SUBMIT;
+				$redirect = _MD_EDITO_THANKS_SUBMIT;
 			}
 			else
 			{
-				$redirect = _EDITO_THANKS_NOSUBMIT;
+				$redirect = _MD_EDITO_THANKS_NOSUBMIT;
 			}
 
 	redirect_header('submit.php', 2, $redirect);
@@ -109,36 +107,32 @@ $xoopsTpl->assign("banner", $banner);
 /* ----------------------------------------------------------------------- */
 /*                              Render  variables                          */
 /* ----------------------------------------------------------------------- */
-$xoopsTpl->assign('submit',  _EDITO_SUBMIT);
-$xoopsTpl->assign('submitext',  _EDITO_SUBMITEXT);
-$xoopsTpl->assign('subject', _EDITO_SUBJECT);
-$xoopsTpl->assign('media',   _EDITO_MEDIA);
-$xoopsTpl->assign('text',    _EDITO_TEXT);
-$xoopsTpl->assign("footer",  $myts->makeTareaData4Show($xoopsModuleConfig['footer']));
+$xoopsTpl->assign('submit',  _MD_EDITO_SUBMIT);
+$xoopsTpl->assign('submitext',  _MD_EDITO_SUBMITEXT);
+$xoopsTpl->assign('subject', _MD_EDITO_SUBJECT);
+$xoopsTpl->assign('media',   _MD_EDITO_MEDIA);
+$xoopsTpl->assign('text',    _MD_EDITO_TEXT);
+$xoopsTpl->assign("footer",  $myts->displayTarea($xoopsModuleConfig['footer']));
 
 /* ----------------------------------------------------------------------- */
 /*                             Admin links                                 */
 /* ----------------------------------------------------------------------- */
-if ( $xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid()) ) {
-	$adminlinks = "<a href='admin/content.php' title='"._EDITO_ADD."'>
-    			 <img src='images/icon/add.gif' alt='"._EDITO_ADD."' /></a> |
-                 <a href='admin/index.php' title='"._EDITO_LIST."'>
-                 <img src='images/icon/list.gif' alt='"._EDITO_LIST."' /></a> |
-                 <a href='admin/utils_uploader.php' title='"._EDITO_UTILITIES."'>
-                 <img src='images/icon/utilities.gif' alt='"._EDITO_UTILITIES."' /></a> |
-                 <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid'). "' title='"._EDITO_SETTINGS."'>
-                 <img src='images/icon/settings.gif' alt='"._EDITO_SETTINGS."' /></a> |
-                 <a href='admin/myblocksadmin.php' title='"._EDITO_BLOCKS."'>
-                 <img src='images/icon/blocks.gif' alt='"._EDITO_BLOCKS."' /></a> |
-                 <a href='admin/help.php' title='"._EDITO_HELP."'>
-                 <img src='images/icon/help.gif' alt='"._EDITO_HELP."' /></a></span>";
-}else{
-	$adminlinks = '';
+$adminlinks = ''; //init administration links
+if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
+	$adminlinks = "<a href='admin/content.php' title='"._MD_EDITO_ADD."'>
+    			 <img src='images/icon/add.gif' alt='"._MD_EDITO_ADD."' /></a> |
+                 <a href='admin/index.php' title='"._MD_EDITO_LIST."'>
+                 <img src='images/icon/list.gif' alt='"._MD_EDITO_LIST."' /></a> |
+                 <a href='admin/utils_uploader.php' title='"._MD_EDITO_UTILITIES."'>
+                 <img src='images/icon/utilities.gif' alt='"._MD_EDITO_UTILITIES."' /></a> |
+                 <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid'). "' title='"._MD_EDITO_SETTINGS."'>
+                 <img src='images/icon/settings.gif' alt='"._MD_EDITO_SETTINGS."' /></a> |
+                 <a href='admin/myblocksadmin.php' title='"._MD_EDITO_BLOCKS."'>
+                 <img src='images/icon/blocks.gif' alt='"._MD_EDITO_BLOCKS."' /></a> |
+                 <a href='admin/help.php' title='"._MD_EDITO_HELP."'>
+                 <img src='images/icon/help.gif' alt='"._MD_EDITO_HELP."' /></a></span>";
 }
 
-$xoopsTpl->assign("adminlinks", $adminlinks);
+$xoopsTpl->assign('adminlinks', $adminlinks);
 
-
-
-include_once(XOOPS_ROOT_PATH."/footer.php");
-?>
+require_once XOOPS_ROOT_PATH . '/footer.php';

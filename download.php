@@ -19,7 +19,7 @@ if (isset($_GET['id'])) $id = intval($_GET['id']);
 if (isset($_POST['id'])) $id = intval($_POST['id']);
 
 if(!isset($id)) {
-	redirect_header('index.php', 2, _EDITO_PL_SELECT);
+	redirect_header('index.php', 2, _MD_EDITO_PL_SELECT);
 	exit();
 }
 
@@ -28,7 +28,7 @@ $result = $xoopsDB->queryF($sql);
 
 // Does edito exist?
 if( $xoopsDB->getRowsNum( $result )<=0 )  {		// edito can't be found
-	redirect_header("index.php",2,_EDITO_NOT_FOUND);
+	redirect_header('index.php', 2, _MD_EDITO_NOT_FOUND);
 	exit();
 }
 
@@ -66,5 +66,3 @@ if ( $media_file ) {
    header('Content-disposition: attachment;
    filename='.basename($media_url));
    readfile($file);
-
-?>

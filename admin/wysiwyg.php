@@ -120,10 +120,10 @@ function check_wysiwyg() {
                   </tr>';
 */
 
-	$sform = new XoopsThemeForm( _MD_EDITO_EDITORS, "op", xoops_getenv( 'PHP_SELF' ) );
+	$sform = new XoopsThemeForm( _AM_EDITO_EDITORS, "op", xoops_getenv( 'PHP_SELF' ) );
     $sform -> setExtra( 'enctype="multipart/form-data"' );
 
-//    $sform -> addElement( new XoopsFormText( _MD_EDITO_CLONENAME, 'clone', 16, 16, '' ), true );
+//    $sform -> addElement( new XoopsFormText( _AM_EDITO_CLONENAME, 'clone', 16, 16, '' ), true );
 	$sform -> addElement($compact);
     $sform -> addElement($dhtml);
     $sform -> addElement($tiny);
@@ -142,10 +142,9 @@ switch ( $op ) {
 	case "check_wysiwyg":
     default:
     	include_once( "admin_header.php" );
-        edito_adminmenu(2, _MD_EDITO_EDITORS);
+        edito_adminmenu(2, _AM_EDITO_EDITORS);
         edito_statmenu(4, '');
         check_wysiwyg();
         include_once( 'admin_footer.php' );
     break;
 }
-?>

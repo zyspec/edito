@@ -1,29 +1,40 @@
 <?php
+/*
+ You may not change or alter any portion of this comment or credits of
+ supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit
+ authors.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 /**
-* XOOPS - PHP Content Management System
-* Copyright (c) 2004 <http://www.xoops.org/>
-*
-* Module: edito 3.0
-* Licence : GPL
-* Authors :
-*           - solo (http://www.wolfpackclan.com/wolfactory)
-*			- DuGris (http://www.dugris.info)
-*/
+ * Module: Edito
+ *
+ * @package   \XoopsModules\Edito
+ * @copyright Copyright {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @author    Solo (http://www.wolfpackclan.com/wolfactory)
+ * @author    DuGris (http://www.dugris.info)
+ * @author    XOOPS Module Development Team
+ * @link      https://github.com/XoopsModules25x/edito
+ */
 
 // Block
 define("_MB_EDITO_READMORE",		"Lire la suite...");
 define("_MB_EDITO_SEEMORE",		"Voir la suite...");
-define("_MB_EDITO_NUM",		        "N°");
+define("_MB_EDITO_NUM",		        "Nï¿½");
 define("_MB_EDITO_SUBJECT",		"Sujet");
-define("_MB_EDITO_SUMMARY",		"Résumé");
+define("_MB_EDITO_SUMMARY",		"Rï¿½sumï¿½");
 define("_MB_EDITO_INFO",		"Infos");
 define("_MB_EDITO_READ",		"Lus");
 define("_MB_EDITO_MEDIAURL",		"Media externe");
 
-// Préférences Menu
+// Prï¿½fï¿½rences Menu
 define("_MB_EDITO_MAXLENGTH",		"[TEXT] Taille maximum dans le bloc");
 define("_MB_EDITO_LENGTH",			"Longueur du titre maximum ");
-define("_MB_EDITO_CHAR",			"caractères");
+define("_MB_EDITO_CHAR",			"caractï¿½res");
 
 define("_MB_EDITO_FORMAT",		"Format d'affichage : ");
 define("_MB_EDITO_MENU",			"Menu ");
@@ -33,24 +44,24 @@ define("_MB_EDITO_EXT",				"Etendu");
 
 define("_MB_EDITO_COLUMNS",		"Nombre de colonnes : ");
 define("_MB_EDITO_PICSIZE",		"Taille des images : ");
-define("_MB_EDITO_NUMBER",		"Nombre de liens à afficher : ");
+define("_MB_EDITO_NUMBER",		"Nombre de liens ï¿½ afficher : ");
 
 define("_MB_EDITO_ORDER",		"Classement par");
 define("_MB_EDITO_ORDER_SUBJECT_ASC",		"Titre croissant");
-define("_MB_EDITO_ORDER_SUBJECT_DESC",	        "Titre décroissant");
+define("_MB_EDITO_ORDER_SUBJECT_DESC",	        "Titre dï¿½croissant");
 define("_MB_EDITO_ORDER_DATE_ASC",		"Le plus vieux");
-define("_MB_EDITO_ORDER_DATE_DESC",		"Le plus récent");
+define("_MB_EDITO_ORDER_DATE_DESC",		"Le plus rï¿½cent");
 define("_MB_EDITO_ORDER_COUNTER",		"Le plus lu");
 
 
 define("_MB_EDITO_SELECT_EDITO",	"[TEXT] Choisir une page");
 define("_MB_EDITO_SELECT_RANDOM",		"- Au hasard");
-define("_MB_EDITO_SELECT_LATEST",		"- Le plus récent");
+define("_MB_EDITO_SELECT_LATEST",		"- Le plus rï¿½cent");
 define("_MB_EDITO_SELECT_POP",			"- Le plus lu");
-define("_MB_EDITO_SELECT_LINKED",		"- Lié à la page");
+define("_MB_EDITO_SELECT_LINKED",		"- Liï¿½ ï¿½ la page");
 // myPinup - Added 27/09/04
-define("_MB_EDITO_SELECT_DAY",			"- Chaque jours de l'année");
-define("_MB_EDITO_SELECT_WEEK",			"- Chaque semaine de l'année");
+define("_MB_EDITO_SELECT_DAY",			"- Chaque jours de l'annï¿½e");
+define("_MB_EDITO_SELECT_WEEK",			"- Chaque semaine de l'annï¿½e");
 define("_MB_EDITO_SELECT_WEEKDAY",	        "- Chaque jour de la semaine");
 //
 define("_MB_EDITO_SELECT_NONE",			"- -----------");
@@ -63,4 +74,3 @@ define("_MB_EDITO_MEDIA_DISPLAY",	"[MEDIA] Affichage du media");
 define("_MB_EDITO_SELECT_POPUP",		"Popup");
 define("_MB_EDITO_SELECT_PAGE",	                "Bloc");
 define("_MB_EDITO_SELECT_BOTH",	                "Les 2");
-?>

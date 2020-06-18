@@ -141,8 +141,8 @@ function editoreturn_bytes($val) {
 function edito_media_uploading( $allowed_mimetypes, $httppostfiles, $redirecturl = "index.php", $num = 0, $dir = "uploads", $redirect = 0 ) {
 	include_once XOOPS_ROOT_PATH . "/class/uploader.php";
 
-    global $xoopsConfig, $xoopsModuleConfig, $HTTP_POST_VARS;
-    echo $tmpmedia = $HTTP_POST_VARS['xoops_upload_file'][$num];
+    global $xoopsConfig, $xoopsModuleConfig;
+    echo $tmpmedia = $_POST['xoops_upload_file'][$num];
     $image_size = explode('|', $xoopsModuleConfig['maximgsize']);
     $maxfilewidth = $image_size[0];
     $maxfileheight = $image_size[1];
@@ -361,8 +361,8 @@ function edito_checkRight( $refererid ) {
     $groups = is_object( $xoopsUser ) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gperm_handler = xoops_gethandler( 'groupperm' );
 
-	$module_handler =& xoops_gethandler('module');
-	$editoModule =& $module_handler->getByDirname($xoopsModule->dirname());
+	$module_handler = xoops_gethandler('module');
+	$editoModule = $module_handler->getByDirname($xoopsModule->dirname());
 	if ( $gperm_handler->checkRight( 'edito_wiew', $refererid, $groups, $editoModule->getVar('mid') ) ) {
     	return true;
     }
@@ -593,4 +593,3 @@ function edito_UpdatedModule() {
     	redirect_header( $redirect , 3, _MD_EDITO_MAKE_UPDATE ) ;
 	}
 }
-?>

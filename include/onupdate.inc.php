@@ -1,6 +1,6 @@
 <?php
 
-if (!defined("XOOPS_ROOT_PATH")) { 
+if (!defined("XOOPS_ROOT_PATH")) {
  	die("XOOPS root path not defined");
 }
 
@@ -17,5 +17,3 @@ if( $ref == '' || strpos( $ref , XOOPS_URL.'/modules/system/admin.php' ) === 0 )
 	include dirname( __FILE__ ) . "/updateblock.inc.php" ;
 
 }
-
-?>

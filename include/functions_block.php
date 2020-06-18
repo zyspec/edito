@@ -23,11 +23,11 @@ function edito_getmoduleoption($option, $repmodule='edito') {
 			$retval= $xoopsModuleConfig[$option];
 		}
 	} else {
-		$module_handler =& xoops_gethandler('module');
-		$module =& $module_handler->getByDirname($repmodule);
-		$config_handler =& xoops_gethandler('config');
+		$module_handler = xoops_gethandler('module');
+		$module = $module_handler->getByDirname($repmodule);
+		$config_handler = xoops_gethandler('config');
 		if ($module) {
-		    $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+		    $moduleConfig = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
 	    	if(isset($moduleConfig[$option])) {
 	    		$retval= $moduleConfig[$option];
 	    	}
@@ -36,5 +36,3 @@ function edito_getmoduleoption($option, $repmodule='edito') {
 	$tbloptions[$option]=$retval;
 	return $retval;
 }
-
-?>

@@ -17,7 +17,7 @@
 
 function a_edito_show($options) {
 	global $xoopsDB, $xoopsUser;
-    $myts 	=& MyTextSanitizer::getInstance();
+    $myts 	= MyTextSanitizer::getInstance();
     $module = "edito";
     include_once (XOOPS_ROOT_PATH. "/modules/".$module."/include/functions_block.php");
     include_once (XOOPS_ROOT_PATH. "/modules/".$module."/include/functions_content.php");
@@ -129,16 +129,16 @@ function a_edito_show($options) {
 
 	// Subject
 	if ( $options[2] )	{
-    	$subject = '<b>'.$myts->makeTareaData4Show($myrow['subject']).'</b><br />';
+    	$subject = '<b>'.$myts->displayTarea($myrow['subject']).'</b><br />';
     }
 
 	// Texte
     if ( $myrow['block_text'] ) {
     	$contents	= $myrow['block_text'];
-        $content	= $myts->makeTareaData4Show($myrow['block_text'], $html, $smiley, $xcode);
+        $content	= $myts->displayTarea($myrow['block_text'], $html, $smiley, $xcode);
 	} else {
     	$contents	= $myrow['body_text'];
-//        $content	= edito_substr($myts->makeTareaData4Show($myrow['body_text'], $html, $smiley, $xcode),0,$options[0],'');
+//        $content	= edito_substr($myts->displayTarea($myrow['body_text'], $html, $smiley, $xcode),0,$options[0],'');
 
 
 	if ( $myrow["status"] == '4' ) {
@@ -146,7 +146,7 @@ function a_edito_show($options) {
         } elseif($myrow["status"] == '5') {
           $content  = ''; $readmore = 1;
         } else {
-	  $content  = xoops_substr($myts->makeTareaData4Show($myrow['body_text'], $html, $smiley, $xcode),0,$options[0],'');
+	  $content  = xoops_substr($myts->displayTarea($myrow['body_text'], $html, $smiley, $xcode),0,$options[0],'');
         }
 
 	}
@@ -286,7 +286,7 @@ if ( $options[3] )	{
 
 function a_edito_edit($options) {
 	global $xoopsDB;
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     $i = 0;
     $lst='';
     $module = 'edito';
@@ -304,7 +304,7 @@ function a_edito_edit($options) {
         if($myrow["id"] == $options[1]) {
         	$selected=" selected ";
         }
-        $lst.="<option value='" . $myrow["id"] . "'" . $selected . ">[" . $status ."] ". $myts->makeTareaData4Show($myrow["subject"]) . "</option>";
+        $lst.="<option value='" . $myrow["id"] . "'" . $selected . ">[" . $status ."] ". $myts->displayTarea($myrow["subject"]) . "</option>";
     }
 
 	/*                            Max. text lenght                      */
@@ -422,7 +422,7 @@ function a_edito_edit($options) {
 
 function a_edito_menu_show($options) {
 	global $xoopsDB, $xoopsUser;
-	$myts 	=& MyTextSanitizer::getInstance();
+	$myts 	= MyTextSanitizer::getInstance();
 	$module = "edito";
 	include_once (XOOPS_ROOT_PATH. "/modules/".$module."/include/functions_block.php");
         include_once (XOOPS_ROOT_PATH. "/modules/".$module."/include/functions_content.php");
@@ -547,7 +547,7 @@ function a_edito_menu_show($options) {
             $infos       = $alt_date."<br />". $fileinfo . $user;
 
 			/*                              Title display                              */
-            $subject = $myts->makeTareaData4Show($subject);
+            $subject = $myts->displayTarea($subject);
             if ($options[3] == "counter DESC") {
             	$subject .= " (".$counter.")";
             }
@@ -580,7 +580,7 @@ function a_edito_menu_show($options) {
             $data['link_url']   = $link_url;
 
 			// Ext Infos
-            $data['summary'] = $myts->makeTboxData4Show($block_text, $html, $smiley, $xcode);
+            $data['summary'] = $myts->htmlSpecialChars($block_text, $html, $smiley, $xcode);
             $data['read']    = $counter;
             $data['infos']   = $infos;
             $block['content'][]    = $data;
@@ -728,4 +728,3 @@ function a_edito_menu_edit($options) {
 
 	return $form;
 }
-?>

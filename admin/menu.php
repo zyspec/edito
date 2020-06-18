@@ -88,4 +88,3 @@ $statmenu[$i]['title'] = _MI_EDITO_EDITORS;
 $statmenu[$i++]['link'] = "admin/utils_wysiwyg.php";
 $statmenu[$i]['title'] = _MI_EDITO_HTACCESS;
 $statmenu[$i++]['link'] = "admin/utils_htaccess.php";
-?>

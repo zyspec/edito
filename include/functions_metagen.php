@@ -39,7 +39,7 @@ function edito_createMetaTags( $page_title='',
 
 //        echo  $module_meta_description;
 	global $xoopsTpl, $xoopsModule;
-	$myts =& MyTextSanitizer::getInstance();
+	$myts = MyTextSanitizer::getInstance();
     $ret = '';
     $metakeywords = '';
     $metagen = array();
@@ -129,7 +129,7 @@ function edito_createMetaTags( $page_title='',
 
 // Remove useless code from original content (html, code, numbers, etc.)
 function edito_cleanContent( $content ) {
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
 
         $content = strtolower($content);
 
@@ -214,5 +214,3 @@ function edito_findKeyWordsInSting( $content, $minChar, $min_occ, $max_occ ) {
 	}
 	return $content;
 }
-
-?>

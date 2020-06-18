@@ -27,7 +27,7 @@
 include '../../mainfile.php';
 $com_itemid = isset($_GET['com_itemid']) ? intval($_GET['com_itemid']) : 0;
 if ($com_itemid > 0) {
-  $myts =& MyTextSanitizer::getInstance();
+  $myts = MyTextSanitizer::getInstance();
 
 $sql=" SELECT subject, uid, image, block_text, body_text, options, datesub FROM ".$xoopsDB->prefix("edito_content")." WHERE id=$com_itemid AND status > 0";
 $result = $xoopsDB->queryF($sql);
@@ -59,10 +59,8 @@ $text = '';
 if($block) { $text .= $myrow["block_text"]; }
 $text .= $myrow["body_text"];
 
-        $com_replytext = _POSTEDBY.'&nbsp;<b>'.XoopsUser::getUnameFromId($myrow['uid']).'</b>&nbsp;'._DATE.'&nbsp;<b>'.formatTimestamp($myrow["datesub"],'m').'</b><br /><br />'.$logo.$myts->makeTareaData4Show($text, $html, $smiley, $xcode);
+        $com_replytext = _POSTEDBY.'&nbsp;<b>'.XoopsUser::getUnameFromId($myrow['uid']).'</b>&nbsp;'._DATE.'&nbsp;<b>'.formatTimestamp($myrow["datesub"],'m').'</b><br /><br />'.$logo.$myts->displayTarea($text, $html, $smiley, $xcode);
         $com_replytitle = $myrow["subject"];
 
 	include_once XOOPS_ROOT_PATH.'/include/comment_new.php';
 }
-
-?>

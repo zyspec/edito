@@ -12,30 +12,30 @@
 
 // Script used to display an edito's content, for example when it was too short
 // on the main page
-include_once("header.php");
+require_once __DIR__ . '/header.php';
 $xoopsOption['template_main'] = 'edito_content_index.html';
-include_once(XOOPS_ROOT_PATH."/header.php");
+include_once XOOPS_ROOT_PATH . '/header.php';
 
-if (isset($_GET['id'])) $id = intval($_GET['id']);
+if (isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+}
 // if (isset($_POST['id'])) $id = intval($_POST['id']);
 
-if(!isset($id))
-{
-	redirect_header('index.php', 2, _EDITO_PL_SELECT);
-	exit();
+if(!isset($id)) {
+	redirect_header('index.php', 2, _MD_EDITO_PL_SELECT);
 }
 
 $sql=" SELECT * FROM ".$xoopsDB->prefix($xoopsModule->dirname() . "_content")." WHERE id=$id AND status > 0";
 $result = $xoopsDB->queryF($sql);
 
 if($xoopsDB->getRowsNum($result) == 0) {
-	redirect_header("index.php",2,_EDITO_NOT_FOUND);
+	redirect_header("index.php",2,_MD_EDITO_NOT_FOUND);
 	exit();
 }
 $myrow 	= $xoopsDB->fetchArray($result);
 if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) { $admin = 1; } else { $admin = 0; }
 if(!$admin && $myrow["status"] == 1) {
-    	redirect_header("index.php",2,_EDITO_NOT_FOUND);
+    	redirect_header("index.php",2,_MD_EDITO_NOT_FOUND);
 	exit();
 }
 
@@ -105,10 +105,10 @@ $xoopsTpl->assign("banner", $banner);
 /* ----------------------------------------------------------------------- */
 /*                              Render  variables                          */
 /* ----------------------------------------------------------------------- */
-$xoopsTpl->assign('list', _EDITO_LIST);
-$xoopsTpl->assign('index', _EDITO_INDEX);
-$xoopsTpl->assign('page', _EDITO_PAGE);
-$xoopsTpl->assign("footer", $myts->makeTareaData4Show($xoopsModuleConfig['footer']));
+$xoopsTpl->assign('list', _MD_EDITO_LIST);
+$xoopsTpl->assign('index', _MD_EDITO_INDEX);
+$xoopsTpl->assign('page', _MD_EDITO_PAGE);
+$xoopsTpl->assign("footer", $myts->displayTarea($xoopsModuleConfig['footer']));
 // Content TagReplace
 // include_once('include/tagreplace.php');
 // $myrow["informations"] = edito_tagreplace($myrow["informations"]);
@@ -119,7 +119,7 @@ $alt_user            = XoopsUser::getUnameFromId($myrow['uid']);
 $user                = '<a href="../../userinfo.php?uid='.$myrow['uid'].'">'.$alt_user.'</a>';
 $datesub             = formatTimestamp($myrow["datesub"],'m')." ". $user;
 $image               = $myrow["image"];
-$subject             = $myts->makeTareaData4Show($myrow["subject"]);
+$subject             = $myts->displayTarea($myrow["subject"]);
 $subject_org         = $subject;
 $info['title']        = $subject;
 
@@ -156,7 +156,7 @@ if ( $media_file ) {
     $media_display =  edito_media_size($media_size, $xoopsModuleConfig['custom']);
     $format = edito_checkformat( $media, $xoopsModuleConfig['custom_media'] );
     $fileinfo = '|&nbsp;<img src="images/icon/'.$format[1].'.gif" alt="'.$format[1].': '.$format[0].' ['.$media.']" />
-				<img src="images/icon/ext.gif" alt="'._EDITO_MEDIAURL.'"/>';
+				<img src="images/icon/ext.gif" alt="'._MD_EDITO_MEDIAURL.'"/>';
 } else {
 	$media = '';
     $fileinfo = '';
@@ -169,17 +169,17 @@ if ( $media && ($xoopsModuleConfig['downloadable'] || ( is_object($xoopsUser) &&
 /*
 	$info['downloadable'] = ' <a onclick="pop=window.open(\'\', \'wclose\', \'width=100, height=100, dependent=yes, toolbar=no, scrollbars=no, status=no, resizable=no, fullscreen=no, titlebar=no, left=100, top=30\', \'false\'); pop.focus();"
                                      target="wclose"
-                                     title="'._EDITO_DOWNLOAD.'"
+                                     title="'._MD_EDITO_DOWNLOAD.'"
                                      href="'.$media.'">
 	                          <img src="images/icon/download.gif"
-                                       alt="'._EDITO_DOWNLOAD.'" />
+                                       alt="'._MD_EDITO_DOWNLOAD.'" />
 	                          </a>';
 	                          */
 
-        $info['downloadable'] = ' <a title="'._EDITO_DOWNLOAD.'"  target="_blank"
+        $info['downloadable'] = ' <a title="'._MD_EDITO_DOWNLOAD.'"  target="_blank"
                                      href="download.php?id='.$id.'">
 	                          <img src="images/icon/download.gif"
-                                       alt="'._EDITO_DOWNLOAD.'" />
+                                       alt="'._MD_EDITO_DOWNLOAD.'" />
 	                          </a>';
 
 } else {
@@ -227,7 +227,7 @@ if ( $xoopsModuleConfig['media_display'] == 'page' AND $media ) {
 			$info['logo'] = $align_in.' <a onclick="window.open(\'\', \'wclose\', \''.$popup_size.', toolbar=no, scrollbars=yes, status=no, resizable=yes, fullscreen=no, titlebar=no, left=197, top=37\', \'false\')"
 							href="popup.php?id=' . $id . ' " target="wclose">
 							<img src="' . $logo . '" alt="' . $alt_subject . '" ' . $align. ' /><br />
-							'._EDITO_SEE_MEDIA.'
+							'._MD_EDITO_SEE_MEDIA.'
 							</a>'.$align_out;
 		}
 		$info['displaylogo'] = 1;
@@ -250,7 +250,7 @@ if ( $xoopsModuleConfig['media_display'] == 'page' AND $media ) {
 		$info['logo'] = $align_in.' <a onclick="window.open(\'\', \'wclose\', \''.$popup_size.', toolbar=no, scrollbars=yes, status=no, resizable=yes, fullscreen=no, titlebar=no, left=197, top=37\', \'false\')"
 						href="popup.php?id=' . $id . ' " target="wclose">
 						<img src="' . $logo . '" alt="' . $alt_subject . '" ' . $align. ' /><br />
-						'._EDITO_SEE_MEDIA.'
+						'._MD_EDITO_SEE_MEDIA.'
 						</a>'.$align_out;
 
 		$info['displaylogo'] = 1;
@@ -285,7 +285,7 @@ if ( $xoopsModuleConfig['media_display'] == 'page' AND $media ) {
 /*                              Render Text                                */
 /* ----------------------------------------------------------------------- */
 $alt_bodytext =  strip_tags($myrow["body_text"]);
-$current_page = isset($HTTP_GET_VARS['page']) ? intval($HTTP_GET_VARS['page']) : 0;
+$current_page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 $texte = edito_pagebreak($myrow["body_text"], '', $current_page,'id='.$id );
 
 $pattern_media=array();
@@ -295,7 +295,7 @@ $pattern_media[] = "/\{media align=(['\"]?)(left|center|right)\\1}/sU";
  if (preg_match('/{media/i', $texte) ) {
  	$texte = preg_replace( $pattern_media, $info['media'], $texte); $info['media'] = '';
 }
-//	$info['body_text']  = $myts->makeTareaData4Show($texte, $html, $smiley, $xcode);
+//	$info['body_text']  = $myts->displayTarea($texte, $html, $smiley, $xcode);
 
 $pattern_block=array();
 $pattern_block[] = "/\{block\}/sU";
@@ -304,7 +304,7 @@ $pattern_block[] = "/\{block align=(['\"]?)(left|center|right)\\1}/sU";
 if (preg_match('/{block/i', $texte) AND $block ) {
 	$replacement_block=array();
 
-    $block_text =  $myts->makeTareaData4Show($myrow["block_text"], $html, $smiley, $xcode);
+    $block_text =  $myts->displayarea($myrow["block_text"], $html, $smiley, $xcode);
 	$replacement_block[] =  $block_text;
 	$replacement_block[] = '<table align="\\2" style="padding:3px; margin:6px; border:2px outset; width:33%;">
                   			<tr><td>' . $block_text . '</td></tr></table>';
@@ -312,7 +312,7 @@ if (preg_match('/{block/i', $texte) AND $block ) {
 	$texte = preg_replace( $pattern_block, $replacement_block, $texte);
 	$block_text = '';
 } elseif ( $block ) {
-	$block_text = $myts->makeTareaData4Show($myrow["block_text"], $html, $smiley, $xcode);
+	$block_text = $myts->displayTarea($myrow["block_text"], $html, $smiley, $xcode);
 } else {
 	$block_text = '';
 }
@@ -323,7 +323,7 @@ if ( $myrow["status"] == '4' ) {
 	eval($texte);
 	$info['body_text']  = '';
 } else {
-	$info['body_text']  = $myts->makeTareaData4Show($texte, $html, $smiley, $xcode);
+	$info['body_text']  = $myts->displayTarea($texte, $html, $smiley, $xcode);
 }
 $info['block_text'] = $block_text;
 
@@ -334,7 +334,7 @@ $info['block_text'] = $block_text;
 /* ----------------------------------------------------------------------- */
 // Admin Links
 if ($myrow["status"] == 1) {
-	$status = "<img src='images/icon/waiting.gif' alt='"._EDITO_WAITING."' align='left' />";
+	$status = "<img src='images/icon/waiting.gif' alt='"._MD_EDITO_WAITING."' align='left' />";
 	$online = 1;
 	$path = "<a href='.'>".$xoopsModule -> getVar('name')."</a> > " . $subject_org ;
 	if($xoopsModuleConfig['navlink_type'] != 'none' ) {
@@ -343,7 +343,7 @@ if ($myrow["status"] == 1) {
     	          include_once("list.php");
         }
 } elseif ($myrow["status"] == 3) {
-	$status = "<img src='images/icon/online.gif' alt='"._EDITO_ONLINE."' align='left' />";
+	$status = "<img src='images/icon/online.gif' alt='"._MD_EDITO_ONLINE."' align='left' />";
 	$online = 1;
 	$path = "<a href='.'>".$xoopsModule -> getVar('name')."</a> > " . $subject_org ;
 	if($xoopsModuleConfig['navlink_type'] != 'none' ) {
@@ -352,17 +352,17 @@ if ($myrow["status"] == 1) {
     	          include_once("list.php");
         }
 } elseif ($myrow["status"] == 4 ) {
-	$status = "<img src='images/icon/html.gif' alt='"._EDITO_HTML."' align='left' />";
+	$status = "<img src='images/icon/html.gif' alt='"._MD_EDITO_HTML."' align='left' />";
 	$online = 1;
       	         $xoopsTpl->assign('navlink', '');
       	         $xoopsTpl->assign('navlink_type', 'none');
 } elseif ($myrow["status"] == 5 ) {
-	$status = "<img src='images/icon/php.gif' alt='"._EDITO_PHP."' align='left' />";
+	$status = "<img src='images/icon/php.gif' alt='"._MD_EDITO_PHP."' align='left' />";
 	$online = 1;
 	         $xoopsTpl->assign('navlink', '');
                  $xoopsTpl->assign('navlink_type', 'none');
 } else {
-	$status = "<img src='images/icon/hidden.gif' alt='"._EDITO_HIDDEN."' align='left' />";
+	$status = "<img src='images/icon/hidden.gif' alt='"._MD_EDITO_HIDDEN."' align='left' />";
 	         $xoopsTpl->assign('navlink', '');
                  $xoopsTpl->assign('navlink_type', 'none');
 	$online = 0;
@@ -373,41 +373,41 @@ if ($myrow["status"] == 1) {
 /*                             Admin links                                 */
 /* ----------------------------------------------------------------------- */
 if ( is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid()) AND $myrow["status"] != 5 ) {
-	$info['adminlink'] = $status.    "<a href='admin/content.php?op=mod&id=$id' title='"._EDITO_EDIT."'>
-						 <img src='images/icon/edit.gif' alt='"._EDITO_EDIT."' /></a> |
-						 <a href='admin/content.php?op=dup&id=$id' title='"._EDITO_DUPLICATE."'>
-                         <img src='images/icon/duplicate.gif' alt='"._EDITO_DUPLICATE."' /></a> |
-                         <a href='admin/content.php?op=del&id=$id' title='"._EDITO_DELETE."'>
-                         <img src='images/icon/delete.gif' alt='"._EDITO_DELETE."' /></a> |
-                         <a href='print.php?id=$id' target='_blank' title='"._EDITO_PRINT."'/>
-                         <img src='images/icon/print.gif' alt='"._EDITO_PRINT."' /></a>";
+	$info['adminlink'] = $status.    "<a href='admin/content.php?op=mod&id=$id' title='"._MD_EDITO_EDIT."'>
+						 <img src='images/icon/edit.gif' alt='"._MD_EDITO_EDIT."' /></a> |
+						 <a href='admin/content.php?op=dup&id=$id' title='"._MD_EDITO_DUPLICATE."'>
+                         <img src='images/icon/duplicate.gif' alt='"._MD_EDITO_DUPLICATE."' /></a> |
+                         <a href='admin/content.php?op=del&id=$id' title='"._MD_EDITO_DELETE."'>
+                         <img src='images/icon/delete.gif' alt='"._MD_EDITO_DELETE."' /></a> |
+                         <a href='print.php?id=$id' target='_blank' title='"._MD_EDITO_PRINT."'/>
+                         <img src='images/icon/print.gif' alt='"._MD_EDITO_PRINT."' /></a>";
 
 	$info['infos'] = $datesub.'&nbsp;|&nbsp;(' . $count .' '._READS.')'.$fileinfo;
-	$info['adminlinks'] = "<a href='admin/content.php' title='"._EDITO_ADD."'>
-                           <img src='images/icon/add.gif' alt='"._EDITO_ADD."' /></a> |
-                           <a href='admin/index.php' title='"._EDITO_LIST."'>
-                           <img src='images/icon/list.gif' alt='"._EDITO_LIST."' /></a> |
-                           <a href='admin/utils_uploader.php' title='"._EDITO_UTILITIES."'>
-                           <img src='images/icon/utilities.gif' alt='"._EDITO_UTILITIES."' /></a> |
-                           <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid'). "'  title='"._EDITO_SETTINGS."'>
-                           <img src='images/icon/settings.gif' alt='"._EDITO_SETTINGS."' /></a> |
-                           <a href='admin/myblocksadmin.php' title='"._EDITO_BLOCKS."'>
-                           <img src='images/icon/blocks.gif' alt='"._EDITO_BLOCKS."' /></a> |
-                           <a href='admin/help.php' title='"._EDITO_HELP."'>
-                           <img src='images/icon/help.gif' alt='"._EDITO_HELP."' /></a></span>";
+	$info['adminlinks'] = "<a href='admin/content.php' title='"._MD_EDITO_ADD."'>
+                           <img src='images/icon/add.gif' alt='"._MD_EDITO_ADD."' /></a> |
+                           <a href='admin/index.php' title='"._MD_EDITO_LIST."'>
+                           <img src='images/icon/list.gif' alt='"._MD_EDITO_LIST."' /></a> |
+                           <a href='admin/utils_uploader.php' title='"._MD_EDITO_UTILITIES."'>
+                           <img src='images/icon/utilities.gif' alt='"._MD_EDITO_UTILITIES."' /></a> |
+                           <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid'). "'  title='"._MD_EDITO_SETTINGS."'>
+                           <img src='images/icon/settings.gif' alt='"._MD_EDITO_SETTINGS."' /></a> |
+                           <a href='admin/myblocksadmin.php' title='"._MD_EDITO_BLOCKS."'>
+                           <img src='images/icon/blocks.gif' alt='"._MD_EDITO_BLOCKS."' /></a> |
+                           <a href='admin/help.php' title='"._MD_EDITO_HELP."'>
+                           <img src='images/icon/help.gif' alt='"._MD_EDITO_HELP."' /></a></span>";
 
 } elseif ( is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid()) AND $myrow["status"] == 5 ) {
 	$info['adminlink'] = $status . "<a href='admin/content.php?op=mod&id=$id'>
-    								<img src='images/icon/edit.gif' alt='"._EDITO_EDIT."' /></a> |
+    								<img src='images/icon/edit.gif' alt='"._MD_EDITO_EDIT."' /></a> |
                                     <a href='admin/content.php?op=dup&id=$id'>
-                                    <img src='images/icon/duplicate.gif' alt='"._EDITO_DUPLICATE."' /></a> |
+                                    <img src='images/icon/duplicate.gif' alt='"._MD_EDITO_DUPLICATE."' /></a> |
                                     <a href='admin/content.php?op=del&id=$id'>
-                                    <img src='images/icon/delete.gif' alt='"._EDITO_DELETE."' /></a>";
+                                    <img src='images/icon/delete.gif' alt='"._MD_EDITO_DELETE."' /></a>";
 	$info['infos'] = '';
 	$info['adminlinks'] = '';
 } elseif( $myrow["status"] != 5 ) {
 	$info['adminlink'] = "<a href='print.php?id=$id' target='_blank'>
-    					  <img src='images/icon/print.gif' alt='"._EDITO_PRINT."' /></a>";
+    					  <img src='images/icon/print.gif' alt='"._MD_EDITO_PRINT."' /></a>";
 
 	$info['infos'] = '';
 	$info['adminlinks'] = '';
@@ -465,5 +465,4 @@ if ( $cancomment ) {
 }
 
 
-include_once(XOOPS_ROOT_PATH."/footer.php");
-?>
+require_once XOOPS_ROOT_PATH . '/footer.php';

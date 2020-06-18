@@ -16,4 +16,3 @@ include_once( '../../../include/functions.php');
 xoops_cp_header();
 include_once('mimetypesadmin.php');
 xoops_cp_footer();
-?>

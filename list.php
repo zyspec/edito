@@ -10,19 +10,19 @@
 *			- DuGris (http://www.dugris.info)
 */
 
-if (!defined("XOOPS_ROOT_PATH")) { die("XOOPS root path not defined"); }
+defined("XOOPS_ROOT_PATH") || exit("Restricted access");
 
-$count_list = 0;
-$new_list = '';
-$pop_list = '';
+$count_list    = 0;
+$new_list      = '';
+$pop_list      = '';
 $readmore_list = '';
 
-$result = "SELECT COUNT(*) FROM " . $xoopsDB -> prefix($xoopsModule->dirname() . '_content' ) . " WHERE status > 2";
-list( $totals ) = $xoopsDB -> fetchRow( $xoopsDB->queryF($result) );
+$result         = "SELECT COUNT(*) FROM " . $xoopsDB->prefix($xoopsModule->dirname() . '_content' ) . " WHERE status > 2";
+list( $totals ) = $xoopsDB->fetchRow($xoopsDB->queryF($result));
 
 $total_list = $totals/$xoopsModuleConfig["columns"];
 if( $totals > $xoopsModuleConfig['perpage'] ) {
-	$readmore_list = '<div style="text-align:right;"><a href="index.php?startart='.$xoopsModuleConfig['perpage'].'">'._EDITO_READMORE.'</a></div>';
+	$readmore_list = '<div style="text-align:right;"><a href="index.php?startart='.$xoopsModuleConfig['perpage'].'">' . _MD_EDITO_READMORE . '</a></div>';
 }
 
 $xoopsTpl->assign('readmore', $readmore_list);
@@ -78,13 +78,15 @@ if( $meta_title_list ) { $alt_subject_list=$meta_title_list; } else { $alt_subje
 		/*                            List pages                                   */
 		/* ----------------------------------------------------------------------- */
 		if ( $count_list >= $total_list ) {
-			$liste['cols'] = 1; $count_list = 1;
+			$liste['cols'] = 1;
+			$count_list    = 1;
 		} else {
-			$liste['cols'] = 0; $count_list++;
+			$liste['cols'] = 0;
+			++$count_list;
 		}
 		$subject_list = $myts->displayTarea($subject_list);
 
-        if ($ids != $id ) {
+        if ($ids != $id) {
 			$liste['link'] = "<nobr>" .edito_createlink('content.php?id='.$ids, $subject_list, '', '', '', '', '', $alt_subject_list, $xoopsModuleConfig['url_rewriting'])."</nobr>";
                         // "<a href='content.php?id=$ids' alt='".$alt_subject."'><nobr>" . $subject . "</nobr></a>";
 		} else {
@@ -95,4 +97,3 @@ if( $meta_title_list ) { $alt_subject_list=$meta_title_list; } else { $alt_subje
         unset($liste);
 	}
 }
-?>

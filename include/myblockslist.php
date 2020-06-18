@@ -15,7 +15,7 @@ function list_blocks()
 
 // get blocks owned by the module
 $module_id = $xoopsModule->getVar('mid');
-$block_arr =& XoopsBlock::getByModule( $xoopsModule->mid() ) ;
+$block_arr = XoopsBlock::getByModule( $xoopsModule->mid() ) ;
 $count = 1;
 	// blocks displaying loop
 	foreach( array_keys( $block_arr ) as $i ) {
@@ -44,4 +44,4 @@ $count = 1;
 // Render code
 echo "<br /><a href='../../system/admin.php?fct=blocksadmin&selmod=-1&selgrp=2&selvis=1'>"._AM_EDITO_BLOCK_LINK."</a> :<ul>";
 list_blocks() ;
-echo"</ul>";?>
+echo"</ul>";

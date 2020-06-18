@@ -159,5 +159,3 @@ function edito_pagebreak( $body_text='', $pagebreak='[pagebreak]', $current_page
 	}
 	return $body_text;
 }
-
-?>

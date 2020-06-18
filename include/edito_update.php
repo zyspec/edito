@@ -19,4 +19,3 @@ if( !defined("EDITO_ROOT_PATH") ){
 }
 
 include_once( EDITO_ROOT_PATH . 'include/edito_install.php');
-?>

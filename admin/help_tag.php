@@ -152,4 +152,3 @@ $help = edito_tagreplace($help);
 echo $help;
 
 xoops_cp_footer();
-?>

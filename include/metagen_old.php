@@ -27,7 +27,7 @@ if (!defined("XOOPS_ROOT_PATH")) { die("XOOPS root path not defined"); }
 
 function edito_createMetaTags( $page_title, $page_content, $module_meta_keywords, $page_meta_keywords, $page_meta_description, $status, $minChar, $min_occ, $max_occ ) {
 	global $xoopsTpl, $xoopsModule;
-	$myts =& MyTextSanitizer::getInstance();
+	$myts = MyTextSanitizer::getInstance();
 	$ret = '';
 	$metakeywords = '';
 
@@ -111,7 +111,7 @@ function edito_createMetaTags( $page_title, $page_content, $module_meta_keywords
 
 // Remove useless code from original content (html, code, numbers, etc.)
 function edito_cleanContent( $content ) {
-	$myts =& MyTextSanitizer::getInstance();
+	$myts = MyTextSanitizer::getInstance();
 	$content = str_replace("<br />", " ", $content);
 	$content = str_replace( "'", " ", $content);
 	$content = strip_tags($content);
@@ -162,5 +162,3 @@ function edito_findKeyWordsInSting( $content, $minChar, $min_occ, $max_occ ) {
 	}
 	return $content;
 }
-
-?>

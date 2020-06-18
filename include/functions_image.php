@@ -68,5 +68,3 @@ function edito_createlink( $link_url='', $title='', $target='_self', $image_url=
     $result = $align_in.$link.$image.$br.$title.$a.$align_out;
     return $result;
 }
-
-?>

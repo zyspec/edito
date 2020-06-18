@@ -7,40 +7,40 @@
 
 if( ! defined( 'XOOPS_ROOT_PATH' ) ) exit ;
 
-include_once( '../../../include/cp_header.php' ) ;
-
-include_once( 'mygrouppermform.php' ) ;
-include_once( XOOPS_ROOT_PATH.'/class/xoopsblock.php' ) ;
-include_once "../include/gtickets.php" ;
+require_once dirname(__DIR__, 4) . '/include/cp_header.php';
+require_once __DIR__ . '/mygrouppermform.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
+require_once dirname(__DIR__) . '/include/gtickets.php';
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system' ;
 
 // language files
 $language = $xoopsConfig['language'] ;
-if( ! file_exists( "$xoops_system_path/language/$language/admin/blocksadmin.php") ) $language = 'english' ;
+if (!file_exists("{$xoops_system_path}/language/{$language}/admin/blocksadmin.php")) {
+    $language = 'english';
+}
 
 // to prevent from notice that constants already defined
-$error_reporting_level = error_reporting( 0 ) ;
-include_once( "$xoops_system_path/constants.php" ) ;
-include_once( "$xoops_system_path/language/$language/admin.php" ) ;
-include_once( "$xoops_system_path/language/$language/admin/blocksadmin.php" ) ;
-error_reporting( $error_reporting_level ) ;
+$error_reporting_level = error_reporting(0);
+require_once "{$xoops_system_path}/constants.php";
+require_once "{$xoops_system_path}/language/$language/admin.php";
+require_once "{$xoops_system_path}/language/$language/admin/blocksadmin.php";
+error_reporting($error_reporting_level);
 
 $group_defs = file( "$xoops_system_path/language/$language/admin/groups.php" ) ;
 foreach( $group_defs as $def ) {
 	if( strstr( $def , '_AM_ACCESSRIGHTS' ) || strstr( $def , '_AM_ACTIVERIGHTS' ) ) eval( $def ) ;
 }
 
-
 // check $xoopsModule
 if( ! is_object( $xoopsModule ) ) redirect_header( XOOPS_URL.'/user.php' , 1 , _NOPERM ) ;
 
 // set target_module if specified by $_GET['dirname']
-$module_handler =& xoops_gethandler('module');
+$module_handler = xoops_gethandler('module');
 if( ! empty( $_GET['dirname'] ) ) {
-	$target_module =& $module_handler->getByDirname($_GET['dirname']);
+	$target_module = $module_handler->getByDirname($_GET['dirname']);
 }/* else if( ! empty( $_GET['mid'] ) ) {
-	$target_module =& $module_handler->get( intval( $_GET['mid'] ) );
+	$target_module = $module_handler->get( intval( $_GET['mid'] ) );
 }*/
 
 if( ! empty( $target_module ) && is_object( $target_module ) ) {
@@ -59,11 +59,11 @@ if( ! empty( $target_module ) && is_object( $target_module ) ) {
 }
 
 // check access right (needs system_admin of BLOCK)
-$sysperm_handler =& xoops_gethandler('groupperm');
+$sysperm_handler = xoops_gethandler('groupperm');
 if (!$sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser->getGroups())) redirect_header( XOOPS_URL.'/user.php' , 1 , _NOPERM ) ;
 
 // get blocks owned by the module (Imported from xoopsblock.php then modified)
-$db =& Database::getInstance();
+$db  = \XoopsDatabaseFactory::getDatabaseConnection();
 $sql = "SELECT bid,name,show_func,func_file,template FROM ".$db->prefix("newblocks")." WHERE mid='$target_mid'";
 $result = $db->query($sql);
 $block_arr = array();
@@ -82,7 +82,7 @@ function list_blockinstances()
 {
 	global $query4redirect , $block_arr , $xoopsGTicket ;
 
-	$myts =& MyTextSanitizer::getInstance() ;
+	$myts = MyTextSanitizer::getInstance() ;
 
 	// cachetime options
 	$cachetimes = array('0' => _NOCACHE, '30' => sprintf(_SECONDS, 30), '60' => _MINUTE, '300' => sprintf(_MINUTES, 5), '1800' => sprintf(_MINUTES, 30), '3600' => _HOUR, '18000' => sprintf(_HOURS, 5), '86400' => _DAY, '259200' => sprintf(_DAYS, 3), '604800' => _WEEK, '2592000' => _MONTH);
@@ -104,8 +104,8 @@ function list_blockinstances()
 	$crit = new Criteria("bid", "(".implode(",",array_keys($block_arr)).")", "IN");
 	$criteria = new CriteriaCompo($crit);
 	$criteria->setSort('visible DESC, side ASC, weight');
-	$instance_handler =& xoops_gethandler('blockinstance');
-	$instances =& $instance_handler->getObjects($criteria, true, true);
+	$instance_handler = xoops_gethandler('blockinstance');
+	$instances = $instance_handler->getObjects($criteria, true, true);
 
 	//Get modules and pages for visible in
 	$module_list[_AM_SYSTEMLEVEL]["0-2"] = _AM_ADMINBLOCK;
@@ -113,8 +113,8 @@ function list_blockinstances()
 	$module_list[_AM_SYSTEMLEVEL]["0-0"] = _AM_ALLPAGES;
 	$criteria = new CriteriaCompo(new Criteria('hasmain', 1));
 	$criteria->add(new Criteria('isactive', 1));
-	$module_handler =& xoops_gethandler('module');
-	$module_main =& $module_handler->getObjects($criteria, true, true);
+	$module_handler = xoops_gethandler('module');
+	$module_main = $module_handler->getObjects($criteria, true, true);
 	if (count($module_main) > 0) {
 		foreach (array_keys($module_main) as $mid) {
 			$module_list[$module_main[$mid]->getVar('name')][$mid."-0"] = _AM_ALLMODULEPAGES;
@@ -141,7 +141,7 @@ function list_blockinstances()
 		$title = $instances[$i]->getVar("title") ;
 		$bcachetime = $instances[$i]->getVar("bcachetime") ;
 		$bid = $instances[$i]->getVar("bid") ;
-		$name = $myts->makeTboxData4Edit( $block_arr[$bid]['name'] ) ;
+		$name = $myts->htmlSpecialChars( $block_arr[$bid]['name'] ) ;
 
 		$visiblein = $instances[$i]->getVisibleIn();
 
@@ -261,14 +261,14 @@ function list_blockinstances()
 		$description4show = '' ;
 		foreach( $block_configs as $bconf ) {
 			if( $block['show_func'] == $bconf['show_func'] && $block['func_file'] == $bconf['file'] && ( empty( $bconf['template'] ) || $block['template'] == $bconf['template'] ) ) {
-				if( ! empty( $bconf['description'] ) ) $description4show = $myts->makeTboxData4Show( $bconf['description'] ) ;
+				if( ! empty( $bconf['description'] ) ) $description4show = $myts->htmlSpecialChars( $bconf['description'] ) ;
 			}
 		}
 
 		echo "
 		<tr>
 			<td class='$class' align='left'>
-				".$myts->makeTboxData4Edit($block['name'])."
+				".$myts->htmlSpecialChars($block['name'])."
 			</td>
 			<td class='$class' align='left' colspan='4'>
 				$description4show
@@ -342,6 +342,3 @@ if( ! empty( $block_arr ) ) {
 
 list_groups2() ;
 xoops_cp_footer() ;
-
-
-?>

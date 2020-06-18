@@ -149,4 +149,3 @@ function edito_copyr($source, $dest)
     $dir->close();
     return true;
 }
-?>

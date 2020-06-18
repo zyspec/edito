@@ -1,67 +1,77 @@
 <?php
+/*
+ You may not change or alter any portion of this comment or credits of
+ supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit
+ authors.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 /**
-* XOOPS - PHP Content Management System
-* Copyright (c) 2004 <http://www.xoops.org/>
-*
-* Module: edito 3.0
-* Licence : GPL
-* Authors :
-*           - solo (http://www.wolfpackclan.com/wolfactory)
-*			- DuGris (http://www.dugris.info)
-*/
+ * Module: Edito
+ *
+ * @package   \XoopsModules\Edito
+ * @copyright Copyright {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @author    Solo (http://www.wolfpackclan.com/wolfactory)
+ * @author    DuGris (http://www.dugris.info)
+ * @author    XOOPS Module Development Team
+ * @link      https://github.com/XoopsModules25x/edito
+ */
 
 // Message systeme
-define("_EDITO_PL_SELECT",			"Merci de choisir une page");
-define("_EDITO_NOT_FOUND",			"Page introuvable");
+define("_MD_EDITO_PL_SELECT",			"Merci de choisir une page");
+define("_MD_EDITO_NOT_FOUND",			"Page introuvable");
 
 // index
-define("_EDITO_PAGE",				"Pages");
-define("_EDITO_NUM",				"N°");
-define("_EDITO_READ",				"Lus");
-define("_EDITO_IMAGE",				"Image");
-define("_EDITO_SUBJECT",			"Titre");
-define("_EDITO_BLOCK_TEXTE",		        "Résumé");
-define("_EDITO_INFOS",				"Infos");
-define("_EDITO_READMORE",			"Lire la suite...");
-define("_EDITO_SEE_MEDIA",			"Voir le média");
+define("_MD_EDITO_PAGE",				"Pages");
+define("_MD_EDITO_NUM",				"Nï¿½");
+define("_MD_EDITO_READ",				"Lus");
+define("_MD_EDITO_IMAGE",				"Image");
+define("_MD_EDITO_SUBJECT",			"Titre");
+define("_MD_EDITO_BLOCK_TEXTE",		        "Rï¿½sumï¿½");
+define("_MD_EDITO_INFOS",				"Infos");
+define("_MD_EDITO_READMORE",			"Lire la suite...");
+define("_MD_EDITO_SEE_MEDIA",			"Voir le mï¿½dia");
 
 // content.php
-define("_EDITO_PRINT",				"Imprimer");
-define("_EDITO_DUPLICATE",			"Dupliquer");
-define("_EDITO_BLOCKS",				"Blocs");
-define("_EDITO_HELP",				"Aide");
-define("_EDITO_INDEX",				"Index");
-define("_EDITO_LIST",				"Liste des pages");
-define("_EDITO_MEDIAURL",			"Media externe");
-define("_EDITO_DOWNLOAD",			"Télécharger le fichier !");
+define("_MD_EDITO_PRINT",				"Imprimer");
+define("_MD_EDITO_DUPLICATE",			"Dupliquer");
+define("_MD_EDITO_BLOCKS",				"Blocs");
+define("_MD_EDITO_HELP",				"Aide");
+define("_MD_EDITO_INDEX",				"Index");
+define("_MD_EDITO_LIST",				"Liste des pages");
+define("_MD_EDITO_MEDIAURL",			"Media externe");
+define("_MD_EDITO_DOWNLOAD",			"Tï¿½lï¿½charger le fichier !");
 
 
 // admin links
-define("_EDITO_ONLINE",				"Activé");
-define("_EDITO_OFFLINE",			"Désactivé");
-define("_EDITO_HTML",				"Mode html");
-define("_EDITO_PHP",				"Mode php");
-define("_EDITO_WAITING",			"En attente");
-define("_EDITO_ADD",				"Créer");
-define("_EDITO_EDIT",				"Editer");
-define("_EDITO_DELETE",				"Effacer");
-define("_EDITO_SETTINGS",			"Préférences");
-define("_EDITO_UTILITIES",			"Utilitaires");
-define("_EDITO_HIDDEN",				"Masqué");
-define("_EDITO_LISTING",			"Lister");
+define("_MD_EDITO_ONLINE",				"Activï¿½");
+define("_MD_EDITO_OFFLINE",			"Dï¿½sactivï¿½");
+define("_MD_EDITO_HTML",				"Mode html");
+define("_MD_EDITO_PHP",				"Mode php");
+define("_MD_EDITO_WAITING",			"En attente");
+define("_MD_EDITO_ADD",				"Crï¿½er");
+define("_MD_EDITO_EDIT",				"Editer");
+define("_MD_EDITO_DELETE",				"Effacer");
+define("_MD_EDITO_SETTINGS",			"Prï¿½fï¿½rences");
+define("_MD_EDITO_UTILITIES",			"Utilitaires");
+define("_MD_EDITO_HIDDEN",				"Masquï¿½");
+define("_MD_EDITO_LISTING",			"Lister");
 
 
 // popup.php
-define("_EDITO_CLOSE",				"Fermer");
+define("_MD_EDITO_CLOSE",				"Fermer");
 
 // print.php
-define("_EDITO_COMEFROM",			"Page originale : ");
+define("_MD_EDITO_COMEFROM",			"Page originale : ");
 
 // submit.php
-define("_EDITO_SUBMIT",			        "Poster");
-define("_EDITO_TEXT",			        "Description");
-define("_EDITO_MEDIA",			        "URL du média");
-define("_EDITO_THANKS_SUBMIT",		        "Merci de votre participation.");
-define("_EDITO_THANKS_NOSUBMIT",		"Une erreur s'est produite lors de la soumission de votre proposition !");
-define("_EDITO_SUBMITEXT",		        "Complétez le formulaire suivant pour proposer une nouvelle page.");
-?>
+define("_MD_EDITO_SUBMIT",			        "Poster");
+define("_MD_EDITO_TEXT",			        "Description");
+define("_MD_EDITO_MEDIA",			        "URL du mï¿½dia");
+define("_MD_EDITO_THANKS_SUBMIT",		        "Merci de votre participation.");
+define("_MD_EDITO_THANKS_NOSUBMIT",		"Une erreur s'est produite lors de la soumission de votre proposition !");
+define("_MD_EDITO_SUBMITEXT",		        "Complï¿½tez le formulaire suivant pour proposer une nouvelle page.");

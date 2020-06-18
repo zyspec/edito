@@ -12,4 +12,3 @@
 
 edito_adminfooter();
 xoops_cp_footer();
-?>

@@ -1,15 +1,25 @@
 <?php
-/**
-* XOOPS - PHP Content Management System
-* Copyright (c) 2004 <http://www.xoops.org/>
-*
-* Module: edito 3.x
-* Licence : GPL
-* Authors :
-*           - solo (http://www.wolfpackclan.com/wolfactory)
-*			- DuGris (http://www.dugris.info)
-*/
+/*
+ You may not change or alter any portion of this comment or credits of
+ supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit
+ authors.
 
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+/**
+ * Module: Edito
+ *
+ * @package   \XoopsModules\Edito
+ * @copyright Copyright {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @author    Solo (http://www.wolfpackclan.com/wolfactory)
+ * @author    DuGris (http://www.dugris.info)
+ * @author    XOOPS Module Development Team
+ * @link      https://github.com/XoopsModules25x/edito
+ */
 
 define("_MD_EDITO_CREDIT",	        "Edito 3.0 est une creation de Solo (%s), %s et %s - (c) Juin - Novembre 2006 <p />
                                         <a href='http://wolfactory.wolfpackclan.com/' title='wolFactory' target='_blank'>&nbsp;
@@ -33,4 +43,3 @@ Nullam vel ante. Suspendisse nunc. Suspendisse potenti. Pellentesque quis quam c
 <br />
 Sed ultrices dui tristique nisi. Donec ac sem. Vestibulum euismod suscipit diam. Nullam quis nibh. Proin fermentum elit at lacus. Cras consequat condimentum lorem. Pellentesque volutpat, urna at eleifend fermentum, dolor risus porta massa, et placerat nulla velit quis dolor. Aliquam erat volutpat. Vivamus at velit dignissim risus porta fermentum. Aliquam erat volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer velit purus, cursus ac, semper ac, porta eget, ipsum. Sed velit lorem, porttitor vel, ultricies ut, iaculis quis, erat. Integer mi eros, tincidunt a, cursus vitae, lobortis eu, sapien. Suspendisse suscipit. Aliquam id dui non urna placerat laoreet. Vivamus consequat enim ut tortor. Maecenas sollicitudin eros non enim. Maecenas sodales, magna et posuere adipiscing, felis quam blandit tellus, nec iaculis eros ipsum ac turpis.
 ");
-?>

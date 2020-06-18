@@ -17,4 +17,3 @@ if ( file_exists(XOOPS_ROOT_PATH . '/modules/xoopsinfo/include/mimetypes.php') )
 		uninstall_MimeTypes( 'edito' );
 	}
 }
-?>

@@ -27,7 +27,7 @@ function edito_media( $media_url, $thumb, $media_size, $options, $description, $
     }
 
 	// $myts =& MyTextSanitizer::getInstance();
-	// $description = $myts->makeTareaData4Show($description);
+	// $description = $myts->displayTarea($description);
 
 	if ( $ext == 'swf' ) {
 		$media = edito_media_flash( $media_url, $thumb, $media_size, $options, $description );
@@ -787,4 +787,3 @@ function edito_media_image( $image_url, $thumb, $thumb_width, $options, $descrip
  	} // Does images and thumb exist
 	return $popcode;
 }
-?>
