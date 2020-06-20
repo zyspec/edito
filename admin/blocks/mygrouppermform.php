@@ -221,22 +221,22 @@ class MyXoopsGroupFormCheckBox extends XoopsFormElement
 	 * Pre-selected value(s)
 	 * @var array;
 	 */
-	protected var $_value;
+	protected $_value;
 	/**
 	 * Group ID
 	 * @var int
 	 */
-	protected var $_groupId;
+	protected $_groupId;
 	/**
 	 * Option tree
 	 * @var array
 	 */
-	protected var $_optionTree;
+	protected $_optionTree;
 	/**
 	 * Appendix
 	 * @var array ('permname'=>,'itemid'=>,'itemname'=>,'selected'=>)
 	 */
-	protected var $_appendix = [];
+	protected $_appendix = [];
 
 	/**
 	 * Constructor
