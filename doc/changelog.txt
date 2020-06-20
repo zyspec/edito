@@ -11,9 +11,11 @@
  - create new module logo image
  - harden var input by using Xmf\Request
  - remove code specifically created for XOOPS < 2.5
- - convert arrays to use short array syntax
+ - convert arrays to use short array syntax (in process)
+ - add meta property for Facebook (og:image, og:url)
  - reduce/eliminate use of globals
  - cleanup file includes (use require where appropriate), eliminate duplicate inclusions
+ - remove PHP4 'same name' class constructors
 -->
 <h5>3.1 Alpha 1 [Unreleased]<h5>  Dev: XOOPS 2.5.10, PHP 7.2.31
 - updated SQL - changed table name from 'content_edito' to 'edito_content'
