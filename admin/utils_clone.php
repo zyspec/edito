@@ -24,7 +24,7 @@
 use Xmf\Request;
 
 require_once dirname(__DIR__, 3) . '/mainfile.php';
-require_once'/cp_header.php';
+require_once dirname(__DIR__, 3) . '/include/cp_header.php';
 
 $op           = Request::getCmd('op', '');
 $type_clonage = Request::getCmd('type_clonage', '');

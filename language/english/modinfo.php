@@ -230,7 +230,7 @@ define('_MI_EDITO_UPDATE_MODULE', "Update module");
 
 // Utilities
 define('_MI_EDITO_CLONE', "Clone module");
-define('_MI_EDITO_UPLOAD', "Upload medias");
+define('_MI_EDITO_UPLOAD', "Upload media");
 define('_MI_EDITO_IMPORT', "Import SQL");
 define('_MI_EDITO_EXPORT', "Export SQL");
 define('_MI_EDITO_HTACCESS', "Protect Media");

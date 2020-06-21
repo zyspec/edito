@@ -186,17 +186,29 @@ Please, try on a server which allow directory CHMODing.
 define('_AM_EDITO_CLONENAME', "
 Clone name<br><i>
   <ul>
-      <li>Not more than 16 caracters</li>
-      <li>No special caracters</li>
+      <li>Not more than 16 characters</li>
+      <li>No special characters</li>
       <li>No already existing module name</li>
       <li>Capital letters and spaces accepted</li>
   </ul></i>
 Sample : 'Mon Module 01'.
 ");
 
+define('_AM_EDITO_IMPORT', "Import");
+define('_AM_EDITO_EXPORT', "Export");
+define('_AM_EDITO_DB_IMPORT', "Import SQL");
+define('_AM_EDITO_DB_EXPORT', "Export SQL");
+define('_AM_EDITO_INSERT', "Insert into database");
+define('_AM_EDITO_UPDATE', "Update database");
+define('_AM_EDITO_TYPE', 'Action Type');
+define('_AM_EDITO_DB_DATAS', "SQL Statements to Import");
+define('_AM_EDITO_EDITORS', "Content Editors");
+
+
 // Anti-leech
 define('_AM_EDITO_HTACCESS', "Media anti-leeching protection");
 define('_AM_EDITO_COPY', "Copy code");
+define('_AM_EDITO_SITELIST', "Allowed sites (separated by | [pipe])");
 define('_AM_EDITO_HTACCESS_INFO1', "If you'd like to prevent other sites from leeching medias from your site, this guide will assist you in doing so using the .htaccess file.
 <ol><li>Open Notepad (or equivalent software depending on your OS) and paste in the following code:</li></ol>");
 

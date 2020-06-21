@@ -108,7 +108,8 @@ class XoopsGTicket
 		// create a token
 		list($usec, $sec)    = explode(" ", microtime());
 		$appendix_salt       = empty($_SERVER['PATH']) ? XOOPS_DB_NAME : $_SERVER['PATH'];
-		$token               = crypt($salt . $usec . $appendix_salt . $sec);
+		//$token               = crypt($salt . $usec . $appendix_salt . $sec);
+		$token               = crypt($salt . $usec . $appendix_salt . $sec, $salt);
 		$this->_latest_token = $token;
 
 		if (empty($_SESSION['XOOPS_G_STUBS'])) {
@@ -334,7 +335,7 @@ $GLOBALS['xoopsGTicket'] = new XoopsGTicket();
 if (!function_exists('admin_refcheck')) {
 
     //Admin Referer Check By Marijuana(Rev.011)
-    public function admin_refcheck($chkref = "") {
+    function admin_refcheck($chkref = "") {
     	if (empty($_SERVER['HTTP_REFERER'])) {
     		return true;
     	} else {
@@ -352,7 +353,7 @@ if (!function_exists('admin_refcheck')) {
 
 }
 
-public function GTicket_ErrorHandler4FindOutput($errNo, $errStr, $errFile, $errLine)
+function GTicket_ErrorHandler4FindOutput($errNo, $errStr, $errFile, $errLine)
 {
 	if (preg_match('?'.preg_quote(XOOPS_ROOT_PATH).'([^:]+)\:(\d+)?', $errStr, $regs)) {
 		echo "Irregular output! check the file " . htmlspecialchars($regs[1]) . " line ".htmlspecialchars($regs[2]);
