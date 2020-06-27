@@ -72,7 +72,7 @@ define('_AM_EDITO_BODYTEXT', "Body text<p />
                                         <br>
                                         <i><font color='red'>{block}</font><br>
                                         to display<br>
-                                        bloc's content<br>
+                                        block's content<br>
                                         in the text.</i>");
 define('_AM_EDITO_BLOCKTEXT', "Block content");
 define('_AM_EDITO_BODY', "Content");
@@ -119,9 +119,9 @@ define('_AM_EDITO_NAV_SEE', "See current page");
 define('_AM_EDITO_NAV_HELP', "Help");
 define('_AM_EDITO_NAV_CONFIG', "Administration");
 define('_AM_EDITO_NAV_PERMS', "Permissions");
-define('_AM_EDITO_NAV_BLOCKS_GROUPS', "Blocks and Groupes");
-define('_AM_EDITO_BLOCKS_GROUPS', "Blocks and Groupes");
-define('_AM_EDITO_BLOCKS', "Blocks");
+define('_AM_EDITO_NAV_BLOCKS_GROUPS', "Blocks and Groups");
+define('_AM_EDITO_BLOCKS_GROUPS', "Blocks and Groups");
+define('_AM_EDITO_BLOCKS', "Blocks Intro");
 define('_AM_EDITO_GROUPS', "Groups");
 
 define('_AM_EDITO_BLOCK_LINK', "Blocks administration");
@@ -134,7 +134,7 @@ define('_AM_EDITO_SELECT_MEDIA', "Local media <br><br>
                                          Directory files from:<br>
                                          '".$xoopsModuleConfig['sbmediadir']."'
                                          </font><br>
-                                         *Prioritary on the external media.</i>");
+                                         *Priority given on external media.</i>");
 define('_AM_EDITO_MEDIA', "Media");
 define('_AM_EDITO_UPLOADMEDIA', "Upload a media");
 
@@ -167,7 +167,7 @@ define('_AM_EDITO_WAITING', "Waiting content:");
 // Utilities
 define('_AM_EDITO_PAGE', "Page");
 define('_AM_EDITO_UTILITIES', "Utilities");
-define('_AM_EDITO_WYSIWYG', "Available wysiwyg editors");
+define('_AM_EDITO_WYSIWYG', "Available WYSIWYG editors");
 define('_AM_EDITO_UPLOAD', "Upload a media");
 define('_AM_EDITO_UPLOAD_ERROR', "Error: Media upload failed");
 define('_AM_EDITO_MEDIAUPLOADED', "Media successfully uploaded");

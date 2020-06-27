@@ -79,8 +79,8 @@ define('_MI_EDITO_INDEXDSC_CONTENT', "Display an alternative index page.<br>
 define('_MI_EDITO_FOOTERTEXT', "[INDEX] Footer");
 define('_MI_EDITO_FOOTERTEXTDSC', "Default module footer content");
 define('_MI_EDITO_FOOTER', "<div style='display: none;'>
-Module <b>Edito</b> developed by the WolFactory (http://wolfactory.wolfpackclan.com/),
-a division of Xoops Wolf Pack Clan (http://www.wolfpackclan.com/).
+Module <b>Edito</b> developed by the <a href=\"http://wolfactory.wolfpackclan.com/\">WolFactory</a>,
+a division of <a href=\"http://www.wolfpackclan.com/\">Xoops Wolf Pack Clan</a>.
 </div>");
 
 define('_MI_EDITO_INDEX_DISP', "[INDEX] Display mode");
@@ -103,8 +103,8 @@ define('_MI_EDITO_NAV_LINKS_PATH', "Path");
 
 // Edition options
 define('_MI_EDITO_EDITORS', "Available editors");
-define('_MI_EDITO_WYSIWYG', "[ADMIN] Wysiwyg Editor");
-define('_MI_EDITO_WYSIWYGDSC', "Select the Wysiwyg editor to be used for page edition.");
+define('_MI_EDITO_WYSIWYG', "[ADMIN] WYSIWYG Editor");
+define('_MI_EDITO_WYSIWYGDSC', "Select the WYSIWYG editor to be used for page edition.");
 define('_MI_EDITO_FORM_DHTML', "DHTML");
 define('_MI_EDITO_FORM_COMPACT', "Compact");
 define('_MI_EDITO_FORM_SPAW', "Spaw Editor");

@@ -10,7 +10,6 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 require_once dirname(__DIR__, 4) . '/include/cp_header.php';
 require_once __DIR__ . '/mygrouppermform.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
-require_once dirname(__DIR__, 2) . '/include/gtickets.php';
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system' ;
 
@@ -85,7 +84,7 @@ while (list($bid, $bname, $show_func, $func_file, $template) = $db->fetchRow( $r
 // for 2.2
 function list_blockinstances()
 {
-	global $query4redirect, $block_arr, $xoopsGTicket;
+	global $query4redirect, $block_arr;
 
 	$myts = MyTextSanitizer::getInstance();
 
@@ -292,7 +291,7 @@ function list_blockinstances()
 				<input type='hidden' name='query4redirect' value='$query4redirect' />
 				<input type='hidden' name='fct' value='blocksadmin' />
 				<input type='hidden' name='op' value='order2' />
-				".$xoopsGTicket->getTicketHtml( __LINE__ , 1800 , 'myblocksadmin' )."
+				" . $GLOBALS['xoopsSecurity']->getTokenHTML() . "
 				<input type='submit' name='submit' value='"._SUBMIT."' />
 			</td>
 		</tr>
@@ -327,23 +326,24 @@ function list_groups2()
 
 
 if (!empty($_POST['submit'])) {
-	if (!$xoopsGTicket->check(true, 'myblocksadmin')) {
-		redirect_header(XOOPS_URL . '/', 3, $xoopsGTicket->getErrors());
-	}
+    // Check to make sure this is from known location
+    if (!$GLOBALS['xoopsSecurity']->check()) {
+        redirect_header(XOOPS_URL . '/', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
+    }
 
-	include('mygroupperm.php');
+    include __DIR__ . '/mygroupperm.php';
 	redirect_header(XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/admin/blocks.php$query4redirect", 1, _AM_SYSTEM_BLOCKS_DBUPDATED);
 }
 
 xoops_cp_header() ;
-if (file_exists('./mymenu.php')) {
-    include('./mymenu.php');
+if (file_exists(__DIR__ . '/mymenu.php')) {
+    include __DIR__ . '/mymenu.php';
 }
 
-echo "<h3 style='text-align:left;'>$target_mname</h3>\n";
+echo "<h3 class='left'>{$target_mname}</h3>\n";
 
 if (!empty($block_arr)) {
-    echo "<h4 style='text-align:left;'>" . _AM_SYSTEM_BLOCKS_ADMIN . "</h4>\n";
+    echo "<h4 class='left'>" . _AM_SYSTEM_BLOCKS_ADMIN . "</h4>\n";
 	list_blockinstances();
 }
 

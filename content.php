@@ -108,7 +108,7 @@ $xoopsTpl->assign("banner", $banner);
 $xoopsTpl->assign('list', _MD_EDITO_LIST);
 $xoopsTpl->assign('index', _MD_EDITO_INDEX);
 $xoopsTpl->assign('page', _MD_EDITO_PAGE);
-$xoopsTpl->assign("footer", $myts->displayTarea($xoopsModuleConfig['footer']));
+$xoopsTpl->assign("footer", $myts->displayTarea($xoopsModuleConfig['footer'], 1));
 // Content TagReplace
 // include_once('include/tagreplace.php');
 // $myrow["informations"] = edito_tagreplace($myrow["informations"]);

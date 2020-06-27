@@ -1,17 +1,27 @@
 <?php
+/*
+ You may not change or alter any portion of this comment or credits of
+ supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit
+ authors.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 /**
-* XOOPS - PHP Content Management System
-* Copyright (c) 2004 <http://www.xoops.org/>
-*
-* Module: edito 3.0
-* Licence : GPL
-* Authors :
-*           - solo (http://www.wolfpackclan.com/wolfactory)
-*			- DuGris (http://www.dugris.info)
-*/
+ * Module: Edito
+ *
+ * @package   \XoopsModules\Edito
+ * @copyright Copyright {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @author    Solo (http://www.wolfpackclan.com/wolfactory)
+ * @author    DuGris (http://www.dugris.info)
+ * @author    XOOPS Module Development Team
+ * @link      https://github.com/XoopsModules25x/edito
+ */
 
-if (!defined("XOOPS_ROOT_PATH")) { die("XOOPS root path not defined"); }
-
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 // MetaTag Generator
 // createMetaTags(
@@ -37,12 +47,12 @@ function edito_createMetaTags( $page_title='',
                                $min_occ=1,
                                $max_occ=12 ) {
 
-//        echo  $module_meta_description;
+    //echo  $module_meta_description;
 	global $xoopsTpl, $xoopsModule;
 	$myts = MyTextSanitizer::getInstance();
     $ret = '';
     $metakeywords = '';
-    $metagen = array();
+    $metagen = [];
     $module_meta_description = $myts -> htmlSpecialChars($module_meta_description);
     $page_meta_description = $myts -> htmlSpecialChars($page_meta_description);
     $module_meta_keywords = $myts -> htmlSpecialChars($module_meta_keywords);
@@ -50,12 +60,14 @@ function edito_createMetaTags( $page_title='',
     $page_meta_title = $myts -> htmlSpecialChars($page_meta_title);
 
     // 1. Page Title
-        if ( !$page_meta_title ) { $page_meta_title = $page_title; }
-			$page_meta_title = strip_tags( $page_meta_title );
-			$page_meta_title = $myts->displayTarea( $page_meta_title );
-			$page_meta_title = strip_tags( $page_meta_title );
-//			$page_meta_title = $myts->undoHtmlSpecialChars( $page_meta_title );
-//			$page_meta_title = eregi_replace('[[:punct:]]','', $page_meta_title);
+        if (!$page_meta_title) {
+            $page_meta_title = $page_title;
+        }
+		$page_meta_title = strip_tags( $page_meta_title );
+		$page_meta_title = $myts->displayTarea( $page_meta_title );
+		$page_meta_title = strip_tags( $page_meta_title );
+        //$page_meta_title = $myts->undoHtmlSpecialChars( $page_meta_title );
+        //$page_meta_title = eregi_replace('[[:punct:]]','', $page_meta_title);
 
                 $metagen['title'] = $page_meta_title;
 
@@ -88,7 +100,7 @@ function edito_createMetaTags( $page_title='',
 
 	// b.Creating Meta Keywords from content
 	if ( $page_content ) {
-    	$page_content = edito_cleanContent( $page_title.' '.$page_content );					// Clean up content
+    	$page_content = edito_cleanContent( $page_title.' '.$page_content ); // Clean up content
 		$contentKeywords = edito_findKeyWordsInSting( $page_content, $minChar, $min_occ, $max_occ );	// Select basis keywords
 
         foreach ($contentKeywords as $contentKeyword) {

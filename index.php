@@ -72,7 +72,7 @@ if ($xoopsModuleConfig['index_content']) {
 $xoopsTpl->assign("module_name", $xoopsModule -> getVar( 'name' ));
 $xoopsTpl->assign("textindex", $myts->displayTarea($xoopsModuleConfig['textindex']));
 $xoopsTpl->assign("lang_page", _MD_EDITO_PAGE);
-$xoopsTpl->assign("footer", $myts->displayTarea($xoopsModuleConfig['footer']));
+$xoopsTpl->assign("footer", $myts->displayTarea($xoopsModuleConfig['footer'], 1));
 $xoopsTpl->assign("lang_num", _MD_EDITO_NUM);
 $xoopsTpl->assign("lang_read", _READS);
 $xoopsTpl->assign("lang_image", _MD_EDITO_IMAGE);
@@ -121,7 +121,7 @@ if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
                    <img src='assets/images/icon/utilities.gif' alt='". _MD_EDITO_UTILITIES."'></a> |
                  <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid'). "' title='" . _MD_EDITO_SETTINGS."'>
                    <img src='assets/images/icon/settings.gif' alt='" . _MD_EDITO_SETTINGS."'></a> |
-                 <a href='admin/myblocksadmin.php' title='" . _MD_EDITO_BLOCKS."'>
+                 <a href='admin/blocks.php' title='" . _MD_EDITO_BLOCKS."'>
                    <img src='assets/images/icon/blocks.gif' alt='" . _MD_EDITO_BLOCKS."'></a> |
                  <a href='admin/help.php' title='" . _MD_EDITO_HELP."'>
                    <img src='assets/images/icon/help.gif' alt='" . _MD_EDITO_HELP."'></a></span>";

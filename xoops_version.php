@@ -30,7 +30,7 @@ $moduleDirName                = basename(__DIR__);
 /*  @var array $modversion */
 $modversion['version']        = '3.10';
 $modversion['module_status']  = 'Alpha 1';
-$modversion['release_date']   = '2020/06/21';
+$modversion['release_date']   = '2020/06/26';
 $modversion['name']           = _MI_EDITO_NAME;
 $modversion['description']    = _MI_EDITO_DESC;
 $modversion['author']         = 'Brandycoke Productions, Dylian Melgert, Juan Garcés';
@@ -72,18 +72,19 @@ $modversion['search']['func'] = "edito_search";
 
 //Menu
 $modversion['hasMain'] = 1;
-if ( $xoopsModule && $xoopsModule -> getVar( 'dirname' ) == $modversion['dirname'] ) {
-include_once (XOOPS_ROOT_PATH . "/modules/edito/include/functions_content.php");
+if ($xoopsModule && $xoopsModule -> getVar( 'dirname' ) == $modversion['dirname']) {
+include_once XOOPS_ROOT_PATH . '/modules/edito/include/functions_content.php';
 $group = is_object($xoopsUser) ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
-$i = 0 ;
+$i = 0;
+
 // Menu admin links
-if(@defined('_MD_EDITO_ADD')) {
+if (@defined('_MD_EDITO_ADD')) {
     if (count(array_intersect($group, $xoopsModuleConfig['submit_groups'])) > 0) {
  		$modversion['sub'][$i]['name'] = "<img src='assets/images/icon/submit.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_SUBMIT . "' />&nbsp;<i>" . _MD_EDITO_SUBMIT . "</i></img>";
 		$modversion['sub'][$i++]['url'] = 'submit.php';
     }
 
-	if ( is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid()) ) {
+	if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
  		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/add.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_ADD . "'>&nbsp;<i>" . _MD_EDITO_ADD . "</i></img>";
 		$modversion['sub'][$i++]['url'] = 'admin/content.php';
 		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/list.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_LIST . "'>&nbsp;<i>" . _MD_EDITO_LIST . "</i></img>";
@@ -100,28 +101,26 @@ if(@defined('_MD_EDITO_ADD')) {
     // Display menu pages list
 	// Start comment here to not display pages'list
 $sql = "SELECT id, subject, meta, groups FROM ".$xoopsDB->prefix($modversion['dirname'] . "_content")."
-          WHERE status >= 3 ORD BY " . edito_getmoduleoption('order');
+          WHERE status >= 3 ORDER BY " . edito_getmoduleoption('order');
 
 $result = $xoopsDB->queryF($sql, edito_getmoduleoption('perpage'), 0 ) ;
 
 //	$group = is_object($xoopsUser) ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
-	while( list( $id, $subject, $meta, $groups ) = $xoopsDB->fetchRow($result) ) {
-		$groups = explode(" ",$groups);
-		if (count(array_intersect($group,$groups))) {
-                   $meta = explode("|", $meta);
-                   $meta_title       =  $meta[0];
-                   $meta_description =  $meta[1];
+	while (list($id, $subject, $meta, $groups) = $xoopsDB->fetchRow($result)) {
+		$groups = explode(' ', $groups);
+		if (count(array_intersect($group, $groups))) {
+            $meta = explode("|", $meta);
+            $meta_title       =  $meta[0];
+            $meta_description =  $meta[1];
 
-                        $link = edito_createlink('content.php?id='.$id, $subject, '', '', '', '', '', $meta_title, $xoopsModuleConfig['url_rewriting']);
-                        $link = explode('"', $link); if( $link[1] ) { $link = $link[1]; } else { $link = 'content.php?id='.$id; }
+            $link = edito_createlink('content.php?id='.$id, $subject, '', '', '', '', '', $meta_title, $xoopsModuleConfig['url_rewriting']);
+            $link = explode('"', $link); if( $link[1] ) { $link = $link[1]; } else { $link = 'content.php?id='.$id; }
 			$modversion['sub'][$i]['name'] = $subject ;
 			$modversion['sub'][$i++]['url'] = $link ;
 		} // Groups
 	} // While
 	// End comment here to not display pages'list
 }  // Active module
-
-
 
 // Templates
 $i = 1;
@@ -164,7 +163,6 @@ $modversion['templates'][$i++]['description'] = "";
   // Submit templates
 $modversion['templates'][$i]['file'] = 'edito_content_submit.html';
 $modversion['templates'][$i++]['description'] = "";
-
 
 // Blocks
 $i = 1;
@@ -422,6 +420,19 @@ $modversion['config'][$i]['formtype'] = 'yesno';
 $modversion['config'][$i]['valuetype'] = 'int';
 $modversion['config'][$i]['default'] = 1;
 $i++;
+
+//* Editor to Use
+xoops_load('xoopslists');
+$modversion['config'][$i] = [
+    'name'        => 'wysiwyg',
+    'title'       => '_MI_EDITO_WSYSIWYG',
+    'description' => '_MI_EDITO_WYSIWYGORDSC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'options'     => XoopsLists::getDirListAsArray($GLOBALS['xoops']->path('/class/xoopseditor')),
+    'default'     => 'dhtmltextarea'
+];
+/*
 $modversion['config'][$i]['name'] = 'wysiwyg';
 $modversion['config'][$i]['title'] = '_MI_EDITO_WYSIWYG';
 $modversion['config'][$i]['description'] = '_MI_EDITO_WYSIWYGDSC';
@@ -438,6 +449,7 @@ $modversion['config'][$i]['options'] = [
 	_MI_EDITO_FORM_INBETWEEN   => 'inbetween',
 	_MI_EDITO_FORM_TINYEDITOR  => 'tinyeditor'
 ];
+*/
 $i++;
 $modversion['config'][$i]['name'] = 'tags';
 $modversion['config'][$i]['title'] = '_MI_EDITO_TAGS';

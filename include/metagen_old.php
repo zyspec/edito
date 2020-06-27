@@ -74,7 +74,7 @@ function edito_createMetaTags( $page_title, $page_content, $module_meta_keywords
 	// a.Creating Meta Keywords from content
 	if ( $page_content ) {
 		$page_content = edito_cleanContent( $page_title.' '.$page_content );					// Clean up content
-		$contentKeywords = edito_findKeyWordsInSting( $page_content, $minChar, $min_occ, $max_occ );	// Select basis keywords
+		$contentKeywords = edito_findKeyWordsInString( $page_content, $minChar, $min_occ, $max_occ );	// Select basis keywords
 
         foreach ($contentKeywords as $contentKeyword) {
 			$metakeywords[] = trim($contentKeyword);
@@ -126,7 +126,7 @@ function edito_cleanContent( $content ) {
 }
 
 // Keywords selection
-function edito_findKeyWordsInSting( $content, $minChar, $min_occ, $max_occ ) {
+function edito_findKeyWordsInString( $content, $minChar, $min_occ, $max_occ ) {
 	$arr = spliti(" ",$content);
 
 	// Random variable

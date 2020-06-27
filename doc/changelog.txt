@@ -1,6 +1,5 @@
 <!-- TODO
  - replace WYSIWYG editors with XOOPS Editor class
- - replace gticketing system with XOOPS Security
  - update Admin to XOOPS GUI admin (Xmf\Module\Admin)
  - convert to using namespace
  - rename templates from .html to .tpl
@@ -16,6 +15,8 @@
  - reduce/eliminate use of globals
  - cleanup file includes (use require where appropriate), eliminate duplicate inclusions
  - remove PHP4 'same name' class constructors
+ - sanitize input vars using Xmf\Request
+ - create upload directories on module install, not during 'normal' admin operation
 -->
 <h5>3.1 Alpha 1 [Unreleased]<h5>  Dev: XOOPS 2.5.10, PHP 7.2.31
 - updated SQL - changed table name from 'content_edito' to 'edito_content'
@@ -30,7 +31,9 @@
 - remove closing ?> in PHP files
 - replace use of deprecated ModuleTextSanitizer methods
 - updated phpDoc comments
-- movee javascript and images to ./assets folder
+- move javascript and images to ./assets folder
+- replaced GIJOE gticketing system with XOOPS Security
+  - deleted unused gtickets files
 
 <h5>3.07 [2007-10-19]</h5>
 Last known release by Wolfpackclan Solo and DuGris

@@ -162,7 +162,7 @@ define("_AM_EDITO_WAITING",	        "En attente");
 // Utilities
 define("_AM_EDITO_PAGE",		"Page");
 define("_AM_EDITO_UTILITIES",	        "Utilitaires");
-define("_AM_EDITO_WYSIWYG",	        "Editeurs wysiwyg disponibles");
+define("_AM_EDITO_WYSIWYG",	        "Editeurs WYSIWYG disponibles");
 define("_AM_EDITO_UPLOAD",		"T�l�verser un media");
 define("_AM_EDITO_UPLOAD_ERROR",	"Le t�l�chargement du m�dia a �chou�");
 define("_AM_EDITO_MEDIAUPLOADED",	"Media t�l�charg� avec succ�s");

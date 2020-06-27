@@ -29,42 +29,40 @@
 // Project: The XOOPS Project                                                //
 // ------------------------------------------------------------------------- //
 
-$admin_mydirname = basename( dirname( dirname( __FILE__ ) ) ) ;
+use Xmf\Request;
 
-$fct = empty( $_POST['fct'] ) ? '' : trim( $_POST['fct'] ) ;
-$fct = empty( $_GET['fct'] ) ? $fct : trim( $_GET['fct'] ) ;
-if( empty( $fct ) ) $fct = 'preferences' ;
+$admin_mydirname = basename(dirname(__DIR__));
+
+$fct = Request::getString('fct', '');
+$fct = trim($fct);
+if (empty($fct)) {
+    $fct = 'preferences';
+}
 //if (isset($fct) && $fct == "users") {
 //	$xoopsOption['pagetype'] = "user";
 //}
-include "../../../mainfile.php";
-// include "../../mainfile.php"; GIJ
-include XOOPS_ROOT_PATH."/include/cp_functions.php";
-
-include_once XOOPS_ROOT_PATH."/class/xoopsmodule.php";
-include_once "../include/gtickets.php" ;// GIJ
+include dirname(__DIR__, 3) . '/mainfile.php';
+include XOOPS_ROOT_PATH . '/include/cp_functions.php';
+include_once XOOPS_ROOT_PATH . '/class/xoopsmodule.php';
 
 $admintest = 0;
 
 if (is_object($xoopsUser)) {
-	$xoopsModule = XoopsModule::getByDirname("system");
-	if ( !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-		redirect_header(XOOPS_URL.'/user.php',3,_NOPERM);
-		exit();
+    $xoopsModule = XoopsModule::getByDirname("system");
+    if (!$xoopsUser->isAdmin($xoopsModule->mid()) ) {
+        redirect_header(XOOPS_URL.'/user.php',3,_NOPERM);
 	}
-	$admintest=1;
+	$admintest = 1;
 } else {
 	redirect_header(XOOPS_URL.'/user.php',3,_NOPERM);
-	exit();
 }
 
 // include system category definitions
-include_once XOOPS_ROOT_PATH."/modules/system/constants.php";
+include_once XOOPS_ROOT_PATH . "/modules/system/constants.php";
 $error = false;
-if ($admintest != 0) {
-	if (isset($fct) && $fct != '') {
+if (0 !== $admintest) {
+	if ('' !== $fct) {
 		if (file_exists(XOOPS_ROOT_PATH."/modules/system/admin/".$fct."/xoops_version.php")) {
-
 			if ( file_exists(XOOPS_ROOT_PATH."/modules/system/language/".$xoopsConfig['language']."/admin.php") ) {
 				include XOOPS_ROOT_PATH."/modules/system/language/".$xoopsConfig['language']."/admin.php";
 			} else {

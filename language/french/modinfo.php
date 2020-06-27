@@ -106,8 +106,8 @@ define("_MI_EDITO_NAV_LINKS_PATH",			"Chemin");
 
 // Edition options
 define("_MI_EDITO_EDITORS",		"Editeurs disponibles");
-define("_MI_EDITO_WYSIWYG",		"[ADMIN] Utiliser l'Editeur Wysiwyg ");
-define("_MI_EDITO_WYSIWYGDSC",			"Utiliser l'editeur Wysiwyg pour cr�er ou �diter une page.");
+define("_MI_EDITO_WYSIWYG",		"[ADMIN] Utiliser l'Editeur WYSIWYG ");
+define("_MI_EDITO_WYSIWYGDSC",			"Utiliser l'editeur WYSIWYG pour cr�er ou �diter une page.");
 define("_MI_EDITO_FORM_DHTML","DHTML");
 define("_MI_EDITO_FORM_COMPACT","Compact");
 define("_MI_EDITO_FORM_SPAW","Spaw Editor");

@@ -112,7 +112,7 @@ $xoopsTpl->assign('submitext',  _MD_EDITO_SUBMITEXT);
 $xoopsTpl->assign('subject', _MD_EDITO_SUBJECT);
 $xoopsTpl->assign('media',   _MD_EDITO_MEDIA);
 $xoopsTpl->assign('text',    _MD_EDITO_TEXT);
-$xoopsTpl->assign("footer",  $myts->displayTarea($xoopsModuleConfig['footer']));
+$xoopsTpl->assign("footer",  $myts->displayTarea($xoopsModuleConfig['footer'], 1));
 
 /* ----------------------------------------------------------------------- */
 /*                             Admin links                                 */
