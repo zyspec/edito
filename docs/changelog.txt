@@ -1,8 +1,9 @@
 <!-- TODO
- - replace WYSIWYG editors with XOOPS Editor class
+ - change mimetype management to remove dependency on Xoopsinfo module
  - update Admin to XOOPS GUI admin (Xmf\Module\Admin)
  - convert to using namespace
  - rename templates from .html to .tpl
+ - remove flash support
  - create class / handler for edito content
  - create update script to:
    - switch SQL table from content_edito to edito_content
@@ -17,8 +18,10 @@
  - remove PHP4 'same name' class constructors
  - sanitize input vars using Xmf\Request
  - create upload directories on module install, not during 'normal' admin operation
+ - determine if there's sufficient benefit to keeping block management in module vs using XOOPS UI
 -->
 <h5>3.1 Alpha 1 [Unreleased]<h5>  Dev: XOOPS 2.5.10, PHP 7.2.31
+- replaced WYSIWYG editors with XOOPS Editor class
 - updated SQL - changed table name from 'content_edito' to 'edito_content'
 - changed ereg[i] & ereg[i]_replace with preg_match & preg_replace respectively
 - fixed bug loading myblocksadmin2.php in ./admin/blocks.php
