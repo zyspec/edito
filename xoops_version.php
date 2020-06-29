@@ -30,7 +30,7 @@ $moduleDirName                = basename(__DIR__);
 /*  @var array $modversion */
 $modversion['version']        = '3.10';
 $modversion['module_status']  = 'Alpha 1';
-$modversion['release_date']   = '2020/06/26';
+$modversion['release_date']   = '2020/06/29';
 $modversion['name']           = _MI_EDITO_NAME;
 $modversion['description']    = _MI_EDITO_DESC;
 $modversion['author']         = 'Brandycoke Productions, Dylian Melgert, Juan Garcés';
@@ -425,8 +425,8 @@ $i++;
 xoops_load('xoopslists');
 $modversion['config'][$i] = [
     'name'        => 'wysiwyg',
-    'title'       => '_MI_EDITO_WSYSIWYG',
-    'description' => '_MI_EDITO_WYSIWYGORDSC',
+    'title'       => '_MI_EDITO_WYSIWYG',
+    'description' => '_MI_EDITO_WYSIWYGDSC',
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'options'     => XoopsLists::getDirListAsArray($GLOBALS['xoops']->path('/class/xoopseditor')),

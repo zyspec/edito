@@ -7,16 +7,15 @@
  - create class / handler for edito content
  - create update script to:
    - switch SQL table from content_edito to edito_content
-   - remove old ./images and ./script folders
+   - remove old ./images, ./script and ./doc folders
  - create new module logo image
  - harden var input by using Xmf\Request
  - remove code specifically created for XOOPS < 2.5
  - convert arrays to use short array syntax (in process)
  - add meta property for Facebook (og:image, og:url)
- - reduce/eliminate use of globals
+ - reduce/eliminate use of globals (in process)
  - cleanup file includes (use require where appropriate), eliminate duplicate inclusions
- - remove PHP4 'same name' class constructors
- - sanitize input vars using Xmf\Request
+ - sanitize input vars using Xmf\Request (in process)
  - create upload directories on module install, not during 'normal' admin operation
  - determine if there's sufficient benefit to keeping block management in module vs using XOOPS UI
 -->
@@ -26,6 +25,7 @@
 - changed ereg[i] & ereg[i]_replace with preg_match & preg_replace respectively
 - fixed bug loading myblocksadmin2.php in ./admin/blocks.php
 - fixed pass-by-reference instances
+ - remove PHP4 'same name' class constructors
 - cleanup language files
   - convert admin language defines to use _AM_ prefix
   - convert main language defines to use _MD_ prefix
@@ -37,6 +37,7 @@
 - move javascript and images to ./assets folder
 - replaced GIJOE gticketing system with XOOPS Security
   - deleted unused gtickets files
+- rename ./doc folder to ./docs for consistency with other modules
 
 <h5>3.07 [2007-10-19]</h5>
 Last known release by Wolfpackclan Solo and DuGris
