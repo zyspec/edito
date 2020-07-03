@@ -478,7 +478,7 @@ if ('edit' == $op) {
         $modules[] = (int)$row['module_id'];
     }
 
-    $is_custom = 'C' == $myblock->getVar('block_type') || 'E' == $myblock->getVar('block_type') ? true : false;
+    $is_custom = ('C' == $myblock->getVar('block_type') || 'E' == $myblock->getVar('block_type'));
 
     $block = [
         'form_title'    => _AM_EDITBLOCK,
@@ -532,7 +532,7 @@ if ('clone' == $op) {
         $modules[] = (int)$row['module_id'];
     }
 
-    $is_custom = 'C' == $myblock->getVar('block_type') || 'E' == $myblock->getVar('block_type') ? true : false;
+    $is_custom = ('C' == $myblock->getVar('block_type') || 'E' == $myblock->getVar('block_type'));
 
     $block = [
         'form_title'    => _AM_CLONEBLOCK,

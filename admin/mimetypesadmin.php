@@ -49,7 +49,7 @@ if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['la
 // language files
 
 $op       = isset($_REQUEST['op']) ? trim($_REQUEST['op']) : '';
-$create   = isset($_REQUEST['new']) ? true : false;
+$create   = isset($_REQUEST['new']);
 $start    = isset($_REQUEST['start']) ? (int)$_REQUEST['start'] : 0;
 $status   = isset($_REQUEST['status']) ? (int)$_REQUEST['status'] : -1;
 $mid      = isset($_REQUEST['mid']) ? (int)$_REQUEST['mid'] : -1;
