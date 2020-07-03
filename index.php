@@ -21,47 +21,50 @@
  * @link      https://github.com/XoopsModules25x/edito
  */
 
+use Xmf\Request;
+
 // This script is used to display the page list
 require_once __DIR__ . '/header.php';
 
+/** @var MyTextSanitizer $myts */
 /* ----------------------------------------------------------------------- */
 /*                              Select template                            */
 /* ----------------------------------------------------------------------- */
-if ($xoopsModuleConfig['index_display'] == 'table') {
-	$xoopsOption['template_main'] = 'edito_index_ext.html';
-	$align = 'center';
-} elseif ( $xoopsModuleConfig['index_display'] == 'image') {
-	$xoopsOption['template_main'] = 'edito_index.html';
-	$align = 'center';
-} elseif ( $xoopsModuleConfig['index_display'] == 'news') {
-	$xoopsOption['template_main'] = 'edito_index_news.html';
-	$align = 'left';
-} elseif ( $xoopsModuleConfig['index_display'] == 'blog') {
-	$xoopsOption['template_main'] = 'edito_index_blog.html';
-	$align = 'left';
+$GLOBALS['xoopsoption']['template_main'] = 'edito_index.html';
+$align = 'center';
+if ('table' == $GLOBALS['xoopsModuleConfig']['index_display']) {
+    $GLOBALS['xoopsoption']['template_main'] = 'edito_index_ext.html';
+    $align = 'center';
+} elseif ('news' == $GLOBALS['xoopsModuleConfig']['index_display']) {
+    $GLOBALS['xoopsoption']['template_main'] = 'edito_index_news.html';
+    $align = 'left';
+} elseif ('blog' == $GLOBALS['xoopsModuleConfig']['index_display']) {
+    $GLOBALS['xoopsoption']['template_main'] = 'edito_index_blog.html';
+    $align = 'left';
 }
-include_once(XOOPS_ROOT_PATH."/header.php");
-$startart = isset( $_GET['startart'] ) ? intval( $_GET['startart'] ) : 0;
+include_once XOOPS_ROOT_PATH . '/header.php';
+$startart = Request::getInt('startart', 0, 'GET');
 
 /* ----------------------------------------------------------------------- */
 /*                    Redirect index to a specific page                    */
 /* ----------------------------------------------------------------------- */
-if ($xoopsModuleConfig['index_content']) {
-	if ((preg_match("/http[s]:\/\//i", $xoopsModuleConfig['index_content']))) {
-		header ("location: ".$xoopsModuleConfig['index_content']);
-		exit();
-	} else {
-	    $sql = "SELECT COUNT(*) FROM " . $xoopsDB->prefix($xoopsModule->dirname() . "_content")."
-				WHERE id=".$xoopsModuleConfig['index_content']." AND status=2";
+if ($GLOBALS['xoopsModuleConfig']['index_content']) {
+    if ((preg_match("/http[s]:\/\//i", $GLOBALS['xoopsModuleConfig']['index_content']))) {
+        header ("location: " . $GLOBALS['xoopsModuleConfig']['index_content']);
+        exit();
+    } else {
+        $sql = "SELECT COUNT(*) FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . "_content") . "
+                WHERE id=" . $GLOBALS['xoopsModuleConfig']['index_content'] . " AND status=2";
 
-        $result = $xoopsDB -> queryF( $sql );
-        list($numrows) = $xoopsDB->fetchRow($result);
+        $result        = $GLOBALS['xoopsDB']->queryF($sql);
+        list($numrows) = $GLOBALS['xoopsDB']->fetchRow($result);
+//@todo where is this suppose to redirect to? clearly example.com isn't right
         if ($numrows) {
-		//	header ("location: content.php?id=".$xoopsModuleConfig['index_content']);
-			header("location: http://www.example.com");
-			exit();
-		}
-	}
+        //header ("location: content.php?id=".$GLOBALS['xoopsModuleConfig']['index_content']);
+            header("location: http://www.example.com");
+            exit();
+        }
+    }
 }
 
 /* ----------------------------------------------------------------------- */
@@ -69,315 +72,311 @@ if ($xoopsModuleConfig['index_content']) {
 /* ----------------------------------------------------------------------- */
 /*                              Language variables                         */
 /* ----------------------------------------------------------------------- */
-$xoopsTpl->assign("module_name", $xoopsModule -> getVar( 'name' ));
-$xoopsTpl->assign("textindex", $myts->displayTarea($xoopsModuleConfig['textindex']));
-$xoopsTpl->assign("lang_page", _MD_EDITO_PAGE);
-$xoopsTpl->assign("footer", $myts->displayTarea($xoopsModuleConfig['footer'], 1));
-$xoopsTpl->assign("lang_num", _MD_EDITO_NUM);
-$xoopsTpl->assign("lang_read", _READS);
-$xoopsTpl->assign("lang_image", _MD_EDITO_IMAGE);
-$xoopsTpl->assign("lang_subject", _MD_EDITO_SUBJECT);
-$xoopsTpl->assign("lang_info", _MD_EDITO_INFOS);
-$xoopsTpl->assign("lang_block_texte", _MD_EDITO_BLOCK_TEXTE);
+$GLOBALS['xoopsTpl']->assign([
+    'module_name'      => $GLOBALS['xoopsModule']->getVar('name'),
+    'textindex'        => $myts->displayTarea($GLOBALS['xoopsModuleConfig']['textindex']),
+    'lang_page'        => _MD_EDITO_PAGE,
+    'footer'           => $myts->displayTarea($GLOBALS['xoopsModuleConfig']['footer'], 1),
+    'lang_num'         => _MD_EDITO_NUM,
+    'lang_read'        => _READS,
+    'lang_image'       => _MD_EDITO_IMAGE,
+    'lang_subject'     => _MD_EDITO_SUBJECT,
+    'lang_info'        => _MD_EDITO_INFOS,
+    'lang_block_texte' => _MD_EDITO_BLOCK_TEXTE
+]);
 
 /* ----------------------------------------------------------------------- */
 /*                              Generate banner                            */
 /* ----------------------------------------------------------------------- */
 // Module Banner
-if (preg_match('/.swf/i', $xoopsModuleConfig['index_logo']) ) {
-	$banner = '<object
-    			classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-                codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/ swflash.cab#version=6,0,40,0" ;=""
+$banner = '';
+if (preg_match('/.swf/i', $GLOBALS['xoopsModuleConfig']['index_logo'])) {
+    $banner = '<object
+                classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+                codebase="https://download.macromedia.com/pub/shockwave/cabs/flash/ swflash.cab#version=6,0,40,0" ;=""
                 height="60"
                 width="468">
                 <param  name="movie"
-                value="' . trim($xoopsModuleConfig['index_logo']) . '">
+                value="' . trim($GLOBALS['xoopsModuleConfig']['index_logo']) . '">
                 <param name="quality" value="high">
-                <embed src="' . trim($xoopsModuleConfig['index_logo']) . '"
+                <embed src="' . trim($GLOBALS['xoopsModuleConfig']['index_logo']) . '"
                 quality="high"
-                pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" ;=""
+                pluginspage="https://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" ;=""
                 type="application/x-shockwave-flash"
                 height="60"
                 width="468">
                 </object>';
-} elseif ( $xoopsModuleConfig['index_logo'] ) {
-	$banner = edito_createlink('','', '', $xoopsModuleConfig['index_logo'], 'center', '800', '600', $xoopsModule -> getVar( 'name' ).' '. $xoopsModuleConfig['moduleMetaDescription'], $xoopsModuleConfig['url_rewriting']);
-} else {
-	$banner = '';
+} elseif ($GLOBALS['xoopsModuleConfig']['index_logo']) {
+    $banner = edito_createlink('', '', '', $GLOBALS['xoopsModuleConfig']['index_logo'], 'center', '800', '600', $GLOBALS['xoopsModule']->getVar('name') . ' ' . $GLOBALS['xoopsModuleConfig']['moduleMetaDescription'], $GLOBALS['xoopsModuleConfig']['url_rewriting']);
 }
 
-$xoopsTpl->assign("banner", $banner);
+$GLOBALS['xoopsTpl']->assign('banner', $banner);
 
 /* ----------------------------------------------------------------------- */
 /*                            Create admin links                           */
 /* ----------------------------------------------------------------------- */
 $adminlink = ''; // init admin links
-if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
-	$adminlink = "<a href='admin/content.php' title='" . _MD_EDITO_ADD."'>
-    			   <img src='assets/images/icon/add.gif' alt='" . _MD_EDITO_ADD."'></a> |
-                 <a href='admin/index.php' title='" . _MD_EDITO_LIST."'>
-                   <img src='assets/images/icon/list.gif' alt='" . _MD_EDITO_LIST."'></a> |
-                 <a href='admin/utils_uploader.php' title='". _MD_EDITO_UTILITIES."'>
-                   <img src='assets/images/icon/utilities.gif' alt='". _MD_EDITO_UTILITIES."'></a> |
-                 <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid'). "' title='" . _MD_EDITO_SETTINGS."'>
-                   <img src='assets/images/icon/settings.gif' alt='" . _MD_EDITO_SETTINGS."'></a> |
-                 <a href='admin/blocks.php' title='" . _MD_EDITO_BLOCKS."'>
-                   <img src='assets/images/icon/blocks.gif' alt='" . _MD_EDITO_BLOCKS."'></a> |
-                 <a href='admin/help.php' title='" . _MD_EDITO_HELP."'>
-                   <img src='assets/images/icon/help.gif' alt='" . _MD_EDITO_HELP."'></a></span>";
+if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid())) {
+    $adminlink = "<a href='admin/content.php' title='" . _MD_EDITO_ADD . "'>
+                   <img src='assets/images/icon/add.gif' alt='" . _MD_EDITO_ADD . "'></a> |
+                 <a href='admin/index.php' title='" . _MD_EDITO_LIST . "'>
+                   <img src='assets/images/icon/list.gif' alt='" . _MD_EDITO_LIST . "'></a> |
+                 <a href='admin/utils_uploader.php' title='" . _MD_EDITO_UTILITIES . "'>
+                   <img src='assets/images/icon/utilities.gif' alt='" . _MD_EDITO_UTILITIES . "'></a> |
+                 <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $GLOBALS['xoopsModule']->getVar('mid') . "' title='" . _MD_EDITO_SETTINGS . "'>
+                   <img src='assets/images/icon/settings.gif' alt='" . _MD_EDITO_SETTINGS . "'></a> |
+                 <a href='admin/blocks.php' title='" . _MD_EDITO_BLOCKS . "'>
+                   <img src='assets/images/icon/blocks.gif' alt='" . _MD_EDITO_BLOCKS . "'></a> |
+                 <a href='admin/help.php' title='" . _MD_EDITO_HELP . "'>
+                   <img src='assets/images/icon/help.gif' alt='" . _MD_EDITO_HELP . "'></a></span>";
 }
-$xoopsTpl->assign('adminlink', $adminlink);
+$GLOBALS['xoopsTpl']->assign('adminlink', $adminlink);
 
 /* ----------------------------------------------------------------------- */
 /*                              Define columns settings                    */
 /* ----------------------------------------------------------------------- */
-$xoopsTpl->assign("columns", $xoopsModuleConfig['columns']);
-$xoopsTpl->assign("width", number_format(100/$xoopsModuleConfig['columns'], 2, '.', ' ') );
+$GLOBALS['xoopsTpl']->assign('columns', $GLOBALS['xoopsModuleConfig']['columns']);
+$GLOBALS['xoopsTpl']->assign('width', number_format(100 / $GLOBALS['xoopsModuleConfig']['columns'], 2, '.', ' '));
 
 /* ----------------------------------------------------------------------- */
 /*                              Count number of available pages            */
 /* ----------------------------------------------------------------------- */
-$result = $xoopsDB -> queryF( "SELECT COUNT(*) FROM " . $xoopsDB->prefix($xoopsModule->dirname() . "_content" )." WHERE status>2");
-list( $numrows )=$xoopsDB->fetchRow($result);
+$result        = $GLOBALS['xoopsDB']->queryF("SELECT COUNT(*) FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . "_content") . " WHERE status>2");
+list($numrows) = $GLOBALS['xoopsDB']->fetchRow($result);
 
-$count = $startart;
-$time = time();
-$startdate = (time()-(86400 * $xoopsModuleConfig['tags_new']));
-$count++;
-$subjects = '';
+$count     = $startart;
+$time      = time();
+$startdate = ($time - (86400 * $GLOBALS['xoopsModuleConfig']['tags_new']));
+++$count;
+$subjects  = '';
 
-if ($numrows > 0) {	// That is, if there ARE editos in the system
-	/* ----------------------------------------------------------------------- */
-	/*                            Generate page navigation                     */
-	/* ----------------------------------------------------------------------- */
-	$pagenav = new XoopsPageNav( $numrows, $xoopsModuleConfig['perpage'], $startart, 'startart', '' );
-	$xoopsTpl->assign('pagenav', $pagenav->renderImageNav());
-	$group = is_object($xoopsUser) ? $xoopsUser->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+if (0 < $numrows) { // That is, if there ARE editos in the system
+    /* ----------------------------------------------------------------------- */
+    /*                            Generate page navigation                     */
+    /* ----------------------------------------------------------------------- */
+    $pagenav = new XoopsPageNav($numrows, $GLOBALS['xoopsModuleConfig']['perpage'], $startart, 'startart', '');
+    $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderImageNav());
+    $group = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
 
     /* ----------------------------------------------------------------------- */
     /*                              Create query                               */
     /* ----------------------------------------------------------------------- */
-	$sql = "SELECT id, uid, datesub, counter, subject,  block_text, body_text, image, media, meta, groups, options
-    		FROM ".$xoopsDB->prefix($xoopsModule->dirname() . "_content")." WHERE status>2 ORDER BY ".$xoopsModuleConfig['order'];
+    $sql = "SELECT id, uid, datesub, counter, subject,  block_text, body_text, image, media, meta, groups, options
+            FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . "_content") . " WHERE status>2 ORDER BY " . $GLOBALS['xoopsModuleConfig']['order'];
 
-	$result = $xoopsDB->queryF($sql, $xoopsModuleConfig['perpage'], $startart );
-	while(list( $id, $uid, $datesub, $counter, $subject, $block_text, $body_text, $image, $media, $meta, $groups, $options) = $xoopsDB->fetchRow($result)) {
-		/* ----------------------------------------------------------------------- */
-		/*                              Check group access                         */
-		/* ----------------------------------------------------------------------- */
-		$groups = explode(" ",$groups);
-		if (count(array_intersect($group,$groups)) > 0) {
-			$info = array();
+    $result = $GLOBALS['xoopsDB']->queryF($sql, $GLOBALS['xoopsModuleConfig']['perpage'], $startart);
+    while(list($id, $uid, $datesub, $counter, $subject, $block_text, $body_text, $image, $media, $meta, $groups, $options) = $GLOBALS['xoopsDB']->fetchRow($result)) {
+        /* ----------------------------------------------------------------------- */
+        /*                              Check group access                         */
+        /* ----------------------------------------------------------------------- */
+        $groups = explode(' ', $groups);
+        if (0 < count(array_intersect($group, $groups))) {
+            $info = [];
 
-			/* ----------------------------------------------------------------------- */
-			/*                            Display icons                                */
-			/* ----------------------------------------------------------------------- */
+            /* ----------------------------------------------------------------------- */
+            /*                            Display icons                                */
+            /* ----------------------------------------------------------------------- */
             $fileinfo = '';
             $alt_user = XoopsUser::getUnameFromId($uid);
-            $user     = '<a href="../userinfo.php?uid='.$uid.'">'.$alt_user.'</a>';
+            $user     = '<a href="../userinfo.php?uid=' . $uid . '">' . $alt_user . '</a>';
             $alt_date = formatTimestamp($datesub,'m');
 
-				/* ----------------------------------------------------------------------- */
-				/*                              Retrieve options                           */
-				/* ----------------------------------------------------------------------- */
-                $media = explode("|", $media);
-                $media_file     =  $media[0];
-                $media_url      =  $media[1];
-                $media_size     =  $media[2];
+            /* ----------------------------------------------------------------------- */
+            /*                              Retrieve options                           */
+            /* ----------------------------------------------------------------------- */
+            $media      = explode("|", $media);
+            $media_file = $media[0];
+            $media_url  = $media[1];
+            $media_size = $media[2];
 
-                $meta = explode("|", $meta);
-                $meta_title       =  $meta[0];
+            $meta       = explode("|", $meta);
+            $meta_title = $meta[0];
 
-                $option = explode("|", $options);
-                $html            = $option[0];
-                $xcode           = $option[1];
-                $smiley          = $option[2];
-                $logo            = $option[3];
-                $block           = $option[4];
-                $title           = $option[5];
-                $cancomment      = $option[6];
+            $option     = explode("|", $options);
+            $html       = $option[0];
+            $xcode      = $option[1];
+            $smiley     = $option[2];
+            $logo       = $option[3];
+            $block      = $option[4];
+            $title      = $option[5];
+            $cancomment = $option[6];
 
 
-			if ( $xoopsModuleConfig['tags'] ){
-            	if ( $startdate < $datesub ) {
-					$datesub = formatTimestamp($datesub,'m');
-					$fileinfo  .= '&nbsp;<img src="assets/images/icon/new.gif" alt="'.$alt_date.'" />';
-        		}
+            if ($GLOBALS['xoopsModuleConfig']['tags']) {
+                if ($startdate < $datesub) {
+                    $datesub   = formatTimestamp($datesub, 'm');
+                    $fileinfo  .= '&nbsp;<img src="assets/images/icon/new.gif" alt="' . $alt_date . '">';
+                }
 
-                if ($counter >= $xoopsModuleConfig['tags_pop']) {
-					$fileinfo .= '&nbsp;<img src="assets/images/icon/pop.gif" alt="'.$counter.'&nbsp;'._READS.'" />';
-        		}
+                if ($counter >= $GLOBALS['xoopsModuleConfig']['tags_pop']) {
+                    $fileinfo .= '&nbsp;<img src="assets/images/icon/pop.gif" alt="' . $counter . '&nbsp;' . _READS . '">';
+                }
 
-				if ( $xoopsModuleConfig['index_display'] == 'table' OR $xoopsModuleConfig['index_display'] == 'news') {
-					/* ----------------------------------------------------------------------- */
-					/*                              Check media file type                      */
-					/* ----------------------------------------------------------------------- */
-					if ( $media_file ) {
-						include_once ("include/functions_mediasize.php");
-						$media    =  XOOPS_URL . '/'. $xoopsModuleConfig['sbmediadir'] .'/'. $media_file;
-                        $format   = edito_checkformat( $media, $xoopsModuleConfig['custom_media'] );
-                        $filesize = edito_fileweight( $media );
-                        $fileinfo .= ' <img src="assets/images/icon/'.$format[1].'.gif" alt="'.$format[1].': '.$format[0].' ['.$filesize.'] ['.$media_file.']" />';
-					} elseif ( $media_url ) {
-						include_once ("include/functions_mediasize.php");
-						$media    =  $media_url;
-						$format   = edito_checkformat( $media, $xoopsModuleConfig['custom_media'] );
-						$fileinfo .= ' <img src="assets/images/icon/'.$format[1].'.gif"
-                                         alt="'.$format[1].': '.$format[0].' ['.$media.']">
-                        			   <img src="assets/images/icon/ext.gif" alt="' . _MD_EDITO_MEDIAURL.'">';
-            		}
+                if ('table' == $GLOBALS['xoopsModuleConfig']['index_display'] || 'news' == $GLOBALS['xoopsModuleConfig']['index_display']) {
+                    /* ----------------------------------------------------------------------- */
+                    /*                              Check media file type                      */
+                    /* ----------------------------------------------------------------------- */
+                    if ($media_file) {
+                        include_once __DIR__ . '/include/functions_mediasize.php';
+                        $media    =  XOOPS_URL . '/' .  $GLOBALS['xoopsModuleConfig']['sbmediadir'] . '/' . $media_file;
+                        $format   = edito_checkformat($media, $GLOBALS['xoopsModuleConfig']['custom_media']);
+                        $filesize = edito_fileweight($media);
+                        $fileinfo .= ' <img src="assets/images/icon/' . $format[1] . '.gif" alt="' . $format[1] . ': ' . $format[0] . ' [' . $filesize . '] [' . $media_file . ']">';
+                    } elseif ($media_url) {
+                        include_once __DIR__ . '/include/functions_mediasize.php';
+                        $media    =  $media_url;
+                        $format   = edito_checkformat($media, $GLOBALS['xoopsModuleConfig']['custom_media']);
+                        $fileinfo .= ' <img src="assets/images/icon/' . $format[1] . '.gif"
+                                         alt="' . $format[1] . ': ' . $format[0] . ' [' . $media . ']">
+                                       <img src="assets/images/icon/ext.gif" alt="' . _MD_EDITO_MEDIAURL . '">';
+                    }
 
-            		if ( $media_file || $media_url ) {
-			$popup_size = edito_popup_size($media_size, $xoopsModuleConfig['custom']);
-			$info['popup'] = '<a onclick="window.open(\'\', \'wclose\', \''.$popup_size.', toolbar=no, scrollbars=yes, status=no, resizable=yes, fullscreen=no, titlebar=no, left=197, top=37\', \'false\')"
-							href="popup.php?id=' . $id . ' " target="wclose">
-							' . _MD_EDITO_SEE_MEDIA.'
-							</a> | ';
-                         }
-				}
+                    if ($media_file || $media_url) {
+                        $popup_size    = edito_popup_size($media_size, $GLOBALS['xoopsModuleConfig']['custom']);
+                        $info['popup'] = '<a onclick="window.open(\'\', \'wclose\', \'' . $popup_size . ', toolbar=no, scrollbars=yes, status=no, resizable=yes, fullscreen=no, titlebar=no, left=197, top=37\', \'false\')"
+                            href="popup.php?id=' . $id . ' " target="wclose">
+                            ' . _MD_EDITO_SEE_MEDIA . '
+                            </a> | ';
+                    }
+                }
 
-				if ( $xoopsModuleConfig['index_display'] == 'image') {
-					$fileinfo = $fileinfo;
-				} elseif ( $xoopsModuleConfig['index_display'] == 'news' ) {
-					$fileinfo = $alt_date .' '. $fileinfo .' '. $user;
-				} else {
-					$fileinfo = $alt_date .'<br />'. $fileinfo .' '. $user;
-				}
-			}
+                $fileinfo = $alt_date . '<br>' . $fileinfo . ' ' . $user;
+                if ('image' == $GLOBALS['xoopsModuleConfig']['index_display']) {
+                    $fileinfo = $fileinfo;
+                } elseif ('news' == $GLOBALS['xoopsModuleConfig']['index_display']) {
+                    $fileinfo = $alt_date . ' ' . $fileinfo . ' ' . $user;
+                }
+            }
 
-			$info['info']= $fileinfo;
-
-			/* ----------------------------------------------------------------------- */
-			/*                            Create admin links                           */
-			/* ----------------------------------------------------------------------- */
-            if ( $xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid()) ) {
-            	$adminlinks = "<a href='admin/content.php?op=mod&id=".$id."' title='" . _MD_EDITO_EDIT."'>
-       			                 <img src='assets/images/icon/edit.gif' alt='" . _MD_EDITO_EDIT."'></a> |
-                               <a href='admin/content.php?op=del&id=".$id."' title='" . _MD_EDITO_DELETE."'>
-                                 <img src='assets/images/icon/delete.gif' alt='" . _MD_EDITO_DELETE."'></a> |
-                               <a href='print.php?id=".$id."' target='_blank'  title='" . _MD_EDITO_PRINT."'>
-                                 <img src='assets/images/icon/print.gif' alt='" . _MD_EDITO_PRINT."'></a>";
-			} else {
-				$adminlinks = '';
-   			}
+            $info['info']= $fileinfo;
 
             /* ----------------------------------------------------------------------- */
-			/*                            Display logo                                 */
+            /*                            Create admin links                           */
             /* ----------------------------------------------------------------------- */
-            $link           =  'content.php?id='.$id;
-            $subject        = $myts->displayTarea($subject);
-//            $alt_subject    = $subjects.' '.$subject;
-            if ($xoopsModuleConfig['index_display'] != 'table') { $image_subject = $subject; }
-			if ( $image ){
-            	$logo =  XOOPS_URL . '/'. $xoopsModuleConfig['sbuploaddir'] .'/'. $image;
-                $image_size = explode('|', $xoopsModuleConfig['logo_size']);
-                $info['logo'] = edito_createlink($link, $subject, '', $logo, $align, $image_size[0], $image_size[1], $meta_title, $xoopsModuleConfig['url_rewriting']);
-			} else {
-            	$info['logo'] = '';
+            $adminlinks = '';
+            if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid())) {
+                $adminlinks = "<a href='admin/content.php?op=mod&id=" . $id . "' title='" . _MD_EDITO_EDIT . "'>
+                                    <img src='assets/images/icon/edit.gif' alt='" . _MD_EDITO_EDIT . "'></a> |
+                               <a href='admin/content.php?op=del&id=" . $id . "' title='" . _MD_EDITO_DELETE . "'>
+                                 <img src='assets/images/icon/delete.gif' alt='" . _MD_EDITO_DELETE . "'></a> |
+                               <a href='print.php?id=" . $id . "' target='_blank'  title='" . _MD_EDITO_PRINT . "'>
+                                 <img src='assets/images/icon/print.gif' alt='" . _MD_EDITO_PRINT . "'></a>";
+           }
+
+            /* ----------------------------------------------------------------------- */
+            /*                            Display logo                                 */
+            /* ----------------------------------------------------------------------- */
+            $link        =  "content.php?id={$id}";
+            $subject     = $myts->displayTarea($subject);
+            //$alt_subject = $subjects . ' ' . $subject;
+            if ('table' !== $GLOBALS['xoopsModuleConfig']['index_display']) {
+                $image_subject = $subject;
             }
-
-			/* ----------------------------------------------------------------------- */
-			/*                            Check comments options                       */
-			/* ----------------------------------------------------------------------- */
-			$comment_link = '';
-		if ( $cancomment && $xoopsModuleConfig['com_rule'] >= 1 ){
-                $comments = $xoopsDB->query("SELECT COUNT(*) FROM ".$xoopsDB->prefix("xoopscomments")." WHERE com_status=2 AND com_modid=" . $xoopsModule->mid() . " AND com_itemid=".$id);
-                $numb = $xoopsDB->fetchRow($comments);
-                if($numb[0] >= 1) { $comments = $numb[0] .' '. _COMMENTS; } else { $comments = _NOCOMMENTS; }
-            	$comment_link = edito_createlink($link, ' | ' . $comments, '', '', '', '', '', $meta_title, $xoopsModuleConfig['url_rewriting']).' | ';
-               }
-
-
-			/* ----------------------------------------------------------------------- */
-			/*                            Generate pages variables                     */
-			/* ----------------------------------------------------------------------- */
-
-            if ($xoopsModuleConfig['index_display'] == 'blog') {
-            	$body_test = $body_text;
-                $body_text      = edito_pagebreak( $body_text, '', 0, $link );
-                if ( $body_text != $body_test ) { $readmore_on = 1; } else { $readmore_on = 0; }
-                	$body_text      = $myts->displayTarea($body_text, $html, $smiley, $xcode);
-             } else {
-                	$body_text     = '';
-             }
-
-            if ($xoopsModuleConfig['index_display'] != 'blog' || $readmore_on ) {
-                	$readmore    = edito_createlink($link, _MD_EDITO_READMORE, '', '', '', '', '', $meta_title, $xoopsModuleConfig['url_rewriting']);
+            if ($image) {
+                $logo =  XOOPS_URL . '/' . $GLOBALS['xoopsModuleConfig']['sbuploaddir'] . '/' . $image;
+                $image_size = explode('|', $GLOBALS['xoopsModuleConfig']['logo_size']);
+                $info['logo'] = edito_createlink($link, $subject, '', $logo, $align, $image_size[0], $image_size[1], $meta_title, $GLOBALS['xoopsModuleConfig']['url_rewriting']);
             } else {
-                	$readmore = '';
+                $info['logo'] = '';
             }
 
-            if ($xoopsModuleConfig['index_display'] != 'image') {
-                	$block_text     = $myts->displayTarea($block_text, $html, $smiley, $xcode);
-            } else {
-                	$block_text     = '';
+            /* ----------------------------------------------------------------------- */
+            /*                            Check comments options                       */
+            /* ----------------------------------------------------------------------- */
+            $comment_link = '';
+            if ($cancomment && 1 <= $GLOBALS['xoopsModuleConfig']['com_rule']) {
+                $comments     = $GLOBALS['xoopsDB']->query("SELECT COUNT(*) FROM " . $GLOBALS['xoopsDB']->prefix('xoopscomments') . " WHERE com_status=2 AND com_modid=" . $GLOBALS['xoopsModule']->mid() . " AND com_itemid={$id}");
+                $numb         = $GLOBALS['xoopsDB']->fetchRow($comments);
+                $comments     = (1 <= $numb[0]) ? $numb[0] . ' ' . _COMMENTS : _NOCOMMENTS;
+                $comment_link = edito_createlink($link, ' | ' . $comments, '', '', '', '', '', $meta_title, $GLOBALS['xoopsModuleConfig']['url_rewriting']) . ' | ';
             }
 
-                $info['subject']     = edito_createlink($link, $subject, '', '', '', '', '', $meta_title, $xoopsModuleConfig['url_rewriting']);
-                $info['alt_subject'] = $meta_title;
-                $info['readmore']    = $readmore;
-                $info['comment']     = $comment_link;
-                $info['tag']         = $fileinfo;
-                $info['count']       = $count++;
-                $info['counter']     = $counter;
-                $info['block_text']  = $block_text;
-                $info['body_text']   = $body_text;
-                $info['adminlinks']  = $adminlinks;
+            /* ----------------------------------------------------------------------- */
+            /*                            Generate pages variables                     */
+            /* ----------------------------------------------------------------------- */
 
-                $xoopsTpl->append('infos', $info);
-                unset($info);
-			} // Groups
-		} // While
+            $body_text = '';
+            if ('blog' == $GLOBALS['xoopsModuleConfig']['index_display']) {
+                $body_test   = $body_text;
+                $body_text   = edito_pagebreak($body_text, '', 0, $link);
+                $readmore_on = $body_text != $body_test ? 1 : 0;
+                $body_text   = $myts->displayTarea($body_text, $html, $smiley, $xcode);
+            }
+
+            $readmore = '';
+            if ($GLOBALS['xoopsModuleConfig']['index_display'] != 'blog' || $readmore_on) {
+                $readmore    = edito_createlink($link, _MD_EDITO_READMORE, '', '', '', '', '', $meta_title, $GLOBALS['xoopsModuleConfig']['url_rewriting']);
+            }
+
+            $block_text = '';
+            if ($GLOBALS['xoopsModuleConfig']['index_display'] != 'image') {
+                $block_text      = $myts->displayTarea($block_text, $html, $smiley, $xcode);
+            }
+
+            $info['subject']     = edito_createlink($link, $subject, '', '', '', '', '', $meta_title, $GLOBALS['xoopsModuleConfig']['url_rewriting']);
+            $info['alt_subject'] = $meta_title;
+            $info['readmore']    = $readmore;
+            $info['comment']     = $comment_link;
+            $info['tag']         = $fileinfo;
+            $info['count']       = $count++;
+            $info['counter']     = $counter;
+            $info['block_text']  = $block_text;
+            $info['body_text']   = $body_text;
+            $info['adminlinks']  = $adminlinks;
+
+            $GLOBALS['xoopsTpl']->append('infos', $info);
+            unset($info);
+        } // Groups
+    } // While
 }// Numrows
 
 /* ----------------------------------------------------------------------- */
 /*                             Create Meta tags                            */
 /* createMetaTags(
-/* 		Page title,				// Current page title
-/* 		Page texte, 			// Page content which will be used to generate keywords
-/* 		Default Meta Keywords,	// The default current module meta keywords - if any
-/* 		Page Meta Keywords,		// The default current page meta keywords - if any
-/* 		Meta Description,		// The current page meta description
-/* 		Page Status (0 / 1),	// Is the current page online of offline?
-/* 		Min keyword caracters,	// Minimu size a words must have to be considered
-/* 		Min keyword occurence,	// How many time a word must appear to be considered
-/* 		Max keyword occurence)	// Maximum time a word must appear to be considered
+/*      Page title,             // Current page title
+/*      Page texte,             // Page content which will be used to generate keywords
+/*      Default Meta Keywords,  // The default current module meta keywords - if any
+/*      Page Meta Keywords,     // The default current page meta keywords - if any
+/*      Meta Description,       // The current page meta description
+/*      Page Status (0 / 1),    // Is the current page online of offline?
+/*      Min keyword caracters,  // Minimu size a words must have to be considered
+/*      Min keyword occurence,  // How many time a word must appear to be considered
+/*      Max keyword occurence)  // Maximum time a word must appear to be considered
 /* ----------------------------------------------------------------------- */
 /*
-edito_createMetaTags($xoopsModuleConfig['moduleMetaDescription'], $xoopsModuleConfig['textindex'], $xoopsModuleConfig['moduleMetaKeywords'], '', $xoopsModuleConfig['moduleMetaDescription'], 1, 2, 1, 9);
+edito_createMetaTags($GLOBALS['xoopsModuleConfig']['moduleMetaDescription'], $GLOBALS['xoopsModuleConfig']['textindex'], $GLOBALS['xoopsModuleConfig']['moduleMetaKeywords'], '', $GLOBALS['xoopsModuleConfig']['moduleMetaDescription'], 1, 2, 1, 9);
 */
 
-$metagen['title'] = $xoopsModule -> getVar( 'name' );
-if ( $xoopsModuleConfig['moduleMetaDescription'] ) {
-	$metagen['description'] = $xoopsModuleConfig['moduleMetaDescription'];
-}
-elseif ( $xoopsModuleConfig['textindex'] ) {
-	$metagen['description'] = strip_tags($xoopsModuleConfig['textindex']);
-}
-
-if ( $xoopsModuleConfig['moduleMetaKeywords'] ) {
-	$metagen['keywords'] = $xoopsModuleConfig['moduleMetaKeywords'];
+$metagen['title'] = $GLOBALS['xoopsModule']->getVar('name');
+if ($GLOBALS['xoopsModuleConfig']['moduleMetaDescription']) {
+    $metagen['description'] = $GLOBALS['xoopsModuleConfig']['moduleMetaDescription'];
+} elseif ($GLOBALS['xoopsModuleConfig']['textindex']) {
+    $metagen['description'] = strip_tags($GLOBALS['xoopsModuleConfig']['textindex']);
 }
 
-if ( isset($metagen['title']) ) {
-	$xoopsTpl->assign('xoops_pagetitle',   	$metagen['title']);
+if ($GLOBALS['xoopsModuleConfig']['moduleMetaKeywords']) {
+    $metagen['keywords'] = $GLOBALS['xoopsModuleConfig']['moduleMetaKeywords'];
+}
+
+if (isset($metagen['title'])) {
+    $GLOBALS['xoopsTpl']->assign('xoops_pagetitle', $metagen['title']);
 }
 
 // Assure compatibility with < Xoops 2.0.14
-if ( isset($metagen['description']) ) {
-	if ( is_file(XOOPS_ROOT_PATH . '/class/theme.php') ) {
-		$xoTheme->addMeta( 'meta', 'description',  	$metagen['description']);
-	} else {
-		$xoopsTpl->assign('xoops_meta_description',	$metagen['description']);
-	}
+if (isset($metagen['description'])) {
+    if (is_file(XOOPS_ROOT_PATH . '/class/theme.php')) {
+        $GLOBALS['xoTheme']->addMeta('meta', 'description', $metagen['description']);
+    } else {
+        $GLOBALS['xoopsTpl']->assign('xoops_meta_description', $metagen['description']);
+    }
 }
 
-if ( isset($metagen['keywords']) ) {
-	if ( is_file(XOOPS_ROOT_PATH . '/class/theme.php') ) {
-		$xoTheme->addMeta( 'meta', 'keywords',  	$metagen['keywords']);
-   	} else {
-		$xoopsTpl->assign('xoops_meta_keywords',  $metagen['keywords']);
-	}
+if (isset($metagen['keywords'])) {
+    if (is_file(XOOPS_ROOT_PATH . '/class/theme.php')) {
+        $GLOBALS['xoTheme']->addMeta('meta', 'keywords', $metagen['keywords']);
+    } else {
+        $GLOBALS['xoopsTpl']->assign('xoops_meta_keywords',  $metagen['keywords']);
+    }
 }
 
 require_once XOOPS_ROOT_PATH . '/footer.php';
