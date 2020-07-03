@@ -1,54 +1,83 @@
 <?php
-/**
-* XOOPS - PHP Content Management System
-* Copyright (c) 2004 <http://www.xoops.org/>
-*
-* Module: edito 3.0
-* Licence : GPL
-* Authors :
-*           - solo (http://www.wolfpackclan.com/wolfactory)
-*			- DuGris (http://www.dugris.info)
-*/
+/*
+ You may not change or alter any portion of this comment or credits of
+ supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit
+ authors.
 
-if (!isset($_POST["id"])) {
-	$id = isset($_GET["id"]) ? $_GET["id"] : "";
-} else {
-	$id = $_POST["id"];
-}
-if (!isset($_POST["op"])) {
-	$op = isset($_GET["op"]) ? $_GET["op"] : "";
-} else {
-	$op = $_POST["op"];
-}
-$i=0;
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+/**
+ * Module: Edito
+ *
+ * @package   \XoopsModules\Edito
+ * @copyright Copyright {@link https://xoops.org XOOPS Project}
+ * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @author    Solo (http://www.wolfpackclan.com/wolfactory)
+ * @author    DuGris (http://www.dugris.info)
+ * @author    XOOPS Module Development Team
+ * @link      https://github.com/XoopsModules25x/edito
+ */
+
+use Xmf\Request;
+
+$id = Request::getInt('id', 0);
+$op = Request::getCmd('op', '');
 
 if (preg_match('/_ok/', $op)) {
-//if (ereg('_ok', $op) ) {
-	$adminmenu[$i]['title']		= _MI_EDITO_GOTO_INDEX;
-	$adminmenu[$i++]['link']	= "index.php";
+	$adminmenu[] = [
+        'title'	=> _MI_EDITO_GOTO_INDEX,
+	    'link'	=> 'index.php',
+	    'desc'  => _MI_EDITO_GOTO_INDEX_DSC,
+	    'icon'  => \Xmf\Module\Admin::menuIconPath('home.png')
+    ];
 }
-$adminmenu[$i]['title']	    = _MI_EDITO_LIST;
-$adminmenu[$i++]['link']    = "admin/index.php";
-$adminmenu[$i]['title']     = _MI_EDITO_CREATE;
-$adminmenu[$i++]['link']    = "admin/content.php";
-
-if ( $id ) {
-	$adminmenu[$i]['title'] 	= _MI_EDITO_SEE;
-	$adminmenu[$i++]['link'] 	= "content.php?id=".$id;
+$adminmenu[] = [
+    'title' => _MI_EDITO_LIST,
+    'link'  => 'admin/index.php',
+    'desc'  => _MI_EDITO_LIST_DESC,
+    'icon'  => \Xmf\Module\Admin::menuIconPath('content.png')
+];
+$adminmenu[] = [
+    'title' => _MI_EDITO_CREATE,
+    'link'  => 'admin/content.php',
+    'desc'  => _MI_EDITO_CREATE_DESC,
+    'icon'  => \Xmf\Module\Admin::menuIconPath('add.png')
+];
+if (0 < $id) {
+	$adminmenu[] = [
+        'title' => _MI_EDITO_SEE,
+    	'link'  => "content.php?id={$id}",
+	    'desc'  => _MI_EDITO_SEE_DESC,
+    	'icon'  => \Xmf\Module\Admin::menuIconPath('album.png')
+	];
 }
 
-$adminmenu[$i]['title']		= _MI_EDITO_UTILITIES;
-$adminmenu[$i++]['link']	= "admin/utils_uploader.php";
-
-$adminmenu[$i]['title']		= _MI_EDITO_BLOCKS_GRPS;
-$adminmenu[$i++]['link']	= "admin/blocks.php";
+$adminmenu[] = [
+    'title'	=> _MI_EDITO_UTILITIES,
+    'link'  => 'admin/utils_uploader.php',
+    'desc'  => _MI_EDITO_UTILITIES_DESC,
+    'icon'  => \Xmf\Module\Admin::menuIconPath('administration.png')
+];
+$adminmenu[] = [
+    'title' => _MI_EDITO_BLOCKS_GRPS,
+    'link'  => "admin/blocks.php",
+    'desc'  => _MI_EDITO_BLOCKS_DESC,
+    'icon'  => \Xmf\Module\Admin::menuIconPath('block.png')
+];
 
 $hModule = xoops_gethandler('module');
 
 include_once( XOOPS_ROOT_PATH . '/class/uploader.php');
-if ( defined("_XI_MIMETYPE") ) {
-	$adminmenu[$i]['title'] = _MI_EDITO_MIMETYPES;
-	$adminmenu[$i++]['link'] = "admin/mimetypes.php";
+if (defined('_XI_MIMETYPE')) {
+	$adminmenu[] = [
+	    'title' => _MI_EDITO_MIMETYPES,
+        'link'  => 'admin/mimetypes.php',
+	    'desc'  => _MI_EDITO_MIMETYPES_DESC,
+	    'icon'  => \Xmf\Module\Admin::menuIconPath('metagen.png')
+    ];
 }
 
 if (isset($xoopsModule)) {

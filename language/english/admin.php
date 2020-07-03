@@ -28,6 +28,7 @@
 define('_AM_EDITO_CREATE', "Create a new page");
 define('_AM_EDITO_DUPLICATE', "Duplicate");
 define('_AM_EDITO_HELP', "Help");
+define('_AM_EDITO_MODIFIED', "Page Modified");
 
 define('_AM_EDITO_ADD', "Add");
 define('_AM_EDITO_LIST', "Page list");
@@ -110,6 +111,16 @@ define('_AM_EDITO_NO', _NO);
 // Additions -  Herve
 define('_AM_EDITO_NO_EDITO', "No page available");
 
+// Permissions - ZySpec
+define('_AM_EDITO_PERMISSIONS', "Permissions");
+define('_AM_EDITO_PERMISSIONS_DESC', "Permissions to view");
+define('_AM_EDITO_REFERER',	"Referer");
+define('_AM_EDITO_ROBOTS', "Meta Crawlers");
+define('_AM_EDITO_PAGES', "Pages");
+define('_AM_EDITO_ENGINE', "Search engine");
+define('_AM_EDITO_KEYWORDS', "Keywords");
+define('_AM_EDITO_QUERY', "Queries");
+
 // Navigation Bar
 define('_AM_EDITO_NAV_INDEX', "Go to module");
 define('_AM_EDITO_NAV_LIST', "Pages list");
@@ -163,6 +174,7 @@ define('_AM_EDITO_SHOWHIDE', "Display/Hide");
 define('_AM_EDITO_HTMLMODE', "Html mode");
 define('_AM_EDITO_PHPMODE', "Php mode");
 define('_AM_EDITO_WAITING', "Waiting content:");
+define('_AM_EDITO_UNKNOWN', "Unknown");
 
 // Utilities
 define('_AM_EDITO_PAGE', "Page");
