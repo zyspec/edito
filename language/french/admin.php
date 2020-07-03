@@ -192,11 +192,11 @@ define('_AM_EDITO_CLONENAME', "Nom du clone<br><i>
                                          </ul></i>
                                          Exemple : 'Mon Module'. ");
 define('_AM_EDITO_EDITORS', 'Editeurs disponibles');
-
 define('_AM_EDITO_DB_DATAS', 'Donn�es SQL');
 define('_AM_EDITO_DB_IMPORT', 'Importation dans la base de donn�e');
 define('_AM_EDITO_DB_EXPORT', 'Exportation de la base de donn�e');
 define('_AM_EDITO_EXPORT', 'Exporter');
+define('_AM_EDITO_IMPORT', 'Import');
 define('_AM_EDITO_INSERT', 'Ajouter');
 define('_AM_EDITO_UPDATE', 'Mettre � jour');
 define('_AM_EDITO_TYPE', "Type d'export");

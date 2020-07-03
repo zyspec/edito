@@ -37,8 +37,11 @@
 - rename templates from .html to .tpl (mamba)
 - convert to using namespace (mamba)
 - update Admin to XOOPS GUI admin (Xmf\Module\Admin) (mamba)
-- convert arrays to use short array syntax (in process)
+- convert arrays to use short array syntax
 - create upload directories on module install, not during 'normal' admin operation
+- create new module logo image (mamba)
+- added Feedback tab (mamba)
+
 
 <h5>3.07 [2007-10-19]</h5>
 <hr>

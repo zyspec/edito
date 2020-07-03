@@ -59,7 +59,7 @@ function edito_createMetaTags($page_title = '', $page_meta_title = '', $page_met
 
     $ret = '';
 
-    $metakeywords = '';
+    $metakeywords = [];
 
     $metagen = [];
 

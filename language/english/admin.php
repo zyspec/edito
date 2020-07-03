@@ -29,6 +29,8 @@ declare(strict_types=1);
 // admin/fichier index.php
 define('_AM_EDITO_CREATE', 'Create a new page');
 define('_AM_EDITO_DUPLICATE', 'Duplicate');
+define('_AM_EDITO_EDIT', 'Edit');
+define('_AM_EDITO_DELETE', 'Delete');
 define('_AM_EDITO_HELP', 'Help');
 
 define('_AM_EDITO_ADD', 'Add');
@@ -45,8 +47,6 @@ define('_AM_EDITO_ONLINE', 'Online');
 define('_AM_EDITO_HIDDEN', 'Hidden');
 define('_AM_EDITO_OFFLINE', 'Offline');
 define('_AM_EDITO_ACTIONS', 'Actions');
-define('_AM_EDITO_EDIT', 'Edit');
-define('_AM_EDITO_DELETE', 'Delete');
 // define('_AM_NO_EDITO', "No page to display");
 define('_AM_EDITO_ALL', 'All');
 define('_AM_EDITO_ORDEREDBY', 'Ranking');
@@ -97,13 +97,13 @@ define('_AM_EDITO_CLEAR', 'Clear');
 define('_AM_EDITO_CANCEL', 'Cancel');
 define('_AM_EDITO_MODIFY', 'Modify');
 define('_AM_EDITO_FILEEXISTS', 'File already exists');
-define('_AM_EDITO_EDITOCREATED', 'New page successfully created');
-define('_AM_EDITO_EDITONOTCREATED', 'Error: impossible to create a new page');
-// define('_AM_EDITO_CANTPARENT', "Une page m�re ne peut se lier � elle-m�me ou � sa fille !");
-define('_AM_EDITO_EDITOMODIFIED', 'Database successfully updated!');
-define('_AM_EDITO_EDITONOTUPDATED', 'Error: Database not updated');
-define('_AM_EDITO_EDITODELETED', 'Page successfully deleted');
-define('_AM_EDITO_DELETETHISEDITO', 'Do you really want to delete this page:');
+define('_AM_EDITO_CREATED', 'New page successfully created');
+define('_AM_EDITO_NOTCREATED', 'Error: impossible to create a new page');
+define('_AM_EDITO_CANTPARENT', "Une page m�re ne peut se lier � elle-m�me ou � sa fille !");
+define('_AM_EDITO_MODIFIED', 'Database successfully updated!');
+define('_AM_EDITO_NOTUPDATED', 'Error: Database not updated');
+define('_AM_EDITO_DELETED', 'Page successfully deleted');
+define('_AM_EDITO_DELETETHIS', 'Do you really want to delete this page:');
 
 // Modifications  - Herve
 define('_AM_EDITO_YES', _YES);
@@ -192,23 +192,26 @@ Clone name<br><i>
       <li>No already existing module name</li>
       <li>Capital letters and spaces accepted</li>
   </ul></i>
-Sample : 'Mon Module 01'.
-");
-
-define('_AM_EDITO_IMPORT', 'Import');
-define('_AM_EDITO_EXPORT', 'Export');
+Sample : 'Mon Module 01'.");
+define('_AM_EDITO_EDITORS', 'Content Editors');
+define('_AM_EDITO_DB_DATAS', 'SQL Statements to Import');
 define('_AM_EDITO_DB_IMPORT', 'Import SQL');
 define('_AM_EDITO_DB_EXPORT', 'Export SQL');
+define('_AM_EDITO_EXPORT', 'Export');
+define('_AM_EDITO_IMPORT', 'Import');
 define('_AM_EDITO_INSERT', 'INSERT INTO database');
 define('_AM_EDITO_UPDATE', 'Update database');
 define('_AM_EDITO_TYPE', 'Action Type');
-define('_AM_EDITO_DB_DATAS', 'SQL Statements to Import');
-define('_AM_EDITO_EDITORS', 'Content Editors');
+define('_AM_EDITO_SITELIST', 'Allowed sites (separated by | [pipe])
+<i>Exemple :<br>
+www.frxoops.org|<br>
+wolfpackclan.com|<br>
+127.0.0.1</i>');
+
 
 // Anti-leech
 define('_AM_EDITO_HTACCESS', 'Media anti-leeching protection');
 define('_AM_EDITO_COPY', 'Copy code');
-define('_AM_EDITO_SITELIST', 'Allowed sites (separated by | [pipe])');
 define('_AM_EDITO_HTACCESS_INFO1', "If you'd like to prevent other sites from leeching medias from your site, this guide will assist you in doing so using the .htaccess file.
 <ol><li>Open Notepad (or equivalent software depending on your OS) and paste in the following code:</li></ol>");
 
