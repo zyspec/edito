@@ -31,18 +31,23 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 
 $group = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS];
 // $groups = explode(" ",$xoopsModuleConfig['submit_groups']);
-if (count(array_intersect($group, $GLOBALS['xoopsModuleConfig']['submit_groups'])) <= 0) {
+if (0 >= count(array_intersect($group, $GLOBALS['xoopsModuleConfig']['submit_groups']))) {
 	redirect_header('index.php', 2, _NOPERM);
 }
 
 if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
+    // Check to make sure this is from known location
+    if (!$GLOBALS['xoopsSecurity']->check()) {
+        redirect_header(XOOPS_URL . '/', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
+    }
+
     $subject     = Request::getString('subject', '', 'POST');
     $media       = Request::getUrl('media', '', 'POST');
     $description = Request::getString('description', '', 'POST');
     $groups      = (is_array($GLOBALS['xoopsModuleConfig']['groups'])) ? implode(' ', $GLOBALS['xoopsModuleConfig']['groups']) : '';
-	$html        = 1; // allow HTML
-	$xcode       = 1; // allow xcode
-	$smiley      = 1; // allow smilies
+	$html        = 1; // disallow HTML
+	$xcode       = 1; // disallow xcode
+	$smiley      = 1; // disallow smilies
     $logo        = $GLOBALS['xoopsModuleConfig']['option_logo'];
 	$block       = $GLOBALS['xoopsModuleConfig']['option_block'];
 	$title       = $GLOBALS['xoopsModuleConfig']['option_title'];
@@ -51,8 +56,7 @@ if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
     $meta        = '|||';
     $uid         = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->uid() : 0;
     $datesub     = time();
-    $media       = edito_function_checkurl($media);
-    $media       = '|' . $media . '|';
+    $media       = '|' . edito_function_checkurl($media) . '|';
 
     if ($GLOBALS['xoopsDB']->queryF("INSERT INTO " . $GLOBALS['xoopsDB']->prefix('edito_content') .
         " (id,
@@ -107,7 +111,7 @@ if (preg_match('/.swf/i', $GLOBALS['xoopsModuleConfig']['index_logo'])) {
                width="468">
                </object>';
 } elseif ($GLOBALS['xoopsModuleConfig']['index_logo']) {
-	$banner = edito_createlink(XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->dirname(), '', '', $xoopsModuleConfig['index_logo'], 'center', '800', '600', $xoopsModule -> getVar( 'name' ).' '. $GLOBALS['xoopsModuleConfig']['moduleMetaDescription'], $GLOBALS['xoopsModuleConfig']['url_rewriting']);
+	$banner = edito_createlink(XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->dirname(), '', '', $GLOBALS['xoopsModuleConfig']['index_logo'], 'center', '800', '600', $GLOBALS['xoopsModule']->getVar( 'name' ).' '. $GLOBALS['xoopsModuleConfig']['moduleMetaDescription'], $GLOBALS['xoopsModuleConfig']['url_rewriting']);
 } else {
 	$banner = '';
 }
@@ -116,12 +120,15 @@ $GLOBALS['xoopsTpl']->assign('banner', $banner);
 /* ----------------------------------------------------------------------- */
 /*                              Render  variables                          */
 /* ----------------------------------------------------------------------- */
-$GLOBALS['xoopsTpl']->assign('submit',  _MD_EDITO_SUBMIT);
-$GLOBALS['xoopsTpl']->assign('submitext',  _MD_EDITO_SUBMITEXT);
-$GLOBALS['xoopsTpl']->assign('subject', _MD_EDITO_SUBJECT);
-$GLOBALS['xoopsTpl']->assign('media',   _MD_EDITO_MEDIA);
-$GLOBALS['xoopsTpl']->assign('text',    _MD_EDITO_TEXT);
-$GLOBALS['xoopsTpl']->assign('footer',  $myts->displayTarea($xoopsModuleConfig['footer'], 1));
+$GLOBALS['xoopsTpl']->assign([
+    'submit'         => _MD_EDITO_SUBMIT,
+    'submitext'      => _MD_EDITO_SUBMITEXT,
+    'subject'        => _MD_EDITO_SUBJECT,
+    'media'          => _MD_EDITO_MEDIA,
+    'text'           => _MD_EDITO_TEXT,
+    'security_token' => $GLOBALS['xoopsSecurity']->getTokenHTML(),
+    'footer'         => $myts->displayTarea($xoopsModuleConfig['footer'], 1)
+]);
 
 /* ----------------------------------------------------------------------- */
 /*                             Admin links                                 */
