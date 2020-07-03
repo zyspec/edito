@@ -70,9 +70,9 @@ if (!$syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser-
 
 // get blocks owned by the module (Imported from xoopsblock.php then modified)
 //$block_arr = XoopsBlock::getByModule( $target_mid ) ;
-$db = \XoopsDatabaseFactory::getDatabaseConnection();
-$sql = 'SELECT * FROM ' . $db->prefix('newblocks') . " WHERE mid='$target_mid' ORDER BY visible DESC,side,weight";
-$result = $db->query($sql);
+$db        = \XoopsDatabaseFactory::getDatabaseConnection();
+$sql       = 'SELECT * FROM ' . $db->prefix('newblocks') . " WHERE mid='$target_mid' ORDER BY visible DESC,side,weight";
+$result    = $db->query($sql);
 $block_arr = [];
 while (false !== ($myrow = $db->fetchArray($result))) {
     $block_arr[] = new XoopsBlock($myrow);
@@ -85,16 +85,16 @@ function list_blocks()
     // cachetime options
 
     $cachetimes = [
-        '0' => _NOCACHE,
-        '30' => sprintf(_SECONDS, 30),
-        '60' => _MINUTE,
-        '300' => sprintf(_MINUTES, 5),
-        '1800' => sprintf(_MINUTES, 30),
-        '3600' => _HOUR,
-        '18000' => sprintf(_HOURS, 5),
-        '86400' => _DAY,
-        '259200' => sprintf(_DAYS, 3),
-        '604800' => _WEEK,
+        '0'       => _NOCACHE,
+        '30'      => sprintf(_SECONDS, 30),
+        '60'      => _MINUTE,
+        '300'     => sprintf(_MINUTES, 5),
+        '1800'    => sprintf(_MINUTES, 30),
+        '3600'    => _HOUR,
+        '18000'   => sprintf(_HOURS, 5),
+        '86400'   => _DAY,
+        '259200'  => sprintf(_DAYS, 3),
+        '604800'  => _WEEK,
         '2592000' => _MONTH,
     ];
 
@@ -156,40 +156,40 @@ function list_blocks()
             $scoln = 'black';
         } else {
             switch ($block_arr[$i]->getVar('side')) {
-            default:
-            case XOOPS_SIDEBLOCK_LEFT:
-                $ssel0 = ' checked';
-                $scol0 = 'gray';
-                break;
-            case XOOPS_SIDEBLOCK_RIGHT:
-                $ssel1 = ' checked';
-                $scol1 = 'gray';
-                break;
-            case XOOPS_CENTERBLOCK_LEFT:
-                $ssel2 = ' checked';
-                $scol2 = 'gray';
-                break;
-            case XOOPS_CENTERBLOCK_RIGHT:
-                $ssel4 = ' checked';
-                $scol4 = 'gray';
-                break;
-            case XOOPS_CENTERBLOCK_CENTER:
-                $ssel3 = ' checked';
-                $scol3 = 'gray';
-                break;
-            case XOOPS_CENTERBLOCK_BOTTOMLEFT:
-                $ssel5 = ' checked';
-                $scol5 = 'gray';
-                break;
-            case XOOPS_CENTERBLOCK_BOTTOMRIGHT:
-                $ssel6 = 'checked';
-                $scol6 = 'gray';
-                break;
-            case XOOPS_CENTERBLOCK_BOTTOM:
-                $ssel7 = 'checked';
-                $scol7 = 'gray';
-                break;
-        }
+                default:
+                case XOOPS_SIDEBLOCK_LEFT:
+                    $ssel0 = ' checked';
+                    $scol0 = 'gray';
+                    break;
+                case XOOPS_SIDEBLOCK_RIGHT:
+                    $ssel1 = ' checked';
+                    $scol1 = 'gray';
+                    break;
+                case XOOPS_CENTERBLOCK_LEFT:
+                    $ssel2 = ' checked';
+                    $scol2 = 'gray';
+                    break;
+                case XOOPS_CENTERBLOCK_RIGHT:
+                    $ssel4 = ' checked';
+                    $scol4 = 'gray';
+                    break;
+                case XOOPS_CENTERBLOCK_CENTER:
+                    $ssel3 = ' checked';
+                    $scol3 = 'gray';
+                    break;
+                case XOOPS_CENTERBLOCK_BOTTOMLEFT:
+                    $ssel5 = ' checked';
+                    $scol5 = 'gray';
+                    break;
+                case XOOPS_CENTERBLOCK_BOTTOMRIGHT:
+                    $ssel6 = 'checked';
+                    $scol6 = 'gray';
+                    break;
+                case XOOPS_CENTERBLOCK_BOTTOM:
+                    $ssel7 = 'checked';
+                    $scol7 = 'gray';
+                    break;
+            }
         }
 
         // bcachetime

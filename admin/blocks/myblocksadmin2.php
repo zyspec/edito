@@ -76,16 +76,16 @@ if (!$syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser-
 }
 
 // get blocks owned by the module (Imported from xoopsblock.php then modified)
-$db = \XoopsDatabaseFactory::getDatabaseConnection();
-$sql = 'SELECT bid,name,show_func,func_file,template FROM ' . $db->prefix('newblocks') . " WHERE mid='$target_mid'";
-$result = $db->query($sql);
+$db        = \XoopsDatabaseFactory::getDatabaseConnection();
+$sql       = 'SELECT bid,name,show_func,func_file,template FROM ' . $db->prefix('newblocks') . " WHERE mid='$target_mid'";
+$result    = $db->query($sql);
 $block_arr = [];
 while (list($bid, $bname, $show_func, $func_file, $template) = $db->fetchRow($result)) {
     $block_arr[$bid] = [
-        'name' => $bname,
+        'name'      => $bname,
         'show_func' => $show_func,
         'func_file' => $func_file,
-        'template' => $template,
+        'template'  => $template,
     ];
 }
 
@@ -98,7 +98,18 @@ function list_blockinstances()
 
     // cachetime options
 
-    $cachetimes = ['0' => _NOCACHE, '30' => sprintf(_SECONDS, 30), '60' => _MINUTE, '300' => sprintf(_MINUTES, 5), '1800' => sprintf(_MINUTES, 30), '3600' => _HOUR, '18000' => sprintf(_HOURS, 5), '86400' => _DAY, '259200' => sprintf(_DAYS, 3), '604800' => _WEEK, '2592000' => _MONTH];
+    $cachetimes = ['0'       => _NOCACHE,
+                   '30'      => sprintf(_SECONDS, 30),
+                   '60'      => _MINUTE,
+                   '300'     => sprintf(_MINUTES, 5),
+                   '1800'    => sprintf(_MINUTES, 30),
+                   '3600'    => _HOUR,
+                   '18000'   => sprintf(_HOURS, 5),
+                   '86400'   => _DAY,
+                   '259200'  => sprintf(_DAYS, 3),
+                   '604800'  => _WEEK,
+                   '2592000' => _MONTH
+    ];
 
     // displaying TH
 
@@ -191,28 +202,28 @@ function list_blockinstances()
             $scoln = '#FF0000';
         } else {
             switch ($instances[$i]->getVar('side')) {
-            default:
-            case XOOPS_SIDEBLOCK_LEFT:
-                $ssel0 = ' checked';
-                $scol0 = '#00FF00';
-                break;
-            case XOOPS_SIDEBLOCK_RIGHT:
-                $ssel1 = ' checked';
-                $scol1 = '#00FF00';
-                break;
-            case XOOPS_CENTERBLOCK_LEFT:
-                $ssel2 = ' checked';
-                $scol2 = '#00FF00';
-                break;
-            case XOOPS_CENTERBLOCK_RIGHT:
-                $ssel4 = ' checked';
-                $scol4 = '#00FF00';
-                break;
-            case XOOPS_CENTERBLOCK_CENTER:
-                $ssel3 = ' checked';
-                $scol3 = '#00FF00';
-                break;
-        }
+                default:
+                case XOOPS_SIDEBLOCK_LEFT:
+                    $ssel0 = ' checked';
+                    $scol0 = '#00FF00';
+                    break;
+                case XOOPS_SIDEBLOCK_RIGHT:
+                    $ssel1 = ' checked';
+                    $scol1 = '#00FF00';
+                    break;
+                case XOOPS_CENTERBLOCK_LEFT:
+                    $ssel2 = ' checked';
+                    $scol2 = '#00FF00';
+                    break;
+                case XOOPS_CENTERBLOCK_RIGHT:
+                    $ssel4 = ' checked';
+                    $scol4 = '#00FF00';
+                    break;
+                case XOOPS_CENTERBLOCK_CENTER:
+                    $ssel3 = ' checked';
+                    $scol3 = '#00FF00';
+                    break;
+            }
         }
 
         // bcachetime

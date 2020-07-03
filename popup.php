@@ -7,7 +7,7 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 
 // Script used to display a media in a pop up
@@ -31,21 +31,21 @@ require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include
 require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions_mediasize.php';
 require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions_block.php';
 
-$sql = ' SELECT * FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . " WHERE id = $id AND status != 0 ";
+$sql    = ' SELECT * FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . " WHERE id = $id AND status != 0 ";
 $result = $xoopsDB->queryF($sql);
 
 // Does edito exist?
-if ($xoopsDB->getRowsNum($result) <= 0) {		// edito can't be found
+if ($xoopsDB->getRowsNum($result) <= 0) {        // edito can't be found
     redirect_header('index.php', 2, _MD_EDITO_NOT_FOUND);
 
     exit();
 }
 
 $myrow = $xoopsDB->fetchArray($result);
-$info = [];
+$info  = [];
 
 // Groups permission
-$group = is_object($xoopsUser) ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
+$group  = is_object($xoopsUser) ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
 $groups = explode(' ', $myrow['groups']);
 if (count(array_intersect($group, $groups)) <= 0) {
     redirect_header('index.php', 2, _NOPERM);
@@ -54,23 +54,23 @@ if (count(array_intersect($group, $groups)) <= 0) {
 }
 
 // Retrieve options data
-$media = explode('|', $myrow['media']);
+$media      = explode('|', $myrow['media']);
 $media_file = $media[0];
-$media_url = $media[1];
+$media_url  = $media[1];
 $media_size = $media[2];
 
-$meta = explode('|', $myrow['meta']);
-$meta_title = $meta[0];
+$meta             = explode('|', $myrow['meta']);
+$meta_title       = $meta[0];
 $meta_description = $meta[1];
-$meta_keywords = $meta[2];
+$meta_keywords    = $meta[2];
 
-$option = explode('|', $myrow['options']);
-$html = $option[0];
-$xcode = $option[1];
-$smiley = $option[2];
-$logo = $option[3];
-$block = $option[4];
-$title = $option[5];
+$option     = explode('|', $myrow['options']);
+$html       = $option[0];
+$xcode      = $option[1];
+$smiley     = $option[2];
+$logo       = $option[3];
+$block      = $option[4];
+$title      = $option[5];
 $cancomment = $option[6];
 
 // Display title

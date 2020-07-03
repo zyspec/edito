@@ -7,7 +7,7 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 if (file_exists(XOOPS_ROOT_PATH . '/modules/xoopsinfo/include/mimetypes.php')) {
     require_once XOOPS_ROOT_PATH . '/modules/xoopsinfo/include/mimetypes.php';

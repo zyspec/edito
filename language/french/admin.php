@@ -49,7 +49,8 @@ define('_AM_EDITO_ALL', 'Tous');
 define('_AM_EDITO_ORDEREDBY', 'Classement');
 define('_AM_EDITO_REWRITING', 'Url Rewriting actif');
 define('_AM_EDITO_NOREWRITING', 'Url Rewriting inactif');
-define('_AM_EDITO_REWRITING_INFO', "Un probl�me est survenu lors de l'�criture du fichier .htaccess sur le serveur.<p>Pour �viter ce probl�me, copier le fichier<br><b>'modules/edito/doc/htaccess/.htaccess'</b><br>dans le r�pertoire<br><b>'modules/edito/'</b>");
+define('_AM_EDITO_REWRITING_INFO',
+       "Un probl�me est survenu lors de l'�criture du fichier .htaccess sur le serveur.<p>Pour �viter ce probl�me, copier le fichier<br><b>'modules/edito/doc/htaccess/.htaccess'</b><br>dans le r�pertoire<br><b>'modules/edito/'</b>");
 
 // admin/content.php
 define('_AM_EDITO_NOEDITOTOEDIT', 'Aucune page � �diter');
@@ -257,15 +258,12 @@ En mode php, c'est dans cette zone que doit �tre indiqu�e le code php � in
 	<li><i><b>{block align=\"center\"}</b></i> : le bloc s'affichera au centre.</li>
 </ol></ul>
 ");
-define(
-    '_AM_EDITO_IMAGE_HELP',
-    "Pour chaque page cr��e, il est possible d'y affecter une image repr�sentative.
+define('_AM_EDITO_IMAGE_HELP', "Pour chaque page cr��e, il est possible d'y affecter une image repr�sentative.
 <ul><b>1) <u>Image</b></u>
 L'emplacement de stockage des images est d�fini dans les Pr�f�rences du module (cf. <b>[LOGO] R�pertoire des images</b>) et doit imp�rativement �tre h�berg� sur le serveur du site. La liste des images ainsi disponibles s'affiche dans la liste d�roulante. Vous pouvez pr�visualiser l'image en la s�lectionnant.
 </ul>
 <ul><b>2) <u>Charger un m�dia</b></u>
-Il est possible de t�l�verser une image directement � partir du disque dur. Veillez � respecter les dimensions et les tailles maximum autoris�es, param�trables dans les Pr�f�rences du module.</ul>"
-);
+Il est possible de t�l�verser une image directement � partir du disque dur. Veillez � respecter les dimensions et les tailles maximum autoris�es, param�trables dans les Pr�f�rences du module.</ul>");
 define('_AM_EDITO_MEDIA_HELP', "Pour chaque page, il est possible d'y affecter un m�dia. Les media support�s sont les suivants : images, son, vid�o et flash.
 
 <ul><b>1) <u>M�dia local</b></u>

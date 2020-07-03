@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: Edito
  *
@@ -52,7 +53,7 @@ $myrow = $GLOBALS['xoopsDB']->fetchArray($result);
 /* ----------------------------------------------------------------------- */
 /*                              Check group permission                     */
 /* ----------------------------------------------------------------------- */
-$group = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS];
+$group  = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS];
 $groups = explode(' ', $myrow['groups']);
 if (count(array_intersect($group, $groups)) <= 0) {
     redirect_header('index.php', 2, _NOPERM);
@@ -61,13 +62,13 @@ if (count(array_intersect($group, $groups)) <= 0) {
 /* ----------------------------------------------------------------------- */
 /*                              Create Datas                               */
 /* ----------------------------------------------------------------------- */
-$option = explode('|', $myrow['options']);
-$html = $option[0];
-$xcode = $option[1];
-$smiley = $option[2];
-$logo = $option[3];
-$block = $option[4];
-$title = $option[5];
+$option     = explode('|', $myrow['options']);
+$html       = $option[0];
+$xcode      = $option[1];
+$smiley     = $option[2];
+$logo       = $option[3];
+$block      = $option[4];
+$title      = $option[5];
 $cancomment = $option[6];
 
 /*
@@ -76,9 +77,9 @@ $banner = '<img src="'.$xoopsModuleConfig ["index_logo"].'" alt="'.$xoopsModule 
 $banner = '';}
 */
 
-$subject = $myts->displayTarea($myrow['subject']);
+$subject  = $myts->displayTarea($myrow['subject']);
 $username = XoopsUser::getUnameFromId($myrow['uid']);
-$date = formatTimestamp($myrow['datesub'], 'm');
+$date     = formatTimestamp($myrow['datesub'], 'm');
 
 /* ----------------------------------------------------------------------- */
 /*                              Create Logo                                */

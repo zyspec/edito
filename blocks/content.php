@@ -200,7 +200,7 @@ function a_edito_show($options)
         $content = $myts->displayTarea($myrow['block_text'], $html, $smiley, $xcode);
     } else {
         $contents = $myrow['body_text'];
-//        $content	= edito_substr($myts->displayTarea($myrow['body_text'], $html, $smiley, $xcode),0,$options[0],'');
+        //        $content	= edito_substr($myts->displayTarea($myrow['body_text'], $html, $smiley, $xcode),0,$options[0],'');
 
         if ('4' == $myrow['status']) {
             $content = $myrow['body_text'];  // Html mode
@@ -285,7 +285,8 @@ function a_edito_show($options)
         $media_display = '';
 
         if ('page' == $options[4] and $media) {
-            $media_options = 'AutoStart=1, ShowControls=1, ShowTracker=1, AnimationAtStart=1, TransparentAtStart=0, enableContextMenu=0, BufferingProgress=1, PreBuffer=1, VideoDelay=999, VideoBufferSize=9, loop=' . $xoopsModuleConfig['repeat'] . $align_media;
+            $media_options = 'AutoStart=1, ShowControls=1, ShowTracker=1, AnimationAtStart=1, TransparentAtStart=0, enableContextMenu=0, BufferingProgress=1, PreBuffer=1, VideoDelay=999, VideoBufferSize=9, loop=' . $xoopsModuleConfig['repeat']
+                             . $align_media;
 
             $media_display = edito_media($media, $image, $media_size, $media_options, $myrow['subject'], edito_getmoduleoption('custom_media'));
 
@@ -314,11 +315,12 @@ function a_edito_show($options)
 
             $media_display = '';
 
-        // Media in page and popup
+            // Media in page and popup
         } elseif ('both' == $options[4] and $media) {
             require_once XOOPS_ROOT_PATH . '/modules/' . $module . '/include/functions_media.php';
 
-            $media_options = 'AutoStart=1, ShowControls=1, ShowTracker=1, AnimationAtStart=1, TransparentAtStart=0, enableContextMenu=0, BufferingProgress=1, PreBuffer=1, VideoDelay=999, VideoBufferSize=9, loop=' . edito_getmoduleoption('repeat') . $align_media;
+            $media_options = 'AutoStart=1, ShowControls=1, ShowTracker=1, AnimationAtStart=1, TransparentAtStart=0, enableContextMenu=0, BufferingProgress=1, PreBuffer=1, VideoDelay=999, VideoBufferSize=9, loop=' . edito_getmoduleoption('repeat')
+                             . $align_media;
 
             $logo = XOOPS_URL . '/' . edito_getmoduleoption('sbuploaddir') . '/' . $image;
 
@@ -382,9 +384,7 @@ function a_edito_show($options)
             $link = edito_urw($link_url, $subject, $alt_subject, $urw);
         }
 
-        $readmore = '<div style="text-align:right; padding:6px;">'
-                             . edito_createlink($link, _MB_EDITO_READMORE, '', '', '', '', '', $alt_subject, $urw) .
-                             '</div>';
+        $readmore = '<div style="text-align:right; padding:6px;">' . edito_createlink($link, _MB_EDITO_READMORE, '', '', '', '', '', $alt_subject, $urw) . '</div>';
     }
 
     if (mb_strlen(strip_tags($contents)) >= $options[0] && !$myrow['block_text'] && '4' != $myrow['status']) {
@@ -829,7 +829,7 @@ function a_edito_menu_show($options)
             if ('counter DESC' == $options[3]) {
                 $subject .= ' (' . $counter . ')';
             }
-//            $alt_subject = strip_tags($subject);
+            //            $alt_subject = strip_tags($subject);
 
             /*                              Image and link display                        */
 

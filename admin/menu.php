@@ -7,11 +7,11 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 $id = $_POST['id'] ?? $_GET['id'] ?? '';
 $op = $_POST['op'] ?? $_GET['op'] ?? '';
-$i = 0;
+$i  = 0;
 
 if (false !== strpos($op, "_ok")) {
     //if (ereg('_ok', $op) ) {
@@ -20,9 +20,9 @@ if (false !== strpos($op, "_ok")) {
 
     $adminmenu[$i++]['link'] = 'index.php';
 }
-$adminmenu[$i]['title'] = _MI_EDITO_LIST;
+$adminmenu[$i]['title']  = _MI_EDITO_LIST;
 $adminmenu[$i++]['link'] = 'admin/index.php';
-$adminmenu[$i]['title'] = _MI_EDITO_CREATE;
+$adminmenu[$i]['title']  = _MI_EDITO_CREATE;
 $adminmenu[$i++]['link'] = 'admin/content.php';
 
 if ($id) {
@@ -31,10 +31,10 @@ if ($id) {
     $adminmenu[$i++]['link'] = 'content.php?id=' . $id;
 }
 
-$adminmenu[$i]['title'] = _MI_EDITO_UTILITIES;
+$adminmenu[$i]['title']  = _MI_EDITO_UTILITIES;
 $adminmenu[$i++]['link'] = 'admin/utils_uploader.php';
 
-$adminmenu[$i]['title'] = _MI_EDITO_BLOCKS_GRPS;
+$adminmenu[$i]['title']  = _MI_EDITO_BLOCKS_GRPS;
 $adminmenu[$i++]['link'] = 'admin/blocks.php';
 
 $hModule = xoops_getHandler('module');
@@ -81,16 +81,16 @@ if (isset($xoopsModule)) {
 }
 
 // Utilities
-$i = 0;
-$statmenu[$i]['title'] = _MI_EDITO_UPLOAD;
+$i                      = 0;
+$statmenu[$i]['title']  = _MI_EDITO_UPLOAD;
 $statmenu[$i++]['link'] = 'admin/utils_uploader.php';
-$statmenu[$i]['title'] = _MI_EDITO_CLONE;
+$statmenu[$i]['title']  = _MI_EDITO_CLONE;
 $statmenu[$i++]['link'] = 'admin/utils_clone.php';
-$statmenu[$i]['title'] = _MI_EDITO_EXPORT;
+$statmenu[$i]['title']  = _MI_EDITO_EXPORT;
 $statmenu[$i++]['link'] = 'admin/utils_export.php';
-$statmenu[$i]['title'] = _MI_EDITO_IMPORT;
+$statmenu[$i]['title']  = _MI_EDITO_IMPORT;
 $statmenu[$i++]['link'] = 'admin/utils_import.php';
-$statmenu[$i]['title'] = _MI_EDITO_EDITORS;
+$statmenu[$i]['title']  = _MI_EDITO_EDITORS;
 $statmenu[$i++]['link'] = 'admin/utils_wysiwyg.php';
-$statmenu[$i]['title'] = _MI_EDITO_HTACCESS;
+$statmenu[$i]['title']  = _MI_EDITO_HTACCESS;
 $statmenu[$i++]['link'] = 'admin/utils_htaccess.php';

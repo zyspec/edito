@@ -7,7 +7,7 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 if (!defined('XOOPS_ROOT_PATH')) {
     die('XOOPS root path not defined');
@@ -163,18 +163,18 @@ function edito_media_mp3($media_url, $thumb, $media_size, $options, $description
                 case 'yes':
                 case 'true':
                 case '1':
-                $value = 'true';
-                $ff_value = 'true';
-                break;
+                    $value    = 'true';
+                    $ff_value = 'true';
+                    break;
                 case 'no':
                 case 'false':
                 case '0':
-                $value = 'false';
-                $ff_value = 'false';
-                break;
+                    $value    = 'false';
+                    $ff_value = 'false';
+                    break;
                 default:
-                $value = $value;
-                $ff_value = $value;
+                    $value    = $value;
+                    $ff_value = $value;
             }
 
             if ('align' == $param) {
@@ -309,48 +309,48 @@ function edito_media_mpg($media_url, $thumb, $media_size, $options, $description
                 case 'yes':
                 case 'true':
                 case '1':
-                if ('playcount' == $param) {
-                    $value = $value;
+                    if ('playcount' == $param) {
+                        $value = $value;
 
-                    $ff_value = $value;
-                } elseif ('balance' == $param) {
-                    $value = $value;
+                        $ff_value = $value;
+                    } elseif ('balance' == $param) {
+                        $value = $value;
 
-                    $ff_value = $value;
-                } elseif ('rate' == $param) {
-                    $value = $value;
+                        $ff_value = $value;
+                    } elseif ('rate' == $param) {
+                        $value = $value;
 
-                    $ff_value = $value;
-                } else {
-                    $value = '1';
+                        $ff_value = $value;
+                    } else {
+                        $value = '1';
 
-                    $ff_value = 'true';
-                }
-                break;
+                        $ff_value = 'true';
+                    }
+                    break;
                 case 'no':
                 case 'false':
                 case '0':
-                     if ('playcount' == $param) {
-                         $value = $value;
+                    if ('playcount' == $param) {
+                        $value = $value;
 
-                         $ff_value = $value;
-                     } elseif ('balance' == $param) {
-                         $value = $value;
+                        $ff_value = $value;
+                    } elseif ('balance' == $param) {
+                        $value = $value;
 
-                         $ff_value = $value;
-                     } elseif ('rate' == $param) {
-                         $value = $value;
+                        $ff_value = $value;
+                    } elseif ('rate' == $param) {
+                        $value = $value;
 
-                         $ff_value = $value;
-                     } else {
-                         $value = '0';
+                        $ff_value = $value;
+                    } else {
+                        $value = '0';
 
-                         $ff_value = 'false';
-                     }
-                break;
+                        $ff_value = 'false';
+                    }
+                    break;
                 default:
-                $value = $value;
-                $ff_value = $value;
+                    $value    = $value;
+                    $ff_value = $value;
             }
 
             if ('align' == $param) {
@@ -486,18 +486,18 @@ function edito_media_flash($media_url, $thumb, $media_size, $options, $descripti
                 case 'yes':
                 case 'true':
                 case '1':
-                $value = '1';
-                $ff_value = 'true';
-                break;
+                    $value    = '1';
+                    $ff_value = 'true';
+                    break;
                 case 'no':
                 case 'false':
                 case '0':
-                $value = '0';
-                $ff_value = 'false';
-                break;
+                    $value    = '0';
+                    $ff_value = 'false';
+                    break;
                 default:
-                $value = $value;
-                $ff_value = $value;
+                    $value    = $value;
+                    $ff_value = $value;
             }
 
             if ('align' == $param) {
@@ -635,18 +635,18 @@ function edito_media_flv($media_url, $thumb, $media_size, $options, $description
                 case 'yes':
                 case 'true':
                 case '1':
-                $value = '1';
-                $ff_value = 'true';
-                break;
+                    $value    = '1';
+                    $ff_value = 'true';
+                    break;
                 case 'no':
                 case 'false':
                 case '0':
-                $value = '0';
-                $ff_value = 'false';
-                break;
+                    $value    = '0';
+                    $ff_value = 'false';
+                    break;
                 default:
-                $value = $value;
-                $ff_value = $value;
+                    $value    = $value;
+                    $ff_value = $value;
             }
 
             if ('align' == $param) {
@@ -785,18 +785,18 @@ function edito_media_mov($media_url, $thumb, $media_size, $options, $description
                 case 'yes':
                 case 'true':
                 case '1':
-                $value = '1';
-                $ff_value = 'true';
-                break;
+                    $value    = '1';
+                    $ff_value = 'true';
+                    break;
                 case 'no':
                 case 'false':
                 case '0':
-                $value = '0';
-                $ff_value = 'false';
-                break;
+                    $value    = '0';
+                    $ff_value = 'false';
+                    break;
                 default:
-                $value = $value;
-                $ff_value = $value;
+                    $value    = $value;
+                    $ff_value = $value;
             }
 
             if ('align' == $param) {
@@ -924,18 +924,18 @@ function edito_media_ram($media_url, $thumb, $media_size, $options, $description
                 case 'yes':
                 case 'true':
                 case '1':
-                $value = '1';
-                $ff_value = 'true';
-                break;
+                    $value    = '1';
+                    $ff_value = 'true';
+                    break;
                 case 'no':
                 case 'false':
                 case '0':
-                $value = '0';
-                $ff_value = 'false';
-                break;
+                    $value    = '0';
+                    $ff_value = 'false';
+                    break;
                 default:
-                $value = $value;
-                $ff_value = $value;
+                    $value    = $value;
+                    $ff_value = $value;
             }
 
             if ('align' == $param) {
@@ -1118,8 +1118,8 @@ function edito_media_image($image_url, $thumb, $thumb_width, $options, $descript
         $image_height = $image_height + 20 + $plus;
 
         //	if ( $image_width > 800 OR $image_height > 600 ) {
-//    	$scrollbars = "scrollbars=yes, ";
-//    }
+        //    	$scrollbars = "scrollbars=yes, ";
+        //    }
 
         // Define popup window position
 

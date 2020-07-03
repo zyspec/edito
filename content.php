@@ -7,7 +7,7 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 
 // Script used to display an edito's content, for example when it was too short
@@ -25,7 +25,7 @@ if (!isset($id)) {
     redirect_header('index.php', 2, _MD_EDITO_PL_SELECT);
 }
 
-$sql = ' SELECT * FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . " WHERE id=$id AND status > 0";
+$sql    = ' SELECT * FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . " WHERE id=$id AND status > 0";
 $result = $xoopsDB->queryF($sql);
 
 if (0 == $xoopsDB->getRowsNum($result)) {
@@ -47,7 +47,7 @@ if (!$admin && 1 == $myrow['status']) {
 
 $info = [];
 
-$group = is_object($xoopsUser) ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
+$group  = is_object($xoopsUser) ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
 $groups = explode(' ', $myrow['groups']);
 
 if (count(array_intersect($group, $groups)) <= 0) {
@@ -61,24 +61,24 @@ $info['status'] = $myrow['status'];
 /* ----------------------------------------------------------------------- */
 /*                              Retrieve options                           */
 /* ----------------------------------------------------------------------- */
-$media = explode('|', $myrow['media']);
+$media      = explode('|', $myrow['media']);
 $media_file = $media[0];
-$media_url = $media[1];
+$media_url  = $media[1];
 $media_size = $media[2];
 
-$meta = explode('|', $myrow['meta']);
-$meta_title = $meta[0];
+$meta             = explode('|', $myrow['meta']);
+$meta_title       = $meta[0];
 $meta_description = $meta[1];
-$meta_keywords = $meta[2];
-$meta_gen = $meta[3];
+$meta_keywords    = $meta[2];
+$meta_gen         = $meta[3];
 
-$option = explode('|', $myrow['options']);
-$html = $option[0];
-$xcode = $option[1];
-$smiley = $option[2];
-$logo = $option[3];
-$block = $option[4];
-$title = $option[5];
+$option     = explode('|', $myrow['options']);
+$html       = $option[0];
+$xcode      = $option[1];
+$smiley     = $option[2];
+$logo       = $option[3];
+$block      = $option[4];
+$title      = $option[5];
 $cancomment = $option[6];
 
 /* ----------------------------------------------------------------------- */
@@ -103,7 +103,8 @@ if (preg_match('/.swf/i', $xoopsModuleConfig['index_logo']) && $myrow['status'] 
                width="468">
                </object>';
 } elseif ($xoopsModuleConfig['index_logo'] && $myrow['status'] >= 3) {
-    $banner = edito_createlink(XOOPS_URL . '/modules/' . $xoopsModule->dirname(), '', '', $xoopsModuleConfig['index_logo'], 'center', '800', '600', $xoopsModule->getVar('name') . ' ' . $xoopsModuleConfig['moduleMetaDescription'], $xoopsModuleConfig['url_rewriting']);
+    $banner = edito_createlink(XOOPS_URL . '/modules/' . $xoopsModule->dirname(), '', '', $xoopsModuleConfig['index_logo'], 'center', '800', '600', $xoopsModule->getVar('name') . ' ' . $xoopsModuleConfig['moduleMetaDescription'],
+                               $xoopsModuleConfig['url_rewriting']);
 } else {
     $banner = '';
 }
@@ -120,14 +121,14 @@ $xoopsTpl->assign('footer', $myts->displayTarea($xoopsModuleConfig['footer'], 1)
 // require_once __DIR__ . '/include/tagreplace.php';
 // $myrow["informations"] = edito_tagreplace($myrow["informations"]);
 
-$logo_align = $xoopsModuleConfig['logo_align'];
-$count = $myrow['counter'];
-$alt_user = XoopsUser::getUnameFromId($myrow['uid']);
-$user = '<a href="../../userinfo.php?uid=' . $myrow['uid'] . '">' . $alt_user . '</a>';
-$datesub = formatTimestamp($myrow['datesub'], 'm') . ' ' . $user;
-$image = $myrow['image'];
-$subject = $myts->displayTarea($myrow['subject']);
-$subject_org = $subject;
+$logo_align    = $xoopsModuleConfig['logo_align'];
+$count         = $myrow['counter'];
+$alt_user      = XoopsUser::getUnameFromId($myrow['uid']);
+$user          = '<a href="../../userinfo.php?uid=' . $myrow['uid'] . '">' . $alt_user . '</a>';
+$datesub       = formatTimestamp($myrow['datesub'], 'm') . ' ' . $user;
+$image         = $myrow['image'];
+$subject       = $myts->displayTarea($myrow['subject']);
+$subject_org   = $subject;
 $info['title'] = $subject;
 
 if ($meta_title) {
@@ -139,11 +140,11 @@ if ($meta_title) {
 } else {
     $alt_subject = strip_tags($subject);
 }
-$info['meta_title'] = $alt_subject;
-$info['subject'] = $subject;
+$info['meta_title']   = $alt_subject;
+$info['subject']      = $subject;
 $info['displaytitle'] = $title;
-$info['cancomment'] = $cancomment;
-$info['displaylogo'] = $logo;
+$info['cancomment']   = $cancomment;
+$info['displaylogo']  = $logo;
 
 /* ----------------------------------------------------------------------- */
 /*                              Render media files                         */
@@ -239,9 +240,9 @@ if ('page' == $xoopsModuleConfig['media_display'] and $media) {
 
     $info['media'] = edito_media($media, $media, $media_display, $media_options, $myrow['subject'], $xoopsModuleConfig['custom_media']);
 
-/* -----------------------------------------------------------------------  */
-/*                       Media display in popup only                        */
-/* -----------------------------------------------------------------------  */
+    /* -----------------------------------------------------------------------  */
+    /*                       Media display in popup only                        */
+    /* -----------------------------------------------------------------------  */
 } elseif ('popup' == $xoopsModuleConfig['media_display'] and $media) {
     $logo = XOOPS_URL . '/' . $xoopsModuleConfig['sbuploaddir'] . '/' . $image;
 
@@ -267,9 +268,9 @@ if ('page' == $xoopsModuleConfig['media_display'] and $media) {
 
     $info['media'] = '';
 
-/* ----------------------------------------------------------------------- */
-/*                       Media display in page & popup                     */
-/* ----------------------------------------------------------------------- */
+    /* ----------------------------------------------------------------------- */
+    /*                       Media display in page & popup                     */
+    /* ----------------------------------------------------------------------- */
 } elseif ('both' == $xoopsModuleConfig['media_display'] and $media) {
     $align = ', align=' . $logo_align;
 
@@ -288,7 +289,7 @@ if ('page' == $xoopsModuleConfig['media_display'] and $media) {
 
         $logo = $media;
 
-    /*                       Media is not an image                            */
+        /*                       Media is not an image                            */
     } else {
         $popup_size = edito_popup_size($media_size, $xoopsModuleConfig['custom']);
 
@@ -322,7 +323,7 @@ if ('page' == $xoopsModuleConfig['media_display'] and $media) {
 
         $info['logo'] = edito_createlink('', '', '', $logo, $logo_align, '800', '600', $alt_subject, $xoopsModuleConfig['url_rewriting']);
 
-    // Quoted line: change if you want to apply default size to logo on pages
+        // Quoted line: change if you want to apply default size to logo on pages
         //   $info['logo'] = edito_createlink('', '', $logo, $logo_align, trim($image_size[0]), trim($image_size[1]), $alt_subject);
 
         /*                       No logo                                     */
@@ -338,20 +339,20 @@ if ('page' == $xoopsModuleConfig['media_display'] and $media) {
 /* ----------------------------------------------------------------------- */
 $alt_bodytext = strip_tags($myrow['body_text']);
 $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 0;
-$texte = edito_pagebreak($myrow['body_text'], '', $current_page, 'id=' . $id);
+$texte        = edito_pagebreak($myrow['body_text'], '', $current_page, 'id=' . $id);
 
-$pattern_media = [];
+$pattern_media   = [];
 $pattern_media[] = "/\{media\}/sU";
 $pattern_media[] = "/\{media align=(['\"]?)(left|center|right)\\1}/sU";
 
- if (preg_match('/{media/i', $texte)) {
-     $texte = preg_replace($pattern_media, $info['media'], $texte);
+if (preg_match('/{media/i', $texte)) {
+    $texte = preg_replace($pattern_media, $info['media'], $texte);
 
-     $info['media'] = '';
- }
+    $info['media'] = '';
+}
 //	$info['body_text']  = $myts->displayTarea($texte, $html, $smiley, $xcode);
 
-$pattern_block = [];
+$pattern_block   = [];
 $pattern_block[] = "/\{block\}/sU";
 $pattern_block[] = "/\{block align=(['\"]?)(left|center|right)\\1}/sU";
 
@@ -506,13 +507,13 @@ if ($online) {
     $metagen['title'] = '';
 }
 // Metagen
-    $metagen['title'] .= $meta_title;
-    $metagen['description'] = $meta_description;
-    if ('auto' == $xoopsModuleConfig['metamanager']) {
-        $metagen['keywords'] = $meta_gen;
-    } else {
-        $metagen['keywords'] = $meta_keywords;
-    }
+$metagen['title']       .= $meta_title;
+$metagen['description'] = $meta_description;
+if ('auto' == $xoopsModuleConfig['metamanager']) {
+    $metagen['keywords'] = $meta_gen;
+} else {
+    $metagen['keywords'] = $meta_keywords;
+}
 
 $xoopsTpl->assign('xoops_pagetitle', $alt_subject);
 

@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: Edito
  *
@@ -28,8 +29,8 @@ require_once dirname(__DIR__, 3) . '/include/cp_header.php';
 // foreach ( $_POST as $k => $v ) { ${$k} = $v; }
 // foreach ( $_GET as $k => $v ) { ${$k} = $v; }
 
-$op = Request::getCmd('op', '', 'POST');
-$dir = Request::getString('dir', '', 'POST');
+$op       = Request::getCmd('op', '', 'POST');
+$dir      = Request::getString('dir', '', 'POST');
 $sitelist = Request::getString('sitelist', 'logos', 'POST');
 /*
 $op       = '';
@@ -89,7 +90,10 @@ function utilities($dir, $sitelist)
 
     // Directories
 
-    $dirs = ['logos' => 'logos', 'media' => 'media'];
+    $dirs = [
+        'logos' => 'logos',
+        'media' => 'media'
+    ];
 
     $pagedir_array = $dirs;
 

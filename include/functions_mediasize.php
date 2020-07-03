@@ -7,7 +7,7 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 if (!defined('XOOPS_ROOT_PATH')) {
     die('XOOPS root path not defined');
@@ -142,9 +142,7 @@ function edito_popup_size($popup_size, $options)
  */
 function edito_checkurl($url)
 {
-    if (!preg_match('/mailto:/i', $url) &&
-        !preg_match("/http[s]:\/\//i", $url) &&
-        !preg_match("/ftp[s]:\/\//i", $url)) {
+    if (!preg_match('/mailto:/i', $url) && !preg_match("/http[s]:\/\//i", $url) && !preg_match("/ftp[s]:\/\//i", $url)) {
         $url = XOOPS_ROOT_PATH . '/' . $url;
     } else {
         $url = preg_replace('/' . XOOPS_URL . '/i', XOOPS_ROOT_PATH, $url);
@@ -203,7 +201,9 @@ function edito_checkformat($url, $custom_media = '')
     if ('avi' == $format || 'wmv' == $format || 'mpg' == $format || 'mpeg' == $format
         || false !== stripos($format, "asx")
         || $is_mpeg
-         || 'mp3' == $format || 'wav' == $format || 'mid' == $format) {
+        || 'mp3' == $format
+        || 'wav' == $format
+        || 'mid' == $format) {
         $formats[1] = 'wmp';
     }
 
@@ -233,7 +233,13 @@ function edito_fileweight($file)
             return $filesize;
         }
 
-        $names = [ 'B', 'KB', 'MB', 'GB', 'TB'];
+        $names = [
+            'B',
+            'KB',
+            'MB',
+            'GB',
+            'TB'
+        ];
 
         $i = 0;
 

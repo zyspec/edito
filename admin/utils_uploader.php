@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 /**
  * XOOPS - PHP Content Management System
  * Copyright (c) 2004 <https://www.xoops.org>
@@ -7,7 +8,7 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 
 use Xmf\Request;
@@ -74,7 +75,10 @@ function utilities($dir)
 
     // Media
 
-    $dirs = ['logo', 'media'];
+    $dirs = [
+        'logo',
+        'media'
+    ];
 
     $pagedir_array = $dirs;
 
@@ -148,15 +152,8 @@ function utilities($dir)
  * @param int    $num
  * @param int    $redirect
  */
-function edito_uploader(
-    $file_name = '',
-    $allowed_mimetypes = '',
-    $dir = 'uploads/edito/',
-    $redirecturl = 'utils_uploader.php',
-    $file_options = '1024|748|1024000)',
-    $num = 0,
-    $redirect = 1
-) {
+function edito_uploader($file_name = '', $allowed_mimetypes = '', $dir = 'uploads/edito/', $redirecturl = 'utils_uploader.php', $file_options = '1024|748|1024000)', $num = 0, $redirect = 1)
+{
     require_once XOOPS_ROOT_PATH . '/class/uploader.php';
 
     $media_options = explode('|', $file_options);
@@ -209,8 +206,8 @@ switch ($op) {
             'image/x-png',
             'image/png',
         ];
-        $file_name = $_FILES['cmedia']['name'];
-        $current_dir = 'media' == $dir ? $xoopsModuleConfig['sbmediadir'] : $xoopsModuleConfig['sbuploaddir'];
+        $file_name         = $_FILES['cmedia']['name'];
+        $current_dir       = 'media' == $dir ? $xoopsModuleConfig['sbmediadir'] : $xoopsModuleConfig['sbuploaddir'];
         edito_uploader($file_name, $allowed_mimetypes, $current_dir, "utils_uploader.php?dir={$dir}");
         break;
     case 'utilities':

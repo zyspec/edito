@@ -41,12 +41,12 @@ function edito_getWysiwygForm($type, $caption, $name, $value = '', $width = '100
 
     $editorConfigs = [
         'editor' => $wysiwyg_editor,
-        'rows' => 35,
-        'cols' => 60,
-        'width' => $width,
+        'rows'   => 35,
+        'cols'   => 60,
+        'width'  => $width,
         'height' => $height,
-        'name' => $type,
-        'value' => $value,
+        'name'   => $type,
+        'value'  => $value,
     ];
 
     $wysiwyg = new \XoopsFormEditor($caption, $name, $editorConfigs);
@@ -79,71 +79,77 @@ function edito_getWysiwygForm($type, $caption, $name, $value = '', $width = '100
     $wysiwyg_configs['height'] = '400px';
 
     switch (mb_strtolower($type)) {
-    case 'spaw':
-        if (!$x22) {
-            if (is_readable(XOOPS_ROOT_PATH . '/class/spaw/formspaw.php')) {
-                require_once XOOPS_ROOT_PATH . '/class/spaw/formspaw.php';
+        case 'spaw':
+            if (!$x22) {
+                if (is_readable(XOOPS_ROOT_PATH . '/class/spaw/formspaw.php')) {
+                    require_once XOOPS_ROOT_PATH . '/class/spaw/formspaw.php';
 
-                $wysiwyg = new XoopsFormSpaw($caption, $name, $value);
+                    $wysiwyg = new XoopsFormSpaw($caption, $name, $value);
+                }
+            } else {
+                $wysiwyg = new XoopsFormEditor($caption, 'spaw', $wysiwyg_configs);
             }
-        } else {
-            $wysiwyg = new XoopsFormEditor($caption, 'spaw', $wysiwyg_configs);
-        }
-        break;
-    case 'fck':
-        if (!$x22) {
-            if (is_readable(XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php')) {
-                require_once XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php';
+            break;
+        case 'fck':
+            if (!$x22) {
+                if (is_readable(XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php')) {
+                    require_once XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php';
 
-                $wysiwyg = new XoopsFormFckeditor($caption, $name, $value);
+                    $wysiwyg = new XoopsFormFckeditor($caption, $name, $value);
+                }
+            } else {
+                $wysiwyg = new XoopsFormEditor($caption, 'fckeditor', $wysiwyg_configs);
             }
-        } else {
-            $wysiwyg = new XoopsFormEditor($caption, 'fckeditor', $wysiwyg_configs);
-        }
-        break;
-    case 'htmlarea':
-        if (!$x22) {
-            if (is_readable(XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php')) {
-                require_once XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php';
+            break;
+        case 'htmlarea':
+            if (!$x22) {
+                if (is_readable(XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php')) {
+                    require_once XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php';
 
-                $wysiwyg = new XoopsFormHtmlarea($caption, $name, $value);
+                    $wysiwyg = new XoopsFormHtmlarea($caption, $name, $value);
+                }
+            } else {
+                $wysiwyg = new XoopsFormEditor($caption, 'htmlarea', $wysiwyg_configs);
             }
-        } else {
-            $wysiwyg = new XoopsFormEditor($caption, 'htmlarea', $wysiwyg_configs);
-        }
-        break;
-    case 'dhtml':
-        if (!$x22) {
-            $wysiwyg = new XoopsFormDhtmlTextArea($caption, $name, $value, 10, 50, $supplemental);
-        } else {
-            $wysiwyg = new XoopsFormEditor($caption, 'dhtmltextarea', $wysiwyg_configs);
-        }
-        break;
-    case 'textarea':
-        $wysiwyg = new XoopsFormTextArea($caption, $name, $value);
-        break;
-    case 'koivi':
-        if (!$x22) {
-            if (is_readable(XOOPS_ROOT_PATH . '/class/xoopseditor/wysiwyg/formwysiwygtextarea.php')) {
-                require_once XOOPS_ROOT_PATH . '/class/xoopseditor/wysiwyg/formwysiwygtextarea.php';
+            break;
+        case 'dhtml':
+            if (!$x22) {
+                $wysiwyg = new XoopsFormDhtmlTextArea($caption, $name, $value, 10, 50, $supplemental);
+            } else {
+                $wysiwyg = new XoopsFormEditor($caption, 'dhtmltextarea', $wysiwyg_configs);
+            }
+            break;
+        case 'textarea':
+            $wysiwyg = new XoopsFormTextArea($caption, $name, $value);
+            break;
+        case 'koivi':
+            if (!$x22) {
+                if (is_readable(XOOPS_ROOT_PATH . '/class/xoopseditor/wysiwyg/formwysiwygtextarea.php')) {
+                    require_once XOOPS_ROOT_PATH . '/class/xoopseditor/wysiwyg/formwysiwygtextarea.php';
 
-                $wysiwyg = new XoopsFormWysiwygTextArea($caption, $name, $value, '100%', '400px', '');
+                    $wysiwyg = new XoopsFormWysiwygTextArea($caption, $name, $value, '100%', '400px', '');
+                }
+            } else {
+                $wysiwyg = new XoopsFormEditor($caption, 'koivi', $wysiwyg_configs);
             }
-        } else {
-            $wysiwyg = new XoopsFormEditor($caption, 'koivi', $wysiwyg_configs);
-        }
-        break;
-    case 'tinyeditor':
-        if (!$x22) {
-            if (is_readable(XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php')) {
-                require_once XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php';
+            break;
+        case 'tinyeditor':
+            if (!$x22) {
+                if (is_readable(XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php')) {
+                    require_once XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php';
 
-                $wysiwyg = new XoopsFormTinyeditorTextArea([$caption, $name, $value, $width, $height]);
+                    $wysiwyg = new XoopsFormTinyeditorTextArea([
+                                                                   $caption,
+                                                                   $name,
+                                                                   $value,
+                                                                   $width,
+                                                                   $height
+                                                               ]);
+                }
+            } else {
+                $wysiwyg = new XoopsFormEditor($caption, 'tinyeditor', $wysiwyg_configs);
             }
-        } else {
-            $wysiwyg = new XoopsFormEditor($caption, 'tinyeditor', $wysiwyg_configs);
-        }
-        break;
+            break;
     }
 
     return $wysiwyg;

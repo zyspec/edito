@@ -45,16 +45,16 @@ if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['la
 }
 // language files
 
-$op = isset($_REQUEST['op']) ? trim($_REQUEST['op']) : '';
-$create = isset($_REQUEST['new']) ? true : false;
-$start = isset($_REQUEST['start']) ? (int)$_REQUEST['start'] : 0;
-$status = isset($_REQUEST['status']) ? (int)$_REQUEST['status'] : -1;
-$mid = isset($_REQUEST['mid']) ? (int)$_REQUEST['mid'] : -1;
-$confirm = isset($_REQUEST['confirm']) ? (int)$_REQUEST['confirm'] : 0;
-$mime_id = isset($_REQUEST['mime_id']) ? (int)$_REQUEST['mime_id'] : 0;
+$op       = isset($_REQUEST['op']) ? trim($_REQUEST['op']) : '';
+$create   = isset($_REQUEST['new']) ? true : false;
+$start    = isset($_REQUEST['start']) ? (int)$_REQUEST['start'] : 0;
+$status   = isset($_REQUEST['status']) ? (int)$_REQUEST['status'] : -1;
+$mid      = isset($_REQUEST['mid']) ? (int)$_REQUEST['mid'] : -1;
+$confirm  = isset($_REQUEST['confirm']) ? (int)$_REQUEST['confirm'] : 0;
+$mime_id  = isset($_REQUEST['mime_id']) ? (int)$_REQUEST['mime_id'] : 0;
 $mperm_id = isset($_REQUEST['mperm_id']) ? (int)$_REQUEST['mperm_id'] : 0;
-$type = $_REQUEST['type'] ?? -1;
-$mid = $xoopsModule->mid();
+$type     = $_REQUEST['type'] ?? -1;
+$mid      = $xoopsModule->mid();
 
 $uri = 'mid=' . $mid . '&start=' . $start . '&status=' . $status . '&type=' . $type;
 
@@ -64,21 +64,14 @@ if ($create) {
 
 if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
     if ('save' == $op) {
-        $mperm_id = (isset($_REQUEST['mperm_id'])) ? (int)$_REQUEST['mperm_id'] : 0;
-
-        $mperm_mime = $_REQUEST['mperm_mime'] ?? '';
-
-        $mperm_module = $_REQUEST['mperm_module'] ?? '';
-
-        $mperm_groups = $_REQUEST['mperm_groups'] ?? [];
-
-        $mperm_status = (isset($_REQUEST['mperm_status'])) ? (int)$_REQUEST['mperm_status'] : 0;
-
-        $mperm_maxwidth = (isset($_REQUEST['mperm_maxwidth'])) ? (int)$_REQUEST['mperm_maxwidth'] : 0;
-
+        $mperm_id        = (isset($_REQUEST['mperm_id'])) ? (int)$_REQUEST['mperm_id'] : 0;
+        $mperm_mime      = $_REQUEST['mperm_mime'] ?? '';
+        $mperm_module    = $_REQUEST['mperm_module'] ?? '';
+        $mperm_groups    = $_REQUEST['mperm_groups'] ?? [];
+        $mperm_status    = (isset($_REQUEST['mperm_status'])) ? (int)$_REQUEST['mperm_status'] : 0;
+        $mperm_maxwidth  = (isset($_REQUEST['mperm_maxwidth'])) ? (int)$_REQUEST['mperm_maxwidth'] : 0;
         $mperm_maxheight = (isset($_REQUEST['mperm_maxheight'])) ? (int)$_REQUEST['mperm_maxheight'] : 0;
-
-        $mperm_maxsize = (isset($_REQUEST['mperm_maxsize'])) ? (int)$_REQUEST['mperm_maxsize'] : 0;
+        $mperm_maxsize   = (isset($_REQUEST['mperm_maxsize'])) ? (int)$_REQUEST['mperm_maxsize'] : 0;
 
         $result = true;
 
@@ -95,21 +88,13 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
         if ($result) {
             foreach ($mperm_groups as $key => $group) {
                 $mimeObj = new XoopsMimetypes_perms();
-
                 $mimeObj->setVar('mperm_id', 0);
-
                 $mimeObj->setVar('mperm_mime', $mperm_mime);
-
                 $mimeObj->setVar('mperm_module', $mperm_module);
-
                 $mimeObj->setVar('mperm_groups', $group);
-
                 $mimeObj->setVar('mperm_status', $mperm_status);
-
                 $mimeObj->setVar('mperm_maxwidth', $mperm_maxwidth);
-
                 $mimeObj->setVar('mperm_maxheight', $mperm_maxheight);
-
                 $mimeObj->setVar('mperm_maxsize', $mperm_maxsize);
 
                 if (!$mimetypesHandler->insert($mimeObj, true)) {
@@ -127,19 +112,13 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
         $mperm_ids = ($_REQUEST['mperm_id']) ?: [];
 
         foreach ($mperm_ids as $mperm_id => $value) {
-            $mperm_mime = $_REQUEST['mperm_mime'][$mperm_id];
-
-            $mperm_module = $_REQUEST['mperm_module'][$mperm_id];
-
-            $mperm_maxwidth = $_REQUEST['mperm_maxwidth'][$mperm_id];
-
+            $mperm_mime      = $_REQUEST['mperm_mime'][$mperm_id];
+            $mperm_module    = $_REQUEST['mperm_module'][$mperm_id];
+            $mperm_maxwidth  = $_REQUEST['mperm_maxwidth'][$mperm_id];
             $mperm_maxheight = $_REQUEST['mperm_maxheight'][$mperm_id];
-
-            $mperm_maxsize = $_REQUEST['mperm_maxsize'][$mperm_id];
-
-            $mperm_groups = $_REQUEST['mperm_groups'][$mperm_id];
-
-            $mimetypeObjs = $mimetypesHandler->get_byMimeModule($mperm_mime, $mperm_module);
+            $mperm_maxsize   = $_REQUEST['mperm_maxsize'][$mperm_id];
+            $mperm_groups    = $_REQUEST['mperm_groups'][$mperm_id];
+            $mimetypeObjs    = $mimetypesHandler->get_byMimeModule($mperm_mime, $mperm_module);
 
             $groups = [];
 
@@ -171,21 +150,13 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
 
             foreach ($newgroups as $key => $group) {
                 $mimeObj = new XoopsMimetypes_perms();
-
                 $mimeObj->setVar('mperm_id', 0);
-
                 $mimeObj->setVar('mperm_mime', $mperm_mime);
-
                 $mimeObj->setVar('mperm_module', $mperm_module);
-
                 $mimeObj->setVar('mperm_groups', $group);
-
                 $mimeObj->setVar('mperm_status', $mperm_status);
-
                 $mimeObj->setVar('mperm_maxwidth', $mperm_maxwidth);
-
                 $mimeObj->setVar('mperm_maxheight', $mperm_maxheight);
-
                 $mimeObj->setVar('mperm_maxsize', $mperm_maxsize);
 
                 if (!$mimetypesHandler->insert($mimeObj, true)) {
@@ -216,57 +187,64 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
 
 switch ($op) {
     case 'hide':
-    $mimetypesHandler = xoops_getHandler('mimetypes_perms');
-    $mimeObjs = $mimetypesHandler->get_byMimeModule($mime_id, $mid);
-    foreach ($mimeObjs as $mimeObj) {
-        $mimeObj->setVar('mperm_status', 0);
+        $mimetypesHandler = xoops_getHandler('mimetypes_perms');
+        $mimeObjs         = $mimetypesHandler->get_byMimeModule($mime_id, $mid);
+        foreach ($mimeObjs as $mimeObj) {
+            $mimeObj->setVar('mperm_status', 0);
 
-        if (!$mimetypesHandler->insert($mimeObj, true)) {
-            redirect_header('mimetype.php?' . $uri, 3, $mimetypesHandler->getHtmlErrors());
+            if (!$mimetypesHandler->insert($mimeObj, true)) {
+                redirect_header('mimetype.php?' . $uri, 3, $mimetypesHandler->getHtmlErrors());
+            }
         }
-    }
-    redirect_header('mimetypes.php?' . $uri, 3, _AM_AM_DBUPDATED);
-    break;
+        redirect_header('mimetypes.php?' . $uri, 3, _AM_AM_DBUPDATED);
+        break;
     case 'view':
-    $mimetypesHandler = xoops_getHandler('mimetypes_perms');
-    $mimeObjs = $mimetypesHandler->get_byMimeModule($mime_id, $mid);
-    foreach ($mimeObjs as $mimeObj) {
-        $mimeObj->setVar('mperm_status', 1);
+        $mimetypesHandler = xoops_getHandler('mimetypes_perms');
+        $mimeObjs         = $mimetypesHandler->get_byMimeModule($mime_id, $mid);
+        foreach ($mimeObjs as $mimeObj) {
+            $mimeObj->setVar('mperm_status', 1);
 
-        if (!$mimetypesHandler->insert($mimeObj, true)) {
-            redirect_header('mimetypes.php?' . $uri, 3, $mimetypesHandler->getHtmlErrors());
+            if (!$mimetypesHandler->insert($mimeObj, true)) {
+                redirect_header('mimetypes.php?' . $uri, 3, $mimetypesHandler->getHtmlErrors());
+            }
         }
-    }
-    redirect_header('mimetypes.php?' . $uri, 3, _AM_AM_DBUPDATED);
-    break;
+        redirect_header('mimetypes.php?' . $uri, 3, _AM_AM_DBUPDATED);
+        break;
     case 'dele':
-    $mime_id = (isset($_REQUEST['mime_id'])) ? (int)$_REQUEST['mime_id'] : (int)$mime_id;
-    $sql = 'SELECT p.mperm_id, t.mime_id, t.mime_name, m.name FROM ' . $xoopsDB->prefix('mimetypes_perms') . ' p LEFT JOIN ' .
-    $xoopsDB->prefix('mimetypes') . ' t on p.mperm_mime = t.mime_id LEFT JOIN ' .
-    $xoopsDB->prefix('modules') . ' m on p.mperm_module = m.mid WHERE mperm_id=' . $mime_id;
-    $result = $xoopsDB->queryF($sql);
-    [
-        $mperm_id,
-        $mime_id,
-        $mime_name,
-        $mod_name
-    ]
-        = $xoopsDB->fetchRow($result);
-    xoops_confirm([ 'op' => 'dele', 'mperm_id' => $mperm_id, 'mime_id' => $mime_id, 'confirm' => 1, 'mime_name' => $mime_name, 'mod_name' => $mod_name, 'status' => $status, 'mid' => $mid], 'mimetypes.php?', _AM_XI_MIME_DELETETHIS . "<br><br><font color='#CC0000'>" . $mod_name . '</font><br>' . $mime_name, _AM_XI_MIME_DELE);
-    break;
+        $mime_id = (isset($_REQUEST['mime_id'])) ? (int)$_REQUEST['mime_id'] : (int)$mime_id;
+        $sql     = 'SELECT p.mperm_id, t.mime_id, t.mime_name, m.name FROM ' . $xoopsDB->prefix('mimetypes_perms') . ' p LEFT JOIN ' . $xoopsDB->prefix('mimetypes') . ' t on p.mperm_mime = t.mime_id LEFT JOIN ' . $xoopsDB->prefix('modules')
+                   . ' m on p.mperm_module = m.mid WHERE mperm_id=' . $mime_id;
+        $result  = $xoopsDB->queryF($sql);
+        [
+            $mperm_id,
+            $mime_id,
+            $mime_name,
+            $mod_name
+        ]
+            = $xoopsDB->fetchRow($result);
+        xoops_confirm(['op'        => 'dele',
+                       'mperm_id'  => $mperm_id,
+                       'mime_id'   => $mime_id,
+                       'confirm'   => 1,
+                       'mime_name' => $mime_name,
+                       'mod_name'  => $mod_name,
+                       'status'    => $status,
+                       'mid'       => $mid
+                      ], 'mimetypes.php?', _AM_XI_MIME_DELETETHIS . "<br><br><font color='#CC0000'>" . $mod_name . '</font><br>' . $mime_name, _AM_XI_MIME_DELE);
+        break;
     case 'edit':
-    edit_mimetypes_modules();
-    break;
+        edit_mimetypes_modules();
+        break;
     default:
-    require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-    if (!defined('_XI_MIMETYPE')) {
-        if (file_exists(XOOPS_ROOT_PATH . '/modules/xoopsinfo/language/' . $xoopsConfig['language'] . '/mimetypes.txt')) {
-            require_once XOOPS_ROOT_PATH . '/modules/xoopsinfo/language/' . $xoopsConfig['language'] . '/mimetypes.txt';
+        require_once XOOPS_ROOT_PATH . '/class/uploader.php';
+        if (!defined('_XI_MIMETYPE')) {
+            if (file_exists(XOOPS_ROOT_PATH . '/modules/xoopsinfo/language/' . $xoopsConfig['language'] . '/mimetypes.txt')) {
+                require_once XOOPS_ROOT_PATH . '/modules/xoopsinfo/language/' . $xoopsConfig['language'] . '/mimetypes.txt';
+            } else {
+                require_once XOOPS_ROOT_PATH . '/modules/xoopsinfo/language/english/mimetypes.txt';
+            }
         } else {
-            require_once XOOPS_ROOT_PATH . '/modules/xoopsinfo/language/english/mimetypes.txt';
+            list_mimetypes_perms();
         }
-    } else {
-        list_mimetypes_perms();
-    }
-    break;
+        break;
 }

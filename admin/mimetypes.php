@@ -6,7 +6,7 @@
  * Module: MimeTypes 1.0
  * Licence : GPL
  * Authors :
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 require_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';

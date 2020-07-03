@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: Edito
  *
@@ -43,10 +44,10 @@ if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
 
     $groups = (is_array($GLOBALS['xoopsModuleConfig']['groups'])) ? implode(' ', $GLOBALS['xoopsModuleConfig']['groups']) : '';
 
-    $html = 1; // allow HTML
-    $xcode = 1; // allow xcode
+    $html   = 1; // allow HTML
+    $xcode  = 1; // allow xcode
     $smiley = 1; // allow smilies
-    $logo = $GLOBALS['xoopsModuleConfig']['option_logo'];
+    $logo   = $GLOBALS['xoopsModuleConfig']['option_logo'];
 
     $block = $GLOBALS['xoopsModuleConfig']['option_block'];
 
@@ -66,8 +67,7 @@ if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
 
     $media = '|' . $media . '|';
 
-    if ($GLOBALS['xoopsDB']->queryF('INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('edito_content') .
-        " (id,
+    if ($GLOBALS['xoopsDB']->queryF('INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('edito_content') . " (id,
            uid,
            datesub,
            status,
@@ -118,7 +118,8 @@ if (preg_match('/.swf/i', $GLOBALS['xoopsModuleConfig']['index_logo'])) {
                width="468">
                </object>';
 } elseif ($GLOBALS['xoopsModuleConfig']['index_logo']) {
-    $banner = edito_createlink(XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->dirname(), '', '', $xoopsModuleConfig['index_logo'], 'center', '800', '600', $xoopsModule->getVar('name') . ' ' . $GLOBALS['xoopsModuleConfig']['moduleMetaDescription'], $GLOBALS['xoopsModuleConfig']['url_rewriting']);
+    $banner = edito_createlink(XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->dirname(), '', '', $xoopsModuleConfig['index_logo'], 'center', '800', '600',
+                               $xoopsModule->getVar('name') . ' ' . $GLOBALS['xoopsModuleConfig']['moduleMetaDescription'], $GLOBALS['xoopsModuleConfig']['url_rewriting']);
 } else {
     $banner = '';
 }

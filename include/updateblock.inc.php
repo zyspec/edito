@@ -78,7 +78,8 @@ if (mb_substr(XOOPS_VERSION, 6, 3) < 2.1) {
         }
 
         for ($i = 1; $i <= $count; $i++) {
-            $sql = 'SELECT name,options FROM ' . $xoopsDB->prefix('newblocks') . ' WHERE mid=' . $mid . ' AND func_num=' . $i . " AND show_func='" . addslashes($modversion['blocks'][$i]['show_func']) . "' AND func_file='" . addslashes($modversion['blocks'][$i]['file']) . "'";
+            $sql = 'SELECT name,options FROM ' . $xoopsDB->prefix('newblocks') . ' WHERE mid=' . $mid . ' AND func_num=' . $i . " AND show_func='" . addslashes($modversion['blocks'][$i]['show_func']) . "' AND func_file='"
+                   . addslashes($modversion['blocks'][$i]['file']) . "'";
 
             $fresult = $xoopsDB->query($sql);
 
@@ -108,7 +109,7 @@ if (mb_substr(XOOPS_VERSION, 6, 3) < 2.1) {
         }
     }
 
-    global $msgs , $myblocksadmin_parsed_updateblock;
+    global $msgs, $myblocksadmin_parsed_updateblock;
 
     if (!empty($msgs) && empty($myblocksadmin_parsed_updateblock)) {
         $msgs = array_merge($msgs, $local_msgs);

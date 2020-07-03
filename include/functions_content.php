@@ -7,7 +7,7 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 if (!defined('XOOPS_ROOT_PATH')) {
     die('XOOPS root path not defined');
@@ -20,9 +20,9 @@ if (!defined('XOOPS_ROOT_PATH')) {
  */
 function edito_function_checkurl($url)
 {
-    if (!preg_match('/mailto:/i', $url) &&
-        !preg_match("/http[s]:\/\//i", $url) &&
-        !preg_match("/ftp[s]:\/\//i", $url)) {
+    if (!preg_match('/mailto:/i', $url)
+        && !preg_match("/http[s]:\/\//i", $url)
+        && !preg_match("/ftp[s]:\/\//i", $url)) {
         $url = XOOPS_ROOT_PATH . '/' . $url;
     } else {
         $url = preg_replace('/' . XOOPS_URL . '/i', XOOPS_ROOT_PATH, $url);
@@ -95,8 +95,7 @@ function edito_urw($link_url = '', $title = '', $alt_title = '', $urw = 0)
     $target = XOOPS_ROOT_PATH . '/modules/edito/.htaccess';
 
     if (is_file($target)
-     && !preg_match('/127\.0\.0\.1/', XOOPS_URL)
-   ) {
+        && !preg_match('/127\.0\.0\.1/', XOOPS_URL)) {
         if ($alt_title) {
             $title = $alt_title;
         }
@@ -110,7 +109,7 @@ function edito_urw($link_url = '', $title = '', $alt_title = '', $urw = 0)
         } else {
             $sub = '';
         }
-//         if( isset($id[1]) ) { $link_url = $sub.'page-'.$id[1]. $title . '.html'; }
+        //         if( isset($id[1]) ) { $link_url = $sub.'page-'.$id[1]. $title . '.html'; }
 
         if (isset($id[1])) {
             $link_url = $sub . $id[1] . $title . '.html';
@@ -130,10 +129,9 @@ function edito_check_urw_htaccess()
     $target = XOOPS_ROOT_PATH . '/modules/edito/.htaccess';
 
     if (!is_file($target)
-    && function_exists('fopen')
-    && function_exists('fwrite')
-    && !preg_match('/127\.0\.0\.1/', XOOPS_URL)
-   ) {
+        && function_exists('fopen')
+        && function_exists('fwrite')
+        && !preg_match('/127\.0\.0\.1/', XOOPS_URL)) {
         $handle = @fopen($target, 'w+b');
 
         if ($handle) {
@@ -153,7 +151,6 @@ function edito_check_urw_htaccess()
     if (is_file($target)) {
         return true;
     }
-  
 
     return false;
 }

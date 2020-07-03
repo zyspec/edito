@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: Edito
  *
@@ -180,10 +181,7 @@ function editarticle($id = '', $op = '')
         $cancomment = (int)$cancomment;
     }
 
-    $option_def = '1\|1\|1\|'
-                . $xoopsModuleConfig['option_logo'] . '\|.\|'
-                . $xoopsModuleConfig['option_title'] . '\|'
-                . $xoopsModuleConfig['cancomment'];
+    $option_def = '1\|1\|1\|' . $xoopsModuleConfig['option_logo'] . '\|.\|' . $xoopsModuleConfig['option_title'] . '\|' . $xoopsModuleConfig['cancomment'];
 
     if (!isset($options)) {
         $options = $option_def;
@@ -571,11 +569,10 @@ function editarticle($id = '', $op = '')
         } else {
             $sform -> addElement( new XoopsFormDhtmlTextArea( 'DHTML Editor<p>'._AM_EDITO_BLOCKTEXT, 'block_text', $block_text, 15, 60 ) );
         }
-    */
-//    require_once  '../include/functions_wysiwyg.php';
-//    edito_getWysiwygForm($type = 'dhtml', $caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental='')
-//    $wysiwyg1 = edito_getWysiwygForm( $xoopsModuleConfig['wysiwyg'], _AM_EDITO_BLOCKTEXT, 'block_text', $block_text, '100%', '468px', '');
-//    $sform -> addElement($wysiwyg1,false);
+    */ //    require_once  '../include/functions_wysiwyg.php';
+    //    edito_getWysiwygForm($type = 'dhtml', $caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental='')
+    //    $wysiwyg1 = edito_getWysiwygForm( $xoopsModuleConfig['wysiwyg'], _AM_EDITO_BLOCKTEXT, 'block_text', $block_text, '100%', '468px', '');
+    //    $sform -> addElement($wysiwyg1,false);
 
     // Block content in article?
 
@@ -617,9 +614,8 @@ function editarticle($id = '', $op = '')
         } else {
             $sform -> addElement( new XoopsFormDhtmlTextArea( 'DHTML Editor<p>'._AM_EDITO_BODYTEXT, 'body_text', $body_text, 15, 60 ) );
         }
-    */
-//    $wysiwyg2 = edito_getWysiwygForm( $xoopsModuleConfig['wysiwyg'], _AM_EDITO_BODYTEXT, 'body_text', $body_text, '100%', '468px', '');
-//    $sform -> addElement($wysiwyg2,false);
+    */ //    $wysiwyg2 = edito_getWysiwygForm( $xoopsModuleConfig['wysiwyg'], _AM_EDITO_BODYTEXT, 'body_text', $body_text, '100%', '468px', '');
+    //    $sform -> addElement($wysiwyg2,false);
 
     $sform->addElement($image_in);
 
@@ -708,14 +704,14 @@ function editarticle($id = '', $op = '')
     // Code to create the media size selector
 
     $media_s_array = [
-        'default' => _AM_EDITO_SELECT_DEFAULT,
-        'custom' => _AM_EDITO_SELECT_CUSTOM,
-        'tv_small' => _AM_EDITO_SELECT_TVSMALL,
+        'default'   => _AM_EDITO_SELECT_DEFAULT,
+        'custom'    => _AM_EDITO_SELECT_CUSTOM,
+        'tv_small'  => _AM_EDITO_SELECT_TVSMALL,
         'tv_medium' => _AM_EDITO_SELECT_TVMEDIUM,
-        'tv_large' => _AM_EDITO_SELECT_TVBIG,
-        'mv_small' => _AM_EDITO_SELECT_MVSMALL,
+        'tv_large'  => _AM_EDITO_SELECT_TVBIG,
+        'mv_small'  => _AM_EDITO_SELECT_MVSMALL,
         'mv_medium' => _AM_EDITO_SELECT_MVMEDIUM,
-        'mv_large' => _AM_EDITO_SELECT_MVBIG,
+        'mv_large'  => _AM_EDITO_SELECT_MVBIG,
     ];
 
     $media_s_select = new XoopsFormSelect('', 'media_size', $media_size);
@@ -753,10 +749,7 @@ function editarticle($id = '', $op = '')
     // Meta Keywords
 
     if ('auto' == $xoopsModuleConfig['metamanager']) {
-        $meta_gen_display = '<tr  valign="top" align="left">'
-                          . '<td class="head">' . _AM_EDITO_METAGEN . '</td>'
-                          . '<td class="even">' . $meta_gen . ' </td>'
-                          . '</tr>';
+        $meta_gen_display = '<tr  valign="top" align="left">' . '<td class="head">' . _AM_EDITO_METAGEN . '</td>' . '<td class="even">' . $meta_gen . ' </td>' . '</tr>';
 
         $sform->addElement($meta_gen_display);
     }
@@ -884,29 +877,29 @@ switch ($op) {
         edito_adminmenu(2, _AM_EDITO_EDIT);
         editarticle($id);
         require_once __DIR__ . '/admin_footer.php';
-    break;
+        break;
     case 'dup':
         require_once __DIR__ . '/admin_header.php';
         edito_adminmenu(1, _AM_EDITO_DUPLICATE);
         editarticle($id, 'dup');
         require_once __DIR__ . '/admin_footer.php';
-    break;
+        break;
     case 'addart':
         //require_once __DIR__ . '/admin_header.php';
         $myts = MyTextSanitizer::getInstance();
         require_once dirname(__DIR__) . '/include/functions_metagen.php';
         require_once dirname(__DIR__) . '/include/functions_edito.php';
-        $id = Request::getInt('id', 0, 'POST');
-        $date = time();
-        $counter = isset($counter) ? (int) $counter : 0;
-        $status = Request::getInt('status', 0, 'POST');
+        $id      = Request::getInt('id', 0, 'POST');
+        $date    = time();
+        $counter = isset($counter) ? (int)$counter : 0;
+        $status  = Request::getInt('status', 0, 'POST');
         $subject = $myts->addSlashes($_POST['subject']);
-/*
-        $block_text = $myts->htmlSpecialChars($_POST['block_text']);
-        $body_text  = $myts->htmlSpecialChars($_POST['body_text']);
-*/
+        /*
+                $block_text = $myts->htmlSpecialChars($_POST['block_text']);
+                $body_text  = $myts->htmlSpecialChars($_POST['body_text']);
+        */
         $block_text = $myts->addSlashes($_POST['block_text']);
-        $body_text = $myts->addSlashes($_POST['body_text']);
+        $body_text  = $myts->addSlashes($_POST['body_text']);
         //@todo - check this, is 'image' really an integer?
         $image = Request::hasVar('image') ? (int)$_POST['image'] : '';
 
@@ -928,7 +921,7 @@ switch ($op) {
         // Mix = if page data is empty use page module/site data
         // Auto = use metagen only data
 
-// Manual
+        // Manual
         if ('manual' == $xoopsModuleConfig['metamanager']) {
             $metagen['title'] = $myts->htmlSpecialChars($_POST['meta_title']);
 
@@ -937,20 +930,9 @@ switch ($op) {
             $metagen['keywords'] = $myts->htmlSpecialChars($_POST['meta_keywords']);
         }
 
-// Semi-auto
+        // Semi-auto
         if ('semi' == $xoopsModuleConfig['metamanager']) {
-            $metagen = edito_createMetaTags(
-                '',
-                $_POST['meta_title'],
-                $_POST['meta_description'],
-                $xoopsModuleConfig['moduleMetaDescription'],
-                '',
-                $_POST['meta_keywords'],
-                $xoopsModuleConfig['moduleMetaKeywords'],
-                5,
-                1,
-                9
-            );
+            $metagen = edito_createMetaTags('', $_POST['meta_title'], $_POST['meta_description'], $xoopsModuleConfig['moduleMetaDescription'], '', $_POST['meta_keywords'], $xoopsModuleConfig['moduleMetaKeywords'], 5, 1, 9);
 
             if ($_POST['meta_keywords']) {
                 $meta_keywords = $myts->htmlSpecialChars($_POST['meta_keywords']);
@@ -963,22 +945,11 @@ switch ($op) {
             $meta_description = $metagen['description'];
         }
 
-// Auto
+        // Auto
         if ('auto' == $xoopsModuleConfig['metamanager']) {
             $content_datas = 4 == $status ? '' : strip_tags($block_text . ' ' . $body_text);
 
-            $metagen = edito_createMetaTags(
-                $subject,
-                $_POST['meta_title'],
-                $_POST['meta_description'],
-                $xoopsModuleConfig['moduleMetaDescription'],
-                $content_datas,
-                $_POST['meta_keywords'],
-                $xoopsModuleConfig['moduleMetaKeywords'],
-                5,
-                1,
-                9
-            );
+            $metagen = edito_createMetaTags($subject, $_POST['meta_title'], $_POST['meta_description'], $xoopsModuleConfig['moduleMetaDescription'], $content_datas, $_POST['meta_keywords'], $xoopsModuleConfig['moduleMetaKeywords'], 5, 1, 9);
 
             $meta_keywords = '';
 
@@ -1001,33 +972,33 @@ switch ($op) {
             }
         }
         $metagen['keywords'] = $metagen['keywords'] ?? '';
-        $meta = $metagen['title'] . '|' . $meta_description . '|' . $meta_keywords . '|' . $metagen['keywords'];
+        $meta                = $metagen['title'] . '|' . $meta_description . '|' . $meta_keywords . '|' . $metagen['keywords'];
 
         $groups = $_POST['groups'];
         $groups = (is_array($groups)) ? implode(' ', $groups) : '';
 
-        $html = isset($html) ? (int)$html : 0;
-        $xcode = isset($xcode) ? (int)$xcode : 0;
-        $smiley = isset($smiley) ? (int)$smiley : 0;
-        $logo = isset($logo) ? (int)$logo : 0;
-        $block = isset($block) ? (int)$block : 0;
-        $title = isset($title) ? (int)$title : 0;
+        $html       = isset($html) ? (int)$html : 0;
+        $xcode      = isset($xcode) ? (int)$xcode : 0;
+        $smiley     = isset($smiley) ? (int)$smiley : 0;
+        $logo       = isset($logo) ? (int)$logo : 0;
+        $block      = isset($block) ? (int)$block : 0;
+        $title      = isset($title) ? (int)$title : 0;
         $cancomment = isset($cancomment) ? (int)$cancomment : 0;
-/*
-        $cancomment = isset($_POST['cancomment']) ? (int)$_POST['cancomment']) : $xoopsModuleConfig['cancomment'];
-*/
+        /*
+                $cancomment = isset($_POST['cancomment']) ? (int)$_POST['cancomment']) : $xoopsModuleConfig['cancomment'];
+        */
         $options = $html . '|' . $xcode . '|' . $smiley . '|' . $logo . '|' . $block . '|' . $title . '|' . $cancomment;
 
         // Define variables
-        $error = 0;
-        $word = null;
-        $uid = $xoopsUser->uid();
-        $submit = 1;
+        $error   = 0;
+        $word    = null;
+        $uid     = $xoopsUser->uid();
+        $submit  = 1;
         $datesub = time();
 
         /* ------- Image and media processing --------*/
-        $image = Request::getString('image', 'blank.gif', 'POST');
-        $image = 'blank.gif' !== $image ? $myts->addSlashes($image) : '';
+        $image      = Request::getString('image', 'blank.gif', 'POST');
+        $image      = 'blank.gif' !== $image ? $myts->addSlashes($image) : '';
         $media_file = Request::getString('media_file', 'blank.gif', 'POST');
         $media_file = 'blank.gif' !== $media_file ? $myts->addSlashes($media_file) : '';
 
@@ -1043,14 +1014,13 @@ switch ($op) {
         /* ------- End - Image and media processing --------*/
 
         $media_file = 'none' == $media_file ? '' : $media_file;
-        $media_url = Request::getUrl('media_url', '', 'POST');
+        $media_url  = Request::getUrl('media_url', '', 'POST');
         $media_size = Request::getInt('media_size', 0, 'POST');
-        $media = $media_file . '|' . $media_url . '|' . $media_size;
+        $media      = $media_file . '|' . $media_url . '|' . $media_size;
 
         // Save to database
         if (!$id) {
-            if ($xoopsDB->queryF('INSERT INTO ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') .
-                " ( uid,
+            if ($xoopsDB->queryF('INSERT INTO ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . " ( uid,
                     datesub,
                     counter,
                     status,
@@ -1125,21 +1095,25 @@ switch ($op) {
             redirect_header('index.php', 1, sprintf(_AM_EDITO_DELETED, $subject));
         }
         require_once __DIR__ . '/admin_header.php';
-        $id = Request::getInt('id', (int)$id, 'POST');
+        $id     = Request::getInt('id', (int)$id, 'POST');
         $result = $xoopsDB->queryF('SELECT id, subject FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . " WHERE id = $id");
         [
             $id,
             $subject
         ]
             = $xoopsDB->fetchRow($result);
-        xoops_confirm(['op' => 'del', 'id' => $id, 'confirm' => 1, 'subject' => $subject], 'content.php', _AM_EDITO_DELETETHIS . '<br><br>' . $myts->displayTarea($subject), _AM_EDITO_DELETE);
+        xoops_confirm(['op'      => 'del',
+                       'id'      => $id,
+                       'confirm' => 1,
+                       'subject' => $subject
+                      ], 'content.php', _AM_EDITO_DELETETHIS . '<br><br>' . $myts->displayTarea($subject), _AM_EDITO_DELETE);
         require_once __DIR__ . '/admin_footer.php';
         break;
     case 'default':
     default:
-    require_once __DIR__ . '/admin_header.php';
+        require_once __DIR__ . '/admin_header.php';
         edito_adminmenu(1, _AM_EDITO_CREATE);
         editarticle();
         require_once __DIR__ . '/admin_footer.php';
-    break;
+        break;
 }

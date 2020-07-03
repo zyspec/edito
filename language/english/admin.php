@@ -196,7 +196,7 @@ define('_AM_EDITO_IMPORT', 'Import');
 define('_AM_EDITO_EXPORT', 'Export');
 define('_AM_EDITO_DB_IMPORT', 'Import SQL');
 define('_AM_EDITO_DB_EXPORT', 'Export SQL');
-define('_AM_EDITO_INSERT', 'Insert into database');
+define('_AM_EDITO_INSERT', 'INSERT INTO database');
 define('_AM_EDITO_UPDATE', 'Update database');
 define('_AM_EDITO_TYPE', 'Action Type');
 define('_AM_EDITO_DB_DATAS', 'SQL Statements to Import');
@@ -258,16 +258,13 @@ In php mode, it is in this area that the php code to be interpreted must be indi
 	<li><i><b>{block align=\"center\"}</b></i> : the block will be displayed in the center.</li>
 </ol></ul>
 ");
-define(
-    '_AM_EDITO_IMAGE_HELP',
-    '
+define('_AM_EDITO_IMAGE_HELP', '
 For each page created, it is possible to assign a representative image to it.
 <ul><b>1) <u>Image</b></u>
 The storage location of the images is defined in the Preferences of the module (cf. <b> [LOGO] Directory of images </b>) and must imperatively be hosted. on the site server. The list of images thus available is displayed in the drop-down list. You can preview the image by selecting it.
 </ul>
 <ul><b>2) <u>Load media</b></u>
-It is possible to upload an image directly from the hard drive. Be sure to respect the maximum authorized dimensions and sizes, which can be configured in the Module Preferences.</ul>'
-);
+It is possible to upload an image directly from the hard drive. Be sure to respect the maximum authorized dimensions and sizes, which can be configured in the Module Preferences.</ul>');
 define('_AM_EDITO_MEDIA_HELP', '
 For each page, it is possible to assign a media to it. The media supported are: images, sound, video and flash.
 

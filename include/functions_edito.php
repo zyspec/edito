@@ -7,47 +7,47 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 if (!defined('XOOPS_ROOT_PATH')) {
     die('XOOPS root path not defined');
 }
 
 $edito_allowed_image = [
-'gif' => 'image/gif',
-                              'jpg' => 'image/jpeg',
-                              'jpeg' => 'image/pjpeg',
-                              'png' => 'image/x-png',
-                              'png' => 'image/png',
-                              ];
+    'gif'  => 'image/gif',
+    'jpg'  => 'image/jpeg',
+    'jpeg' => 'image/pjpeg',
+    'png'  => 'image/x-png',
+    'png'  => 'image/png',
+];
 
 $edito_allowed_media = [
-'gif' => 'image/gif',
-                              'jpg' => 'image/jpeg',
-                              'jpeg' => 'image/pjpeg',
-                              'png' => 'image/x-png',
-                              'png' => 'image/png',
+    'gif'  => 'image/gif',
+    'jpg'  => 'image/jpeg',
+    'jpeg' => 'image/pjpeg',
+    'png'  => 'image/x-png',
+    'png'  => 'image/png',
 
-                              'aiff' => 'audio/aiff',
-                              'mid' => 'audio/mid',
-                              'mpg' => 'audio/mpeg',
-                              'mpeg' => 'audio/mpeg',
-                              'wav' => 'audio/wav',
-                              'vma' => 'audio/x-ms-wma',
-                              'asf' => 'video/x-ms-asf',
-                              'avi' => 'video/avi',
-                              'wmv' => 'video/x-ms-wmv',
-                              'vmx' => 'video/x-ms-wmx',
-                              'mpeg' => 'video/mpeg',
-                              'mpg' => 'video/mpeg',
-                              'mpe' => 'video/mpeg',
-                              'qt' => 'video/quicktime',
-                              'swf' => 'application/x-shockwave-flash',
-                              'ra' => 'audio/vnd.rn-realaudio',
-                              'ram' => 'audio/x-pn-realaudio',
-                              'rm' => 'application/vnd.rn-realmedia',
-                              'rv' => 'video/vnd.rn-realvideo',
-                              ];
+    'aiff' => 'audio/aiff',
+    'mid'  => 'audio/mid',
+    'mpg'  => 'audio/mpeg',
+    'mpeg' => 'audio/mpeg',
+    'wav'  => 'audio/wav',
+    'vma'  => 'audio/x-ms-wma',
+    'asf'  => 'video/x-ms-asf',
+    'avi'  => 'video/avi',
+    'wmv'  => 'video/x-ms-wmv',
+    'vmx'  => 'video/x-ms-wmx',
+    'mpeg' => 'video/mpeg',
+    'mpg'  => 'video/mpeg',
+    'mpe'  => 'video/mpeg',
+    'qt'   => 'video/quicktime',
+    'swf'  => 'application/x-shockwave-flash',
+    'ra'   => 'audio/vnd.rn-realaudio',
+    'ram'  => 'audio/x-pn-realaudio',
+    'rm'   => 'application/vnd.rn-realmedia',
+    'rv'   => 'video/vnd.rn-realvideo',
+];
 
 // function edito_uploading( $allowed_mimetypes, $httppostfiles, $redirecturl = "index.php", $num = 0, $dir = "uploads", $redirect = 0 ) {
 /**
@@ -88,16 +88,15 @@ function edito_uploading_image($filename)
         if (!$uploader->upload()) {
             xoops_error('<font color="#000000">' . $uploader->getErrors() . '</font>');
 
-            return(false);
+            return (false);
         }
-  
 
-        return(true);
-    }  
+        return (true);
+    }
 
     xoops_error('<font color="#000000">' . $uploader->getErrors() . '</font>');
 
-    return(false);
+    return (false);
 }
 
 /**
@@ -140,16 +139,15 @@ function edito_uploading_media($filename)
         if (!$uploader->upload()) {
             xoops_error('<font color="#000000">' . $uploader->getErrors() . '</font>');
 
-            return(false);
+            return (false);
         }
-  
 
-        return(true);
-    }  
+        return (true);
+    }
 
     xoops_error('<font color="#000000">' . $uploader->getErrors() . '</font>');
 
-    return(false);
+    return (false);
 }
 
 /**
@@ -163,16 +161,16 @@ function editoreturn_bytes($val)
     $last = mb_strtolower($val[mb_strlen($val) - 1]);
 
     switch ($last) {
-       // Le modifieur 'G' est disponible depuis PHP 5.1.0
-       case 'g':
-           $val *= 1024;
-           // no break
-       case 'm':
-           $val *= 1024;
-           // no break
-       case 'k':
-           $val *= 1024;
-   }
+        // Le modifieur 'G' est disponible depuis PHP 5.1.0
+        case 'g':
+            $val *= 1024;
+        // no break
+        case 'm':
+            $val *= 1024;
+        // no break
+        case 'k':
+            $val *= 1024;
+    }
 
     return $val;
 }
@@ -447,11 +445,11 @@ function edito_substr($str, $start, $length, $trimmarker = '...')
  * check permissions
  *
  * @param int $refererid
- *			1 -> Referers
- *			2 -> Engines
- *			3 -> Keywords
- *			4 -> Queries
- *			5 -> Robots
+ *            1 -> Referers
+ *            2 -> Engines
+ *            3 -> Keywords
+ *            4 -> Queries
+ *            5 -> Robots
  * @return bool
  */
 function edito_checkRight($refererid)
@@ -567,16 +565,9 @@ function edito_admin_chmod($target, $mode = 0777)
  * @param string $target
  * @return string
  */
-function edito_selector(
-    $sel = 0,
-    $sql = '|||||',
-    $destination = '',
-    $caption = '',
-    $display = 'select',
-    $size = 1,
-    $target = 'self'
-) {
-    global $xoopsDB,$xoopsUser;
+function edito_selector($sel = 0, $sql = '|||||', $destination = '', $caption = '', $display = 'select', $size = 1, $target = 'self')
+{
+    global $xoopsDB, $xoopsUser;
 
     $db = explode('|', $sql); // table|id|name|image|groups|where
 

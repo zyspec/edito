@@ -7,7 +7,7 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 if (!defined('XOOPS_ROOT_PATH')) {
     die('XOOPS root path not defined');
@@ -267,11 +267,11 @@ function edito_GetOption($option, $repmodule = '.$xoopsModule->dirname().')
  * check permissions
  *
  * @param int $refererid
- *			1 -> Referers
- *			2 -> Engines
- *			3 -> Keywords
- *			4 -> Queries
- *			5 -> Robots
+ *            1 -> Referers
+ *            2 -> Engines
+ *            3 -> Keywords
+ *            4 -> Queries
+ *            5 -> Robots
  * @return bool
  */
 function edito_checkRight($refererid)
@@ -398,7 +398,8 @@ function edito_SetMeta($key, $value)
     if (edito_GetMeta($key)) {
         $sql = sprintf('UPDATE %s SET conf_value = %s WHERE conf_name = %s', $xoopsDB->prefix('myref_config'), $xoopsDB->quoteString($value), $xoopsDB->quoteString($key));
     } else {
-        $sql = sprintf("INSERT INTO %s (conf_id , conf_name, conf_title, conf_value, conf_desc, conf_formtype, conf_valuetype, conf_order) VALUES (0, %s, '', %s, '', 'hidden', hidden', 0)", $xoopsDB->prefix('myref_config'), $xoopsDB->quoteString($key), $xoopsDB->quoteString($value));
+        $sql = sprintf("INSERT INTO %s (conf_id , conf_name, conf_title, conf_value, conf_desc, conf_formtype, conf_valuetype, conf_order) VALUES (0, %s, '', %s, '', 'hidden', hidden', 0)", $xoopsDB->prefix('myref_config'),
+                       $xoopsDB->quoteString($key), $xoopsDB->quoteString($value));
     }
 
     $ret = $xoopsDB->queryF($sql);

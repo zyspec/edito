@@ -54,7 +54,7 @@ if ($xoopsModuleConfig['index_content']) {
         header('location: ' . $xoopsModuleConfig['index_content']);
 
         exit();
-    }  
+    }
 
     $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . '
 				WHERE id=' . $xoopsModuleConfig['index_content'] . ' AND status=2';
@@ -148,13 +148,13 @@ $xoopsTpl->assign('width', number_format(100 / $xoopsModuleConfig['columns'], 2,
 $result = $xoopsDB->queryF('SELECT COUNT(*) FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . ' WHERE status>2');
 [$numrows] = $xoopsDB->fetchRow($result);
 
-$count = $startart;
-$time = time();
+$count     = $startart;
+$time      = time();
 $startdate = (time() - (86400 * $xoopsModuleConfig['tags_new']));
 $count++;
 $subjects = '';
 
-if ($numrows > 0) {	// That is, if there ARE editos in the system
+if ($numrows > 0) {    // That is, if there ARE editos in the system
     /* ----------------------------------------------------------------------- */
 
     /*                            Generate page navigation                     */
@@ -325,7 +325,7 @@ if ($numrows > 0) {	// That is, if there ARE editos in the system
             $link = 'content.php?id=' . $id;
 
             $subject = $myts->displayTarea($subject);
-//            $alt_subject    = $subjects.' '.$subject;
+            //            $alt_subject    = $subjects.' '.$subject;
 
             if ('table' != $xoopsModuleConfig['index_display']) {
                 $image_subject = $subject;

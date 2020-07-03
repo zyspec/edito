@@ -46,18 +46,8 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  * @param int    $max_occ
  * @return array
  */
-function edito_createMetaTags(
-    $page_title = '',
-    $page_meta_title = '',
-    $page_meta_description = '',
-    $module_meta_description = '',
-    $page_content = '',
-    $page_meta_keywords = '',
-    $module_meta_keywords = '',
-    $minChar = 3,
-    $min_occ = 1,
-    $max_occ = 12
-) {
+function edito_createMetaTags($page_title = '', $page_meta_title = '', $page_meta_description = '', $module_meta_description = '', $page_content = '', $page_meta_keywords = '', $module_meta_keywords = '', $minChar = 3, $min_occ = 1, $max_occ = 12)
+{
     //echo  $module_meta_description;
 
     global $xoopsTpl, $xoopsModule;
@@ -145,8 +135,8 @@ function edito_createMetaTags(
     // b.Creating Meta Keywords from content
 
     if ($page_content) {
-        $page_content = edito_cleanContent($page_title . ' ' . $page_content); // Clean up content
-        $contentKeywords = edito_findKeyWordsInSting($page_content, $minChar, $min_occ, $max_occ);	// Select basis keywords
+        $page_content    = edito_cleanContent($page_title . ' ' . $page_content); // Clean up content
+        $contentKeywords = edito_findKeyWordsInSting($page_content, $minChar, $min_occ, $max_occ);    // Select basis keywords
 
         foreach ($contentKeywords as $contentKeyword) {
             $metakeywords[] = trim($contentKeyword);
@@ -183,11 +173,11 @@ function edito_createMetaTags(
 
             if ($i <= 45) {
                 $ret_let = ', ' . ucwords($ret);
-            } 	// Add a majucule if less than 45 keywords
+            }    // Add a majucule if less than 45 keywords
 
             if ($i <= 30) {
                 $ret_caps = ', ' . mb_strtoupper($ret);
-            }	// All words in majucule if less than 30 keywords
+            }    // All words in majucule if less than 30 keywords
         }
 
         $metagen['keywords'] = $myts->htmlSpecialChars($ret . $ret_let . $ret_caps);
@@ -212,9 +202,9 @@ function edito_cleanContent($content)
     $patterns[$i++] = '<br>';
 
     $patterns[$i++] = '<br>';
-//        $patterns[$i++] = '<p>';
-//        $patterns[$i++] = '</p>';
-//        $patterns[$i++] = '<p>';
+    //        $patterns[$i++] = '<p>';
+    //        $patterns[$i++] = '</p>';
+    //        $patterns[$i++] = '<p>';
 
     $patterns[$i++] = '<td>';
 
@@ -229,9 +219,9 @@ function edito_cleanContent($content)
     $replacements[$i++] = ' ';
 
     $replacements[$i++] = ' ';
-//        $replacements[$i++] = ' ';
-//        $replacements[$i++] = ' ';
-//        $replacements[$i++] = ' ';
+    //        $replacements[$i++] = ' ';
+    //        $replacements[$i++] = ' ';
+    //        $replacements[$i++] = ' ';
 
     $replacements[$i++] = ' ';
 

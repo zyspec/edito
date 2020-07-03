@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: Edito
  *
@@ -25,7 +26,7 @@ use Xmf\Request;
 require_once dirname(__DIR__, 3) . '/mainfile.php';
 require_once dirname(__DIR__, 3) . '/include/cp_header.php';
 
-$op = Request::getCmd('op', '');
+$op           = Request::getCmd('op', '');
 $type_clonage = Request::getCmd('type_clonage', '');
 
 /*
@@ -84,85 +85,85 @@ function utilities()
  * @param $path
  */
 function cloneFileFolder($path)
-    {
-        global $patKeys;
+{
+    global $patKeys;
 
-        global $patValues;
+    global $patValues;
 
-        global $safeKeys;
+    global $safeKeys;
 
-        global $safeValues;
+    global $safeValues;
 
-        $newPath = str_replace($patKeys[0], $patValues[0], $path); //full new file path
+    $newPath = str_replace($patKeys[0], $patValues[0], $path); //full new file path
 
-        chmod(XOOPS_ROOT_PATH . '/modules', 0777);
+    chmod(XOOPS_ROOT_PATH . '/modules', 0777);
 
-        if (is_dir($path)) {
-            // Create new dir
+    if (is_dir($path)) {
+        // Create new dir
 
-            if (!mkdir($newPath) && !is_dir($newPath)) {
-                throw new \RuntimeException(sprintf('Directory "%s" was not created', $newPath));
-            }
-
-            // check all files in dir, and process it
-
-            if ($handle = opendir($path)) {
-                while ($file = readdir($handle)) {
-                    if ('.' != $file && '..' != $file) {
-                        cloneFileFolder("$path/$file");
-                    }
-                }
-
-                closedir($handle);
-            }
-        } else {
-            if (preg_match('/(.jpg|.gif|.png|.zip)$/i', $path)) {
-                copy($path, $newPath);
-            } else {
-                // file, read it
-
-                $content = file_get_contents($path);
-
-                $content = str_replace($safeKeys, $safeValues, $content); // Save 'Editor' values
-          $content = str_replace($patKeys, $patValues, $content);   // Rename Clone values
-          $content = str_replace($safeValues, $safeKeys, $content);  // Restore 'Editor' values
-          file_put_contents($newPath, $content);
-            }
+        if (!mkdir($newPath) && !is_dir($newPath)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $newPath));
         }
 
-        chmod(XOOPS_ROOT_PATH . '/modules', 0444);
+        // check all files in dir, and process it
+
+        if ($handle = opendir($path)) {
+            while ($file = readdir($handle)) {
+                if ('.' != $file && '..' != $file) {
+                    cloneFileFolder("$path/$file");
+                }
+            }
+
+            closedir($handle);
+        }
+    } else {
+        if (preg_match('/(.jpg|.gif|.png|.zip)$/i', $path)) {
+            copy($path, $newPath);
+        } else {
+            // file, read it
+
+            $content = file_get_contents($path);
+
+            $content = str_replace($safeKeys, $safeValues, $content); // Save 'Editor' values
+            $content = str_replace($patKeys, $patValues, $content);   // Rename Clone values
+            $content = str_replace($safeValues, $safeKeys, $content);  // Restore 'Editor' values
+            file_put_contents($newPath, $content);
+        }
     }
+
+    chmod(XOOPS_ROOT_PATH . '/modules', 0444);
+}
 
 // Check wether the cloning function is available
 // work around for PHP < 5.0.x
-    if (!function_exists('file_put_contents')) {
-        /**
-         * @param       $filename
-         * @param       $data
-         * @param false $file_append
-         */
-        function file_put_contents($filename, $data, $file_append = false)
-        {
-            $fp = fopen($filename, (!$file_append ? 'w+' : 'a+'));
+if (!function_exists('file_put_contents')) {
+    /**
+     * @param       $filename
+     * @param       $data
+     * @param false $file_append
+     */
+    function file_put_contents($filename, $data, $file_append = false)
+    {
+        $fp = fopen($filename, (!$file_append ? 'w+' : 'a+'));
 
-            if (!$fp) {
-                trigger_error('file_put_contents cannot write in file.', E_USER_ERROR);
+        if (!$fp) {
+            trigger_error('file_put_contents cannot write in file.', E_USER_ERROR);
 
-                return;
-            }
+            return;
+        }
 
-            fwrite($fp, $data);
+        fwrite($fp, $data);
 
-            fclose($fp);
-        }//end function file_put_contents
-    }//end if
+        fclose($fp);
+    }//end function file_put_contents
+}//end if
 
 /* -- Available operations -- */
 switch ($op) {
     case 'clonemodule':
         $clone = Request::getString('clone', '');
         // Define Cloning parameters : check clone name
-        $clone = trim($clone);
+        $clone      = trim($clone);
         $clone_orig = $clone;
         if (function_exists('mb_convert_encoding')) {
             $clone = mb_convert_encoding($clone, '', 'auto');
@@ -193,10 +194,10 @@ switch ($op) {
             $Module = ucfirst($module);
 
             $patterns = [
-            // first one must be module directory name
-            $module => $clone,
-            $MODULE => $CLONE,
-            $Module => $Clone,
+                // first one must be module directory name
+                $module => $clone,
+                $MODULE => $CLONE,
+                $Module => $Clone,
             ];
 
             $patKeys = array_keys($patterns);
@@ -250,7 +251,7 @@ switch ($op) {
                             if (is_dir($dir2copy . $file) && '..' != $file && '.' != $file) {
                                 copy_dir($dir2copy . $file . '/', $dir_paste . $file . '/');
 
-                            // S'il sagit d'un fichier, on le copie simplement
+                                // S'il sagit d'un fichier, on le copie simplement
                             } elseif ('..' != $file && '.' != $file) {
                                 if (preg_match(mb_strtolower($module), mb_strtolower($file))) { //je cherche le mot 'edito' dans le nom du fichier
                                     $filedest = preg_replace(mb_strtolower($module), mb_strtolower($clone), $file); //si je trouve je remplace par le nom du clone
@@ -303,7 +304,7 @@ switch ($op) {
             redirect_header('utils_clone.php', 1, _AM_EDITO_NOTCLONED);
         }
         break;
-  case 'utilities':
+    case 'utilities':
     default:
         require_once __DIR__ . '/admin_header.php';
         edito_adminmenu(2, _AM_EDITO_UTILITIES . '<br>' . _AM_EDITO_CLONE);

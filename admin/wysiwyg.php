@@ -27,7 +27,7 @@ require_once __DIR__ . '/admin_header.php';
 edito_adminmenu(2, _AM_EDITO_EDITORS);
 edito_statmenu(4, '');
 
-$on = '<img src="../assets/images/icon/online.gif"   alt=""  align="absmiddle">';
+$on  = '<img src="../assets/images/icon/online.gif"   alt=""  align="absmiddle">';
 $off = '<img src="../assets/images/icon/offline.gif"  alt="" align="absmiddle">';
 
 $wysiwyg_editor = $GLOBALS['moduleConfig']['wysiwyg'];
@@ -47,11 +47,8 @@ foreach ($avail_editors as $this_editor) {
 
     $check = $wysiwyg_editor == $this_editor ? $on : $off;
 
-    $disp = "<tr class='odd'>\n"
-          . "<td width='12px'>{$check}</td>\n"
-          //. "<td class='left'>" . ucfirst($this_editor) . $selected . "</td>\n"
-          . "<td class='left'>" . ucfirst($this_editor) . "</td>\n"
-              . "</tr>\n";
+    $disp = "<tr class='odd'>\n" . "<td width='12px'>{$check}</td>\n" //. "<td class='left'>" . ucfirst($this_editor) . $selected . "</td>\n"
+            . "<td class='left'>" . ucfirst($this_editor) . "</td>\n" . "</tr>\n";
 
     $sform->addElement($disp);
 }

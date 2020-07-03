@@ -40,7 +40,7 @@ $myts = MyTextSanitizer::getInstance();
 myReferer_adminmenu(6, _AM_MYREFERER_PERMISSIONS);
 
 $item_list_view = [];
-$block_view = [];
+$block_view     = [];
 
 echo "<h3 style='color: #2F5376; font-weight: bold; font-size: 14px; margin: 6px 0 0 0; '>" . _AM_MYREFERER_PERMISSIONS_DSC . '</h3>';
 

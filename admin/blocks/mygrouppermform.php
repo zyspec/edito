@@ -30,8 +30,8 @@ require_once dirname(__DIR__, 2) . '/class/EditoGroupFormCheckBox.php';
 /**
  * Renders a form for setting module specific group permissions
  *
- * @author	Kazumi Ono	<onokazu@myweb.ne.jp>
- * @copyright	copyright (c) 2000-2003 XOOPS.org
+ * @author       Kazumi Ono    <onokazu@myweb.ne.jp>
+ * @copyright    copyright (c) 2000-2003 XOOPS.org
  */
 class MyXoopsGroupPermForm extends XoopsForm
 {
@@ -74,9 +74,9 @@ class MyXoopsGroupPermForm extends XoopsForm
      * Constructor
      *
      * @param string $title
-     * @param int $modid
+     * @param int    $modid
      * @param string $permdesc
-     * @param mixed $permname
+     * @param mixed  $permname
      */
 
     public function __construct($title, $modid, $permname, $permdesc)
@@ -100,8 +100,8 @@ class MyXoopsGroupPermForm extends XoopsForm
      * Adds an item to which permission will be assigned
      *
      * @param string $itemName
-     * @param int $itemId
-     * @param int $itemParent
+     * @param int    $itemId
+     * @param int    $itemParent
      */
 
     public function addItem($itemId, $itemName, $itemParent = 0)
@@ -119,13 +119,18 @@ class MyXoopsGroupPermForm extends XoopsForm
      * Add appendix
      *
      * @param string $permName
-     * @param int $itemId
+     * @param int    $itemId
      * @param string $itemName
      */
 
     public function addAppendix($permName, $itemId, $itemName)
     {
-        $this->_appendix[] = ['permname' => $permName, 'itemid' => $itemId, 'itemname' => $itemName, 'selected' => false];
+        $this->_appendix[] = [
+            'permname' => $permName,
+            'itemid'   => $itemId,
+            'itemname' => $itemName,
+            'selected' => false
+        ];
     }
 
     /**

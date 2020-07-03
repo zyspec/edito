@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: Edito
  *
@@ -28,8 +29,8 @@ require_once dirname(__DIR__, 3) . '/include/cp_header.php';
 // foreach ( $_POST as $k => $v ) { ${$k} = $v; }
 // foreach ( $_GET as $k => $v ) { ${$k} = $v; }
 
-$op = Request::getCmd('op', '', 'POST');
-$dir = Request::getString('dir', 'logos', 'POST');
+$op       = Request::getCmd('op', '', 'POST');
+$dir      = Request::getString('dir', 'logos', 'POST');
 $sitelist = Request::getString('sitelist', '', 'POST');
 
 /*
@@ -83,7 +84,10 @@ function utilities($dir, $sitelist)
 
     // Directories
 
-    $dirs = ['logos' => 'logos', 'media' => 'media'];
+    $dirs = [
+        'logos' => 'logos',
+        'media' => 'media'
+    ];
 
     $pagedir_array = $dirs;
 
@@ -288,9 +292,9 @@ switch ($op) {
     case 'utilities':
     default:
         require_once __DIR__ . '/admin_header.php';
-       edito_adminmenu(2, _AM_EDITO_HTACCESS);
-       edito_statmenu(5, '');
-       utilities($dir, $sitelist);
+        edito_adminmenu(2, _AM_EDITO_HTACCESS);
+        edito_statmenu(5, '');
+        utilities($dir, $sitelist);
         require_once __DIR__ . '/admin_footer.php';
         break;
     case 'protect':

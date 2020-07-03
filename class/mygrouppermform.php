@@ -26,11 +26,12 @@ require_once XOOPS_ROOT_PATH . '/class/xoopsform/formelementtray.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/form.php';
 
 require_once __DIR__ . '/EditoGroupFormCheckBox.php';
+
 /**
  * Renders a form for setting module specific group permissions
  *
- * @author	Kazumi Ono	<onokazu@myweb.ne.jp>
- * @copyright	copyright (c) 2000-2003 XOOPS.org
+ * @author       Kazumi Ono    <onokazu@myweb.ne.jp>
+ * @copyright    copyright (c) 2000-2003 XOOPS.org
  */
 class Notorious extends XoopsForm
 {
@@ -98,8 +99,8 @@ class Notorious extends XoopsForm
      * Adds an item to which permission will be assigned
      *
      * @param string $itemName
-     * @param int $itemId
-     * @param int $itemParent
+     * @param int    $itemId
+     * @param int    $itemParent
      */
 
     public function addItem($itemId, $itemName, $itemParent = 0)
@@ -108,8 +109,8 @@ class Notorious extends XoopsForm
 
         $this->_itemTree[$itemId] = [
             'parent' => $itemParent,
-            'name' => $itemName,
-            'id' => $itemId,
+            'name'   => $itemName,
+            'id'     => $itemId,
         ];
     }
 
@@ -117,13 +118,18 @@ class Notorious extends XoopsForm
      * Add appendix
      *
      * @param string $permName
-     * @param int $itemId
+     * @param int    $itemId
      * @param string $itemName
      */
 
     public function addAppendix($permName, $itemId, $itemName)
     {
-        $this->_appendix[] = ['permname' => $permName, 'itemid' => $itemId, 'itemname' => $itemName, 'selected' => false];
+        $this->_appendix[] = [
+            'permname' => $permName,
+            'itemid'   => $itemId,
+            'itemname' => $itemName,
+            'selected' => false
+        ];
     }
 
     /**

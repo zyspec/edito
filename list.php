@@ -7,13 +7,13 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
-$count_list = 0;
-$new_list = '';
-$pop_list = '';
+$count_list    = 0;
+$new_list      = '';
+$pop_list      = '';
 $readmore_list = '';
 
 $result = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . ' WHERE status > 2';
@@ -110,7 +110,7 @@ while (list($ids, $subject_list, $groups_list, $datesub_list, $counter_list, $me
         if ($ids != $id) {
             $liste['link'] = '<nobr>' . edito_createlink('content.php?id=' . $ids, $subject_list, '', '', '', '', '', $alt_subject_list, $xoopsModuleConfig['url_rewriting']) . '</nobr>';
 
-        // "<a href='content.php?id=$ids' alt='".$alt_subject."'><nobr>" . $subject . "</nobr></a>";
+            // "<a href='content.php?id=$ids' alt='".$alt_subject."'><nobr>" . $subject . "</nobr></a>";
         } else {
             $liste['link'] = '<nobr><i>' . $subject_list . '</i></nobr>';
         }

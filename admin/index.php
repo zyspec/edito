@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: Edito
  *
@@ -26,106 +27,99 @@ require_once __DIR__ . '/admin_header.php';
 require_once dirname(__DIR__) . '/include/functions_mediasize.php';
 require_once dirname(__DIR__) . '/include/functions_content.php';
 
-$op = Request::getCmd('op', 'default');
-$ord = Request::getCmd('ord', '');
+$op   = Request::getCmd('op', 'default');
+$ord  = Request::getCmd('ord', '');
 $stat = Request::getCmd('stat', '');
 
 switch ($ord) {
     default:
     case 'id':
-        $ord = 'id';
-       $sort = 'DESC';
-       $ord_text = _AM_EDITO_ID;
-       break;
+        $ord      = 'id';
+        $sort     = 'DESC';
+        $ord_text = _AM_EDITO_ID;
+        break;
     case 'subject':
-       $sort = 'ASC';
-       $ord_text = _AM_EDITO_SUBJECT;
-       break;
+        $sort     = 'ASC';
+        $ord_text = _AM_EDITO_SUBJECT;
+        break;
     case 'media':
-       $sort = 'ASC';
-       $ord_text = _AM_EDITO_MEDIA;
-       break;
+        $sort     = 'ASC';
+        $ord_text = _AM_EDITO_MEDIA;
+        break;
     case 'image':
-       $sort = 'DESC';
-       $ord_text = _AM_EDITO_IMAGE;
-       break;
+        $sort     = 'DESC';
+        $ord_text = _AM_EDITO_IMAGE;
+        break;
     case 'counter':
-       $sort = 'DESC';
-       $ord_text = _AM_EDITO_COUNTER;
-       break;
+        $sort     = 'DESC';
+        $ord_text = _AM_EDITO_COUNTER;
+        break;
     case 'body_text':
-       $sort = 'ASC';
-       $ord_text = _AM_EDITO_BODY;
-       break;
+        $sort     = 'ASC';
+        $ord_text = _AM_EDITO_BODY;
+        break;
     case 'status':
-       $sort = 'DESC';
-       $ord_text = _AM_EDITO_STATUS;
-       break;
+        $sort     = 'DESC';
+        $ord_text = _AM_EDITO_STATUS;
+        break;
 }
 
 switch ($op) {
     case 'default':
     default:
         $startart = Request::getInt('startart', 0, 'GET');
-        $start = ($startart > 0) ? "&startart={$startart}" : '';
+        $start    = ($startart > 0) ? "&startart={$startart}" : '';
 
-        $on = "<a href='index.php?stat=on&ord={$ord}{$start}'>"
-                 . "<img src='../assets/images/icon/online.gif' alt='" . _AM_EDITO_ONLINE . "' class='middle'></a>\n";
-        $off = "<a href='index.php?stat=off&ord={$ord}'>"
-                 . "<img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_OFFLINE . "' class='middle'></a>\n";
-        $hide = "<a href='index.php?stat=hide&ord={$ord}'>"
-                 . "<img src='../assets/images/icon/hidden.gif' alt='" . _AM_EDITO_HIDDEN . "' class='middle'></a>\n";
-        $html = "<a href='index.php?stat=html&ord={$ord}'>"
-                 . "<img src='../assets/images/icon/html.gif' alt='" . _AM_EDITO_HTMLMODE . "' class='middle'></a>\n";
-        $php = "<a href='index.php?stat=php&ord={$ord}'>"
-                 . "<img src='../assets/images/icon/php.gif' alt='" . _AM_EDITO_PHPMODE . "' class='middle'></a>\n";
-        $all = "<a href='index.php?ord={$ord}'>"
-                 . "<img src='../assets/images/icon/all.gif' alt='" . _AM_EDITO_ALL . "' class='middle'></a>\n";
-        $waiting = "<a href='index.php?stat=waiting&ord={$ord}'>"
-                 . "<img src='../assets/images/icon/waiting.gif' alt='" . _AM_EDITO_WAITING . "' class='middle'></a>\n";
+        $on      = "<a href='index.php?stat=on&ord={$ord}{$start}'>" . "<img src='../assets/images/icon/online.gif' alt='" . _AM_EDITO_ONLINE . "' class='middle'></a>\n";
+        $off     = "<a href='index.php?stat=off&ord={$ord}'>" . "<img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_OFFLINE . "' class='middle'></a>\n";
+        $hide    = "<a href='index.php?stat=hide&ord={$ord}'>" . "<img src='../assets/images/icon/hidden.gif' alt='" . _AM_EDITO_HIDDEN . "' class='middle'></a>\n";
+        $html    = "<a href='index.php?stat=html&ord={$ord}'>" . "<img src='../assets/images/icon/html.gif' alt='" . _AM_EDITO_HTMLMODE . "' class='middle'></a>\n";
+        $php     = "<a href='index.php?stat=php&ord={$ord}'>" . "<img src='../assets/images/icon/php.gif' alt='" . _AM_EDITO_PHPMODE . "' class='middle'></a>\n";
+        $all     = "<a href='index.php?ord={$ord}'>" . "<img src='../assets/images/icon/all.gif' alt='" . _AM_EDITO_ALL . "' class='middle'></a>\n";
+        $waiting = "<a href='index.php?stat=waiting&ord={$ord}'>" . "<img src='../assets/images/icon/waiting.gif' alt='" . _AM_EDITO_WAITING . "' class='middle'></a>\n";
 
         $waiting_c = $waiting;
-        $blank = "<img src='../assets/images/icon/blank.gif'  alt='' class=''middle'>\n";
+        $blank     = "<img src='../assets/images/icon/blank.gif'  alt='' class=''middle'>\n";
 
         switch ($stat) {
             case 'off':
-                $off = $blank;
-                $status = '=0';
+                $off         = $blank;
+                $status      = '=0';
                 $status_text = _AM_EDITO_OFFLINE;
                 break;
             case 'waiting':
-                $waiting = $blank;
-                $status = '=1';
+                $waiting     = $blank;
+                $status      = '=1';
                 $status_text = _AM_EDITO_WAITING;
                 break;
             case 'hide':
-                $hide = $blank;
-                $status = '=2';
+                $hide        = $blank;
+                $status      = '=2';
                 $status_text = _AM_EDITO_HIDDEN;
                 break;
             case 'on':
-                $on = $blank;
-                $status = '=3';
+                $on          = $blank;
+                $status      = '=3';
                 $status_text = _AM_EDITO_ONLINE;
                 break;
             case 'html':
-                $html = $blank;
-                $status = '=4';
+                $html        = $blank;
+                $status      = '=4';
                 $status_text = _AM_EDITO_HTMLMODE;
                 break;
             case 'php':
-                $php = $blank;
-                $status = '=5';
+                $php         = $blank;
+                $status      = '=5';
                 $status_text = _AM_EDITO_PHPMODE;
                 break;
             default:
-                $all = '';
-                $status = '>=0';
+                $all         = '';
+                $status      = '>=0';
                 $status_text = _AM_EDITO_ALL;
         }
 
         // Count submited pages
-        $sql = ' ( SELECT COUNT(id) FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . ' WHERE status = 1)';
+        $sql    = ' ( SELECT COUNT(id) FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . ' WHERE status = 1)';
         $result = $xoopsDB->queryF($sql);
         [$total_sub] = $xoopsDB->fetchRow($result);
         if ($total_sub) { // $waiting_c = "|".$waiting_c ."=<b>". $total_sub . "</b>";
@@ -153,20 +147,18 @@ switch ($op) {
         echo "  <th class='bg3 center width60'><a href='index.php?stat={$stat}&ord=media{$start}'> " . _AM_EDITO_MEDIA . "</a></th>\n";
         echo "  <th class='bg3 center width20'><a href='index.php?stat={$stat}&ord=subject{$start}'>" . _AM_EDITO_SUBJECT . "</a></th>\n";
         echo "  <th class='bg3 center' style='width:70px;'><a href='index.php?stat={$stat}&ord=counter{$start}'>" . _AM_EDITO_COUNTER . "</a></th>\n";
-        echo "  <th class='bg3 center' style='width:70px;'><a href='index.php?stat={$stat}&ord=status{$start}'> " . _AM_EDITO_STATUS . "</a><br>\n"
-           . "    {$all}<br>{$on}{$hide}{$off}<br>{$html}{$php}{$waiting}\n"
-           . "  </th>\n";
+        echo "  <th class='bg3 center' style='width:70px;'><a href='index.php?stat={$stat}&ord=status{$start}'> " . _AM_EDITO_STATUS . "</a><br>\n" . "    {$all}<br>{$on}{$hide}{$off}<br>{$html}{$php}{$waiting}\n" . "  </th>\n";
         echo "  <th class='bg3 center bold' style='width:110px;'>" . _AM_EDITO_ACTIONS . "</th>\n";
         echo "</tr>\n";
 
         // Check edito total
-        $sql = ' SELECT COUNT(id) FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . " WHERE status{$status}";
+        $sql    = ' SELECT COUNT(id) FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . " WHERE status{$status}";
         $result = $xoopsDB->queryF($sql);
         [$total] = $xoopsDB->fetchRow($result);
 
         $pagenav = new XoopsPageNav($total, $xoopsModuleConfig['perpage'], $startart, "stat={$stat}&ord={$ord}&startart");
 
-        if ($total > 0) {				// That is, if there ARE editos in the system
+        if ($total > 0) {                // That is, if there ARE editos in the system
             $sql = 'SELECT id, subject, image, media, meta, counter, status
             		FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . '
                     WHERE status' . $status . ' ORDER BY ' . $ord . ' ' . $sort;
@@ -224,19 +216,9 @@ switch ($op) {
                 $delete = "<a href='content.php?op=del&id=" . $id . "' title='" . _AM_EDITO_DELETE . "'><img src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/delete.gif alt='" . _AM_EDITO_DELETE . "'></a>";
 
                 if ($image) {
-                    $logo = edito_createlink(
-                        '../content.php?id=' . $id,
-                        '',
-                        '_self',
-                        XOOPS_URL . '/' . $xoopsModuleConfig['sbuploaddir'] . '/' . $image,
-                        'center',
-                        '90',
-                        '90',
-                        $subject,
-                        $xoopsModuleConfig['url_rewriting']
-                    );
+                    $logo = edito_createlink('../content.php?id=' . $id, '', '_self', XOOPS_URL . '/' . $xoopsModuleConfig['sbuploaddir'] . '/' . $image, 'center', '90', '90', $subject, $xoopsModuleConfig['url_rewriting']);
 
-                //	$logo =  '<a href="../content.php?id='.$id.'"><img src="'.XOOPS_URL . '/'. $xoopsModuleConfig['sbuploaddir'] .'/'. $image.'" width="60" alt="'. $image.'"></a>';
+                    //	$logo =  '<a href="../content.php?id='.$id.'"><img src="'.XOOPS_URL . '/'. $xoopsModuleConfig['sbuploaddir'] .'/'. $image.'" width="60" alt="'. $image.'"></a>';
                 } else {
                     $logo = '';
                 }
@@ -245,9 +227,9 @@ switch ($op) {
                     $meta = explode('|', $meta);
 
                     $meta_title = $meta[0];
-//            $urw_url = '<br>'.edito_createlink('../content.php?id='.$id, $subject, '_self',
-//                                          XOOPS_URL.'/modules/edito/assets/images/icon/rewriting.gif', '', '', '',
-//                                         $meta_title, $xoopsModuleConfig['url_rewriting']);
+                    //            $urw_url = '<br>'.edito_createlink('../content.php?id='.$id, $subject, '_self',
+                    //                                          XOOPS_URL.'/modules/edito/assets/images/icon/rewriting.gif', '', '', '',
+                    //                                         $meta_title, $xoopsModuleConfig['url_rewriting']);
 
                     $urw_url = '<a href="../' . edito_urw('content.php?id=' . $id, $subject, $meta_title, $xoopsModuleConfig['url_rewriting']) . '" title="' . _AM_EDITO_REWRITING . '">
                           <img src="../assets/images/icon/rewriting.gif" align="absmiddle" width="24"></a>';
@@ -314,7 +296,7 @@ switch ($op) {
 
                 echo '</tr>';
             }
-        } else {		// that is, $numrows = 0, there's no columns yet
+        } else {        // that is, $numrows = 0, there's no columns yet
             echo '<tr>';
 
             echo "<td class='head' align='center' colspan= '8'>" . _AM_EDITO_NO_EDITO . '</td>';
@@ -322,16 +304,16 @@ switch ($op) {
             echo '</tr>';
         }
 
-    echo "  <tr>
+        echo "  <tr>
     		<td class='even' align='center' colspan='9'>
             <form name='addedito' method='post' action='content.php'>
             <input type='submit' name='go' value='" . _AM_EDITO_CREATE . "'>
             </form>
             </td>
             </tr>";
-    echo "</table>\n";
-    echo "<div style='text-align:right;'>" . $pagenav->renderNav() . '</div>';
-    echo "<br>\n";
+        echo "</table>\n";
+        echo "<div style='text-align:right;'>" . $pagenav->renderNav() . '</div>';
+        echo "<br>\n";
 }
 
 require_once __DIR__ . '/admin_footer.php';

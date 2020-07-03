@@ -9,6 +9,7 @@
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * Module: Edito
  *
@@ -96,70 +97,70 @@ function utilities()
 /* -- Available operations -- */
 switch ($op) {
     case 'database_feed':
-    if (isset($_POST['db_datas'])) {
-        $db_datas = $_POST['db_datas'];
-    }
-    if (isset($_POST['catid'])) {
-        $topic = $_POST['catid'];
-    }
-
-    if (';' == mb_substr($db_datas, -1)) {
-        $db_datas = mb_substr($db_datas, 0, -1);
-    }  // Get ride of the latest ; if necessary
-
-    $patterns = [];      // Replace useless datas in SQL backup : update and insert values
-    $replacements = [];
-    $patterns[] = "/\`/";  // Clean queries
-    $replacements[] = '';
-    if (preg_match('/INSERT INTO/', $db_datas)) {
-        $patterns[] = "/VALUES \(([0-9]+), /";  // Id suppression if insert
-
-        $replacements[] = "VALUES ('', ";
-    }
-    if ($topic && false !== strpos($db_datas, "edito_content")) {
-        if (false !== strpos($db_datas, "UPDATE")) {
-            $patterns[] = '/catid = ([0-9]+), /'; // Topics definition & Id suppression
-
-            $replacements[] = 'catid = ' . $topic . ', ';
+        if (isset($_POST['db_datas'])) {
+            $db_datas = $_POST['db_datas'];
+        }
+        if (isset($_POST['catid'])) {
+            $topic = $_POST['catid'];
         }
 
-        if (preg_match('/INSERT INTO/', $db_datas)) {      // VALUES ('', 1, 1,
-            $patterns[] = "/VALUES \('', ([0-9]+), /";  // Topics definition & Id suppression
-            $replacements[] = "VALUES ('', " . $topic . ', ';
+        if (';' == mb_substr($db_datas, -1)) {
+            $db_datas = mb_substr($db_datas, 0, -1);
+        }  // Get ride of the latest ; if necessary
+
+        $patterns       = [];      // Replace useless datas in SQL backup : update and insert values
+        $replacements   = [];
+        $patterns[]     = "/\`/";  // Clean queries
+        $replacements[] = '';
+        if (preg_match('/INSERT INTO/', $db_datas)) {
+            $patterns[] = "/VALUES \(([0-9]+), /";  // Id suppression if insert
+
+            $replacements[] = "VALUES ('', ";
         }
-    }
-    $patterns[] = '/INSERT INTO (.*)edito_/';               // Table prefix : insert
-    $replacements[] = 'INSERT INTO ' . XOOPS_DB_PREFIX . '_edito_';
-    $patterns[] = '/REPLACE INTO (.*)edito_/';              // Table prefix : replace
-    $replacements[] = 'REPLACE INTO ' . XOOPS_DB_PREFIX . '_edito_';
-    $patterns[] = '/UPDATE (.*)edito_/';                    // Table prefix : update
-    $replacements[] = 'UPDATE ' . XOOPS_DB_PREFIX . '_edito_';
-    $db_datas = preg_replace($patterns, $replacements, $db_datas);
-    $db_datas = explode(';', $db_datas);
+        if ($topic && false !== strpos($db_datas, "edito_content")) {
+            if (false !== strpos($db_datas, "UPDATE")) {
+                $patterns[] = '/catid = ([0-9]+), /'; // Topics definition & Id suppression
 
-    $i = 0;
-    $ii = 0;
-    $inserted = '';
-    foreach ($db_datas as $db_data) { // For each insert, insert into DB if insert is valid
-        if (false !== strpos(mb_substr($db_data, 7, 35), "_edito_")) { // Insert datas for this module only ! ! !
-            if ($xoopsDB->queryF($db_data)) {
-                $inserted .= $db_data . ';<br>';
+                $replacements[] = 'catid = ' . $topic . ', ';
+            }
 
-                ++$i;
-            } else {
-                $inserted .= '<font color="red">' . $db_data . ';</font><br>';
+            if (preg_match('/INSERT INTO/', $db_datas)) {      // VALUES ('', 1, 1,
+                $patterns[]     = "/VALUES \('', ([0-9]+), /";  // Topics definition & Id suppression
+                $replacements[] = "VALUES ('', " . $topic . ', ';
             }
         }
+        $patterns[]     = '/INSERT INTO (.*)edito_/';               // Table prefix : insert
+        $replacements[] = 'INSERT INTO ' . XOOPS_DB_PREFIX . '_edito_';
+        $patterns[]     = '/REPLACE INTO (.*)edito_/';              // Table prefix : replace
+        $replacements[] = 'REPLACE INTO ' . XOOPS_DB_PREFIX . '_edito_';
+        $patterns[]     = '/UPDATE (.*)edito_/';                    // Table prefix : update
+        $replacements[] = 'UPDATE ' . XOOPS_DB_PREFIX . '_edito_';
+        $db_datas       = preg_replace($patterns, $replacements, $db_datas);
+        $db_datas       = explode(';', $db_datas);
 
-        ++$ii;
-    }
+        $i        = 0;
+        $ii       = 0;
+        $inserted = '';
+        foreach ($db_datas as $db_data) { // For each insert, insert into DB if insert is valid
+            if (false !== strpos(mb_substr($db_data, 7, 35), "_edito_")) { // Insert datas for this module only ! ! !
+                if ($xoopsDB->queryF($db_data)) {
+                    $inserted .= $db_data . ';<br>';
 
-    if ($inserted) { // Report results
-        redirect_header('utils_import.php', $i + 2, $i . '/' . $ii . ' ' . _AM_EDITO_UPDATED . '<p style="text-align:left;">' . $inserted . '</p>');
-    }
-    redirect_header('utils_import.php', $i + 2, _AM_EDITO_NOTUPDATED);
-    break;
-  case 'utilities':
+                    ++$i;
+                } else {
+                    $inserted .= '<font color="red">' . $db_data . ';</font><br>';
+                }
+            }
+
+            ++$ii;
+        }
+
+        if ($inserted) { // Report results
+            redirect_header('utils_import.php', $i + 2, $i . '/' . $ii . ' ' . _AM_EDITO_UPDATED . '<p style="text-align:left;">' . $inserted . '</p>');
+        }
+        redirect_header('utils_import.php', $i + 2, _AM_EDITO_NOTUPDATED);
+        break;
+    case 'utilities':
     default:
         require_once __DIR__ . '/admin_header.php';
         edito_adminmenu(2, _AM_EDITO_UTILITIES . '<br>' . _AM_EDITO_DB_IMPORT);

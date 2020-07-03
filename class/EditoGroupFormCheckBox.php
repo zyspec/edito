@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
+
 /**
  * Renders checkbox options for a group permission form
  *
- * @author	Kazumi Ono	<onokazu@myweb.ne.jp>
- * @copyright	copyright (c) 2000-2003 XOOPS.org
+ * @author       Kazumi Ono    <onokazu@myweb.ne.jp>
+ * @copyright    copyright (c) 2000-2003 XOOPS.org
  */
 class EditoGroupFormCheckBox extends XoopsFormElement
 {
@@ -40,8 +41,8 @@ class EditoGroupFormCheckBox extends XoopsFormElement
      *
      * @param string $caption
      * @param string $name
-     * @param int $groupId
-     * @param mixed $values
+     * @param int    $groupId
+     * @param mixed  $values
      */
 
     public function __construct($caption, $name, $groupId, $values = null)
@@ -165,9 +166,9 @@ class EditoGroupFormCheckBox extends XoopsFormElement
      * Renders checkbox options for an item tree
      *
      * @param string $tree
-     * @param array $option
+     * @param array  $option
      * @param string $prefix
-     * @param array $parentIds
+     * @param array  $parentIds
      */
 
     protected function _renderOptionTree(&$tree, $option, $prefix, $parentIds = [])
@@ -206,10 +207,8 @@ class EditoGroupFormCheckBox extends XoopsFormElement
             $tree .= ' checked';
         }
 
-        $tree .= '>' . $option['name'] . '<input type="hidden" name="' . $this->getName() . '[parents][' . $option['id'] . ']" value="' . implode(':', $parentIds) . '"><input type="hidden" name="' . $this->getName() . '[itemname][' . $option['id'] . ']" value="' . htmlspecialchars($option['name'],
-                                                                                                                                                                                                                                                                                          ENT_QUOTES
-                                                                                                                                                                                                                                                                                          | ENT_HTML5)
-                 . "\"><br>\n";
+        $tree .= '>' . $option['name'] . '<input type="hidden" name="' . $this->getName() . '[parents][' . $option['id'] . ']" value="' . implode(':', $parentIds) . '"><input type="hidden" name="' . $this->getName() . '[itemname][' . $option['id']
+                 . ']" value="' . htmlspecialchars($option['name'], ENT_QUOTES | ENT_HTML5) . "\"><br>\n";
 
         if (isset($option['children'])) {
             foreach ($option['children'] as $child) {

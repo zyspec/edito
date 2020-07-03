@@ -7,7 +7,7 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 if (!defined('XOOPS_ROOT_PATH')) {
     die('XOOPS root path not defined');
@@ -83,7 +83,7 @@ function edito_createMetaTags($page_title, $page_content, $module_meta_keywords,
             $page_title = $myts->undoHtmlSpecialChars($page_title);
         }
 
-        $xoopsTpl->assign('xoops_pagetitle', $modName . $page_title);		// Template
+        $xoopsTpl->assign('xoops_pagetitle', $modName . $page_title);        // Template
     }
 
     // 2. Meta Description
@@ -91,7 +91,7 @@ function edito_createMetaTags($page_title, $page_content, $module_meta_keywords,
     if ($page_meta_description) {
         $description = $page_title . ' ' . $page_meta_description;
 
-        $xoopsTpl->assign('xoops_meta_description', $description);		// Template
+        $xoopsTpl->assign('xoops_meta_description', $description);        // Template
     }
 
     // 3. Meta Keywords
@@ -111,8 +111,8 @@ function edito_createMetaTags($page_title, $page_content, $module_meta_keywords,
     // a.Creating Meta Keywords from content
 
     if ($page_content) {
-        $page_content = edito_cleanContent($page_title . ' ' . $page_content);					// Clean up content
-        $contentKeywords = edito_findKeyWordsInString($page_content, $minChar, $min_occ, $max_occ);	// Select basis keywords
+        $page_content    = edito_cleanContent($page_title . ' ' . $page_content);                    // Clean up content
+        $contentKeywords = edito_findKeyWordsInString($page_content, $minChar, $min_occ, $max_occ);    // Select basis keywords
 
         foreach ($contentKeywords as $contentKeyword) {
             $metakeywords[] = trim($contentKeyword);
@@ -148,12 +148,12 @@ function edito_createMetaTags($page_title, $page_content, $module_meta_keywords,
 
         if ($i <= 45) {
             $ret_let = ', ' . ucwords($ret);
-        } 	// Add a majucule if less than 45 keywords
+        }    // Add a majucule if less than 45 keywords
 
         if ($i <= 30) {
             $ret_caps = ', ' . mb_strtoupper($ret);
-        }	// All words in majucule if less than 30 keywords
-        $xoopsTpl->assign('xoops_meta_keywords', $ret . $ret_let . $ret_caps);		// Template
+        }    // All words in majucule if less than 30 keywords
+        $xoopsTpl->assign('xoops_meta_keywords', $ret . $ret_let . $ret_caps);        // Template
     }
 } // End of function
 

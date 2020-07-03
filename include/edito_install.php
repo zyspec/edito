@@ -7,7 +7,7 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  */
 if (!defined('EDITO_DIRNAME')) {
     define('EDITO_DIRNAME', 'edito');
@@ -149,11 +149,11 @@ function edito_admin_chmod($target, $mode = 0777)
 /**
  * Copy a file, or a folder and its contents
  *
- * @author      Aidan Lister <aidan@php.net>
- * @version     1.0.0
- * @param       string   $source    The source
- * @param       string   $dest      The destination
+ * @param string $source The source
+ * @param string $dest   The destination
  * @return      bool     Returns true on success, false on failure
+ * @version     1.0.0
+ * @author      Aidan Lister <aidan@php.net>
  */
 function edito_copyr($source, $dest)
 {
