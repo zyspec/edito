@@ -1,19 +1,28 @@
 <?php
+
+declare(strict_types=1);
+
 /**
-* XOOPS - PHP Content Management System
-* Copyright (c) 2004 <http://www.xoops.org/>
-*
-* Module: edito 3.0
-* Licence : GPL
-* Authors :
-*           - solo (http://www.wolfpackclan.com/wolfactory)
-*			- DuGris (http://www.dugris.info)
-*/
+ * XOOPS - PHP Content Management System
+ * Copyright (c) 2004 <https://www.xoops.org>
+ *
+ * Module: edito 3.0
+ * Licence : GPL
+ * Authors :
+ *           - solo (http://www.wolfpackclan.com/wolfactory)
+ *            - DuGris (http://www.dugris.info)
+ */
+if (!defined('XOOPS_ROOT_PATH')) {
+    die('XOOPS root path not defined');
+}
 
-if (!defined("XOOPS_ROOT_PATH")) { die("XOOPS root path not defined"); }
-
-function edito_adminmenu($currentoption = 0, $breadcrumb = '') {
-	echo "<style type='text/css'>
+/**
+ * @param int    $currentoption
+ * @param string $breadcrumb
+ */
+function edito_adminmenu($currentoption = 0, $breadcrumb = '')
+{
+    echo "<style type='text/css'>
 		  #buttontop { float:left; width:100%; background: #e7e7e7; font-size:93%; line-height:normal; border-top: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; margin: 0; }
           #buttonbar { float:left; width:100%; background: #e7e7e7 url('" . XOOPS_URL . "/modules/'.$xoopsModule->dirname().'/assets/images/bg.gif') repeat-x left bottom; font-size: 10px; line-height:normal; border-left: 1px solid black; border-right: 1px solid black; margin-bottom: 12px; }
           #buttonbar ul { margin:0; margin-top: 15px; padding:0px 5px 0; list-style:none; }
@@ -31,48 +40,67 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '') {
           </style>";
 
     // global $xoopsDB, $xoopsModule, $xoopsConfig, $xoopsModuleConfig;
-	global $xoopsModule, $xoopsConfig;
-	$myts = MyTextSanitizer::getInstance();
 
-	$tblColors = Array_Fill(0,8,'');
-	$tblColors[$currentoption] = 'current';
+    global $xoopsModule, $xoopsConfig;
 
-	//echo XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/language/' . $xoopsConfig['language'] . '/modinfo.php';
+    $myts = \MyTextSanitizer::getInstance();
 
-	if (file_exists(XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-		include_once XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/language/' . $xoopsConfig['language'] . '/modinfo.php';
-	} else {
-		include_once XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/language/french/modinfo.php';
-	}
+    $tblColors = array_fill(0, 8, '');
 
-	include 'menu.php';
+    $tblColors[$currentoption] = 'current';
 
-	echo '<div id="buttontop">';
-	echo '<table style="width: 100%; padding: 0;" cellspacing="0"><tr>';
-	echo '<td style="font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;">';
-	for( $i=0; $i<count($headermenu); $i++ ){
-		echo '<a class="nobutton" href="' . $headermenu[$i]['link'] .'">' . $headermenu[$i]['title'] . '</a> ';
-		if ($i < count($headermenu)-1) {
-			echo "| ";
-		}
-	}
-	echo '</td>';
-	echo '<td style="font-size: 12px; text-align: right; color: #CC0000; padding: 0 6px; line-height: 18px; font-weight: bold;">' . $breadcrumb . '</td>';
-	echo '</tr></table>';
-	echo '</div>';
+    //echo XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/language/' . $xoopsConfig['language'] . '/modinfo.php';
 
-	echo '<div id="buttonbar">';
-	echo "<ul>";
+    if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
+        require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
+    } else {
+        require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/french/modinfo.php';
+    }
 
-	for( $i=0; $i<count($adminmenu); $i++ ){
-		echo '<li id="' . $tblColors[$i] . '"><a href="' . XOOPS_URL . '/modules/'.$xoopsModule->dirname().'/' . $adminmenu[$i]['link'] . '"><span>' . $adminmenu[$i]['title'] . '</span></a></li>';
-	}
-	echo '</ul></div>';
+//    require __DIR__ . '/menu.php';
+
+    echo '<div id="buttontop">';
+
+    echo '<table style="width: 100%; padding: 0;" cellspacing="0"><tr>';
+
+    echo '<td style="font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;">';
+
+    for ($i = 0, $iMax = count($headermenu); $i < $iMax; $i++) {
+        echo '<a class="nobutton" href="' . $headermenu[$i]['link'] . '">' . $headermenu[$i]['title'] . '</a> ';
+
+        if ($i < count($headermenu) - 1) {
+            echo '| ';
+        }
+    }
+
+    echo '</td>';
+
+    echo '<td style="font-size: 12px; text-align: right; color: #CC0000; padding: 0 6px; line-height: 18px; font-weight: bold;">' . $breadcrumb . '</td>';
+
+    echo '</tr></table>';
+
+    echo '</div>';
+
+    echo '<div id="buttonbar">';
+
+    echo '<ul>';
+
+    for ($i = 0, $iMax = count($adminmenu); $i < $iMax; $i++) {
+        echo '<li id="' . $tblColors[$i] . '"><a href="' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/' . $adminmenu[$i]['link'] . '"><span>' . $adminmenu[$i]['title'] . '</span></a></li>';
+    }
+
+    echo '</ul></div>';
+
     echo '<div style="float: left; width: 100%; text-align: center; margin: 0px; padding: 0px">';
 }
 
-function edito_statmenu($currentoption = 0, $breadcrumb = '') {
-	echo "<style type='text/css'>
+/**
+ * @param int    $currentoption
+ * @param string $breadcrumb
+ */
+function edito_statmenu($currentoption = 0, $breadcrumb = '')
+{
+    echo "<style type='text/css'>
     	  #statbar { float:right; font-size: 10px; line-height:normal; margin-bottom: 0px; }
           #statbar ul { margin:0; margin-top: 0px; padding:0px 0px 0; list-style:none;}
           #statbar li { display:inline; margin:0; padding:0;}
@@ -88,31 +116,42 @@ function edito_statmenu($currentoption = 0, $breadcrumb = '') {
           #statbar a:hover span { background-position:100% -150px; background-color: #00FFFF; }
           </style>";
 
-	global $xoopsModule, $xoopsConfig;
-	$myts = MyTextSanitizer::getInstance();
+    global $xoopsModule, $xoopsConfig;
 
-	$tblColors = Array_Fill(0,8,'');
-	$tblColors[$currentoption] = 'current';
+    $myts = \MyTextSanitizer::getInstance();
 
-	if (file_exists(XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-		include_once XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/language/' . $xoopsConfig['language'] . '/modinfo.php';
-	} else {
-		include_once XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/language/french/modinfo.php';
-	}
+    $tblColors = array_fill(0, 8, '');
 
-	include 'menu.php';
-	echo '<br /><div id="statbar">';
-	echo "<ul>";
+    $tblColors[$currentoption] = 'current';
 
-	for( $i=0; $i<count($statmenu); $i++ ){
-		echo '<li id="' . $tblColors[$i] . '"><a href="' . XOOPS_URL . '/modules/'.$xoopsModule->dirname().'/' . $statmenu[$i]['link'] . '"><span>' . $statmenu[$i]['title'] . '</span></a></li>';
-	}
-	echo '</ul></div>';
+    if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
+        require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
+    } else {
+        require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/french/modinfo.php';
+    }
+
+//    require __DIR__ . '/menu.php';
+
+    echo '<br><div id="statbar">';
+
+    echo '<ul>';
+
+    for ($i = 0, $iMax = count($statmenu); $i < $iMax; $i++) {
+        echo '<li id="' . $tblColors[$i] . '"><a href="' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/' . $statmenu[$i]['link'] . '"><span>' . $statmenu[$i]['title'] . '</span></a></li>';
+    }
+
+    echo '</ul></div>';
+
     echo '<div style="float: left; width: 100%; text-align: center; margin: 0px; padding: 0px">';
 }
 
-function edito_metamenu($currentoption = 0, $breadcrumb = '') {
-	echo "<style type='text/css'>
+/**
+ * @param int    $currentoption
+ * @param string $breadcrumb
+ */
+function edito_metamenu($currentoption = 0, $breadcrumb = '')
+{
+    echo "<style type='text/css'>
     	  #statbar { float:right; font-size: 10px; line-height:normal; margin-bottom: 0px; }
           #statbar ul { margin:0; margin-top: 0px; padding:0px 0px 0; list-style:none;}
           #statbar li { display:inline; margin:0; padding:0;}
@@ -128,105 +167,132 @@ function edito_metamenu($currentoption = 0, $breadcrumb = '') {
           #statbar a:hover span { background-position:100% -150px; background-color: #00FFFF; }
           </style>";
 
-	global $xoopsModule, $xoopsConfig;
-	$myts = MyTextSanitizer::getInstance();
+    global $xoopsModule, $xoopsConfig;
 
-	$tblColors = Array_Fill(0,8,'');
-	$tblColors[$currentoption] = 'current';
+    $myts = \MyTextSanitizer::getInstance();
 
-	if (file_exists(XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-		include_once XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/language/' . $xoopsConfig['language'] . '/modinfo.php';
-	} else {
-		include_once XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->dirname().'/language/french/modinfo.php';
-	}
+    $tblColors = array_fill(0, 8, '');
 
-	include 'menu.php';
-	echo '<br /><div id="statbar">';
-	echo "<ul>";
+    $tblColors[$currentoption] = 'current';
 
-	for( $i=0; $i<count($metamenu); $i++ ){
-		echo '<li id="' . $tblColors[$i] . '"><a href="' . XOOPS_URL . '/modules/'.$xoopsModule->dirname().'/' . $metamenu[$i]['link'] . '"><span>' . $metamenu[$i]['title'] . '</span></a></li>';
-	}
-	echo '</ul></div>';
+    if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
+        require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
+    } else {
+        require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/french/modinfo.php';
+    }
+
+//    require __DIR__ . '/menu.php';
+
+    echo '<br><div id="statbar">';
+
+    echo '<ul>';
+
+    for ($i = 0, $iMax = count($metamenu); $i < $iMax; $i++) {
+        echo '<li id="' . $tblColors[$i] . '"><a href="' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/' . $metamenu[$i]['link'] . '"><span>' . $metamenu[$i]['title'] . '</span></a></li>';
+    }
+
+    echo '</ul></div>';
+
     echo '<div style="float: left; width: 100%; text-align: center; margin: 0px; padding: 0px">';
 }
 
-function edito_search() {
-	echo '<div style="text-align:right; padding-right:10px;">
-    	  <form style="margin:0px; vertical-align: center; " action="'. $_SERVER['SCRIPT_NAME'] .'?ord='.$ord.'&search='.$search.'&engine='.$engine.'&week='.$week.'&op=&startart='.$startart.'" method="post">
-          <input style="margin:0px; vertical-align: center; " type="text" name="search" size="30" maxlength="30" value="'.$search.'">&nbsp;<button style="font-size:11px; " type="submit">'._MD_EDITO_SEARCH.'</button>
+function edito_search()
+{
+    echo '<div style="text-align:right; padding-right:10px;">
+    	  <form style="margin:0px; vertical-align: center; " action="' . $_SERVER['SCRIPT_NAME'] . '?ord=' . $ord . '&search=' . $search . '&engine=' . $engine . '&week=' . $week . '&op=&startart=' . $startart . '" method="post">
+          <input style="margin:0px; vertical-align: center; " type="text" name="search" size="30" maxlength="30" value="' . $search . '">&nbsp;<button style="font-size:11px; " type="submit">' . _MD_EDITO_SEARCH . '</button>
           </form>
           </div>';
 }
 
-function edito_adminfooter() {
-	echo '<p/>';
-    OpenTable();
-    //	echo '<div style="text-align: right; vertical-align: center"><img src="../assets/images/'.$xoopsModule->dirname().'.gif" border="0" align="center" valign="absmiddle" />';
-    echo sprintf(_MD_EDITO_CREDIT,'<a href="http://wolfactory.wolfpackclan.com" target="_blank">WolFactory</a>', '<a href="http://www.dugris.info" target="_blank">DuGris</a>' );
-    echo '</div>';
-	CloseTable();
-	echo '<p/>';
-}
+function edito_adminfooter()
+{
+    echo '<p>';
 
+    OpenTable();
+
+    //	echo '<div style="text-align: right; vertical-align: center"><img src="../assets/images/'.$xoopsModule->dirname().'.gif" border="0" align="center" valign="absmiddle">';
+
+    echo sprintf(_MD_EDITO_CREDIT, '<a href="http://wolfactory.wolfpackclan.com" target="_blank">WolFactory</a>', '<a href="http://www.dugris.info" target="_blank">DuGris</a>');
+
+    echo '</div>';
+
+    CloseTable();
+
+    echo '<p>';
+}
 
 /**
  * Get module preference
  *
  * @param string $option
- * @param string module directory
+ * @param mixed  $repmodule
  * @return string
- *
  */
-function edito_GetOption($option, $repmodule = '.$xoopsModule->dirname().' ) {
-	global $xoopsModuleConfig, $xoopsModule;
-	static $tbloptions= Array();
-	if(is_array($tbloptions) && array_key_exists($option,$tbloptions)) {
-		return $tbloptions[$option];
-	}
+function edito_GetOption($option, $repmodule = '.$xoopsModule->dirname().')
+{
+    global $xoopsModuleConfig, $xoopsModule;
 
-	$retval=false;
-	if (isset($xoopsModuleConfig) && (is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $repmodule && $xoopsModule->getVar('isactive'))) {
-		if(isset($xoopsModuleConfig[$option])) {
-			$retval= $xoopsModuleConfig[$option];
-		}
-	} else {
-		$module_handler = xoops_gethandler('module');
-		$module = $module_handler->getByDirname($repmodule);
-		$config_handler = xoops_gethandler('config');
-		if ($module) {
-		    $moduleConfig = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
-	    	if(isset($moduleConfig[$option])) {
-	    		$retval= $moduleConfig[$option];
-	    	}
-		}
-	}
-	$tbloptions[$option]=$retval;
-	return $retval;
+    static $tbloptions = [];
+
+    if (is_array($tbloptions) && array_key_exists($option, $tbloptions)) {
+        return $tbloptions[$option];
+    }
+
+    $retval = false;
+
+    if (isset($xoopsModuleConfig) && (is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $repmodule && $xoopsModule->getVar('isactive'))) {
+        if (isset($xoopsModuleConfig[$option])) {
+            $retval = $xoopsModuleConfig[$option];
+        }
+    } else {
+        $moduleHandler = xoops_getHandler('module');
+
+        $module = $moduleHandler->getByDirname($repmodule);
+
+        $configHandler = xoops_getHandler('config');
+
+        if ($module) {
+            $moduleConfig = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
+
+            if (isset($moduleConfig[$option])) {
+                $retval = $moduleConfig[$option];
+            }
+        }
+    }
+
+    $tbloptions[$option] = $retval;
+
+    return $retval;
 }
 
 /**
  * check permissions
  *
  * @param int $refererid
- *			1 -> Referers
- *			2 -> Engines
- *			3 -> Keywords
- *			4 -> Queries
- *			5 -> Robots
+ *            1 -> Referers
+ *            2 -> Engines
+ *            3 -> Keywords
+ *            4 -> Queries
+ *            5 -> Robots
  * @return bool
- *
  */
-function edito_checkRight( $refererid ) {
-	global $xoopsUser;
-    $groups = is_object( $xoopsUser ) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler = xoops_gethandler( 'groupperm' );
+function edito_checkRight($refererid)
+{
+    global $xoopsUser;
 
-	$module_handler = xoops_gethandler('module');
-	$editoModule = $module_handler->getByDirname($xoopsModule->dirname());
-	if ( $gperm_handler->checkRight( 'edito_wiew', $refererid, $groups, $editoModule->getVar('mid') ) ) {
-    	return true;
+    $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+
+    $gpermHandler = xoops_getHandler('groupperm');
+
+    $moduleHandler = xoops_getHandler('module');
+
+    $editoModule = $moduleHandler->getByDirname($xoopsModule->dirname());
+
+    if ($gpermHandler->checkRight('edito_wiew', $refererid, $groups, $editoModule->getVar('mid'))) {
+        return true;
     }
+
     return false;
 }
 
@@ -234,64 +300,89 @@ function edito_checkRight( $refererid ) {
  * Gets a value for a key in the edito_config table
  *
  * @param string $key
- * @return string $value
- *
+ * @return string
  */
 function edito_GetMeta($key)
 {
     $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
-    $sql = sprintf("SELECT conf_value FROM %s WHERE conf_name=%s", $xoopsDB->prefix('myref_config'), $xoopsDB->quoteString($key));
+
+    $sql = sprintf('SELECT conf_value FROM %s WHERE conf_name=%s', $xoopsDB->prefix('myref_config'), $xoopsDB->quoteString($key));
+
     $ret = $xoopsDB->query($sql);
+
     if (!$ret) {
         $value = false;
     } else {
-        list($value) = $xoopsDB->fetchRow($ret);
+        [$value] = $xoopsDB->fetchRow($ret);
     }
+
     return $value;
 }
 
-
-function edito_create_dir( $directory = "config" )
+/**
+ * @param string $directory
+ * @return int|string
+ */
+function edito_create_dir($directory = 'config')
 {
-	$thePath = XOOPS_ROOT_PATH . "/modules/'.$xoopsModule->dirname().'/" . $directory . "/";
+    $thePath = XOOPS_ROOT_PATH . "/modules/'.$xoopsModule->dirname().'/" . $directory . '/';
 
-	if(@is_writable($thePath)){
-		edito_admin_chmod($thePath, $mode = 0777);
+    if (@is_writable($thePath)) {
+        edito_admin_chmod($thePath, $mode = 0777);
+
         return $thePath;
-	} elseif(!@is_dir($thePath)) {
-    	edito_admin_mkdir($thePath);
+    }
+
+    if (!@is_dir($thePath)) {
+        edito_admin_mkdir($thePath);
+
         return $thePath;
-	}
+    }
+
     return 0;
 }
 
+/**
+ * @param $target
+ * @return bool
+ */
 function edito_admin_mkdir($target)
 {
-	// http://www.php.net/manual/en/function.mkdir.php
-	// saint at corenova.com
-	// bart at cdasites dot com
-	if (is_dir($target) || empty($target)) {
-		return true; // best case check first
-	}
+    // http://www.php.net/manual/en/function.mkdir.php
 
-	if (file_exists($target) && !is_dir($target)) {
-		return false;
-	}
+    // saint at corenova.com
 
-	if (edito_admin_mkdir(substr($target,0,strrpos($target,'/')))) {
-		if (!file_exists($target)) {
-			$res = mkdir($target, 0777); // crawl back up & create dir tree
-			edito_admin_chmod($target);
-	  	    return $res;
-	  }
-	}
-    $res = is_dir($target);
-	return $res;
+    // bart at cdasites dot com
+
+    if (is_dir($target) || empty($target)) {
+        return true; // best case check first
+    }
+
+    if (file_exists($target) && !is_dir($target)) {
+        return false;
+    }
+
+    if (edito_admin_mkdir(mb_substr($target, 0, mb_strrpos($target, '/')))) {
+        if (!file_exists($target)) {
+            $res = mkdir($target, 0777); // crawl back up & create dir tree
+
+            edito_admin_chmod($target);
+
+            return $res;
+        }
+    }
+
+    return is_dir($target);
 }
 
+/**
+ * @param     $target
+ * @param int $mode
+ * @return bool
+ */
 function edito_admin_chmod($target, $mode = 0777)
 {
-	return @chmod($target, $mode);
+    return @chmod($target, $mode);
 }
 
 /**
@@ -300,23 +391,26 @@ function edito_admin_chmod($target, $mode = 0777)
  * @param string $key
  * @param string $value
  * @return bool TRUE if success, FALSE if failure
- *
  */
 function edito_SetMeta($key, $value)
 {
     $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
-    if(edito_GetMeta($key)){
-        $sql = sprintf("UPDATE %s SET conf_value = %s WHERE conf_name = %s", $xoopsDB->prefix('myref_config'), $xoopsDB->quoteString($value), $xoopsDB->quoteString($key));
+
+    if (edito_GetMeta($key)) {
+        $sql = sprintf('UPDATE %s SET conf_value = %s WHERE conf_name = %s', $xoopsDB->prefix('myref_config'), $xoopsDB->quoteString($value), $xoopsDB->quoteString($key));
     } else {
-        $sql = sprintf("INSERT INTO %s (conf_id , conf_name, conf_title, conf_value, conf_desc, conf_formtype, conf_valuetype, conf_order) VALUES (0, %s, '', %s, '', 'hidden', hidden', 0)", $xoopsDB->prefix('myref_config'), $xoopsDB->quoteString($key), $xoopsDB->quoteString($value));
+        $sql = sprintf("INSERT INTO %s (conf_id , conf_name, conf_title, conf_value, conf_desc, conf_formtype, conf_valuetype, conf_order) VALUES (0, %s, '', %s, '', 'hidden', hidden', 0)", $xoopsDB->prefix('myref_config'),
+                       $xoopsDB->quoteString($key), $xoopsDB->quoteString($value));
     }
+
     $ret = $xoopsDB->queryF($sql);
+
     if (!$ret) {
         return false;
     }
+
     return true;
 }
-
 
 /**
  * Detemines if a field exists in the current db
@@ -324,48 +418,59 @@ function edito_SetMeta($key, $value)
  * @param string $table the table name (without XOOPS prefix)
  * @param string $field the field name
  * @return bool True if table exists, false if not
- *
  */
 function edito_FieldnameExists($table, $field)
 {
     $bRetVal = false;
+
     $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
+
     $sql = 'SHOW COLUMNS FROM ' . $xoopsDB->prefix($table);
+
     $ret = $xoopsDB->queryF($sql);
-    while (list($m_fieldname)=$xoopsDB->fetchRow($ret)) {
-        if ($m_fieldname ==  $field) {
+
+    while (list($m_fieldname) = $xoopsDB->fetchRow($ret)) {
+        if ($m_fieldname == $field) {
             $bRetVal = true;
+
             break;
         }
     }
-    $xoopsDB->freeRecordSet($ret);
-    return ($bRetVal);
-}
 
+    $xoopsDB->freeRecordSet($ret);
+
+    return $bRetVal;
+}
 
 /**
  * Detemines if a table exists in the current db
  *
  * @param string $table the table name (without XOOPS prefix)
  * @return bool True if table exists, false if not
- *
  */
 function edito_TableExists($table)
 {
-
     $bRetVal = false;
-    //Verifies that a MySQL table exists
-    $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
-    $realname = $xoopsDB->prefix($table);
-    $sql = "SHOW TABLES FROM " . XOOPS_DB_NAME;
-    $ret = $xoopsDB->queryF($sql);
-    while (list($m_table)=$xoopsDB->fetchRow($ret)) {
 
-        if ($m_table ==  $realname) {
+    //Verifies that a MySQL table exists
+
+    $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
+
+    $realname = $xoopsDB->prefix($table);
+
+    $sql = 'SHOW TABLES FROM ' . XOOPS_DB_NAME;
+
+    $ret = $xoopsDB->queryF($sql);
+
+    while (list($m_table) = $xoopsDB->fetchRow($ret)) {
+        if ($m_table == $realname) {
             $bRetVal = true;
+
             break;
         }
     }
+
     $xoopsDB->freeRecordSet($ret);
-    return ($bRetVal);
+
+    return $bRetVal;
 }

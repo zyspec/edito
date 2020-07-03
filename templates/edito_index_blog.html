@@ -3,7 +3,7 @@
 <{if $textindex}><div class="itemText"><{$textindex}></div><{/if}>
 
 <{if $pagenav}>
-	<div style="align:left;width:160px;"><{$page}> <{$pagenav}></div><br />
+	<div style="align:left;width:160px;"><{$page}> <{$pagenav}></div><br>
 <{/if}>
 
 
@@ -37,7 +37,7 @@
 					</td><tr>
 					</table>
 				<{/if}>
-                           <p class="itemText"><{$info.logo}><{$info.body_text}><br /><br />
+                           <p class="itemText"><{$info.logo}><{$info.body_text}><br><br>
                                                   <div style="text-align:right;"><{$info.popup}></div></p>
                         </div>
                     </td>
@@ -57,10 +57,10 @@
 
 
 <{if $pagenav}>
-	<div style="align:left;width:160px;"><{$page}> <{$pagenav}></div><br />
+	<div style="align:left;width:160px;"><{$page}> <{$pagenav}></div><br>
 <{/if}>
 
-	<{if $adminlink}><p />
+	<{if $adminlink}><p>
 		<div class="item">
 		<div class="itemFoot"><{$adminlink}></div>
 		</div>

@@ -3,7 +3,7 @@
 <{if $textindex}><div class="itemText"><{$textindex}></div><{/if}>
 
 <{if $pagenav}>
-	<div style="align:left;width:160px;"><{$page}> <{$pagenav}></div><br />
+	<div style="align:left;width:160px;"><{$page}> <{$pagenav}></div><br>
 <{/if}>
 
 
@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <td><div class="itemBody">
-                           <p class="itemText"><{$info.logo}><{$info.block_text}><br /><br /></p>
+                           <p class="itemText"><{$info.logo}><{$info.block_text}><br><br></p>
                         </div>
                     </td>
                 </tr>
@@ -44,10 +44,10 @@
 
 
 <{if $pagenav}>
-	<div style="align:left;width:160px;"><{$page}> <{$pagenav}></div><br />
+	<div style="align:left;width:160px;"><{$page}> <{$pagenav}></div><br>
 <{/if}>
 
-	<{if $adminlink}><p />
+	<{if $adminlink}><p>
 		<div class="item">
 		<div class="itemFoot"><{$adminlink}></div>
 		</div>
