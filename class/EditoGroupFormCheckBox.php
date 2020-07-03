@@ -80,7 +80,7 @@ class EditoGroupFormCheckBox extends XoopsFormElement
      * @param array $optionTree
      */
 
-    public function setOptionTree(&$optionTree)
+    public function setOptionTree($optionTree)
     {
         $this->_optionTree = $optionTree;
     }
