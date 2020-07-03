@@ -62,7 +62,7 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '')
 
     echo '<td style="font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;">';
 
-    for ($i = 0; $i < count($headermenu); $i++) {
+    for ($i = 0, $iMax = count($headermenu); $i < $iMax; $i++) {
         echo '<a class="nobutton" href="' . $headermenu[$i]['link'] . '">' . $headermenu[$i]['title'] . '</a> ';
 
         if ($i < count($headermenu) - 1) {
@@ -82,7 +82,7 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '')
 
     echo '<ul>';
 
-    for ($i = 0; $i < count($adminmenu); $i++) {
+    for ($i = 0, $iMax = count($adminmenu); $i < $iMax; $i++) {
         echo '<li id="' . $tblColors[$i] . '"><a href="' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/' . $adminmenu[$i]['link'] . '"><span>' . $adminmenu[$i]['title'] . '</span></a></li>';
     }
 
@@ -133,7 +133,7 @@ function edito_statmenu($currentoption = 0, $breadcrumb = '')
 
     echo '<ul>';
 
-    for ($i = 0; $i < count($statmenu); $i++) {
+    for ($i = 0, $iMax = count($statmenu); $i < $iMax; $i++) {
         echo '<li id="' . $tblColors[$i] . '"><a href="' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/' . $statmenu[$i]['link'] . '"><span>' . $statmenu[$i]['title'] . '</span></a></li>';
     }
 
@@ -184,7 +184,7 @@ function edito_metamenu($currentoption = 0, $breadcrumb = '')
 
     echo '<ul>';
 
-    for ($i = 0; $i < count($metamenu); $i++) {
+    for ($i = 0, $iMax = count($metamenu); $i < $iMax; $i++) {
         echo '<li id="' . $tblColors[$i] . '"><a href="' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/' . $metamenu[$i]['link'] . '"><span>' . $metamenu[$i]['title'] . '</span></a></li>';
     }
 

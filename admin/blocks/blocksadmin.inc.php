@@ -693,7 +693,7 @@ function myblocksadmin_update_block($bid, $bside, $bweight, $bvisible, $btitle, 
 
         // Hack by marcan to enabled array type options
 
-        for ($i = 0; $i < count($options); $i++) {
+        for ($i = 0, $iMax = count($options); $i < $iMax; $i++) {
             if (is_array($options[$i])) {
                 $options[$i] = implode(',', $options[$i]);
             }

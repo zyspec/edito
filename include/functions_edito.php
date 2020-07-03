@@ -266,7 +266,7 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '')
 
     echo '<td style="font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;">';
 
-    for ($i = 0; $i < count($headermenu); $i++) {
+    for ($i = 0, $iMax = count($headermenu); $i < $iMax; $i++) {
         echo '<a class="nobutton" href="' . $headermenu[$i]['link'] . '" title="' . $headermenu[$i]['alt'] . '">' . $headermenu[$i]['title'] . '</a> ';
 
         if ($i < count($headermenu) - 1) {
@@ -288,7 +288,7 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '')
 
     echo '<ul>';
 
-    for ($i = 0; $i < count($adminmenu); $i++) {
+    for ($i = 0, $iMax = count($adminmenu); $i < $iMax; $i++) {
         echo '<li id="' . $tblColors[$i] . '"><a href="' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/' . $adminmenu[$i]['link'] . '"><span>' . $adminmenu[$i]['title'] . '</span></a></li>';
     }
 
@@ -379,7 +379,7 @@ Style[...]=[titleColor,TitleBgColor,TitleBgImag,TitleTextAlign,TitleFontFace,Tit
 
     echo '<ul>';
 
-    for ($i = 0; $i < count($statmenu); $i++) {
+    for ($i = 0, $iMax = count($statmenu); $i < $iMax; $i++) {
         echo '<li id="' . $tblColors[$i] . '">
                       <a onMouseOver="stm(Text[' . $i . '],Style[0])" onMouseOut="htm()"
                          href="' . XOOPS_URL . '/modules/edito/' . $statmenu[$i]['link'] . '">
