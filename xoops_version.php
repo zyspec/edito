@@ -376,7 +376,7 @@ $modversion['config'][$i]['formtype']    = 'yesno';
 $modversion['config'][$i]['valuetype']   = 'int';
 $modversion['config'][$i]['default']     = 0;
 
-if ($xoopsModule && $xoopsModule->getVar('dirname') == 'system') {
+if ($xoopsModule && 'system' == $xoopsModule->getVar('dirname')) {
     $memberHandler = xoops_getHandler('member');
     $xoopsgroups   = $memberHandler->getGroupList();
     foreach ($xoopsgroups as $key => $group) {
@@ -740,6 +740,6 @@ $modversion['mimetypes'][15]['mperm_maxwidth']  = 320;
 $modversion['mimetypes'][15]['mperm_maxheight'] = 240;
 $modversion['mimetypes'][15]['mperm_maxsize']   = 500000;
 
-if (!empty($_POST['fct']) && !empty($_POST['op']) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname']) {
+if (!empty($_POST['fct']) && !empty($_POST['op']) && 'modulesadmin' == $_POST['fct'] && 'update_ok' == $_POST['op'] && $_POST['dirname'] == $modversion['dirname']) {
     require __DIR__ . '/include/onupdate.inc.php';
 }

@@ -185,7 +185,7 @@ function edito_copyr($source, $dest)
 
         // Deep copy directories
 
-        if (is_dir("$source/$entry") && ($dest !== "$source/$entry")) {
+        if (is_dir("$source/$entry") && ("$source/$entry" !== $dest)) {
             copyr("$source/$entry", "$dest/$entry");
         } else {
             copy("$source/$entry", "$dest/$entry");
