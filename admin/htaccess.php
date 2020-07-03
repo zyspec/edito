@@ -40,6 +40,11 @@ if ( isset( $_POST['dir'] )) $dir = $_POST['dir'];
 if ( isset( $_POST['sitelist'] )) $sitelist = $_POST['sitelist'];
 */
 
+/**
+ * @param $target
+ * @param $file_content
+ * @return bool
+ */
 function copy_htaccess($target, $file_content)
 {
     $handle = fopen($target, 'w+b');
@@ -51,6 +56,10 @@ function copy_htaccess($target, $file_content)
     return false;
 }
 
+/**
+ * @param $dir
+ * @param $sitelist
+ */
 function utilities($dir, $sitelist)
 {
     global $xoopsConfig, $modify, $xoopsModuleConfig, $xoopsModule, $XOOPS_URL, $xoopsDB;
@@ -123,6 +132,10 @@ function utilities($dir, $sitelist)
     unset($hidden);
 }
 
+/**
+ * @param        $dir
+ * @param string $sitelist
+ */
 function create_htaccess($dir, $sitelist = '')
 {
     global $xoopsModule, $xoopsModuleConfig;
@@ -170,6 +183,10 @@ RewriteRule [^/]+.(' . $media_list . ')$ ' . XOOPS_URL . '/assets/images/logo.gi
     copy_htaccess($target, $code);
 }
 
+/**
+ * @param        $dir
+ * @param string $sitelist
+ */
 function display_htaccess($dir, $sitelist = '')
 {
     global $xoopsModule;

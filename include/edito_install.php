@@ -69,6 +69,11 @@ function edito_create_all_dir()
         edito_copyr($ind_source, $ind_dest);
     }
 }
+
+/**
+ * @param string $directory
+ * @return int|string
+ */
 function edito_create_dir($directory = '')
 {
     $thePath = XOOPS_ROOT_PATH . '/uploads/edito/';
@@ -93,6 +98,8 @@ function edito_create_dir($directory = '')
 /**
  * Thanks to the NewBB2 Development Team
  * @param mixed $target
+ * @return bool
+ * @return bool
  */
 function edito_admin_mkdir($target)
 {
@@ -129,6 +136,8 @@ function edito_admin_mkdir($target)
  * Thanks to the NewBB2 Development Team
  * @param mixed $target
  * @param mixed $mode
+ * @return bool
+ * @return bool
  */
 function edito_admin_chmod($target, $mode = 0777)
 {

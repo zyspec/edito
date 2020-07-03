@@ -13,6 +13,11 @@ if (!defined('XOOPS_ROOT_PATH')) {
     die('XOOPS root path not defined');
 }
 
+/**
+ * @param $media_size
+ * @param $options
+ * @return string
+ */
 function edito_media_size($media_size, $options)
 {
     if ('default' == $media_size) {
@@ -68,6 +73,11 @@ function edito_media_size($media_size, $options)
     return $media_size;
 }
 
+/**
+ * @param $popup_size
+ * @param $options
+ * @return string
+ */
 function edito_popup_size($popup_size, $options)
 {
     if ('custom' == $popup_size) {
@@ -126,6 +136,10 @@ function edito_popup_size($popup_size, $options)
 }
 
 // Check url and if on local, whether the destination file exists or not
+/**
+ * @param $url
+ * @return string|string[]|null
+ */
 function edito_checkurl($url)
 {
     if (!preg_match('/mailto:/i', $url) &&
@@ -147,6 +161,11 @@ function edito_checkurl($url)
     return $url;
 }
 
+/**
+ * @param        $url
+ * @param string $custom_media
+ * @return mixed
+ */
 function edito_checkformat($url, $custom_media = '')
 {
     $format = @pathinfo(mb_strtolower($url), PATHINFO_EXTENSION);
@@ -198,6 +217,10 @@ function edito_checkformat($url, $custom_media = '')
     return $formats;
 }
 
+/**
+ * @param $file
+ * @return string
+ */
 function edito_fileweight($file)
 {
     $file = preg_replace('/' . XOOPS_URL . '/i', XOOPS_ROOT_PATH, $file);

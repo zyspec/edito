@@ -21,6 +21,16 @@
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
+/**
+ * @param        $type
+ * @param        $caption
+ * @param        $name
+ * @param string $value
+ * @param string $width
+ * @param string $height
+ * @param string $supplemental
+ * @return false|XoopsFormDhtmlTextArea|XoopsFormEditor|XoopsFormFckeditor|XoopsFormHtmlarea|XoopsFormSpaw|XoopsFormTextArea|XoopsFormTinyeditorTextArea|XoopsFormWysiwygTextArea
+ */
 function edito_getWysiwygForm($type, $caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental = '')
 {
     $wysiwyg_editor = $GLOBALS['xoopsModuleConfig']['wysiwyg'];

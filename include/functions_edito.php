@@ -50,6 +50,10 @@ $edito_allowed_media = [
                               ];
 
 // function edito_uploading( $allowed_mimetypes, $httppostfiles, $redirecturl = "index.php", $num = 0, $dir = "uploads", $redirect = 0 ) {
+/**
+ * @param $filename
+ * @return bool
+ */
 function edito_uploading_image($filename)
 {
     require_once XOOPS_ROOT_PATH . '/class/uploader.php';
@@ -96,6 +100,10 @@ function edito_uploading_image($filename)
     return(false);
 }
 
+/**
+ * @param $filename
+ * @return bool
+ */
 function edito_uploading_media($filename)
 {
     require_once XOOPS_ROOT_PATH . '/class/uploader.php';
@@ -144,6 +152,10 @@ function edito_uploading_media($filename)
     return(false);
 }
 
+/**
+ * @param $val
+ * @return int|string
+ */
 function editoreturn_bytes($val)
 {
     $val = trim($val);
@@ -193,6 +205,11 @@ function edito_media_uploading( $allowed_mimetypes, $httppostfiles, $redirecturl
     }
 }
 */
+/**
+ * @param       $file
+ * @param false $dot
+ * @return false|string|string[]
+ */
 function edito_GetExtensionName($file, $dot = false)
 {
     if (true === $dot) {
@@ -204,6 +221,10 @@ function edito_GetExtensionName($file, $dot = false)
     return $ext;
 }
 
+/**
+ * @param int    $currentoption
+ * @param string $breadcrumb
+ */
 function edito_adminmenu($currentoption = 0, $breadcrumb = '')
 {
     echo "<style type='text/css'>
@@ -276,6 +297,10 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '')
     echo '<div style="float: left; width: 100%; text-align: center; margin: 0px; padding: 0px">';
 }
 
+/**
+ * @param int    $currentoption
+ * @param string $breadcrumb
+ */
 function edito_statmenu($currentoption = 0, $breadcrumb = '')
 {
     echo "
@@ -384,6 +409,13 @@ function edito_adminfooter()
 }
 
 // Thanks to Mithrandir :-)
+/**
+ * @param        $str
+ * @param        $start
+ * @param        $length
+ * @param string $trimmarker
+ * @return string
+ */
 function edito_substr($str, $start, $length, $trimmarker = '...')
 {
     // If the string is empty, let's get out ;-)
@@ -441,6 +473,10 @@ function edito_checkRight($refererid)
     return false;
 }
 
+/**
+ * @param string $directory
+ * @return int|string
+ */
 function edito_create_dir($directory = 'config')
 {
     //	$thePath = XOOPS_ROOT_PATH . "/modules/'.$xoopsModule->dirname().'/" . $directory . "/";
@@ -460,6 +496,10 @@ function edito_create_dir($directory = 'config')
     return 0;
 }
 
+/**
+ * @param $target
+ * @return bool
+ */
 function edito_admin_mkdir($target)
 {
     // http://www.php.net/manual/en/function.mkdir.php
@@ -503,6 +543,11 @@ function edito_admin_mkdir($target)
     return $res;
 }
 
+/**
+ * @param     $target
+ * @param int $mode
+ * @return bool
+ */
 function edito_admin_chmod($target, $mode = 0777)
 {
     return @chmod($target, $mode);
@@ -510,6 +555,16 @@ function edito_admin_chmod($target, $mode = 0777)
 
 // selected, table|id|name|image|groups|where,
 // destination, caption, display, size, options
+/**
+ * @param int    $sel
+ * @param string $sql
+ * @param string $destination
+ * @param string $caption
+ * @param string $display
+ * @param int    $size
+ * @param string $target
+ * @return string
+ */
 function edito_selector(
     $sel = 0,
     $sql = '|||||',
@@ -724,6 +779,12 @@ function edito_selector(
     return $select;
 }
 
+/**
+ * @param string $title
+ * @param int    $length
+ * @param string $tiddle
+ * @return string
+ */
 function edito_short_title($title = '', $length = 24, $tiddle = '[...]')
 {
     $tiddle_length = round(mb_strlen($tiddle) / 4, 1);

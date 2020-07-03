@@ -4,6 +4,13 @@ if (!defined('XOOPS_ROOT_PATH')) {
     exit;
 }
 
+/**
+ * @param      $DB
+ * @param      $gperm_modid
+ * @param null $gperm_name
+ * @param null $gperm_itemid
+ * @return bool
+ */
 function myDeleteByModule($DB, $gperm_modid, $gperm_name = null, $gperm_itemid = null)
 {
     $criteria = new CriteriaCompo(new Criteria('gperm_modid', intval($gperm_modid)));

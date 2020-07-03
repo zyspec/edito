@@ -14,6 +14,10 @@ if (!defined('XOOPS_ROOT_PATH')) {
 }
 
 // Check url and if on local, wether the destination file exists or not
+/**
+ * @param $url
+ * @return string|string[]
+ */
 function edito_function_checkurl($url)
 {
     if (!preg_match('/mailto:/i', $url) &&
@@ -33,6 +37,11 @@ function edito_function_checkurl($url)
     return $url;
 }
 
+/**
+ * @param $content
+ * @param $urw
+ * @return string
+ */
 function edito_cleankeywords($content, $urw)
 {
     $content = strip_tags($content);
@@ -72,6 +81,13 @@ function edito_cleankeywords($content, $urw)
     return $keywords;
 }
 
+/**
+ * @param string $link_url
+ * @param string $title
+ * @param string $alt_title
+ * @param int    $urw
+ * @return string
+ */
 function edito_urw($link_url = '', $title = '', $alt_title = '', $urw = 0)
 {
     // Rewrite urls
@@ -104,6 +120,9 @@ function edito_urw($link_url = '', $title = '', $alt_title = '', $urw = 0)
     return $link_url;
 }
 
+/**
+ * @return bool
+ */
 function edito_check_urw_htaccess()
 {
     // Check if htaccess file exists
@@ -139,6 +158,18 @@ function edito_check_urw_htaccess()
     return false;
 }
 
+/**
+ * @param string $link_url
+ * @param string $title
+ * @param string $target
+ * @param string $image_url
+ * @param string $image_align
+ * @param string $image_max_width
+ * @param string $image_max_height
+ * @param string $alt_title
+ * @param int    $urw
+ * @return string
+ */
 function edito_createlink($link_url = '', $title = '', $target = '_self', $image_url = '', $image_align = 'center', $image_max_width = '800', $image_max_height = '600', $alt_title = '', $urw = 0)
 {
     // Initiate variables
@@ -226,6 +257,13 @@ function edito_createlink($link_url = '', $title = '', $target = '_self', $image
     return $result;
 }
 
+/**
+ * @param string $body_text
+ * @param string $pagebreak
+ * @param int    $current_page
+ * @param string $item
+ * @return mixed|string
+ */
 function edito_pagebreak($body_text = '', $pagebreak = '[pagebreak]', $current_page = 0, $item = '')
 {
     $array_text = explode('[pagebreak]', $body_text);

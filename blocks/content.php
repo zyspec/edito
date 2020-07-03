@@ -7,8 +7,10 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  * @param mixed $options
+ * @return array|string
+ * @return array|string
  */
 
 // Function used to display an content inside a block
@@ -411,6 +413,10 @@ function a_edito_show($options)
     unset($block);
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function a_edito_edit($options)
 {
     global $xoopsDB;
@@ -618,6 +624,10 @@ function a_edito_edit($options)
     return $form;
 }
 
+/**
+ * @param $options
+ * @return array|string
+ */
 function a_edito_menu_show($options)
 {
     global $xoopsDB, $xoopsUser;
@@ -875,6 +885,10 @@ function a_edito_menu_show($options)
     unset($block);
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function a_edito_menu_edit($options)
 {
     $i = 0;

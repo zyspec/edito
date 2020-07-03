@@ -40,6 +40,10 @@ $op = Request::getCmd('op', '');
 
 // -- Edit function -- //
 
+/**
+ * @param string $id
+ * @param string $op
+ */
 function editarticle($id = '', $op = '')
 {
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule;

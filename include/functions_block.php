@@ -7,9 +7,11 @@
  * Licence : GPL
  * Authors :
  *           - solo (http://www.wolfpackclan.com/wolfactory)
- *			- DuGris (http://www.dugris.info)
+ *            - DuGris (http://www.dugris.info)
  * @param mixed $option
  * @param mixed $repmodule
+ * @return false|mixed
+ * @return false|mixed
  */
 function edito_getmoduleoption($option, $repmodule = 'edito')
 {

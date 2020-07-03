@@ -80,7 +80,10 @@ function utilities()
 }//end function utilities
 
 /* create a clone in modules folder */
-    function cloneFileFolder($path)
+/**
+ * @param $path
+ */
+function cloneFileFolder($path)
     {
         global $patKeys;
 
@@ -131,6 +134,11 @@ function utilities()
 // Check wether the cloning function is available
 // work around for PHP < 5.0.x
     if (!function_exists('file_put_contents')) {
+        /**
+         * @param       $filename
+         * @param       $data
+         * @param false $file_append
+         */
         function file_put_contents($filename, $data, $file_append = false)
         {
             $fp = fopen($filename, (!$file_append ? 'w+' : 'a+'));
@@ -206,6 +214,10 @@ switch ($op) {
 
             $safeValues = array_values($safepat);
 
+            /**
+             * @param $dir2copy
+             * @param $dir_paste
+             */
             function copy_dir($dir2copy, $dir_paste)
             {
                 global $patKeys, $patValues, $safeKeys, $safeValues, $clone, $module;

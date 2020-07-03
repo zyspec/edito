@@ -13,6 +13,17 @@ if (!defined('XOOPS_ROOT_PATH')) {
     die('XOOPS root path not defined');
 }
 
+/**
+ * @param string $link_url
+ * @param string $title
+ * @param string $target
+ * @param string $image_url
+ * @param string $image_align
+ * @param string $image_max_width
+ * @param string $image_max_height
+ * @param string $alt_title
+ * @return string
+ */
 function edito_createlink($link_url = '', $title = '', $target = '_self', $image_url = '', $image_align = 'center', $image_max_width = '800', $image_max_height = '600', $alt_title = '')
 {
     // Initiate variables

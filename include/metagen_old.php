@@ -25,6 +25,17 @@ if (!defined('XOOPS_ROOT_PATH')) {
 //			 Min keyword occurence, // How many time a word must appear to be considered
 //			 Max keyword occurence) // Maximum time a word must appear to be considered
 
+/**
+ * @param $page_title
+ * @param $page_content
+ * @param $module_meta_keywords
+ * @param $page_meta_keywords
+ * @param $page_meta_description
+ * @param $status
+ * @param $minChar
+ * @param $min_occ
+ * @param $max_occ
+ */
 function edito_createMetaTags($page_title, $page_content, $module_meta_keywords, $page_meta_keywords, $page_meta_description, $status, $minChar, $min_occ, $max_occ)
 {
     global $xoopsTpl, $xoopsModule;
@@ -147,6 +158,10 @@ function edito_createMetaTags($page_title, $page_content, $module_meta_keywords,
 } // End of function
 
 // Remove useless code from original content (html, code, numbers, etc.)
+/**
+ * @param $content
+ * @return string
+ */
 function edito_cleanContent($content)
 {
     $myts = MyTextSanitizer::getInstance();
@@ -173,6 +188,13 @@ function edito_cleanContent($content)
 }
 
 // Keywords selection
+/**
+ * @param $content
+ * @param $minChar
+ * @param $min_occ
+ * @param $max_occ
+ * @return array
+ */
 function edito_findKeyWordsInString($content, $minChar, $min_occ, $max_occ)
 {
     $arr = spliti(' ', $content);

@@ -13,6 +13,10 @@ if (!defined('XOOPS_ROOT_PATH')) {
     die('XOOPS root path not defined');
 }
 
+/**
+ * @param int    $currentoption
+ * @param string $breadcrumb
+ */
 function edito_adminmenu($currentoption = 0, $breadcrumb = '')
 {
     echo "<style type='text/css'>
@@ -87,6 +91,10 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '')
     echo '<div style="float: left; width: 100%; text-align: center; margin: 0px; padding: 0px">';
 }
 
+/**
+ * @param int    $currentoption
+ * @param string $breadcrumb
+ */
 function edito_statmenu($currentoption = 0, $breadcrumb = '')
 {
     echo "<style type='text/css'>
@@ -134,6 +142,10 @@ function edito_statmenu($currentoption = 0, $breadcrumb = '')
     echo '<div style="float: left; width: 100%; text-align: center; margin: 0px; padding: 0px">';
 }
 
+/**
+ * @param int    $currentoption
+ * @param string $breadcrumb
+ */
 function edito_metamenu($currentoption = 0, $breadcrumb = '')
 {
     echo "<style type='text/css'>
@@ -211,8 +223,7 @@ function edito_adminfooter()
  * Get module preference
  *
  * @param string $option
- * @param string module directory
- * @param mixed $repmodule
+ * @param mixed  $repmodule
  * @return string
  */
 function edito_GetOption($option, $repmodule = '.$xoopsModule->dirname().')
@@ -305,6 +316,10 @@ function edito_GetMeta($key)
     return $value;
 }
 
+/**
+ * @param string $directory
+ * @return int|string
+ */
 function edito_create_dir($directory = 'config')
 {
     $thePath = XOOPS_ROOT_PATH . "/modules/'.$xoopsModule->dirname().'/" . $directory . '/';
@@ -322,6 +337,10 @@ function edito_create_dir($directory = 'config')
     return 0;
 }
 
+/**
+ * @param $target
+ * @return bool
+ */
 function edito_admin_mkdir($target)
 {
     // http://www.php.net/manual/en/function.mkdir.php
@@ -353,6 +372,11 @@ function edito_admin_mkdir($target)
     return $res;
 }
 
+/**
+ * @param     $target
+ * @param int $mode
+ * @return bool
+ */
 function edito_admin_chmod($target, $mode = 0777)
 {
     return @chmod($target, $mode);

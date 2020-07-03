@@ -198,6 +198,9 @@ switch ($op) {
 }
 
 // Function to generate settings' form
+/**
+ * @param string $sub
+ */
 function settings_display($sub = '')
 {
     global $xoopsConfig, $xoopsModule;
@@ -354,7 +357,10 @@ function settings_display($sub = '')
 }
 
  // Functiont to detect the various settings' variables
- function settings_sub_menu_list()
+/**
+ * @return mixed
+ */
+function settings_sub_menu_list()
  {
      global $xoopsModule, $xoopsConfig, $xoopsModuleConfig, $alpha_sort, $colors, $default_color, $display_help;
 
@@ -413,7 +419,11 @@ function settings_display($sub = '')
  }
 
 // Function to create generate tabs
- function settings_sub_menu($currentoption = '')
+/**
+ * @param string $currentoption
+ * @return string
+ */
+function settings_sub_menu($currentoption = '')
  {
      global $xoopsConfig, $menu, $menu_select_max, $menu_select_multi;
 

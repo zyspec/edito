@@ -143,6 +143,9 @@ $button_tray->addElement(new XoopsFormButton('', 'submitblock', $block['submit_b
 $form->addElement($button_tray);
 
 // checks browser compatibility with the control
+/**
+ * @return bool
+ */
 function check_browser_can_use_spaw()
 {
     $browser = $_SERVER['HTTP_USER_AGENT'];

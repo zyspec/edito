@@ -13,6 +13,15 @@ if (!defined('XOOPS_ROOT_PATH')) {
     die('XOOPS root path not defined');
 }
 
+/**
+ * @param        $media_url
+ * @param        $thumb
+ * @param        $media_size
+ * @param        $options
+ * @param        $description
+ * @param string $custom_media
+ * @return string
+ */
 function edito_media($media_url, $thumb, $media_size, $options, $description, $custom_media = '')
 {
     $is_mpeg = 0;
@@ -63,6 +72,10 @@ function edito_media($media_url, $thumb, $media_size, $options, $description, $c
 }
 
 // Options function : convert options into optionnal setting
+/**
+ * @param $options
+ * @return string
+ */
 function edito_media_options($options)
 {
     if ($options) {
@@ -110,6 +123,14 @@ function edito_media_options($options)
     return $opt;
 }
 
+/**
+ * @param $media_url
+ * @param $thumb
+ * @param $media_size
+ * @param $options
+ * @param $description
+ * @return string
+ */
 function edito_media_mp3($media_url, $thumb, $media_size, $options, $description)
 {
     // Different options
@@ -248,6 +269,14 @@ function edito_media_mp3($media_url, $thumb, $media_size, $options, $description
 }
 
 // Windows Media Player
+/**
+ * @param $media_url
+ * @param $thumb
+ * @param $media_size
+ * @param $options
+ * @param $description
+ * @return string
+ */
 function edito_media_mpg($media_url, $thumb, $media_size, $options, $description)
 {
     // Different options
@@ -415,6 +444,14 @@ function edito_media_mpg($media_url, $thumb, $media_size, $options, $description
     return $video;
 }
 
+/**
+ * @param $media_url
+ * @param $thumb
+ * @param $media_size
+ * @param $options
+ * @param $description
+ * @return string
+ */
 function edito_media_flash($media_url, $thumb, $media_size, $options, $description)
 {
     // Different options
@@ -550,6 +587,14 @@ function edito_media_flash($media_url, $thumb, $media_size, $options, $descripti
     return $flash;
 }
 
+/**
+ * @param $media_url
+ * @param $thumb
+ * @param $media_size
+ * @param $options
+ * @param $description
+ * @return string
+ */
 function edito_media_flv($media_url, $thumb, $media_size, $options, $description)
 {
     // Different options
@@ -688,6 +733,14 @@ function edito_media_flv($media_url, $thumb, $media_size, $options, $description
 }
 
 // Movie Player
+/**
+ * @param $media_url
+ * @param $thumb
+ * @param $media_size
+ * @param $options
+ * @param $description
+ * @return string
+ */
 function edito_media_mov($media_url, $thumb, $media_size, $options, $description)
 {
     // Different options
@@ -819,6 +872,14 @@ function edito_media_mov($media_url, $thumb, $media_size, $options, $description
     return $mov;
 }
 
+/**
+ * @param $media_url
+ * @param $thumb
+ * @param $media_size
+ * @param $options
+ * @param $description
+ * @return string
+ */
 function edito_media_ram($media_url, $thumb, $media_size, $options, $description)
 {
     // Different options
@@ -947,6 +1008,14 @@ function edito_media_ram($media_url, $thumb, $media_size, $options, $description
 }
 
 // Function to display image popup
+/**
+ * @param $image_url
+ * @param $thumb
+ * @param $thumb_width
+ * @param $options
+ * @param $description
+ * @return string
+ */
 function edito_media_image($image_url, $thumb, $thumb_width, $options, $description)
 {
     // Options generator

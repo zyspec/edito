@@ -32,6 +32,9 @@ if ( isset( $_POST['op'] ) )     $op = $_POST['op'];
 // if ( isset( $_POST['table'] ) )  $table = $_POST['table'];
 */
 
+/**
+ * @param string $table
+ */
 function select($table = '')
 {
     global $xoopsConfig, $modify, $xoopsModule, $xoopsDB;
@@ -82,6 +85,11 @@ function select($table = '')
     $sform->display();
 }
 
+/**
+ * @param $result
+ * @param $count
+ * @param $table
+ */
 function display($result, $count, $table)
 {
     $sform = new XoopsThemeForm(_AM_EDITO_DB_DATAS, '', '');
@@ -93,6 +101,10 @@ function display($result, $count, $table)
     $sform->display();
 }
 
+/**
+ * @param $table
+ * @return array
+ */
 function edito_table_rows($table)
 {
     global $xoopsDB;
@@ -114,6 +126,11 @@ function edito_table_rows($table)
     return $datas;
 }
 
+/**
+ * @param        $table
+ * @param string $nul_rows
+ * @return mixed
+ */
 function create_db_results_insert($table, $nul_rows = 'id')
 {
     global $xoopsDB;
@@ -195,6 +212,11 @@ INSERT INTO " . $table . " VALUES (';
     return $sql_datas;
 }
 
+/**
+ * @param        $table
+ * @param string $nul_rows
+ * @return mixed
+ */
 function create_db_results_update($table, $nul_rows = 'id')
 {
     global $xoopsDB;

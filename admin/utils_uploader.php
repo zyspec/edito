@@ -34,6 +34,9 @@ if ( isset($_POST['dir'])) { $dir = $_POST['dir']; }
 $op = Request::getCmd('op', '');
 $dir = Request::getString('dir', '');
 
+/**
+ * @param $dir
+ */
 function utilities($dir)
 {
     global $xoopsConfig, $modify, $xoopsModuleConfig, $xoopsModule, $XOOPS_URL, $xoopsDB;
@@ -136,6 +139,15 @@ function utilities($dir)
     unset($hidden);
 }
 
+/**
+ * @param string $file_name
+ * @param string $allowed_mimetypes
+ * @param string $dir
+ * @param string $redirecturl
+ * @param string $file_options
+ * @param int    $num
+ * @param int    $redirect
+ */
 function edito_uploader(
     $file_name = '',
     $allowed_mimetypes = '',
