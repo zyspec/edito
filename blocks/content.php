@@ -552,13 +552,13 @@ function a_edito_edit($options)
     $form .= _MB_EDITO_SHOWTITLE . "&nbsp;<input type='radio' id='options[" . $i . "]' name='options[" . $i . "]' value='1'";
 
     if (1 == $options[$i]) {
-        $form .= " checked";
+        $form .= ' checked';
     }
 
     $form .= '>&nbsp;' . _YES . "&nbsp;<input type='radio' id='options[" . $i . "]' name='options[" . $i . "]' value='0'";
 
     if (0 == $options[$i]) {
-        $form .= " checked";
+        $form .= ' checked';
     }
 
     $form .= '>&nbsp;' . _NO . '<br>';
@@ -570,13 +570,13 @@ function a_edito_edit($options)
     $form .= _MB_EDITO_SHOWLOGO . "&nbsp;<input type='radio' id='options[" . $i . "]' name='options[" . $i . "]' value='1'";
 
     if (1 == $options[$i]) {
-        $form .= " checked";
+        $form .= ' checked';
     }
 
     $form .= '>&nbsp;' . _YES . "&nbsp;<input type='radio' id='options[" . $i . "]' name='options[" . $i . "]' value='0'";
 
     if (0 == $options[$i]) {
-        $form .= " checked";
+        $form .= ' checked';
     }
 
     $form .= '>&nbsp;' . _NO . '';
