@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * XOOPS - PHP Content Management System
  * Copyright (c) 2004 <https://www.xoops.org>
@@ -51,9 +54,9 @@ function a_edito_show($options)
 
         [$total] = $xoopsDB->fetchRow($result);
 
-        $total = $total - 1;
+        $total -= 1;
 
-        $rand = mt_rand(0, $total);
+        $rand = random_int(0, $total);
 
         $where = 'status >= 3';
     }
@@ -684,7 +687,7 @@ function a_edito_menu_show($options)
 
     $time = time();
 
-    $startdate = (time() - (86400 * $tags_new));
+    $startdate = time() - (86400 * $tags_new);
 
     $block = [];
 

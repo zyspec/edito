@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 // $Id: admin.php,v 1.4 2005/11/30 22:13:22 malanciault Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
@@ -163,7 +166,7 @@ if (false !== $error) {
 
                     $counter++;
 
-                    $class = ('even' == $class) ? 'odd' : 'even';
+                    $class = 'even' == $class ? 'odd' : 'even';
                 }
 
                 if ($counter > 4) {
@@ -182,7 +185,7 @@ if (false !== $error) {
     while ($counter < 5) {
         echo '<td class="' . $class . '">&nbsp;</td>';
 
-        $class = ('even' == $class) ? 'odd' : 'even';
+        $class = 'even' == $class ? 'odd' : 'even';
 
         $counter++;
     }

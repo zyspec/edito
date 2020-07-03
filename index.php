@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -50,7 +53,7 @@ $startart = isset($_GET['startart']) ? (int)$_GET['startart'] : 0;
 /*                    Redirect index to a specific page                    */
 /* ----------------------------------------------------------------------- */
 if ($xoopsModuleConfig['index_content']) {
-    if ((preg_match("/http[s]:\/\//i", $xoopsModuleConfig['index_content']))) {
+    if (preg_match("/http[s]:\/\//i", $xoopsModuleConfig['index_content'])) {
         header('location: ' . $xoopsModuleConfig['index_content']);
 
         exit();
@@ -150,7 +153,7 @@ $result = $xoopsDB->queryF('SELECT COUNT(*) FROM ' . $xoopsDB->prefix($xoopsModu
 
 $count     = $startart;
 $time      = time();
-$startdate = (time() - (86400 * $xoopsModuleConfig['tags_new']));
+$startdate = time() - (86400 * $xoopsModuleConfig['tags_new']);
 $count++;
 $subjects = '';
 

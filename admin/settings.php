@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 #################################################################################################################
 #                                                                                                               #
 #  Preferences admin manager for Xoops 2.0.x	                                                                #
@@ -165,7 +168,7 @@ switch ($op) {
         xoops_cp_footer();
 
         break;
-    case ('save'):
+    case 'save':
         if (isset($_POST)) {
             foreach ($_POST as $k => $v) {
                 ${$k} = $v;
@@ -263,9 +266,8 @@ function settings_display($sub = '')
     }
 
     for ($i = 0; $i < $count; $i++) {
-        $title = (!defined($config[$i]->getVar('conf_desc')) || '' == constant($config[$i]->getVar('conf_desc'))) ? constant($config[$i]->getVar('conf_title')) : constant($config[$i]->getVar('conf_title'))
-                                                                                                                                                                  . '<br><br><span style="font-weight:normal;">'
-                                                                                                                                                                  . constant($config[$i]->getVar('conf_desc')) . '</span>';
+        $title = !defined($config[$i]->getVar('conf_desc')) || '' == constant($config[$i]->getVar('conf_desc')) ? constant($config[$i]->getVar('conf_title')) : constant($config[$i]->getVar('conf_title')) . '<br><br><span style="font-weight:normal;">'
+                                                                                                                                                                . constant($config[$i]->getVar('conf_desc')) . '</span>';
 
         switch ($config[$i]->getVar('conf_formtype')) {
             case 'textarea':
@@ -273,10 +275,10 @@ function settings_display($sub = '')
                 if ('array' == $config[$i]->getVar('conf_valuetype')) {
                     // this is exceptional.. only when value type is arrayneed a smarter way for this
 
-                    $ele = ('' != $config[$i]->getVar('conf_value')) ? new XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlSpecialChars(implode('|', $config[$i]->getConfValueForOutput())), 5, 50) : new XoopsFormTextArea($title,
-                                                                                                                                                                                                                                                   $config[$i]->getVar('conf_name'),
-                                                                                                                                                                                                                                                   '', 5,
-                                                                                                                                                                                                                                                   50);
+                    $ele = '' != $config[$i]->getVar('conf_value') ? new XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlSpecialChars(implode('|', $config[$i]->getConfValueForOutput())), 5, 50) : new XoopsFormTextArea($title,
+                                                                                                                                                                                                                                                 $config[$i]->getVar('conf_name'),
+                                                                                                                                                                                                                                                 '', 5,
+                                                                                                                                                                                                                                                 50);
                 } else {
                     $ele = new XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlSpecialChars($config[$i]->getConfValueForOutput()), 5, 50);
                 }
@@ -440,9 +442,8 @@ function settings_sub_menu($currentoption = '')
     $size = count($sub_menu) >= $menu_select_multi ? 'size="5"' : '';
 
     switch ($menu) {
-        case ('tab'):
+        case 'tab':
         default:
-
             $ret = '
              <style type="text/css">
               #subbar { float:right; font-size: 10px; line-height:normal; margin-bottom: 0px; }
@@ -484,7 +485,7 @@ function settings_sub_menu($currentoption = '')
             foreach ($sub_menu as $submenu) {
                 $submenu['color'] = explode('|', $submenu['color']);
 
-                $tblColors = false !== strpos(mb_strtolower($submenu['link']), "etting") ? 'current' : $submenu['color'][0];
+                $tblColors = false !== mb_strpos(mb_strtolower($submenu['link']), 'etting') ? 'current' : $submenu['color'][0];
 
                 $ret .= '<li id="' . $tblColors . '"><a href="' . $submenu['link'] . '"><span>' . $submenu['title'] . '</span></a></li>
             ';
@@ -494,14 +495,14 @@ function settings_sub_menu($currentoption = '')
             $ret .= '<div style="float: left; width: 100%;">
             ';
             break;
-        case ('select'):
+        case 'select':
             $i   = 0;
             $ret = '<div style="padding-left:36px;">' . _SELECT . ' ' . mb_strtolower(_PREFERENCES) . ' : ';
             $ret .= '<select name="select_settings" ' . $size . '
                           onchange="location=this.options[this.selectedIndex].value">
                  ';
             foreach ($sub_menu as $submenu) {
-                $selected = false !== strpos(mb_strtolower($submenu['link']), "etting") ? 'selected' : '';
+                $selected = false !== mb_strpos(mb_strtolower($submenu['link']), 'etting') ? 'selected' : '';
 
                 $nbsp = ++$i ? '&nbsp;&deg; ' : '';
 

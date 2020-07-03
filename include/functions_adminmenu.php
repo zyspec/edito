@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * XOOPS - PHP Content Management System
  * Copyright (c) 2004 <https://www.xoops.org>
@@ -369,9 +372,7 @@ function edito_admin_mkdir($target)
         }
     }
 
-    $res = is_dir($target);
-
-    return $res;
+    return is_dir($target);
 }
 
 /**
@@ -438,7 +439,7 @@ function edito_FieldnameExists($table, $field)
 
     $xoopsDB->freeRecordSet($ret);
 
-    return ($bRetVal);
+    return $bRetVal;
 }
 
 /**
@@ -471,5 +472,5 @@ function edito_TableExists($table)
 
     $xoopsDB->freeRecordSet($ret);
 
-    return ($bRetVal);
+    return $bRetVal;
 }

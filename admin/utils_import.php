@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -117,8 +120,8 @@ switch ($op) {
 
             $replacements[] = "VALUES ('', ";
         }
-        if ($topic && false !== strpos($db_datas, "edito_content")) {
-            if (false !== strpos($db_datas, "UPDATE")) {
+        if ($topic && false !== mb_strpos($db_datas, 'edito_content')) {
+            if (false !== mb_strpos($db_datas, 'UPDATE')) {
                 $patterns[] = '/catid = ([0-9]+), /'; // Topics definition & Id suppression
 
                 $replacements[] = 'catid = ' . $topic . ', ';
@@ -142,7 +145,7 @@ switch ($op) {
         $ii       = 0;
         $inserted = '';
         foreach ($db_datas as $db_data) { // For each insert, insert into DB if insert is valid
-            if (false !== strpos(mb_substr($db_data, 7, 35), "_edito_")) { // Insert datas for this module only ! ! !
+            if (false !== mb_strpos(mb_substr($db_data, 7, 35), '_edito_')) { // Insert datas for this module only ! ! !
                 if ($xoopsDB->queryF($db_data)) {
                     $inserted .= $db_data . ';<br>';
 

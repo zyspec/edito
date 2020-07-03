@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 // $Id: myblockform.php,v 1.8 2003/03/10 13:32:05 okazu Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
@@ -49,7 +52,7 @@ $side_select->addOptionArray([
                                  5 => _AM_CBCENTER,
                                  7 => _AM_CBBOTTOMLEFT,
                                  8 => _AM_CBBOTTOMRIGHT,
-                                 9 => _AM_CBBOTTOM
+                                 9 => _AM_CBBOTTOM,
                              ]);
 $form->addElement($side_select);
 $form->addElement(new XoopsFormText(_AM_WEIGHT, 'bweight', 2, 5, $block['weight']));
@@ -115,7 +118,7 @@ if ($block['is_custom']) {
                                       'H' => _AM_HTML,
                                       'P' => _AM_PHP,
                                       'S' => _AM_AFWSMILE,
-                                      'T' => _AM_AFNOSMILE
+                                      'T' => _AM_AFNOSMILE,
                                   ]);
 
     $form->addElement($ctype_select);
@@ -152,7 +155,7 @@ $cache_select->addOptionArray([
                                   '86400'   => _DAY,
                                   '259200'  => sprintf(_DAYS, 3),
                                   '604800'  => _WEEK,
-                                  '2592000' => _MONTH
+                                  '2592000' => _MONTH,
                               ]);
 $form->addElement($cache_select);
 if (isset($block['bid'])) {
@@ -191,7 +194,7 @@ function check_browser_can_use_spaw()
             if ((float)$version[0] >= 5.5) {
                 // finally check if it's not opera impersonating ie
 
-                if (false === stripos($browser, "opera")) {
+                if (false === mb_stripos($browser, 'opera')) {
                     return true;
                 }
             }

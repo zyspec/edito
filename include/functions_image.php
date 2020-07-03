@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * XOOPS - PHP Content Management System
  * Copyright (c) 2004 <https://www.xoops.org>
@@ -47,7 +50,7 @@ function edito_createlink($link_url = '', $title = '', $target = '_self', $image
     // Create link
 
     if ($link_url) {
-        if (false === stripos($target, "self") and $target) {
+        if (false === mb_stripos($target, 'self') and $target) {
             if ('_' == !mb_substr($target, 0, 1)) {
                 $target = '_' . $target;
             }
@@ -96,7 +99,5 @@ function edito_createlink($link_url = '', $title = '', $target = '_self', $image
         }
     }
 
-    $result = $align_in . $link . $image . $br . $title . $a . $align_out;
-
-    return $result;
+    return $align_in . $link . $image . $br . $title . $a . $align_out;
 }

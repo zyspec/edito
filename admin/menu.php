@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * XOOPS - PHP Content Management System
  * Copyright (c) 2004 <https://www.xoops.org>
@@ -13,7 +16,7 @@ $id = $_POST['id'] ?? $_GET['id'] ?? '';
 $op = $_POST['op'] ?? $_GET['op'] ?? '';
 $i  = 0;
 
-if (false !== strpos($op, "_ok")) {
+if (false !== mb_strpos($op, '_ok')) {
     //if (ereg('_ok', $op) ) {
 
     $adminmenu[$i]['title'] = _MI_EDITO_GOTO_INDEX;

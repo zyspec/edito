@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 // $Id: updateblock.inc.php,v 1.3 2005/11/30 22:13:22 malanciault Exp $
 
 if (!defined('XOOPS_ROOT_PATH')) {

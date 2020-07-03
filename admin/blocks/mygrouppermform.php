@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -78,12 +81,11 @@ class MyXoopsGroupPermForm extends XoopsForm
      * @param string $permdesc
      * @param mixed  $permname
      */
-
     public function __construct($title, $modid, $permname, $permdesc)
     {
-        //		$this->XoopsForm($title, 'groupperm_form', XOOPS_URL.'/modules/system/admin/groupperm.php', 'post'); GIJ
+        //      $this->XoopsForm($title, 'groupperm_form', XOOPS_URL.'/modules/system/admin/groupperm.php', 'post'); GIJ
 
-        //		$this->XoopsForm($title, 'groupperm_form', '', 'post');
+        //      $this->XoopsForm($title, 'groupperm_form', '', 'post');
 
         parent::__construct($title, 'groupperm_form', '', 'post');
 
@@ -103,7 +105,6 @@ class MyXoopsGroupPermForm extends XoopsForm
      * @param int    $itemId
      * @param int    $itemParent
      */
-
     public function addItem($itemId, $itemName, $itemParent = 0)
     {
         $this->_itemTree[$itemParent]['children'][] = $itemId;
@@ -122,24 +123,22 @@ class MyXoopsGroupPermForm extends XoopsForm
      * @param int    $itemId
      * @param string $itemName
      */
-
     public function addAppendix($permName, $itemId, $itemName)
     {
         $this->_appendix[] = [
             'permname' => $permName,
             'itemid'   => $itemId,
             'itemname' => $itemName,
-            'selected' => false
+            'selected' => false,
         ];
     }
 
     /**
      * Loads all child ids for an item to be used in javascript
      *
-     * @param int $itemId
+     * @param int   $itemId
      * @param array $childIds
      */
-
     private function _loadAllChildItemIds($itemId, &$childIds)
     {
         if (!empty($this->_itemTree[$itemId]['children'])) {
@@ -164,7 +163,6 @@ class MyXoopsGroupPermForm extends XoopsForm
      *
      * @return string HTML
      */
-
     public function render()
     {
         // load all child ids for javascript codes
@@ -251,8 +249,6 @@ class MyXoopsGroupPermForm extends XoopsForm
             }
         }
 
-        $ret .= '</table>' . $GLOBALS['xoopsSecurity']->getTokenHTML() . '</form>';
-
-        return $ret;
+        return $ret . '</table>' . $GLOBALS['xoopsSecurity']->getTokenHTML() . '</form>';
     }
 }

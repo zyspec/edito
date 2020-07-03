@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * XOOPS - PHP Content Management System
  * Copyright (c) 2004 <https://www.xoops.org>
@@ -56,7 +59,7 @@ while (list($ids, $subject_list, $groups_list, $datesub_list, $counter_list, $me
         if ($xoopsModuleConfig['tags']) {
             $time = time();
 
-            $startdate_list = (time() - (86400 * $xoopsModuleConfig['tags_new']));
+            $startdate_list = time() - (86400 * $xoopsModuleConfig['tags_new']);
 
             if ($startdate_list < $datesub_list) {
                 $datesub_list = formatTimestamp($datesub_list, 'm');

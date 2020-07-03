@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * XOOPS - PHP Content Management System
  * Copyright (c) 2004 <https://www.xoops.org>
@@ -182,9 +185,7 @@ function edito_cleanContent($content)
 
     $content = preg_replace("/\[\[:digit:\]\]/i", ' ', $content);
 
-    $content = trim($content);
-
-    return $content;
+    return trim($content);
 }
 
 // Keywords selection
@@ -202,13 +203,13 @@ function edito_findKeyWordsInString($content, $minChar, $min_occ, $max_occ)
     // Random variable
 
     if (count($arr) > 250) {
-        $MIN_SIZE = mt_rand($minChar, $minChar + 1);
+        $MIN_SIZE = random_int($minChar, $minChar + 1);
 
         $MIN_OCCURENCES = $min_occ;
 
-        $MAX_OCCURENCES = mt_rand($min_occ, $max_occ);
+        $MAX_OCCURENCES = random_int($min_occ, $max_occ);
     } else {
-        $MIN_SIZE = mt_rand(2, 4);
+        $MIN_SIZE = random_int(2, 4);
 
         $MIN_OCCURENCES = 1;
 

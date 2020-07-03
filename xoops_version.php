@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -47,8 +48,9 @@ $modversion['module_website_name'] = 'XOOPS';
 $modversion['min_php']             = '5.6';
 $modversion['min_xoops']           = '2.5.10';
 $modversion['min_admin']           = '1.2';
-$modversion['min_db']              = ['mysql'  => '5.6',
-                                      'mysqli' => '5.6'
+$modversion['min_db']              = [
+    'mysql'  => '5.6',
+    'mysqli' => '5.6',
 ];
 
 //install
@@ -292,7 +294,7 @@ $modversion['config'][$i]['default']     = 'subject ASC';
 $modversion['config'][$i]['options']     = [
     '_MI_EDITO_ORD_SUBJ_ASC'  => 'subject ASC',
     '_MI_EDITO_ORD_DATE_DESC' => 'datesub DESC',
-    '_MI_EDITO_ORD_READ_DESC' => 'counter DESC'
+    '_MI_EDITO_ORD_READ_DESC' => 'counter DESC',
 ];
 $i++;
 $modversion['config'][$i]['name']        = 'perpage';
@@ -327,7 +329,7 @@ $modversion['config'][$i]['default']     = 'center';
 $modversion['config'][$i]['options']     = [
     '_MI_EDITO_LOGO_ALIGN_LEFT'   => 'left',
     '_MI_EDITO_LOGO_ALIGN_CENTER' => 'center',
-    '_MI_EDITO_LOGO_ALIGN_RIGHT'  => 'right'
+    '_MI_EDITO_LOGO_ALIGN_RIGHT'  => 'right',
 ];
 $i++;
 $modversion['config'][$i]['name']        = 'adminhits';
@@ -488,7 +490,7 @@ $modversion['config'][$i]['default']     = 'auto';
 $modversion['config'][$i]['options']     = [
     '_MI_EDITO_META_MANUAL' => 'manual',
     '_MI_EDITO_META_SEMI'   => 'semi',
-    '_MI_EDITO_META_AUTO'   => 'auto'
+    '_MI_EDITO_META_AUTO'   => 'auto',
 ];
 $i++;
 $modversion['config'][$i]['name']        = 'moduleMetaDescription';

@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 // $Id: blocksadmin.inc.php,v 1.5 2005/11/30 22:13:22 malanciault Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
@@ -270,7 +273,7 @@ if ('order' == $op) {
             $visible[$i] = 1;
         }
 
-        $bmodule = (isset($_POST['bmodule'][$i]) && is_array($_POST['bmodule'][$i])) ? $_POST['bmodule'][$i] : [-1];
+        $bmodule = isset($_POST['bmodule'][$i]) && is_array($_POST['bmodule'][$i]) ? $_POST['bmodule'][$i] : [-1];
 
         myblocksadmin_update_block($i, $side[$i], $_POST['weight'][$i], $visible[$i], $_POST['title'][$i], null, null, $_POST['bcachetime'][$i], $bmodule, []);
 
@@ -328,7 +331,7 @@ if ('order2' == $op) {
                 $visible[$i] = 1;
             }
 
-            $bmodule = (isset($_POST['bmodule'][$i]) && is_array($_POST['bmodule'][$i])) ? $_POST['bmodule'][$i] : [-1];
+            $bmodule = isset($_POST['bmodule'][$i]) && is_array($_POST['bmodule'][$i]) ? $_POST['bmodule'][$i] : [-1];
 
             myblocksadmin_update_blockinstance($i, $side[$i], $_POST['weight'][$i], $visible[$i], $_POST['title'][$i], null, null, $_POST['bcachetime'][$i], $bmodule, []);
         }
@@ -389,7 +392,7 @@ if ('update' == $op) {
 
     $bctype = $_POST['bctype'] ?? '';
 
-    $bmodule = (isset($_POST['bmodule']) && is_array($_POST['bmodule'])) ? $_POST['bmodule'] : [-1]; // GIJ +
+    $bmodule = isset($_POST['bmodule']) && is_array($_POST['bmodule']) ? $_POST['bmodule'] : [-1]; // GIJ +
     $msg     = myblocksadmin_update_block($_POST['bid'], $_POST['bside'], $_POST['bweight'], $_POST['bvisible'], $_POST['btitle'], $bcontent, $bctype, $bcachetime, $bmodule, $options); // GIJ !
     redirect_header('../blocks.php', 1, $msg);
 }
@@ -445,7 +448,7 @@ if ('delete' == $op) {
         xoops_confirm([
                           'fct' => 'blocksadmin',
                           'op'  => 'delete_ok',
-                          'bid' => $myblock->getVar('bid')
+                          'bid' => $myblock->getVar('bid'),
                       ], 'admin.php', sprintf(_AM_RUSUREDEL, $myblock->getVar('title')));
     }
 
@@ -475,7 +478,7 @@ if ('edit' == $op) {
         $modules[] = (int)$row['module_id'];
     }
 
-    $is_custom = ('C' == $myblock->getVar('block_type') || 'E' == $myblock->getVar('block_type')) ? true : false;
+    $is_custom = 'C' == $myblock->getVar('block_type') || 'E' == $myblock->getVar('block_type') ? true : false;
 
     $block = [
         'form_title'    => _AM_EDITBLOCK,
@@ -494,7 +497,7 @@ if ('edit' == $op) {
         'edit_form'     => $myblock->getOptions(),
         'template'      => $myblock->getVar('template'),
         'options'       => $myblock->getVar('options'),
-        'submit_button' => _SUBMIT
+        'submit_button' => _SUBMIT,
     ];
 
     echo '<a href="../blocks.php">' . _AM_BADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . _AM_EDITBLOCK . '<br><br>';
@@ -529,7 +532,7 @@ if ('clone' == $op) {
         $modules[] = (int)$row['module_id'];
     }
 
-    $is_custom = ('C' == $myblock->getVar('block_type') || 'E' == $myblock->getVar('block_type')) ? true : false;
+    $is_custom = 'C' == $myblock->getVar('block_type') || 'E' == $myblock->getVar('block_type') ? true : false;
 
     $block = [
         'form_title'    => _AM_CLONEBLOCK,
@@ -548,7 +551,7 @@ if ('clone' == $op) {
         'edit_form'     => $myblock->getOptions(),
         'template'      => $myblock->getVar('template'),
         'options'       => $myblock->getVar('options'),
-        'submit_button' => _CLONE
+        'submit_button' => _CLONE,
     ];
 
     echo '<a href="../blocks.php">' . _AM_BADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . _AM_CLONEBLOCK . '<br><br>';
@@ -652,7 +655,7 @@ if ('clone_ok' == $op) {
 
     $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
-    $bmodule = (isset($_POST['bmodule']) && is_array($_POST['bmodule'])) ? $_POST['bmodule'] : [-1]; // GIJ +
+    $bmodule = isset($_POST['bmodule']) && is_array($_POST['bmodule']) ? $_POST['bmodule'] : [-1]; // GIJ +
 
     foreach ($bmodule as $bmid) {
         $sql = 'INSERT INTO ' . $db->prefix('block_module_link') . ' (block_id, module_id) VALUES (' . $newid . ', ' . $bmid . ')';

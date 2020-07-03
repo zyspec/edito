@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * XOOPS - PHP Content Management System
  * Copyright (c) 2004 <https://www.xoops.org>
@@ -83,9 +86,9 @@ function edito_popup_size($popup_size, $options)
     if ('custom' == $popup_size) {
         $option = explode('|', $options);
 
-        $option[0] = $option[0] + 100;
+        $option[0] += 100;
 
-        $option[1] = $option[1] + 100;
+        $option[1] += 100;
 
         $popup_size = 'width=' . $option[0] . ', height=' . $option[1];
     }
@@ -199,7 +202,7 @@ function edito_checkformat($url, $custom_media = '')
     }
 
     if ('avi' == $format || 'wmv' == $format || 'mpg' == $format || 'mpeg' == $format
-        || false !== stripos($format, "asx")
+        || false !== mb_stripos($format, 'asx')
         || $is_mpeg
         || 'mp3' == $format
         || 'wav' == $format
@@ -207,11 +210,11 @@ function edito_checkformat($url, $custom_media = '')
         $formats[1] = 'wmp';
     }
 
-    if (false !== stripos($format, "asx")) {
+    if (false !== mb_stripos($format, 'asx')) {
         $formats[0] = 'asx';
     }
 
-    if (false !== stripos($format, "php")) {
+    if (false !== mb_stripos($format, 'php')) {
         $formats[0] = 'php';
     }
 
@@ -238,7 +241,7 @@ function edito_fileweight($file)
             'KB',
             'MB',
             'GB',
-            'TB'
+            'TB',
         ];
 
         $i = 0;
@@ -246,14 +249,12 @@ function edito_fileweight($file)
         $count = count($names);
 
         while ($i < $count && $filesize > 1024) {
-            $filesize = $filesize / 1024;
+            $filesize /= 1024;
 
             $i++;
         }
 
-        $filesize = number_format($filesize, 2, '.', ' ') . ' ' . $names[$i];
-
-        return $filesize;
+        return number_format($filesize, 2, '.', ' ') . ' ' . $names[$i];
     }
 }
 

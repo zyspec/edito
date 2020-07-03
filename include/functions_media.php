@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * XOOPS - PHP Content Management System
  * Copyright (c) 2004 <https://www.xoops.org>
@@ -54,7 +57,7 @@ function edito_media($media_url, $thumb, $media_size, $options, $description, $c
         $media = edito_media_flv($media_url, $thumb, $media_size, $options, $description);
     } elseif ('mov' == $ext) {
         $media = edito_media_mov($media_url, $thumb, $media_size, $options, $description);
-    } elseif ('avi' == $ext || 'mpg' == $ext || 'mpeg' == $ext || 'wmv' == $ext || false !== stripos($ext, "asx") || $is_mpeg) {
+    } elseif ('avi' == $ext || 'mpg' == $ext || 'mpeg' == $ext || 'wmv' == $ext || false !== mb_stripos($ext, 'asx') || $is_mpeg) {
         $media = edito_media_mpg($media_url, $thumb, $media_size, $options, $description);
     } elseif ('ram' == $ext || 'rm' == $ext) {
         $media = edito_media_ram($media_url, $thumb, $media_size, $options, $description);
@@ -531,7 +534,7 @@ function edito_media_flash($media_url, $thumb, $media_size, $options, $descripti
             $flash_width,
             $flash_height,
             $flash_type,
-            $flash_attr
+            $flash_attr,
         ]
             = @getimagesize($media_url);
 
@@ -680,7 +683,7 @@ function edito_media_flv($media_url, $thumb, $media_size, $options, $description
             $flash_width,
             $flash_height,
             $flash_type,
-            $flash_attr
+            $flash_attr,
         ]
             = @getimagesize($media_url);
 
@@ -1089,7 +1092,7 @@ function edito_media_image($image_url, $thumb, $thumb_width, $options, $descript
             $image_width,
             $image_height,
             $image_type,
-            $image_attr
+            $image_attr,
         ]
             = @getimagesize($image_url);
 
@@ -1098,7 +1101,7 @@ function edito_media_image($image_url, $thumb, $thumb_width, $options, $descript
                 $thumbs_width,
                 $thumb_height,
                 $thumb_type,
-                $thumb_attr
+                $thumb_attr,
             ]
                 = @getimagesize($thumb);
         } else {

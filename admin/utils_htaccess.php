@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -86,7 +89,7 @@ function utilities($dir, $sitelist)
 
     $dirs = [
         'logos' => 'logos',
-        'media' => 'media'
+        'media' => 'media',
     ];
 
     $pagedir_array = $dirs;
@@ -163,7 +166,7 @@ RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?" . $domain . '/.*$ [NC]';
 
             $domain = explode('/', $domain);
 
-            $domain = str_replace(".", '\\.', $domain[0]);
+            $domain = str_replace('.', '\\.', $domain[0]);
 
             $code .= "
 RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?" . $domain . '/.*$ [NC]
@@ -234,7 +237,7 @@ RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?" . $domain . '/.*$ [NC]';
 
             $domain = explode('/', $domain);
 
-            $domain = str_replace(".", '\\.', $domain[0]);
+            $domain = str_replace('.', '\\.', $domain[0]);
 
             $code .= "
 RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?" . $domain . '/.*$ [NC]

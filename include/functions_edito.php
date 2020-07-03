@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * XOOPS - PHP Content Management System
  * Copyright (c) 2004 <https://www.xoops.org>
@@ -88,15 +91,15 @@ function edito_uploading_image($filename)
         if (!$uploader->upload()) {
             xoops_error('<font color="#000000">' . $uploader->getErrors() . '</font>');
 
-            return (false);
+            return false;
         }
 
-        return (true);
+        return true;
     }
 
     xoops_error('<font color="#000000">' . $uploader->getErrors() . '</font>');
 
-    return (false);
+    return false;
 }
 
 /**
@@ -139,15 +142,15 @@ function edito_uploading_media($filename)
         if (!$uploader->upload()) {
             xoops_error('<font color="#000000">' . $uploader->getErrors() . '</font>');
 
-            return (false);
+            return false;
         }
 
-        return (true);
+        return true;
     }
 
     xoops_error('<font color="#000000">' . $uploader->getErrors() . '</font>');
 
-    return (false);
+    return false;
 }
 
 /**
@@ -436,9 +439,7 @@ function edito_substr($str, $start, $length, $trimmarker = '...')
 
     // plus the length of the $trimmarker
 
-    $truncated_string = xoops_substr($str, $start, $length - $position_of_space + mb_strlen($trimmarker), $trimmarker);
-
-    return $truncated_string;
+    return xoops_substr($str, $start, $length - $position_of_space + mb_strlen($trimmarker), $trimmarker);
 }
 
 /**
@@ -538,9 +539,7 @@ function edito_admin_mkdir($target)
         }
     }
 
-    $res = is_dir($target);
-
-    return $res;
+    return is_dir($target);
 }
 
 /**
@@ -810,7 +809,7 @@ function edito_GetLastVersion()
     $version = @file_get_contents('http://www.wolfpackclan.com/wolfactory/version/edito.version');
 
     if ($version) {
-        if ($version != ($GLOBALS['xoopsModule']->getVar('version') / 100)) {
+        if ($version != $GLOBALS['xoopsModule']->getVar('version') / 100) {
             echo '<div class="bg1" style="margin-bottom:20px; padding:5px; border:2px solid #FF0000; text-align:center; font-weight:bold;">';
 
             echo _MD_EDITO_MAKE_UPGRADE . '<a href="http://wolfactory.wolfpackclan.com/" target="_blank">http://wolfactory.wolfpackclan.com/</a>';
@@ -830,7 +829,7 @@ function edito_UpdatedModule()
 {
     require_once dirname(__DIR__) . '/xoops_version.php';
 
-    if ($modversion['version'] != ($GLOBALS['xoopsModule']->getVar('version') / 100)) {
+    if ($modversion['version'] != $GLOBALS['xoopsModule']->getVar('version') / 100) {
         $redirect = XOOPS_URL . '/modules/system/admin.php?fct=modulesadmin&op=update&module=' . $xoopsModule->getVar('dirname');
 
         redirect_header($redirect, 3, _MD_EDITO_MAKE_UPDATE);

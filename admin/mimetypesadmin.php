@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -34,14 +37,14 @@ if (file_exists(XOOPS_ROOT_PATH . '/modules/xoopsinfo/language/' . $xoopsConfig[
     require_once XOOPS_ROOT_PATH . '/modules/xoopsinfo/language/english/admin.php';
 }
 if (file_exists(XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/global.php')) {
-    @require_once XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/global.php';
+    @require XOOPS_ROOT_PATH . '/language/' . $xoopsConfig['language'] . '/global.php';
 } else {
-    @require_once XOOPS_ROOT_PATH . '/language/english/admin/global.php';
+    @require XOOPS_ROOT_PATH . '/language/english/admin/global.php';
 }
 if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php')) {
-    @require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
+    @require XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
 } else {
-    @require_once XOOPS_ROOT_PATH . '/modules/system/language/english/admin/admin.php';
+    @require XOOPS_ROOT_PATH . '/modules/system/language/english/admin/admin.php';
 }
 // language files
 
@@ -64,14 +67,14 @@ if ($create) {
 
 if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
     if ('save' == $op) {
-        $mperm_id        = (isset($_REQUEST['mperm_id'])) ? (int)$_REQUEST['mperm_id'] : 0;
+        $mperm_id        = isset($_REQUEST['mperm_id']) ? (int)$_REQUEST['mperm_id'] : 0;
         $mperm_mime      = $_REQUEST['mperm_mime'] ?? '';
         $mperm_module    = $_REQUEST['mperm_module'] ?? '';
         $mperm_groups    = $_REQUEST['mperm_groups'] ?? [];
-        $mperm_status    = (isset($_REQUEST['mperm_status'])) ? (int)$_REQUEST['mperm_status'] : 0;
-        $mperm_maxwidth  = (isset($_REQUEST['mperm_maxwidth'])) ? (int)$_REQUEST['mperm_maxwidth'] : 0;
-        $mperm_maxheight = (isset($_REQUEST['mperm_maxheight'])) ? (int)$_REQUEST['mperm_maxheight'] : 0;
-        $mperm_maxsize   = (isset($_REQUEST['mperm_maxsize'])) ? (int)$_REQUEST['mperm_maxsize'] : 0;
+        $mperm_status    = isset($_REQUEST['mperm_status']) ? (int)$_REQUEST['mperm_status'] : 0;
+        $mperm_maxwidth  = isset($_REQUEST['mperm_maxwidth']) ? (int)$_REQUEST['mperm_maxwidth'] : 0;
+        $mperm_maxheight = isset($_REQUEST['mperm_maxheight']) ? (int)$_REQUEST['mperm_maxheight'] : 0;
+        $mperm_maxsize   = isset($_REQUEST['mperm_maxsize']) ? (int)$_REQUEST['mperm_maxsize'] : 0;
 
         $result = true;
 
@@ -109,7 +112,7 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
     if ('saveall' == $op) {
         $mimetypesHandler = xoops_getHandler('mimetypes_perms');
 
-        $mperm_ids = ($_REQUEST['mperm_id']) ?: [];
+        $mperm_ids = $_REQUEST['mperm_id'] ?: [];
 
         foreach ($mperm_ids as $mperm_id => $value) {
             $mperm_mime      = $_REQUEST['mperm_mime'][$mperm_id];
@@ -211,7 +214,7 @@ switch ($op) {
         redirect_header('mimetypes.php?' . $uri, 3, _AM_AM_DBUPDATED);
         break;
     case 'dele':
-        $mime_id = (isset($_REQUEST['mime_id'])) ? (int)$_REQUEST['mime_id'] : (int)$mime_id;
+        $mime_id = isset($_REQUEST['mime_id']) ? (int)$_REQUEST['mime_id'] : (int)$mime_id;
         $sql     = 'SELECT p.mperm_id, t.mime_id, t.mime_name, m.name FROM ' . $xoopsDB->prefix('mimetypes_perms') . ' p LEFT JOIN ' . $xoopsDB->prefix('mimetypes') . ' t on p.mperm_mime = t.mime_id LEFT JOIN ' . $xoopsDB->prefix('modules')
                    . ' m on p.mperm_module = m.mid WHERE mperm_id=' . $mime_id;
         $result  = $xoopsDB->queryF($sql);
@@ -219,17 +222,18 @@ switch ($op) {
             $mperm_id,
             $mime_id,
             $mime_name,
-            $mod_name
+            $mod_name,
         ]
             = $xoopsDB->fetchRow($result);
-        xoops_confirm(['op'        => 'dele',
-                       'mperm_id'  => $mperm_id,
-                       'mime_id'   => $mime_id,
-                       'confirm'   => 1,
-                       'mime_name' => $mime_name,
-                       'mod_name'  => $mod_name,
-                       'status'    => $status,
-                       'mid'       => $mid
+        xoops_confirm([
+                          'op'        => 'dele',
+                          'mperm_id'  => $mperm_id,
+                          'mime_id'   => $mime_id,
+                          'confirm'   => 1,
+                          'mime_name' => $mime_name,
+                          'mod_name'  => $mod_name,
+                          'status'    => $status,
+                          'mid'       => $mid,
                       ], 'mimetypes.php?', _AM_XI_MIME_DELETETHIS . "<br><br><font color='#CC0000'>" . $mod_name . '</font><br>' . $mime_name, _AM_XI_MIME_DELE);
         break;
     case 'edit':

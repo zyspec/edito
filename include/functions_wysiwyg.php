@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -49,9 +52,7 @@ function edito_getWysiwygForm($type, $caption, $name, $value = '', $width = '100
         'value'  => $value,
     ];
 
-    $wysiwyg = new \XoopsFormEditor($caption, $name, $editorConfigs);
-
-    return $wysiwyg;
+    return new \XoopsFormEditor($caption, $name, $editorConfigs);
     //	global $xoopsModuleConfig;
 
     $wysiwyg = false;
@@ -143,7 +144,7 @@ function edito_getWysiwygForm($type, $caption, $name, $value = '', $width = '100
                                                                    $name,
                                                                    $value,
                                                                    $width,
-                                                                   $height
+                                                                   $height,
                                                                ]);
                 }
             } else {

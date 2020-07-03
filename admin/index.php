@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -68,7 +71,7 @@ switch ($op) {
     case 'default':
     default:
         $startart = Request::getInt('startart', 0, 'GET');
-        $start    = ($startart > 0) ? "&startart={$startart}" : '';
+        $start    = $startart > 0 ? "&startart={$startart}" : '';
 
         $on      = "<a href='index.php?stat=on&ord={$ord}{$start}'>" . "<img src='../assets/images/icon/online.gif' alt='" . _AM_EDITO_ONLINE . "' class='middle'></a>\n";
         $off     = "<a href='index.php?stat=off&ord={$ord}'>" . "<img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_OFFLINE . "' class='middle'></a>\n";

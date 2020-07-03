@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -42,7 +45,7 @@ if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
 
     $description = Request::getString('description', '', 'POST');
 
-    $groups = (is_array($GLOBALS['xoopsModuleConfig']['groups'])) ? implode(' ', $GLOBALS['xoopsModuleConfig']['groups']) : '';
+    $groups = is_array($GLOBALS['xoopsModuleConfig']['groups']) ? implode(' ', $GLOBALS['xoopsModuleConfig']['groups']) : '';
 
     $html   = 1; // allow HTML
     $xcode  = 1; // allow xcode

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * Renders checkbox options for a group permission form
@@ -44,7 +46,6 @@ class EditoGroupFormCheckBox extends XoopsFormElement
      * @param int    $groupId
      * @param mixed  $values
      */
-
     public function __construct($caption, $name, $groupId, $values = null)
     {
         $this->setCaption($caption);
@@ -63,7 +64,6 @@ class EditoGroupFormCheckBox extends XoopsFormElement
      *
      * @param mixed $value A group ID or an array of group IDs
      */
-
     public function setValue($value)
     {
         if (is_array($value)) {
@@ -80,7 +80,6 @@ class EditoGroupFormCheckBox extends XoopsFormElement
      *
      * @param array $optionTree
      */
-
     public function setOptionTree($optionTree)
     {
         $this->_optionTree = $optionTree;
@@ -91,7 +90,6 @@ class EditoGroupFormCheckBox extends XoopsFormElement
      *
      * @param mixed $appendix
      */
-
     public function setAppendix($appendix)
     {
         $this->_appendix = $appendix;
@@ -102,7 +100,6 @@ class EditoGroupFormCheckBox extends XoopsFormElement
      *
      * @return string HTML
      */
-
     public function render()
     {
         $ret = '';
@@ -157,9 +154,7 @@ class EditoGroupFormCheckBox extends XoopsFormElement
             }
         }
 
-        $ret .= '</tr></table>';
-
-        return $ret;
+        return $ret . '</tr></table>';
     }
 
     /**
@@ -170,7 +165,6 @@ class EditoGroupFormCheckBox extends XoopsFormElement
      * @param string $prefix
      * @param array  $parentIds
      */
-
     protected function _renderOptionTree(&$tree, $option, $prefix, $parentIds = [])
     {
         $tree .= $prefix . '<input type="checkbox" name="' . $this->getName() . '[groups][' . $this->_groupId . '][' . $option['id'] . ']" id="' . $this->getName() . '[groups][' . $this->_groupId . '][' . $option['id'] . ']" onclick="';

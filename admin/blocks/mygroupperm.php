@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 if (!defined('XOOPS_ROOT_PATH')) {
     exit;

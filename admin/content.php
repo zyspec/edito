@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -218,7 +221,7 @@ function editarticle($id = '', $op = '')
             $media,
             $meta,
             $groups,
-            $options
+            $options,
         ]
             = $xoopsDB->fetchRow($result);
 
@@ -975,7 +978,7 @@ switch ($op) {
         $meta                = $metagen['title'] . '|' . $meta_description . '|' . $meta_keywords . '|' . $metagen['keywords'];
 
         $groups = $_POST['groups'];
-        $groups = (is_array($groups)) ? implode(' ', $groups) : '';
+        $groups = is_array($groups) ? implode(' ', $groups) : '';
 
         $html       = isset($html) ? (int)$html : 0;
         $xcode      = isset($xcode) ? (int)$xcode : 0;
@@ -1099,13 +1102,14 @@ switch ($op) {
         $result = $xoopsDB->queryF('SELECT id, subject FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . " WHERE id = $id");
         [
             $id,
-            $subject
+            $subject,
         ]
             = $xoopsDB->fetchRow($result);
-        xoops_confirm(['op'      => 'del',
-                       'id'      => $id,
-                       'confirm' => 1,
-                       'subject' => $subject
+        xoops_confirm([
+                          'op'      => 'del',
+                          'id'      => $id,
+                          'confirm' => 1,
+                          'subject' => $subject,
                       ], 'content.php', _AM_EDITO_DELETETHIS . '<br><br>' . $myts->displayTarea($subject), _AM_EDITO_DELETE);
         require_once __DIR__ . '/admin_footer.php';
         break;

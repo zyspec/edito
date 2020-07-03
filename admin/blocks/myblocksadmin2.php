@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 // ------------------------------------------------------------------------- //
 //                     myblocksadmin_for_2.2.php                             //
 //                - XOOPS block admin for each modules -                     //
@@ -98,17 +101,18 @@ function list_blockinstances()
 
     // cachetime options
 
-    $cachetimes = ['0'       => _NOCACHE,
-                   '30'      => sprintf(_SECONDS, 30),
-                   '60'      => _MINUTE,
-                   '300'     => sprintf(_MINUTES, 5),
-                   '1800'    => sprintf(_MINUTES, 30),
-                   '3600'    => _HOUR,
-                   '18000'   => sprintf(_HOURS, 5),
-                   '86400'   => _DAY,
-                   '259200'  => sprintf(_DAYS, 3),
-                   '604800'  => _WEEK,
-                   '2592000' => _MONTH
+    $cachetimes = [
+        '0'       => _NOCACHE,
+        '30'      => sprintf(_SECONDS, 30),
+        '60'      => _MINUTE,
+        '300'     => sprintf(_MINUTES, 5),
+        '1800'    => sprintf(_MINUTES, 30),
+        '3600'    => _HOUR,
+        '18000'   => sprintf(_HOURS, 5),
+        '86400'   => _DAY,
+        '259200'  => sprintf(_DAYS, 3),
+        '604800'  => _WEEK,
+        '2592000' => _MONTH,
     ];
 
     // displaying TH
@@ -312,7 +316,7 @@ function list_blockinstances()
 			</td>
 		</tr>\n";
 
-        $class = ('even' == $class) ? 'odd' : 'even';
+        $class = 'even' == $class ? 'odd' : 'even';
     }
 
     // list block classes for add (not instances)
@@ -342,7 +346,7 @@ function list_blockinstances()
 		</tr>
 		\n";
 
-        $class = ('even' == $class) ? 'odd' : 'even';
+        $class = 'even' == $class ? 'odd' : 'even';
     }
 
     echo "

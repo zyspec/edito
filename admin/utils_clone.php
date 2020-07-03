@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -183,9 +186,9 @@ switch ($op) {
         $module = $xoopsModule->dirname();
 
         if ($clone) {
-            $CLONE = mb_strtoupper(str_replace("-", '_', $clone));
+            $CLONE = mb_strtoupper(str_replace('-', '_', $clone));
 
-            $clone = mb_strtolower(str_replace("-", '_', $clone));
+            $clone = mb_strtolower(str_replace('-', '_', $clone));
 
             $Clone = ucfirst($clone_orig);
 
@@ -233,7 +236,7 @@ switch ($op) {
                     if ($dh = opendir($dir2copy)) {
                         // On liste les dossiers et fichiers de $dir2copy
 
-                        while ((false !== $file = readdir($dh))) {
+                        while (false !== $file = readdir($dh)) {
                             // Si le dossier dans lequel on veut coller n'existe pas, on le cr��
 
                             if (!is_dir($dir_paste)) {

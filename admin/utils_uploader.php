@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * XOOPS - PHP Content Management System
@@ -32,7 +34,7 @@ if ( isset($_GET['dir'])) { $dir = $_GET['dir']; } else { $dir = ''; }
 if ( isset($_POST['dir'])) { $dir = $_POST['dir']; }
 */
 
-$op = Request::getCmd('op', '');
+$op  = Request::getCmd('op', '');
 $dir = Request::getString('dir', '');
 
 /**
@@ -77,7 +79,7 @@ function utilities($dir)
 
     $dirs = [
         'logo',
-        'media'
+        'media',
     ];
 
     $pagedir_array = $dirs;
