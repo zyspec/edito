@@ -985,7 +985,7 @@ switch ($op) {
                 $meta_description = $subject . ' : ' . $xoopsModuleConfig['moduleMetaDescription'];
             }
         }
-        $metagen['keywords'] = !isset($metagen['keywords']) ? '' : $metagen['keywords'];
+        $metagen['keywords'] = $metagen['keywords'] ?? '';
         $meta = $metagen['title'] . '|' . $meta_description . '|' . $meta_keywords . '|' . $metagen['keywords'];
 
         $groups = $_POST['groups'];

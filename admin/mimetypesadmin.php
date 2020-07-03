@@ -66,11 +66,11 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
     if ('save' == $op) {
         $mperm_id = (isset($_REQUEST['mperm_id'])) ? intval($_REQUEST['mperm_id']) : 0;
 
-        $mperm_mime = (isset($_REQUEST['mperm_mime'])) ? $_REQUEST['mperm_mime'] : '';
+        $mperm_mime = $_REQUEST['mperm_mime'] ?? '';
 
-        $mperm_module = (isset($_REQUEST['mperm_module'])) ? $_REQUEST['mperm_module'] : '';
+        $mperm_module = $_REQUEST['mperm_module'] ?? '';
 
-        $mperm_groups = (isset($_REQUEST['mperm_groups'])) ? $_REQUEST['mperm_groups'] : [];
+        $mperm_groups = $_REQUEST['mperm_groups'] ?? [];
 
         $mperm_status = (isset($_REQUEST['mperm_status'])) ? intval($_REQUEST['mperm_status']) : 0;
 

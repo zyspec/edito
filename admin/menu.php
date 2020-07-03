@@ -9,16 +9,8 @@
  *           - solo (http://www.wolfpackclan.com/wolfactory)
  *			- DuGris (http://www.dugris.info)
  */
-if (!isset($_POST['id'])) {
-    $id = $_GET['id'] ?? '';
-} else {
-    $id = $_POST['id'];
-}
-if (!isset($_POST['op'])) {
-    $op = $_GET['op'] ?? '';
-} else {
-    $op = $_POST['op'];
-}
+$id = $_POST['id'] ?? $_GET['id'] ?? '';
+$op = $_POST['op'] ?? $_GET['op'] ?? '';
 $i = 0;
 
 if (preg_match('/_ok/', $op)) {
