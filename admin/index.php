@@ -127,7 +127,7 @@ switch ($op) {
         // Count submited pages
         $sql = ' ( SELECT COUNT(id) FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . ' WHERE status = 1)';
         $result = $xoopsDB->queryF($sql);
-        list($total_sub) = $xoopsDB->fetchRow($result);
+        [$total_sub] = $xoopsDB->fetchRow($result);
         if ($total_sub) { // $waiting_c = "|".$waiting_c ."=<b>". $total_sub . "</b>";
             $total_sub = " | <a href='index.php?stat=waiting&ord={$ord}'>" . _AM_EDITO_WAITING . " : <b>{$total_sub}</b></a>{$waiting_c}";
         } else {
@@ -162,7 +162,7 @@ switch ($op) {
         // Check edito total
         $sql = ' SELECT COUNT(id) FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . " WHERE status{$status}";
         $result = $xoopsDB->queryF($sql);
-        list($total) = $xoopsDB->fetchRow($result);
+        [$total] = $xoopsDB->fetchRow($result);
 
         $pagenav = new XoopsPageNav($total, $xoopsModuleConfig['perpage'], $startart, "stat={$stat}&ord={$ord}&startart");
 

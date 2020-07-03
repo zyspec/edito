@@ -41,7 +41,7 @@ function install_MimeTypes($dirname = '')
                         $mime_id = $xoopsDB->getInsertId();
                     }
                 } else {
-                    list($mime_id) = $xoopsDB->fetchRow($result);
+                    [$mime_id] = $xoopsDB->fetchRow($result);
                 }
 
                 if (0 != $mime_id) {

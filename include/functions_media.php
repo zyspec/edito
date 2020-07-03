@@ -527,7 +527,13 @@ function edito_media_flash($media_url, $thumb, $media_size, $options, $descripti
     }
 
     if (!$media_size) {
-        list($flash_width, $flash_height, $flash_type, $flash_attr) = @getimagesize($media_url);
+        [
+            $flash_width,
+            $flash_height,
+            $flash_type,
+            $flash_attr
+        ]
+            = @getimagesize($media_url);
 
         $media_size = $flash_attr;
     }
@@ -670,7 +676,13 @@ function edito_media_flv($media_url, $thumb, $media_size, $options, $description
     }
 
     if (!$media_size) {
-        list($flash_width, $flash_height, $flash_type, $flash_attr) = @getimagesize($media_url);
+        [
+            $flash_width,
+            $flash_height,
+            $flash_type,
+            $flash_attr
+        ]
+            = @getimagesize($media_url);
 
         $media_size = $flash_attr;
     }
@@ -1073,10 +1085,22 @@ function edito_media_image($image_url, $thumb, $thumb_width, $options, $descript
     // Check pictures
 
     if (!$image_width and !$image_height) {
-        list($image_width, $image_height, $image_type, $image_attr) = @getimagesize($image_url);
+        [
+            $image_width,
+            $image_height,
+            $image_type,
+            $image_attr
+        ]
+            = @getimagesize($image_url);
 
         if ($thumb and $thumb != $image_url) {
-            list($thumbs_width, $thumb_height, $thumb_type, $thumb_attr) = @getimagesize($thumb);
+            [
+                $thumbs_width,
+                $thumb_height,
+                $thumb_type,
+                $thumb_attr
+            ]
+                = @getimagesize($thumb);
         } else {
             $thumb = $image_url;
 

@@ -49,7 +49,7 @@ function a_edito_show($options)
     if ('random' == $options[1]) {
         $result = $xoopsDB->queryF('SELECT COUNT(*) FROM ' . $xoopsDB->prefix($module . '_content') . ' WHERE status >= 3');
 
-        list($total) = $xoopsDB->fetchRow($result);
+        [$total] = $xoopsDB->fetchRow($result);
 
         $total = $total - 1;
 

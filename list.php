@@ -17,7 +17,7 @@ $pop_list = '';
 $readmore_list = '';
 
 $result = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . ' WHERE status > 2';
-list($totals) = $xoopsDB->fetchRow($xoopsDB->queryF($result));
+[$totals] = $xoopsDB->fetchRow($xoopsDB->queryF($result));
 
 $total_list = $totals / $xoopsModuleConfig['columns'];
 if ($totals > $xoopsModuleConfig['perpage']) {

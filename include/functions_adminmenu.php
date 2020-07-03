@@ -310,7 +310,7 @@ function edito_GetMeta($key)
     if (!$ret) {
         $value = false;
     } else {
-        list($value) = $xoopsDB->fetchRow($ret);
+        [$value] = $xoopsDB->fetchRow($ret);
     }
 
     return $value;

@@ -61,7 +61,7 @@ if ($xoopsModuleConfig['index_content']) {
 
     $result = $xoopsDB->queryF($sql);
 
-    list($numrows) = $xoopsDB->fetchRow($result);
+    [$numrows] = $xoopsDB->fetchRow($result);
 
     if ($numrows) {
         //	header ("location: content.php?id=".$xoopsModuleConfig['index_content']);
@@ -146,7 +146,7 @@ $xoopsTpl->assign('width', number_format(100 / $xoopsModuleConfig['columns'], 2,
 /*                              Count number of available pages            */
 /* ----------------------------------------------------------------------- */
 $result = $xoopsDB->queryF('SELECT COUNT(*) FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . ' WHERE status>2');
-list($numrows) = $xoopsDB->fetchRow($result);
+[$numrows] = $xoopsDB->fetchRow($result);
 
 $count = $startart;
 $time = time();
