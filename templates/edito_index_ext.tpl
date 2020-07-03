@@ -1,4 +1,4 @@
-<{include file="db:edito_head.html"}>
+<{include file="db:edito_head.tpl"}>
 
 <div class="item">
 <div class="itemHead"><{$module_name}></div>
@@ -39,4 +39,4 @@
 		</div>
 	<{/if}>
 
-<{include file="db:edito_foot.html"}>
+<{include file="db:edito_foot.tpl"}>

@@ -16,7 +16,7 @@ declare(strict_types=1);
 // Script used to display an edito's content, for example when it was too short
 // on the main page
 require_once __DIR__ . '/header.php';
-$GLOBALS['xoopsOption']['template_main'] = 'edito_content_index.html';
+$GLOBALS['xoopsOption']['template_main'] = 'edito_content_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 if (isset($_GET['id'])) {

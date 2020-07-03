@@ -29,11 +29,11 @@ require_once __DIR__ . '/admin_header.php';
 
 edito_adminmenu(-1, _AM_EDITO_NAV_HELP);
 OpenTable();
-$helpfile = XOOPS_ROOT_PATH . '/modules/edito/language/' . $xoopsConfig['language'] . '/help.html';
+$helpfile = XOOPS_ROOT_PATH . '/modules/edito/language/' . $xoopsConfig['language'] . '/help.tpl';
 if (file_exists($helpfile)) {
     require_once $helpfile;
 } else {
-    require_once XOOPS_ROOT_PATH . '/modules/edito/language/english/help.html';
+    require_once XOOPS_ROOT_PATH . '/modules/edito/language/english/help.tpl';
 }
 
 //echo $guide;

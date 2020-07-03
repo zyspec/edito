@@ -1,4 +1,4 @@
-<{include file="db:edito_head.html"}>
+<{include file="db:edito_head.tpl"}>
 
 <{if $navlink}><div style="width:160px;"><{$navlink}></div><{/if}>
 
@@ -93,7 +93,7 @@
 </div>
 <{/if}>
 
-<{include file="db:edito_foot.html"}>
+<{include file="db:edito_foot.tpl"}>
 
 <{if $infos.cancomment}>
 	<table border="0" width="100%" cellspacing="1" cellpadding="0" align="center" >
@@ -102,9 +102,9 @@
       	<div style="text-align: center; padding: 3px; margin:3px;"> <{$commentsnav}> <{$lang_notice}></div>
       	<div style="margin:3px; padding: 3px;">
 	        <!-- start comments loop -->
-        	<{if $comment_mode == "flat"}> <{include file="db:system_comments_flat.html"}>
-        	<{elseif $comment_mode == "thread"}> <{include file="db:system_comments_thread.html"}>
-        	<{elseif $comment_mode == "nest"}> <{include file="db:system_comments_nest.html"}>
+        	<{if $comment_mode == "flat"}> <{include file="db:system_comments_flat.tpl"}>
+        	<{elseif $comment_mode == "thread"}> <{include file="db:system_comments_thread.tpl"}>
+        	<{elseif $comment_mode == "nest"}> <{include file="db:system_comments_nest.tpl"}>
         	<{/if}>
         	<!-- end comments loop -->
       	</div>

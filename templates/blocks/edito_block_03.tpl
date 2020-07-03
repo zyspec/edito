@@ -1,1 +1,1 @@
-<{include file="db:edito_block_content.html"}>
+<{include file="db:edito_block_content.tpl"}>

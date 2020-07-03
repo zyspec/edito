@@ -1,4 +1,4 @@
-<{include file="db:edito_head.html"}>
+<{include file="db:edito_head.tpl"}>
 
 <{if $textindex}><div class="itemText"><{$textindex}></div><{/if}>
 
@@ -53,5 +53,5 @@
 		</div>
 	<{/if}>
 
-<{include file="db:edito_foot.html"}>
+<{include file="db:edito_foot.tpl"}>
 

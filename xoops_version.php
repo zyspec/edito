@@ -135,42 +135,42 @@ if ($xoopsModule && $xoopsModule->getVar('dirname') == $modversion['dirname']) {
 $i = 1;
 // Module blocks templates
 // Header and footer
-$modversion['templates'][$i]['file']          = 'edito_head.html';
+$modversion['templates'][$i]['file']          = 'edito_head.tpl';
 $modversion['templates'][$i++]['description'] = '';
-$modversion['templates'][$i]['file']          = 'edito_foot.html';
+$modversion['templates'][$i]['file']          = 'edito_foot.tpl';
 $modversion['templates'][$i++]['description'] = '';
 // Index templates
-$modversion['templates'][$i]['file']          = 'edito_index.html';
+$modversion['templates'][$i]['file']          = 'edito_index.tpl';
 $modversion['templates'][$i++]['description'] = '';
-$modversion['templates'][$i]['file']          = 'edito_index_ext.html';
+$modversion['templates'][$i]['file']          = 'edito_index_ext.tpl';
 $modversion['templates'][$i++]['description'] = '';
-$modversion['templates'][$i]['file']          = 'edito_index_news.html';
+$modversion['templates'][$i]['file']          = 'edito_index_news.tpl';
 $modversion['templates'][$i++]['description'] = '';
-$modversion['templates'][$i]['file']          = 'edito_index_blog.html';
+$modversion['templates'][$i]['file']          = 'edito_index_blog.tpl';
 $modversion['templates'][$i++]['description'] = '';
 // Pages templates
-$modversion['templates'][$i]['file']          = 'edito_content_index.html';
+$modversion['templates'][$i]['file']          = 'edito_content_index.tpl';
 $modversion['templates'][$i++]['description'] = '';
-$modversion['templates'][$i]['file']          = 'edito_content_item.html';
+$modversion['templates'][$i]['file']          = 'edito_content_item.tpl';
 $modversion['templates'][$i++]['description'] = '';
-$modversion['templates'][$i]['file']          = 'edito_content_html.html';
+$modversion['templates'][$i]['file']          = 'edito_content_html.tpl';
 $modversion['templates'][$i++]['description'] = '';
-$modversion['templates'][$i]['file']          = 'edito_content_php.html';
+$modversion['templates'][$i]['file']          = 'edito_content_php.tpl';
 $modversion['templates'][$i++]['description'] = '';
 // Content blocks templates
-$modversion['templates'][$i]['file']          = 'edito_block_content.html';
+$modversion['templates'][$i]['file']          = 'edito_block_content.tpl';
 $modversion['templates'][$i++]['description'] = '';
 // Menu blocks templates
-$modversion['templates'][$i]['file']          = 'edito_block_menu.html';
+$modversion['templates'][$i]['file']          = 'edito_block_menu.tpl';
 $modversion['templates'][$i++]['description'] = '';
-$modversion['templates'][$i]['file']          = 'edito_block_image.html';
+$modversion['templates'][$i]['file']          = 'edito_block_image.tpl';
 $modversion['templates'][$i++]['description'] = '';
-$modversion['templates'][$i]['file']          = 'edito_block_list.html';
+$modversion['templates'][$i]['file']          = 'edito_block_list.tpl';
 $modversion['templates'][$i++]['description'] = '';
-$modversion['templates'][$i]['file']          = 'edito_block_ext.html';
+$modversion['templates'][$i]['file']          = 'edito_block_ext.tpl';
 $modversion['templates'][$i++]['description'] = '';
 // Submit templates
-$modversion['templates'][$i]['file']          = 'edito_content_submit.html';
+$modversion['templates'][$i]['file']          = 'edito_content_submit.tpl';
 $modversion['templates'][$i++]['description'] = '';
 
 // Blocks
@@ -181,7 +181,7 @@ $modversion['blocks'][$i]['description'] = '';
 $modversion['blocks'][$i]['show_func']   = 'a_edito_show';
 $modversion['blocks'][$i]['edit_func']   = 'a_edito_edit';
 $modversion['blocks'][$i]['options']     = '512|1|1|0|';
-$modversion['blocks'][$i]['template']    = 'edito_block_01.html';
+$modversion['blocks'][$i]['template']    = 'edito_block_01.tpl';
 $i++;
 $modversion['blocks'][$i]['file']        = 'content.php';
 $modversion['blocks'][$i]['name']        = _MI_EDITO_BLOCNAME_02;
@@ -189,7 +189,7 @@ $modversion['blocks'][$i]['description'] = '';
 $modversion['blocks'][$i]['show_func']   = 'a_edito_show';
 $modversion['blocks'][$i]['edit_func']   = 'a_edito_edit';
 $modversion['blocks'][$i]['options']     = '512|random|1|0|';
-$modversion['blocks'][$i]['template']    = 'edito_block_02.html';
+$modversion['blocks'][$i]['template']    = 'edito_block_02.tpl';
 $i++;
 $modversion['blocks'][$i]['file']        = 'content.php';
 $modversion['blocks'][$i]['name']        = _MI_EDITO_BLOCNAME_03;
@@ -197,7 +197,7 @@ $modversion['blocks'][$i]['description'] = '';
 $modversion['blocks'][$i]['show_func']   = 'a_edito_show';
 $modversion['blocks'][$i]['edit_func']   = 'a_edito_edit';
 $modversion['blocks'][$i]['options']     = '512|latest|1|0|10';
-$modversion['blocks'][$i]['template']    = 'edito_block_03.html';
+$modversion['blocks'][$i]['template']    = 'edito_block_03.tpl';
 $i++;
 $modversion['blocks'][$i]['file']        = 'content.php';
 $modversion['blocks'][$i]['name']        = _MI_EDITO_BLOCNAME_04;
@@ -205,7 +205,7 @@ $modversion['blocks'][$i]['description'] = '';
 $modversion['blocks'][$i]['show_func']   = 'a_edito_show';
 $modversion['blocks'][$i]['edit_func']   = 'a_edito_edit';
 $modversion['blocks'][$i]['options']     = '512|read|1|0|';
-$modversion['blocks'][$i]['template']    = 'edito_block_04.html';
+$modversion['blocks'][$i]['template']    = 'edito_block_04.tpl';
 $i++;
 $modversion['blocks'][$i]['file']        = 'content.php';
 $modversion['blocks'][$i]['name']        = _MI_EDITO_BLOCNAME_05;
@@ -213,7 +213,7 @@ $modversion['blocks'][$i]['description'] = '';
 $modversion['blocks'][$i]['show_func']   = 'a_edito_menu_show';
 $modversion['blocks'][$i]['edit_func']   = 'a_edito_menu_edit';
 $modversion['blocks'][$i]['options']     = 'menu|120-120|1|subject ASC|6';
-$modversion['blocks'][$i]['template']    = 'edito_menu_block_01.html';
+$modversion['blocks'][$i]['template']    = 'edito_menu_block_01.tpl';
 $i++;
 $modversion['blocks'][$i]['file']        = 'content.php';
 $modversion['blocks'][$i]['name']        = _MI_EDITO_BLOCNAME_06;
@@ -221,7 +221,7 @@ $modversion['blocks'][$i]['description'] = '';
 $modversion['blocks'][$i]['show_func']   = 'a_edito_menu_show';
 $modversion['blocks'][$i]['edit_func']   = 'a_edito_menu_edit';
 $modversion['blocks'][$i]['options']     = 'menu|120-120|1|subject ASC|6';
-$modversion['blocks'][$i]['template']    = 'edito_menu_block_02.html';
+$modversion['blocks'][$i]['template']    = 'edito_menu_block_02.tpl';
 
 // Search
 $modversion['hasSearch']      = 1;

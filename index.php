@@ -30,19 +30,19 @@ require_once __DIR__ . '/header.php';
 /*                              Select template                            */
 /* ----------------------------------------------------------------------- */
 if ('table' == $xoopsModuleConfig['index_display']) {
-    $GLOBALS['xoopsOption']['template_main'] = 'edito_index_ext.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'edito_index_ext.tpl';
 
     $align = 'center';
 } elseif ('image' == $xoopsModuleConfig['index_display']) {
-    $GLOBALS['xoopsOption']['template_main'] = 'edito_index.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'edito_index.tpl';
 
     $align = 'center';
 } elseif ('news' == $xoopsModuleConfig['index_display']) {
-    $GLOBALS['xoopsOption']['template_main'] = 'edito_index_news.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'edito_index_news.tpl';
 
     $align = 'left';
 } elseif ('blog' == $xoopsModuleConfig['index_display']) {
-    $GLOBALS['xoopsOption']['template_main'] = 'edito_index_blog.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'edito_index_blog.tpl';
 
     $align = 'left';
 }
