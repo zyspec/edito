@@ -328,7 +328,9 @@ function edito_create_dir($directory = 'config')
         edito_admin_chmod($thePath, $mode = 0777);
 
         return $thePath;
-    } elseif (!@is_dir($thePath)) {
+    }
+
+    if (!@is_dir($thePath)) {
         edito_admin_mkdir($thePath);
 
         return $thePath;
