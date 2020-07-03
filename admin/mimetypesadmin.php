@@ -124,7 +124,7 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
     if ('saveall' == $op) {
         $mimetypesHandler = xoops_getHandler('mimetypes_perms');
 
-        $mperm_ids = ($_REQUEST['mperm_id']) ? ($_REQUEST['mperm_id']) : [];
+        $mperm_ids = ($_REQUEST['mperm_id']) ?: [];
 
         foreach ($mperm_ids as $mperm_id => $value) {
             $mperm_mime = $_REQUEST['mperm_mime'][$mperm_id];

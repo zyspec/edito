@@ -393,7 +393,7 @@ function settings_sub_menu_list()
                            <font color="red">*</font>
                            </span>';
 
-             $title = $NAME ? $NAME : $ALT_NAME;
+             $title = $NAME ?: $ALT_NAME;
 
              $description = $NAME_DESC ? '" title="' . $NAME_DESC . '"' : '';
 
