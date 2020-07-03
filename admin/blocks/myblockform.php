@@ -162,7 +162,7 @@ function check_browser_can_use_spaw()
             if ((float)$version[0] >= 5.5) {
                 // finally check if it's not opera impersonating ie
 
-                if (!eregi('opera', $browser)) {
+                if (!preg_match('/opera/i', $browser)) {
                     return true;
                 }
             }
