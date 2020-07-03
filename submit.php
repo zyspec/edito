@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -12,7 +12,6 @@
 /**
  * Module: Edito
  *
- * @package   \XoopsModules\Edito
  * @copyright Copyright {@link https://xoops.org XOOPS Project}
  * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @author    Solo (http://www.wolfpackclan.com/wolfactory)
@@ -27,34 +26,47 @@ use Xmf\Request;
 // on the main page
 require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'edito_content_submit.html';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 $group = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS];
 // $groups = explode(" ",$xoopsModuleConfig['submit_groups']);
 if (count(array_intersect($group, $GLOBALS['xoopsModuleConfig']['submit_groups'])) <= 0) {
-	redirect_header('index.php', 2, _NOPERM);
+    redirect_header('index.php', 2, _NOPERM);
 }
 
 if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
-    $subject     = Request::getString('subject', '', 'POST');
-    $media       = Request::getUrl('media', '', 'POST');
-    $description = Request::getString('description', '', 'POST');
-    $groups      = (is_array($GLOBALS['xoopsModuleConfig']['groups'])) ? implode(' ', $GLOBALS['xoopsModuleConfig']['groups']) : '';
-	$html        = 1; // allow HTML
-	$xcode       = 1; // allow xcode
-	$smiley      = 1; // allow smilies
-    $logo        = $GLOBALS['xoopsModuleConfig']['option_logo'];
-	$block       = $GLOBALS['xoopsModuleConfig']['option_block'];
-	$title       = $GLOBALS['xoopsModuleConfig']['option_title'];
- 	$cancomment  = $GLOBALS['xoopsModuleConfig']['cancomment'];
-    $options     = $html . '|' . $xcode . '|' . $smiley . '|' . $logo . '|' . $block . '|' . $title . '|' . $cancomment;
-    $meta        = '|||';
-    $uid         = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->uid() : 0;
-    $datesub     = time();
-    $media       = edito_function_checkurl($media);
-    $media       = '|' . $media . '|';
+    $subject = Request::getString('subject', '', 'POST');
 
-    if ($GLOBALS['xoopsDB']->queryF("INSERT INTO " . $GLOBALS['xoopsDB']->prefix('edito_content') .
+    $media = Request::getUrl('media', '', 'POST');
+
+    $description = Request::getString('description', '', 'POST');
+
+    $groups = (is_array($GLOBALS['xoopsModuleConfig']['groups'])) ? implode(' ', $GLOBALS['xoopsModuleConfig']['groups']) : '';
+
+    $html = 1; // allow HTML
+    $xcode = 1; // allow xcode
+    $smiley = 1; // allow smilies
+    $logo = $GLOBALS['xoopsModuleConfig']['option_logo'];
+
+    $block = $GLOBALS['xoopsModuleConfig']['option_block'];
+
+    $title = $GLOBALS['xoopsModuleConfig']['option_title'];
+
+    $cancomment = $GLOBALS['xoopsModuleConfig']['cancomment'];
+
+    $options = $html . '|' . $xcode . '|' . $smiley . '|' . $logo . '|' . $block . '|' . $title . '|' . $cancomment;
+
+    $meta = '|||';
+
+    $uid = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->uid() : 0;
+
+    $datesub = time();
+
+    $media = edito_function_checkurl($media);
+
+    $media = '|' . $media . '|';
+
+    if ($GLOBALS['xoopsDB']->queryF('INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('edito_content') .
         " (id,
            uid,
            datesub,
@@ -76,14 +88,13 @@ if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
                   '$media',
                   '$meta',
                   '$groups',
-                  '$options')"))
-    {
-    	$redirect = _MD_EDITO_THANKS_SUBMIT;
+                  '$options')")) {
+        $redirect = _MD_EDITO_THANKS_SUBMIT;
     } else {
         $redirect = _MD_EDITO_THANKS_NOSUBMIT;
     }
 
-	redirect_header('submit.php', 2, $redirect);
+    redirect_header('submit.php', 2, $redirect);
 }
 /* ----------------------------------------------------------------------- */
 /*                              Display banner on pages                    */
@@ -91,7 +102,7 @@ if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
 
 // Module Banner
 if (preg_match('/.swf/i', $GLOBALS['xoopsModuleConfig']['index_logo'])) {
-	$banner = '<object
+    $banner = '<object
 			   classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
                codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/ swflash.cab#version=6,0,40,0" ;=""
                height="60"
@@ -107,34 +118,34 @@ if (preg_match('/.swf/i', $GLOBALS['xoopsModuleConfig']['index_logo'])) {
                width="468">
                </object>';
 } elseif ($GLOBALS['xoopsModuleConfig']['index_logo']) {
-	$banner = edito_createlink(XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->dirname(), '', '', $xoopsModuleConfig['index_logo'], 'center', '800', '600', $xoopsModule -> getVar( 'name' ).' '. $GLOBALS['xoopsModuleConfig']['moduleMetaDescription'], $GLOBALS['xoopsModuleConfig']['url_rewriting']);
+    $banner = edito_createlink(XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->dirname(), '', '', $xoopsModuleConfig['index_logo'], 'center', '800', '600', $xoopsModule->getVar('name') . ' ' . $GLOBALS['xoopsModuleConfig']['moduleMetaDescription'], $GLOBALS['xoopsModuleConfig']['url_rewriting']);
 } else {
-	$banner = '';
+    $banner = '';
 }
 $GLOBALS['xoopsTpl']->assign('banner', $banner);
 
 /* ----------------------------------------------------------------------- */
 /*                              Render  variables                          */
 /* ----------------------------------------------------------------------- */
-$GLOBALS['xoopsTpl']->assign('submit',  _MD_EDITO_SUBMIT);
-$GLOBALS['xoopsTpl']->assign('submitext',  _MD_EDITO_SUBMITEXT);
+$GLOBALS['xoopsTpl']->assign('submit', _MD_EDITO_SUBMIT);
+$GLOBALS['xoopsTpl']->assign('submitext', _MD_EDITO_SUBMITEXT);
 $GLOBALS['xoopsTpl']->assign('subject', _MD_EDITO_SUBJECT);
-$GLOBALS['xoopsTpl']->assign('media',   _MD_EDITO_MEDIA);
-$GLOBALS['xoopsTpl']->assign('text',    _MD_EDITO_TEXT);
-$GLOBALS['xoopsTpl']->assign('footer',  $myts->displayTarea($xoopsModuleConfig['footer'], 1));
+$GLOBALS['xoopsTpl']->assign('media', _MD_EDITO_MEDIA);
+$GLOBALS['xoopsTpl']->assign('text', _MD_EDITO_TEXT);
+$GLOBALS['xoopsTpl']->assign('footer', $myts->displayTarea($xoopsModuleConfig['footer'], 1));
 
 /* ----------------------------------------------------------------------- */
 /*                             Admin links                                 */
 /* ----------------------------------------------------------------------- */
 $adminlinks = ''; //init administration links
 if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid())) {
-	$adminlinks = "<a href='admin/content.php' title='" . _MD_EDITO_ADD . "'>
+    $adminlinks = "<a href='admin/content.php' title='" . _MD_EDITO_ADD . "'>
     			 <img src='assets/images/icon/add.gif' alt='" . _MD_EDITO_ADD . "'></a> |
                  <a href='admin/index.php' title='" . _MD_EDITO_LIST . "'>
                  <img src='assets/images/icon/list.gif' alt='" . _MD_EDITO_LIST . "'></a> |
                  <a href='admin/utils_uploader.php' title='" . _MD_EDITO_UTILITIES . "'>
                  <img src='assets/images/icon/utilities.gif' alt='" . _MD_EDITO_UTILITIES . "'></a> |
-                 <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid'). "' title='"._MD_EDITO_SETTINGS."'>
+                 <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid') . "' title='" . _MD_EDITO_SETTINGS . "'>
                  <img src='assets/images/icon/settings.gif' alt='" . _MD_EDITO_SETTINGS . "'></a> |
                  <a href='admin/myblocksadmin.php' title='" . _MD_EDITO_BLOCKS . "'>
                  <img src='assets/images/icon/blocks.gif' alt='" . _MD_EDITO_BLOCKS . "'></a> |

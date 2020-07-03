@@ -4,7 +4,7 @@
 <div class="itemHead"><{$module_name}></div>
 <{if $textindex}><div class="itemText"><{$textindex}></div><{/if}>
 <{if $pagenav}>
-	<div style="align:left;width:160px;"><{$page}> <{$pagenav}></div><br />
+	<div style="align:left;width:160px;"><{$page}> <{$pagenav}></div><br>
 <{/if}>
 <table cellpadding="2" cellspacing="2" border="0">
 <tr>
@@ -23,11 +23,11 @@
 </tr>
 </table>
 <{if $pagenav}>
-	<div style="align:left;width:160px;"><{$page}> <{$pagenav}></div><br />
+	<div style="align:left;width:160px;"><{$page}> <{$pagenav}></div><br>
 <{/if}>
 </div>
 
-	<{if $adminlink}><p />
+	<{if $adminlink}><p>
 		<div class="item">
 		<div class="itemFoot"><{$adminlink}></div>
 		</div>

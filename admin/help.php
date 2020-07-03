@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -12,7 +12,6 @@
 /**
  * Module: Edito
  *
- * @package   \XoopsModules\Edito
  * @copyright Copyright {@link https://xoops.org XOOPS Project}
  * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @author    Solo (http://www.wolfpackclan.com/wolfactory)
@@ -20,7 +19,6 @@
  * @author    XOOPS Module Development Team
  * @link      https://github.com/XoopsModules25x/edito
  */
-
 require_once __DIR__ . '/admin_header.php';
 
 //$guide = _AM_MYREFERER_GUIDE;
@@ -29,10 +27,10 @@ require_once __DIR__ . '/admin_header.php';
 edito_adminmenu(-1, _AM_EDITO_NAV_HELP);
 OpenTable();
 $helpfile = XOOPS_ROOT_PATH . '/modules/edito/language/' . $xoopsConfig['language'] . '/help.html';
-if ( file_exists($helpfile) ) {
-	include_once ( $helpfile );
+if (file_exists($helpfile)) {
+    require_once $helpfile;
 } else {
-	include_once ( XOOPS_ROOT_PATH . '/modules/edito/language/english/help.html' );
+    require_once XOOPS_ROOT_PATH . '/modules/edito/language/english/help.html';
 }
 
 //echo $guide;

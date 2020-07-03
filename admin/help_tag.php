@@ -1,33 +1,30 @@
-<?php
+<?php declare(strict_types=1);
 /**
-* XOOPS - PHP Content Management System
-* Copyright (c) 2004 <http://www.xoops.org/>
-*
-* Module: edito 3.0
-* Licence : GPL
-* Authors :
-*           - solo (http://www.wolfpackclan.com/wolfactory)
-*			- DuGris (http://www.dugris.info)
-*/
-
-include_once( "admin_header.php" );
+ * XOOPS - PHP Content Management System
+ * Copyright (c) 2004 <https://www.xoops.org>
+ *
+ * Module: edito 3.0
+ * Licence : GPL
+ * Authors :
+ *           - solo (http://www.wolfpackclan.com/wolfactory)
+ *			- DuGris (http://www.dugris.info)
+ */
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 $module_id = $xoopsModule->getVar('mid');
 
-include_once ("../include/nav.php");
-include_once ("../include/tagreplace.php");
-
-
+require_once dirname(__DIR__) . '/include/nav.php';
+require_once dirname(__DIR__) . '/include/tagreplace.php';
 
 $help = "<p align='center'><strong><font size='5'>Tag List </font>
 </strong></p>
-<br /><strong><u>GENERAL</u>
+<br><strong><u>GENERAL</u>
 </strong>
-<p />Edito allows you to use tags to replace your xoops site constant values.<p />
+<p>Edito allows you to use tags to replace your xoops site constant values.<p>
 <strong><u>TAGS SAMPLE</u>
 </strong>
-<p />
+<p>
 
 <table align='center'>
 <tr>
@@ -49,7 +46,7 @@ $help = "<p align='center'><strong><font size='5'>Tag List </font>
 <td>[ uid ] </td><td>[uid]</td>
 </tr>
 <tr>
-<td>[ coding ] This is a sample [ /coding ] </td><td> [coding]This is a sample[/coding]<br /></td>
+<td>[ coding ] This is a sample [ /coding ] </td><td> [coding]This is a sample[/coding]<br></td>
 </tr>
 <tr>
 <td>[ meta_keywords ] </td><td>[meta_keywords]</td>
@@ -66,14 +63,14 @@ $help = "<p align='center'><strong><font size='5'>Tag List </font>
 <tr>
 <td>[ footer ] </td><td>[footer]</td>
 </tr>
-</table><p />
+</table><p>
 
-<p />*Remove spaces in the tags to make it effectives...<p />
-<p />
+<p>*Remove spaces in the tags to make it effectives...<p>
+<p>
 <strong><u>DEFAULT TAG LIST</u>
 </strong>
-<p />
-The complete list of usable tags of the website config is as following : <p />
+<p>
+The complete list of usable tags of the website config is as following : <p>
 <table border='1'><tr>
 <td>	sitename	</td>		<td>	[sitename]	</td>
 <td>	slogan	</td>		<td>	[slogan]	</td>	</tr><tr border='1'>

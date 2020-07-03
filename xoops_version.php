@@ -22,7 +22,7 @@
  */
 
 global $xoopsDB, $xoopsUser, $xoopsModule, $xoopsModuleConfig;
-include_once (XOOPS_ROOT_PATH . "/modules/edito/include/functions_block.php");
+require_once XOOPS_ROOT_PATH . "/modules/edito/include/functions_block.php";
 
 $moduleDirName                = basename(__DIR__);
 
@@ -72,54 +72,59 @@ $modversion['search']['func'] = "edito_search";
 
 //Menu
 $modversion['hasMain'] = 1;
-if ($xoopsModule && $xoopsModule -> getVar( 'dirname' ) == $modversion['dirname']) {
-include_once XOOPS_ROOT_PATH . '/modules/edito/include/functions_content.php';
-$group = is_object($xoopsUser) ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
-$i = 0;
+if ($xoopsModule && $xoopsModule -> getVar('dirname') == $modversion['dirname']) {
+    require_once XOOPS_ROOT_PATH . '/modules/edito/include/functions_content.php';
+    $group = is_object($xoopsUser) ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
+    $i = 0;
 
-// Menu admin links
-if (@defined('_MD_EDITO_ADD')) {
-    if (count(array_intersect($group, $xoopsModuleConfig['submit_groups'])) > 0) {
- 		$modversion['sub'][$i]['name'] = "<img src='assets/images/icon/submit.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_SUBMIT . "' />&nbsp;<i>" . _MD_EDITO_SUBMIT . "</i></img>";
-		$modversion['sub'][$i++]['url'] = 'submit.php';
+    // Menu admin links
+    if (@defined('_MD_EDITO_ADD')) {
+        if (count(array_intersect($group, $xoopsModuleConfig['submit_groups'])) > 0) {
+            $modversion['sub'][$i]['name'] = "<img src='assets/images/icon/submit.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_SUBMIT . "'>&nbsp;<i>" . _MD_EDITO_SUBMIT . "</i></img>";
+            $modversion['sub'][$i++]['url'] = 'submit.php';
+        }
+
+        if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
+            $modversion['sub'][$i]['name']  = "<img src='assets/images/icon/add.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_ADD . "'>&nbsp;<i>" . _MD_EDITO_ADD . "</i></img>";
+            $modversion['sub'][$i++]['url'] = 'admin/content.php';
+            $modversion['sub'][$i]['name']  = "<img src='assets/images/icon/list.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_LIST . "'>&nbsp;<i>" . _MD_EDITO_LIST . "</i></img>";
+            $modversion['sub'][$i++]['url'] = 'admin/index.php';
+            $modversion['sub'][$i]['name']  = "<img src='assets/images/icon/utilities.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_UTILITIES . "'>&nbsp;<i>" . _MD_EDITO_UTILITIES . "</i></img>";
+            $modversion['sub'][$i++]['url'] = 'admin/utils_uploader.php';
+            $modversion['sub'][$i]['name']  = "<img src='assets/images/icon/settings.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_SETTINGS . "'>&nbsp;<i>" . _MD_EDITO_SETTINGS . "</i></img>";
+            $modversion['sub'][$i++]['url'] = '../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=' . $xoopsModule->getVar('mid');
+            $modversion['sub'][$i]['name']  = "<img src='assets/images/icon/blocks.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_BLOCKS . "'>&nbsp;<i>" . _MD_EDITO_BLOCKS . "</i></img>";
+            $modversion['sub'][$i++]['url'] = 'admin/blocks.php';
+        }
     }
 
-	if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
- 		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/add.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_ADD . "'>&nbsp;<i>" . _MD_EDITO_ADD . "</i></img>";
-		$modversion['sub'][$i++]['url'] = 'admin/content.php';
-		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/list.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_LIST . "'>&nbsp;<i>" . _MD_EDITO_LIST . "</i></img>";
-		$modversion['sub'][$i++]['url'] = 'admin/index.php';
-		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/utilities.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_UTILITIES . "'>&nbsp;<i>" . _MD_EDITO_UTILITIES . "</i></img>";
-		$modversion['sub'][$i++]['url'] = 'admin/utils_uploader.php';
-        $modversion['sub'][$i]['name']  = "<img src='assets/images/icon/settings.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_SETTINGS . "'>&nbsp;<i>" . _MD_EDITO_SETTINGS . "</i></img>";
-		$modversion['sub'][$i++]['url'] = '../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=' . $xoopsModule->getVar('mid');
-		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/blocks.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_BLOCKS . "'>&nbsp;<i>" . _MD_EDITO_BLOCKS . "</i></img>";
-		$modversion['sub'][$i++]['url'] = 'admin/blocks.php';
-	}
-}
-
     // Display menu pages list
-	// Start comment here to not display pages'list
-$sql = "SELECT id, subject, meta, groups FROM ".$xoopsDB->prefix($modversion['dirname'] . "_content")."
+    // Start comment here to not display pages'list
+    $sql = "SELECT id, subject, meta, groups FROM ".$xoopsDB->prefix($modversion['dirname'] . "_content")."
           WHERE status >= 3 ORDER BY " . edito_getmoduleoption('order');
 
-$result = $xoopsDB->queryF($sql, edito_getmoduleoption('perpage'), 0 ) ;
+    $result = $xoopsDB->queryF($sql, edito_getmoduleoption('perpage'), 0) ;
 
-//	$group = is_object($xoopsUser) ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
-	while (list($id, $subject, $meta, $groups) = $xoopsDB->fetchRow($result)) {
-		$groups = explode(' ', $groups);
-		if (count(array_intersect($group, $groups))) {
+    //	$group = is_object($xoopsUser) ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
+    while (list($id, $subject, $meta, $groups) = $xoopsDB->fetchRow($result)) {
+        $groups = explode(' ', $groups);
+        if (count(array_intersect($group, $groups))) {
             $meta = explode("|", $meta);
-            $meta_title       =  $meta[0];
-            $meta_description =  $meta[1];
+            $meta_title       = $meta[0];
+            $meta_description = $meta[1];
 
             $link = edito_createlink('content.php?id='.$id, $subject, '', '', '', '', '', $meta_title, $xoopsModuleConfig['url_rewriting']);
-            $link = explode('"', $link); if( $link[1] ) { $link = $link[1]; } else { $link = 'content.php?id='.$id; }
-			$modversion['sub'][$i]['name'] = $subject ;
-			$modversion['sub'][$i++]['url'] = $link ;
-		} // Groups
-	} // While
-	// End comment here to not display pages'list
+            $link = explode('"', $link);
+            if ($link[1]) {
+                $link = $link[1];
+            } else {
+                $link = 'content.php?id='.$id;
+            }
+            $modversion['sub'][$i]['name'] = $subject ;
+            $modversion['sub'][$i++]['url'] = $link ;
+        } // Groups
+    } // While
+    // End comment here to not display pages'list
 }  // Active module
 
 // Templates
@@ -168,7 +173,7 @@ $modversion['templates'][$i++]['description'] = "";
 $i = 1;
 $modversion['blocks'][$i]['file'] = "content.php";
 $modversion['blocks'][$i]['name'] = _MI_EDITO_BLOCNAME_01;
-$modversion['blocks'][$i]['description'] ="";
+$modversion['blocks'][$i]['description'] = "";
 $modversion['blocks'][$i]['show_func'] = 'a_edito_show';
 $modversion['blocks'][$i]['edit_func'] = 'a_edito_edit';
 $modversion['blocks'][$i]['options'] = '512|1|1|0|';
@@ -259,7 +264,7 @@ $modversion['config'][$i]['options'] = [
     '_MI_EDITO_INDEX_DISP_IMAGE' => 'image',
     '_MI_EDITO_INDEX_DISP_TABLE' => 'table',
     '_MI_EDITO_INDEX_DISP_BLOG'  => 'blog',
-    '_MI_EDITO_INDEX_DISP_NEWS'  =>  'news'
+    '_MI_EDITO_INDEX_DISP_NEWS'  => 'news',
 ];
 $i++;
 $modversion['config'][$i]['name'] = 'columns';
@@ -273,7 +278,7 @@ $modversion['config'][$i]['options'] = [
     '2' => 2,
     '3' => 3,
     '4' => 4,
-    '5' => 5
+    '5' => 5,
 ];
 $i++;
 $modversion['config'][$i]['name'] = 'order';
@@ -301,7 +306,7 @@ $modversion['config'][$i]['options'] = [
     '20' => 20,
     '26' => 26,
     '30' => 30,
-    '50' => 50
+    '50' => 50,
 ];
 $i++;
 $modversion['config'][$i]['name'] = 'logo_size';
@@ -367,29 +372,29 @@ $modversion['config'][$i]['formtype'] = 'yesno';
 $modversion['config'][$i]['valuetype'] = 'int';
 $modversion['config'][$i]['default'] = 0;
 
-if ( $xoopsModule && $xoopsModule -> getVar( 'dirname' ) == 'system' ) {
-	$member_handler = xoops_gethandler('member');
-	$xoopsgroups    = $member_handler->getGroupList();
-	foreach ($xoopsgroups as $key=>$group) {
-		$groups[$group] = $key;
-	}
-	$def_group[1] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'groups';
-$modversion['config'][$i]['title'] = '_MI_EDITO_OPT_GRPS';
-$modversion['config'][$i]['description'] = '_MI_EDITO_OPT_GRPSDSC';
-$modversion['config'][$i]['formtype'] = 'select_multi';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['options'] = $groups;
-$modversion['config'][$i]['default'] = $groups;
-$i++;
-$modversion['config'][$i]['name'] = 'submit_groups';
-$modversion['config'][$i]['title'] = '_MI_EDITO_SUB_GRPS';
-$modversion['config'][$i]['description'] = '_MI_EDITO_SUB_GRPSDSC';
-$modversion['config'][$i]['formtype'] = 'select_multi';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['options'] = $groups;
-$modversion['config'][$i]['default'] = $def_group;
+if ($xoopsModule && $xoopsModule -> getVar('dirname') == 'system') {
+    $memberHandler = xoops_getHandler('member');
+    $xoopsgroups    = $memberHandler->getGroupList();
+    foreach ($xoopsgroups as $key => $group) {
+        $groups[$group] = $key;
+    }
+    $def_group[1] = 1;
+    $i++;
+    $modversion['config'][$i]['name'] = 'groups';
+    $modversion['config'][$i]['title'] = '_MI_EDITO_OPT_GRPS';
+    $modversion['config'][$i]['description'] = '_MI_EDITO_OPT_GRPSDSC';
+    $modversion['config'][$i]['formtype'] = 'select_multi';
+    $modversion['config'][$i]['valuetype'] = 'array';
+    $modversion['config'][$i]['options'] = $groups;
+    $modversion['config'][$i]['default'] = $groups;
+    $i++;
+    $modversion['config'][$i]['name'] = 'submit_groups';
+    $modversion['config'][$i]['title'] = '_MI_EDITO_SUB_GRPS';
+    $modversion['config'][$i]['description'] = '_MI_EDITO_SUB_GRPSDSC';
+    $modversion['config'][$i]['formtype'] = 'select_multi';
+    $modversion['config'][$i]['valuetype'] = 'array';
+    $modversion['config'][$i]['options'] = $groups;
+    $modversion['config'][$i]['default'] = $def_group;
 }
 $i++;
 $modversion['config'][$i]['name'] = 'option_block';
@@ -430,7 +435,7 @@ $modversion['config'][$i] = [
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'options'     => XoopsLists::getDirListAsArray($GLOBALS['xoops']->path('/class/xoopseditor')),
-    'default'     => 'dhtmltextarea'
+    'default'     => 'dhtmltextarea',
 ];
 /*
 $modversion['config'][$i]['name'] = 'wysiwyg';
@@ -442,12 +447,12 @@ $modversion['config'][$i]['default'] = 'dhtml';
 $modversion['config'][$i]['options'] = [
     _MI_EDITO_FORM_DHTML       => 'dhtml',
     _MI_EDITO_FORM_COMPACT     => 'textarea',
-	_MI_EDITO_FORM_SPAW        => 'spaw',
-	_MI_EDITO_FORM_HTMLAREA    => 'htmlarea',
-	_MI_EDITO_FORM_KOIVI       => 'koivi',
-	_MI_EDITO_FORM_FCK         => 'fck',
-	_MI_EDITO_FORM_INBETWEEN   => 'inbetween',
-	_MI_EDITO_FORM_TINYEDITOR  => 'tinyeditor'
+    _MI_EDITO_FORM_SPAW        => 'spaw',
+    _MI_EDITO_FORM_HTMLAREA    => 'htmlarea',
+    _MI_EDITO_FORM_KOIVI       => 'koivi',
+    _MI_EDITO_FORM_FCK         => 'fck',
+    _MI_EDITO_FORM_INBETWEEN   => 'inbetween',
+    _MI_EDITO_FORM_TINYEDITOR  => 'tinyeditor'
 ];
 */
 $i++;
@@ -515,7 +520,7 @@ $modversion['config'][$i]['options'] = [
     '_MI_EDITO_NAV_LINKS_NONE'  => 'none',
     '_MI_EDITO_NAV_LINKS_BLOCK' => 'bloc',
     '_MI_EDITO_NAV_LINKS_LIST'  => 'list',
-    '_MI_EDITO_NAV_LINKS_PATH'  => 'path'
+    '_MI_EDITO_NAV_LINKS_PATH'  => 'path',
 ];
 $i++;
 $modversion['config'][$i]['name'] = 'url_rewriting';
@@ -528,7 +533,7 @@ $modversion['config'][$i]['options'] = [
     '_MI_EDITO_URW_NONE'  => '0',
     '_MI_EDITO_URW_MIN_3' => '3',
     '_MI_EDITO_URW_MIN_5' => '5',
-    '_MI_EDITO_URW_ALL'   => '1'
+    '_MI_EDITO_URW_ALL'   => '1',
 ];
 $i++;
 $modversion['config'][$i]['name'] = 'media_display';
@@ -540,7 +545,7 @@ $modversion['config'][$i]['default'] = 'both';
 $modversion['config'][$i]['options'] = [
     '_MI_EDITO_MEDIA_POPUP' => 'popup',
     '_MI_EDITO_MEDIA_PAGE'  => 'page',
-    '_MI_EDITO_MEDIA_BOTH'  => 'both'
+    '_MI_EDITO_MEDIA_BOTH'  => 'both',
 ];
 $i++;
 $modversion['config'][$i]['name'] = 'custom';
@@ -578,7 +583,7 @@ $modversion['config'][$i]['options'] = [
     '_MI_EDITO_SIZE_TVBIG'    => 'tv_big',
     '_MI_EDITO_SIZE_MVSMALL'  => 'mv_small',
     '_MI_EDITO_SIZE_MVMEDIUM' => 'mv_medium',
-    '_MI_EDITO_SIZE_MVBIG'    => 'mv_big'
+    '_MI_EDITO_SIZE_MVBIG'    => 'mv_big',
 ];
 
 // Comments
@@ -731,6 +736,6 @@ $modversion['mimetypes'][15]['mperm_maxwidth']	= 320;
 $modversion['mimetypes'][15]['mperm_maxheight']	= 240;
 $modversion['mimetypes'][15]['mperm_maxsize']	= 500000;
 
-if( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
-	include __DIR__ . "/include/onupdate.inc.php" ;
+if (! empty($_POST['fct']) && ! empty($_POST['op']) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname']) {
+    require __DIR__ . "/include/onupdate.inc.php" ;
 }

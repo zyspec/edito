@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -12,7 +12,6 @@
 /**
  * Module: Edito
  *
- * @package   \XoopsModules\Edito
  * @copyright Copyright {@link https://xoops.org XOOPS Project}
  * @license   https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @author    Solo (http://www.wolfpackclan.com/wolfactory)
@@ -20,7 +19,6 @@
  * @author    XOOPS Module Development Team
  * @link      https://github.com/XoopsModules25x/edito
  */
-
 require_once dirname(__DIR__, 3) . '/mainfile.php';
 require_once XOOPS_ROOT_PATH . '/include/cp_header.php';
 require_once XOOPS_ROOT_PATH . '/include/functions.php';
@@ -33,18 +31,22 @@ $moduleDirName = basename(__DIR__);
 
 require_once dirname(__DIR__) . '/include/functions_edito.php';
 
-if ( file_exists(XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->getVar('dirname').'/language/' . $xoopsConfig['language'] . '/common.php') ) {
-	include_once(XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->getVar('dirname').'/language/' . $xoopsConfig['language'] . '/common.php');
-	include_once(XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->getVar('dirname').'/language/' . $xoopsConfig['language'] . '/modinfo.php');
-	include_once(XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->getVar('dirname').'/language/' . $xoopsConfig['language'] . '/main.php');
+if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/common.php')) {
+    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/common.php';
+
+    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
+
+    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/main.php';
 } else {
-	include_once(XOOPS_ROOT_PATH .'/modules/'.$xoopsModule->getVar('dirname').'/language/english/common.php');
-	include_once(XOOPS_ROOT_PATH .'/modules/'.$xoopsModule->getVar('dirname').'/language/english/modinfo.php');
-	include_once(XOOPS_ROOT_PATH . '/modules/'.$xoopsModule->getVar('dirname').'/language/english/main.php');
+    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/english/common.php';
+
+    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/english/modinfo.php';
+
+    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/english/main.php';
 }
 
-if ('index.php' == basename($_SERVER["PHP_SELF"])) {
-	edito_UpdatedModule();
+if ('index.php' == basename($_SERVER['PHP_SELF'])) {
+    edito_UpdatedModule();
 }
 
 xoops_cp_header();
