@@ -54,7 +54,7 @@ function edito_media($media_url, $thumb, $media_size, $options, $description, $c
         $media = edito_media_flv($media_url, $thumb, $media_size, $options, $description);
     } elseif ('mov' == $ext) {
         $media = edito_media_mov($media_url, $thumb, $media_size, $options, $description);
-    } elseif ('avi' == $ext || 'mpg' == $ext || 'mpeg' == $ext || 'wmv' == $ext || preg_match('/asx/i', $ext) || $is_mpeg) {
+    } elseif ('avi' == $ext || 'mpg' == $ext || 'mpeg' == $ext || 'wmv' == $ext || false !== stripos($ext, "asx") || $is_mpeg) {
         $media = edito_media_mpg($media_url, $thumb, $media_size, $options, $description);
     } elseif ('ram' == $ext || 'rm' == $ext) {
         $media = edito_media_ram($media_url, $thumb, $media_size, $options, $description);

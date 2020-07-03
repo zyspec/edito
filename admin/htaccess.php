@@ -165,7 +165,7 @@ RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?" . $domain . '/.*$ [NC]';
 
             $domain = explode('/', $domain);
 
-            $domain = preg_replace('/\./', '\\.', $domain[0]);
+            $domain = str_replace(".", '\\.', $domain[0]);
 
             $code .= "
 RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?" . $domain . '/.*$ [NC]
@@ -230,7 +230,7 @@ RewriteCond %{HTTP_REFERER} !^http://(www\.)?" . $domain . '/.*$ [NC]';
 
             $domain = explode('/', $domain);
 
-            $domain = preg_replace('/\./', '\\.', $domain[0]);
+            $domain = str_replace(".", '\\.', $domain[0]);
 
             $code .= "
 RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?" . $domain . '/.*$ [NC]

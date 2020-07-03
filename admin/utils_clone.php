@@ -180,9 +180,9 @@ switch ($op) {
         $module = $xoopsModule->dirname();
 
         if ($clone) {
-            $CLONE = mb_strtoupper(preg_replace('/-/', '_', $clone));
+            $CLONE = mb_strtoupper(str_replace("-", '_', $clone));
 
-            $clone = mb_strtolower(preg_replace('/-/', '_', $clone));
+            $clone = mb_strtolower(str_replace("-", '_', $clone));
 
             $Clone = ucfirst($clone_orig);
 

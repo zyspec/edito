@@ -13,7 +13,7 @@ $id = $_POST['id'] ?? $_GET['id'] ?? '';
 $op = $_POST['op'] ?? $_GET['op'] ?? '';
 $i = 0;
 
-if (preg_match('/_ok/', $op)) {
+if (false !== strpos($op, "_ok")) {
     //if (ereg('_ok', $op) ) {
 
     $adminmenu[$i]['title'] = _MI_EDITO_GOTO_INDEX;

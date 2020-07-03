@@ -201,16 +201,17 @@ function edito_checkformat($url, $custom_media = '')
     }
 
     if ('avi' == $format || 'wmv' == $format || 'mpg' == $format || 'mpeg' == $format
-         || preg_match('/asx/i', $format) || $is_mpeg
+        || false !== stripos($format, "asx")
+        || $is_mpeg
          || 'mp3' == $format || 'wav' == $format || 'mid' == $format) {
         $formats[1] = 'wmp';
     }
 
-    if (preg_match('/asx/i', $format)) {
+    if (false !== stripos($format, "asx")) {
         $formats[0] = 'asx';
     }
 
-    if (preg_match('/php/i', $format)) {
+    if (false !== stripos($format, "php")) {
         $formats[0] = 'php';
     }
 

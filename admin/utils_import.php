@@ -116,8 +116,8 @@ switch ($op) {
 
         $replacements[] = "VALUES ('', ";
     }
-    if ($topic && preg_match('/edito_content/', $db_datas)) {
-        if (preg_match('/UPDATE/', $db_datas)) {
+    if ($topic && false !== strpos($db_datas, "edito_content")) {
+        if (false !== strpos($db_datas, "UPDATE")) {
             $patterns[] = '/catid = ([0-9]+), /'; // Topics definition & Id suppression
 
             $replacements[] = 'catid = ' . $topic . ', ';
@@ -141,7 +141,7 @@ switch ($op) {
     $ii = 0;
     $inserted = '';
     foreach ($db_datas as $db_data) { // For each insert, insert into DB if insert is valid
-        if (preg_match('/_edito_/', mb_substr($db_data, 7, 35))) { // Insert datas for this module only ! ! !
+        if (false !== strpos(mb_substr($db_data, 7, 35), "_edito_")) { // Insert datas for this module only ! ! !
             if ($xoopsDB->queryF($db_data)) {
                 $inserted .= $db_data . ';<br>';
 

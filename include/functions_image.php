@@ -47,7 +47,7 @@ function edito_createlink($link_url = '', $title = '', $target = '_self', $image
     // Create link
 
     if ($link_url) {
-        if (!preg_match('/self/i', $target) and $target) {
+        if (false === stripos($target, "self") and $target) {
             if ('_' == !mb_substr($target, 0, 1)) {
                 $target = '_' . $target;
             }

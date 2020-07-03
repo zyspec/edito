@@ -54,11 +54,11 @@ function edito_cleankeywords($content, $urw)
 
     $content = html_entity_decode($content);
 
-    $content = preg_replace('/quot/i', ' ', $content);
+    $content = str_ireplace("quot", ' ', $content);
 
     $content = preg_replace("/\'/", ' ', $content);
 
-    $content = preg_replace('/-/', ' ', $content);
+    $content = str_replace("-", ' ', $content);
 
     $content = preg_replace('/\[\[:punct:\]\]/i', '', $content);
 
@@ -197,7 +197,7 @@ function edito_createlink($link_url = '', $title = '', $target = '_self', $image
     // Create link
 
     if ($link_url) {
-        if (!preg_match('/self/i', $target) and $target) {
+        if (false === stripos($target, "self") and $target) {
             if ('_' == !mb_substr($target, 0, 1)) {
                 $target = '_' . $target;
             }
