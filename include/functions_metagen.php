@@ -36,62 +36,70 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 //			 Max keyword occurence) // Maximum time a word must appear to be considered
 
 
-function edito_createMetaTags( $page_title='',
-                               $page_meta_title='',
-                               $page_meta_description='',
-                               $module_meta_description='',
-                               $page_content='',
-                               $page_meta_keywords='',
-                               $module_meta_keywords='',
-                               $minChar=3,
-                               $min_occ=1,
-                               $max_occ=12 ) {
+function edito_createMetaTags(
+    $page_title='',
+    $page_meta_title='',
+    $page_meta_description='',
+    $module_meta_description='',
+    $page_content='',
+    $page_meta_keywords='',
+    $module_meta_keywords='',
+    $minChar=3,
+    $min_occ=1,
+    $max_occ=12)
+{
 
     //echo  $module_meta_description;
 	global $xoopsTpl, $xoopsModule;
-	$myts = MyTextSanitizer::getInstance();
-    $ret = '';
-    $metakeywords = '';
-    $metagen = [];
-    $module_meta_description = $myts -> htmlSpecialChars($module_meta_description);
-    $page_meta_description = $myts -> htmlSpecialChars($page_meta_description);
-    $module_meta_keywords = $myts -> htmlSpecialChars($module_meta_keywords);
-    $page_meta_keywords = $myts -> htmlSpecialChars($page_meta_keywords);
-    $page_meta_title = $myts -> htmlSpecialChars($page_meta_title);
+	$myts         = MyTextSanitizer::getInstance();
+    $ret          = '';
+    $metakeywords = [];
+    $metagen      = [];
+    $module_meta_description = $myts->htmlSpecialChars($module_meta_description);
+    $page_meta_description   = $myts->htmlSpecialChars($page_meta_description);
+    $module_meta_keywords    = $myts->htmlSpecialChars($module_meta_keywords);
+    $page_meta_keywords      = $myts->htmlSpecialChars($page_meta_keywords);
+    $page_meta_title         = $myts->htmlSpecialChars($page_meta_title);
 
     // 1. Page Title
-        if (!$page_meta_title) {
-            $page_meta_title = $page_title;
-        }
-		$page_meta_title = strip_tags( $page_meta_title );
-		$page_meta_title = $myts->displayTarea( $page_meta_title );
-		$page_meta_title = strip_tags( $page_meta_title );
-        //$page_meta_title = $myts->undoHtmlSpecialChars( $page_meta_title );
-        //$page_meta_title = eregi_replace('[[:punct:]]','', $page_meta_title);
+    if (!$page_meta_title) {
+        $page_meta_title = $page_title;
+    }
+	$page_meta_title = strip_tags($page_meta_title);
+	$page_meta_title = $myts->displayTarea($page_meta_title);
+	$page_meta_title = strip_tags($page_meta_title);
+    //$page_meta_title = $myts->undoHtmlSpecialChars($page_meta_title );
+    //$page_meta_title = eregi_replace('[[:punct:]]','', $page_meta_title);
 
-                $metagen['title'] = $page_meta_title;
+    $metagen['title'] = $page_meta_title;
 
 
 	// 2. Meta Description
-	if ( $page_meta_description ) {
+	if ($page_meta_description) {
 		 $metagen['description'] = $page_meta_description;
-		 $metagen['description'] = preg_replace('#\r\n|\n|\r#', ' ', trim($metagen['description'])); }
-    elseif ( $page_content ) {
+		 $metagen['description'] = preg_replace('#\r\n|\n|\r#', ' ', trim($metagen['description']));
+	} elseif ($page_content) {
                  $metagen['description'] = $myts -> htmlSpecialChars(substr(strip_tags($page_content), 0, 256));
-				 $metagen['description'] = preg_replace('#\r\n|\n|\r#', ' ', trim($metagen['description']));}
-    elseif ( $module_meta_description ) {
+				 $metagen['description'] = preg_replace('#\r\n|\n|\r#', ' ', trim($metagen['description']));
+	} elseif ($module_meta_description) {
                  $metagen['description'] = $module_meta_description;
-				 $metagen['description'] = preg_replace('#\r\n|\n|\r#', ' ', trim($metagen['description']));}
-    else {       $metagen['description'] = $metagen['title'];
-				 $metagen['description'] = preg_replace('#\r\n|\n|\r#', ' ', trim($metagen['description']));}
+				 $metagen['description'] = preg_replace('#\r\n|\n|\r#', ' ', trim($metagen['description']));
+	} else {
+        $metagen['description'] = $metagen['title'];
+		$metagen['description'] = preg_replace('#\r\n|\n|\r#', ' ', trim($metagen['description']));
+	}
 
-         if ($metagen['description'] == ' ') { $metagen['description'] = ''; }
+    if (' ' == $metagen['description']) {
+        $metagen['description'] = '';
+    }
 
 	// 3. Meta Keywords
-	$ret = ''; $ret_let=''; $ret_caps='';
-//	if( $page_content ) {
+	$ret      = '';
+	$ret_let  = '';
+	$ret_caps = '';
+    //if ($page_content) {
 	// a. Add custom page keywords - if any
-	if ( $page_meta_keywords ) {
+	if ($page_meta_keywords) {
 		$pageKeywords = explode(",", $page_meta_keywords);
 		foreach ($pageKeywords as $pageKeyword) {
         	$metakeywords[] = trim($pageKeyword);
@@ -99,9 +107,9 @@ function edito_createMetaTags( $page_title='',
 	}
 
 	// b.Creating Meta Keywords from content
-	if ( $page_content ) {
-    	$page_content = edito_cleanContent( $page_title.' '.$page_content ); // Clean up content
-		$contentKeywords = edito_findKeyWordsInSting( $page_content, $minChar, $min_occ, $max_occ );	// Select basis keywords
+	if ($page_content) {
+    	$page_content    = edito_cleanContent($page_title . ' ' . $page_content); // Clean up content
+		$contentKeywords = edito_findKeyWordsInString($page_content, $minChar, $min_occ, $max_occ);	// Select basis keywords
 
         foreach ($contentKeywords as $contentKeyword) {
         	$metakeywords[] = trim($contentKeyword);
@@ -188,40 +196,44 @@ function edito_cleanContent( $content ) {
 
 
 // Keywords selection
-function edito_findKeyWordsInSting( $content, $minChar, $min_occ, $max_occ ) {
-	$arr = explode(' ',$content);
-        arsort($arr);
+function edito_findKeyWordsInString($content, $minChar, $min_occ, $max_occ)
+{
+    $arr = explode(' ', $content);
+    arsort($arr);
 	// Random variable
-	if ( count($arr) > 250 ) {
-		$MIN_SIZE = rand($minChar, $minChar+1) ;
+	if (count($arr) > 250) {
+        $MIN_SIZE       = rand($minChar, $minChar + 1);
 		$MIN_OCCURENCES = $min_occ;
-		$MAX_OCCURENCES = rand($min_occ+$MIN_SIZE, $max_occ+$MIN_SIZE);
+		$MAX_OCCURENCES = rand($min_occ + $MIN_SIZE, $max_occ + $MIN_SIZE);
 	} else {
-		$MIN_SIZE = rand(2, 4);
+		$MIN_SIZE       = rand(2, 4);
 		$MIN_OCCURENCES = 1;
 		$MAX_OCCURENCES = $max_occ;
 	}
 
 	// Keywords selection
-	$idx = array();
+	$idx = [];
 	foreach($arr as $word) {
 		$word = trim($word);
-
 		if(strlen($word) >= $MIN_SIZE) {
-			if ( !isset($idx[$word]) ) {  $idx[$word] = 0; }
-			$idx[$word]++;
+			if (!isset($idx[$word])) {
+                $idx[$word] = 0;
+			}
+			++$idx[$word];
 		}
 	}
 
 	//  Keywords ordering
-	$i=0;
+	$i       = 0;
+	$content = [];
 	arsort($idx);
-	$content = array();
 
 	foreach($idx as $word => $cnt) {
-		if ($cnt >= $MIN_OCCURENCES AND $cnt <= $MAX_OCCURENCES) {
+		if ($cnt >= $MIN_OCCURENCES && $cnt <= $MAX_OCCURENCES) {
 			$content[$i++] = $word;
-			if( $i == 90 ) { return $content; }
+			if (90 == $i) {
+			    return $content;
+			}
 		}
 	}
 	return $content;
