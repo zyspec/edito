@@ -573,7 +573,7 @@ function edito_selector(
                            onchange="location=\'' . $destination . '=\'+this.options[this.selectedIndex].value">
                      <option value=""' . $selected[0] . '>' . $caption . '</option>';
 
-        while (list($id, $name, $image, $groups) = $xoopsDB->fetchrow($result)) {
+        while (list($id, $name, $image, $groups) = $xoopsDB->fetchRow($result)) {
             $select_tmp = $select;
 
             if (!isset($selected[$id])) {
@@ -609,7 +609,7 @@ function edito_selector(
     if ('list' == $display) {
         $select = '<ul>';
 
-        while (list($id, $name, $image, $groups) = $xoopsDB->fetchrow($result)) {
+        while (list($id, $name, $image, $groups) = $xoopsDB->fetchRow($result)) {
             $select_tmp = $select;
 
             if (is_numeric($name) && $name < 10000) {
@@ -680,7 +680,7 @@ function edito_selector(
 
         $selected[$sel] = 'current';
 
-        while (list($id, $name, $image, $groups) = $xoopsDB->fetchrow($result)) {
+        while (list($id, $name, $image, $groups) = $xoopsDB->fetchRow($result)) {
             $select_tmp = $select;
 
             if (!isset($selected[$id])) {

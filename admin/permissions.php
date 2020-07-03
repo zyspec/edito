@@ -22,7 +22,7 @@
 require_once __DIR__ . '/admin_header.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 
-if (!is_object($xoopsUser) or (is_object($xoopsUser) and !$xoopsUser->isadmin())) {
+if (!is_object($xoopsUser) or (is_object($xoopsUser) and !$xoopsUser->isAdmin())) {
     redirect_header('javascript:history.go(-1)', 1, _NOPERM);
 }
 

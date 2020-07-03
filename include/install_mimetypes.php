@@ -17,8 +17,8 @@ function install_MimeTypes($dirname = '')
     $hModule = xoops_getHandler('module');
 
     if ($ModuleInfo = $hModule->getByDirname($dirname)) {
-        if (($hModule->getByDirName('xoopsinfo') && '2.0' == mb_substr(XOOPS_VERSION, 6, 3) && mb_substr(XOOPS_VERSION, 10, 2) < 16) ||
-             ($hModule->getByDirName('xoopsinfo') && '2.2' == mb_substr(XOOPS_VERSION, 6, 3))) {
+        if (($hModule->getByDirname('xoopsinfo') && '2.0' == mb_substr(XOOPS_VERSION, 6, 3) && mb_substr(XOOPS_VERSION, 10, 2) < 16) ||
+             ($hModule->getByDirname('xoopsinfo') && '2.2' == mb_substr(XOOPS_VERSION, 6, 3))) {
             $ModuleInfo->loadInfoAsVar($dirname);
 
             $mimeTypes = $ModuleInfo->getInfo('mimetypes');

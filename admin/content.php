@@ -203,7 +203,7 @@ function editarticle($id = '', $op = '')
             redirect_header('index.php', 1, _AM_EDITO_NOEDITOTOEDIT);
         }
 
-        list($id, $uid, $datesub, $counter, $status, $subject, $block_text, $body_text, $image, $media, $meta, $groups, $options) = $xoopsDB->fetchrow($result);
+        list($id, $uid, $datesub, $counter, $status, $subject, $block_text, $body_text, $image, $media, $meta, $groups, $options) = $xoopsDB->fetchRow($result);
 
         $sform = new XoopsThemeForm(_AM_EDITO_MODEDITO . ': ' . $subject . $block_help, 'op', xoops_getenv('SCRIPT_NAME'));
 
@@ -1108,7 +1108,7 @@ switch ($op) {
         require_once __DIR__ . '/admin_header.php';
         $id = Request::getInt('id', (int)$id, 'POST');
         $result = $xoopsDB->queryF('SELECT id, subject FROM ' . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . " WHERE id = $id");
-        list($id, $subject) = $xoopsDB->fetchrow($result);
+        list($id, $subject) = $xoopsDB->fetchRow($result);
         xoops_confirm(['op' => 'del', 'id' => $id, 'confirm' => 1, 'subject' => $subject], 'content.php', _AM_EDITO_DELETETHIS . '<br><br>' . $myts->displayTarea($subject), _AM_EDITO_DELETE);
         require_once __DIR__ . '/admin_footer.php';
         break;

@@ -14,7 +14,7 @@ if (mb_substr(XOOPS_VERSION, 6, 3) < 2.1) {
 
     $result = $xoopsDB->query($query);
 
-    $record = $xoopsDB->fetcharray($result);
+    $record = $xoopsDB->fetchArray($result);
 
     if ($record) {
         $mid = $record['mid'];

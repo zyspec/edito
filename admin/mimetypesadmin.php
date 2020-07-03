@@ -245,7 +245,7 @@ switch ($op) {
     $xoopsDB->prefix('mimetypes') . ' t on p.mperm_mime = t.mime_id LEFT JOIN ' .
     $xoopsDB->prefix('modules') . ' m on p.mperm_module = m.mid WHERE mperm_id=' . $mime_id;
     $result = $xoopsDB->queryF($sql);
-    list($mperm_id, $mime_id, $mime_name, $mod_name) = $xoopsDB->fetchrow($result);
+    list($mperm_id, $mime_id, $mime_name, $mod_name) = $xoopsDB->fetchRow($result);
     xoops_confirm([ 'op' => 'dele', 'mperm_id' => $mperm_id, 'mime_id' => $mime_id, 'confirm' => 1, 'mime_name' => $mime_name, 'mod_name' => $mod_name, 'status' => $status, 'mid' => $mid], 'mimetypes.php?', _AM_XI_MIME_DELETETHIS . "<br><br><font color='#CC0000'>" . $mod_name . '</font><br>' . $mime_name, _AM_XI_MIME_DELE);
     break;
     case 'edit':

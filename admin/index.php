@@ -184,7 +184,7 @@ switch ($op) {
                 Text[0]=["' . _AM_EDITO_NOREWRITING . '","' . _AM_EDITO_REWRITING_INFO . '"];
                      ';
 
-            while (list($pop_id, $pop_uid, $pop_subject, $pop_xblock_text, $pop_xbody_text, $pop_date) = $xoopsDB->fetchrow($pop_result)) {
+            while (list($pop_id, $pop_uid, $pop_subject, $pop_xblock_text, $pop_xbody_text, $pop_date) = $xoopsDB->fetchRow($pop_result)) {
                 $pop_xblock_text = preg_replace('/\[(.*)\]/sU', ' ', $pop_xblock_text);
 
                 $pop_xblock_text = strip_tags($myts->displayTarea($pop_xblock_text, 1, 1, 1));
@@ -216,7 +216,7 @@ switch ($op) {
               </script>
               ';
 
-            while (list($id, $subject, $image, $media, $meta, $counter, $status) = $xoopsDB->fetchrow($result)) {
+            while (list($id, $subject, $image, $media, $meta, $counter, $status) = $xoopsDB->fetchRow($result)) {
                 $modify = "<a href='content.php?op=mod&id=" . $id . "' title='" . _AM_EDITO_EDIT . "'><img src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/edit.gif alt='" . _AM_EDITO_EDIT . "'></a>";
 
                 $duplicate = "<a href='content.php?op=dup&id=" . $id . "' title='" . _AM_EDITO_DUPLICATE . "'><img src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/duplicate.gif alt='" . _AM_EDITO_DUPLICATE . "'></a>";

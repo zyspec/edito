@@ -105,7 +105,7 @@ function edito_table_rows($table)
 
     $datas = [];
 
-    while (list($name, $format) = $xoopsDB->fetchrow($result)) {
+    while (list($name, $format) = $xoopsDB->fetchRow($result)) {
         $datas[$i]['name'] = $name;
 
         $datas[$i++]['format'] = $format;
