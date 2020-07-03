@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 require_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 if (isset($_GET['id']) && isset($_GET['uid'])) {
-    $id = intval($_GET['id']);
+    $id = (int)$_GET['id'];
 
-    $uid = intval($_GET['uid']);
+    $uid = (int)$_GET['uid'];
 
     if ($id == date('d')) {
         if ($xoopsDB->queryF('UPDATE ' . $xoopsDB->prefix('users') . "

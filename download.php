@@ -15,10 +15,10 @@
 require_once __DIR__ . '/header.php';
 
 if (isset($_GET['id'])) {
-    $id = intval($_GET['id']);
+    $id = (int)$_GET['id'];
 }
 if (isset($_POST['id'])) {
-    $id = intval($_POST['id']);
+    $id = (int)$_POST['id'];
 }
 
 if (!isset($id)) {

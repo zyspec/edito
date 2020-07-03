@@ -44,7 +44,7 @@ if ('table' == $xoopsModuleConfig['index_display']) {
     $align = 'left';
 }
 require_once XOOPS_ROOT_PATH . '/header.php';
-$startart = isset($_GET['startart']) ? intval($_GET['startart']) : 0;
+$startart = isset($_GET['startart']) ? (int)$_GET['startart'] : 0;
 
 /* ----------------------------------------------------------------------- */
 /*                    Redirect index to a specific page                    */

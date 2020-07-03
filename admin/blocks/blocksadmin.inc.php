@@ -41,14 +41,14 @@ if (!empty($_POST['op'])) {
     $op = $_POST['op'];
 }
 if (!empty($_POST['bid'])) {
-    $bid = intval($_POST['bid']);
+    $bid = (int)$_POST['bid'];
 }
 
 if (isset($_GET['op'])) {
     if ('edit' == $_GET['op'] || 'delete' == $_GET['op'] || 'delete_ok' == $_GET['op'] || 'clone' == $_GET['op'] /* || $_GET['op'] == 'previewpopup'*/) {
         $op = $_GET['op'];
 
-        $bid = isset($_GET['bid']) ? intval($_GET['bid']) : 0;
+        $bid = isset($_GET['bid']) ? (int)$_GET['bid'] : 0;
     }
 }
 
@@ -64,19 +64,19 @@ if (isset($_POST['previewblock'])) {
     }
 
     if (!empty($_POST['bside'])) {
-        $bside = intval($_POST['bside']);
+        $bside = (int)$_POST['bside'];
     } else {
         $bside = 0;
     }
 
     if (!empty($_POST['bweight'])) {
-        $bweight = intval($_POST['bweight']);
+        $bweight = (int)$_POST['bweight'];
     } else {
         $bweight = 0;
     }
 
     if (!empty($_POST['bvisible'])) {
-        $bvisible = intval($_POST['bvisible']);
+        $bvisible = (int)$_POST['bvisible'];
     } else {
         $bvisible = 0;
     }
@@ -106,7 +106,7 @@ if (isset($_POST['previewblock'])) {
     }
 
     if (!empty($_POST['bcachetime'])) {
-        $bcachetime = intval($_POST['bcachetime']);
+        $bcachetime = (int)$_POST['bcachetime'];
     } else {
         $bcachetime = 0;
     }
@@ -174,7 +174,7 @@ if (isset($_POST['previewblock'])) {
 
     $block['is_custom'] = true;
 
-    $block['cachetime'] = intval($bcachetime);
+    $block['cachetime'] = (int)$bcachetime;
 
     echo '<a href="../blocks.php">' . _AM_BADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $block['form_title'] . '<br><br>';
 
@@ -381,7 +381,7 @@ if ('update' == $op) {
     update_block($bid, $bside, $bweight, $bvisible, $btitle, $bcontent, $bctype, $bcachetime, $bmodule, $options);
     */
 
-    $bcachetime = isset($_POST['bcachetime']) ? intval($_POST['bcachetime']) : 0;
+    $bcachetime = isset($_POST['bcachetime']) ? (int)$_POST['bcachetime'] : 0;
 
     $options = $_POST['options'] ?? [];
 
@@ -461,14 +461,14 @@ if ('edit' == $op) {
 
     $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
-    $sql = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . intval($bid);
+    $sql = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . (int)$bid;
 
     $result = $db->query($sql);
 
     $modules = [];
 
     while (false !== ($row = $db->fetchArray($result))) {
-        $modules[] = intval($row['module_id']);
+        $modules[] = (int)$row['module_id'];
     }
 
     $is_custom = ('C' == $myblock->getVar('block_type') || 'E' == $myblock->getVar('block_type')) ? true : false;
@@ -734,7 +734,7 @@ function myblocksadmin_update_block($bid, $bside, $bweight, $bvisible, $btitle, 
             $db->query($sql);
 
             foreach ($bmodule as $bmid) {
-                $sql = sprintf('INSERT INTO %s (block_id, module_id) VALUES (%u, %d)', $db->prefix('block_module_link'), $bid, intval($bmid));
+                $sql = sprintf('INSERT INTO %s (block_id, module_id) VALUES (%u, %d)', $db->prefix('block_module_link'), $bid, (int)$bmid);
 
                 $db->query($sql);
             }
@@ -842,7 +842,7 @@ function myblocksadmin_update_blockinstance($id, $bside, $bweight, $bvisible, $b
 
                 $pageid = $page[1];
 
-                $GLOBALS['xoopsDB']->query('INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('block_module_link') . ' VALUES (' . $instance->getVar('instanceid') . ', ' . intval($mid) . ', ' . intval($pageid) . ')');
+                $GLOBALS['xoopsDB']->query('INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('block_module_link') . ' VALUES (' . $instance->getVar('instanceid') . ', ' . (int)$mid . ', ' . (int)$pageid . ')');
             }
 
             return _MD_AM_DBUPDATED;

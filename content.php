@@ -17,7 +17,7 @@ $GLOBALS['xoopsOption']['template_main'] = 'edito_content_index.html';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 if (isset($_GET['id'])) {
-    $id = intval($_GET['id']);
+    $id = (int)$_GET['id'];
 }
 // if (isset($_POST['id'])) $id = intval($_POST['id']);
 
@@ -337,7 +337,7 @@ if ('page' == $xoopsModuleConfig['media_display'] and $media) {
 /*                              Render Text                                */
 /* ----------------------------------------------------------------------- */
 $alt_bodytext = strip_tags($myrow['body_text']);
-$current_page = isset($_GET['page']) ? intval($_GET['page']) : 0;
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 0;
 $texte = edito_pagebreak($myrow['body_text'], '', $current_page, 'id=' . $id);
 
 $pattern_media = [];

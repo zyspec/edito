@@ -101,7 +101,7 @@ function a_edito_show($options)
     // Afficher un edito li�
 
     if ('linked' == $options[1]) {
-        $content_link = isset($_GET['id']) ? intval($_GET['id']) : 0;
+        $content_link = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
         $where = 'id=' . $content_link;
     }

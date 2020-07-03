@@ -47,12 +47,12 @@ if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['la
 
 $op = isset($_REQUEST['op']) ? trim($_REQUEST['op']) : '';
 $create = isset($_REQUEST['new']) ? true : false;
-$start = isset($_REQUEST['start']) ? intval($_REQUEST['start']) : 0;
-$status = isset($_REQUEST['status']) ? intval($_REQUEST['status']) : -1;
-$mid = isset($_REQUEST['mid']) ? intval($_REQUEST['mid']) : -1;
-$confirm = isset($_REQUEST['confirm']) ? intval($_REQUEST['confirm']) : 0;
-$mime_id = isset($_REQUEST['mime_id']) ? intval($_REQUEST['mime_id']) : 0;
-$mperm_id = isset($_REQUEST['mperm_id']) ? intval($_REQUEST['mperm_id']) : 0;
+$start = isset($_REQUEST['start']) ? (int)$_REQUEST['start'] : 0;
+$status = isset($_REQUEST['status']) ? (int)$_REQUEST['status'] : -1;
+$mid = isset($_REQUEST['mid']) ? (int)$_REQUEST['mid'] : -1;
+$confirm = isset($_REQUEST['confirm']) ? (int)$_REQUEST['confirm'] : 0;
+$mime_id = isset($_REQUEST['mime_id']) ? (int)$_REQUEST['mime_id'] : 0;
+$mperm_id = isset($_REQUEST['mperm_id']) ? (int)$_REQUEST['mperm_id'] : 0;
 $type = $_REQUEST['type'] ?? -1;
 $mid = $xoopsModule->mid();
 
@@ -64,7 +64,7 @@ if ($create) {
 
 if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
     if ('save' == $op) {
-        $mperm_id = (isset($_REQUEST['mperm_id'])) ? intval($_REQUEST['mperm_id']) : 0;
+        $mperm_id = (isset($_REQUEST['mperm_id'])) ? (int)$_REQUEST['mperm_id'] : 0;
 
         $mperm_mime = $_REQUEST['mperm_mime'] ?? '';
 
@@ -72,13 +72,13 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
 
         $mperm_groups = $_REQUEST['mperm_groups'] ?? [];
 
-        $mperm_status = (isset($_REQUEST['mperm_status'])) ? intval($_REQUEST['mperm_status']) : 0;
+        $mperm_status = (isset($_REQUEST['mperm_status'])) ? (int)$_REQUEST['mperm_status'] : 0;
 
-        $mperm_maxwidth = (isset($_REQUEST['mperm_maxwidth'])) ? intval($_REQUEST['mperm_maxwidth']) : 0;
+        $mperm_maxwidth = (isset($_REQUEST['mperm_maxwidth'])) ? (int)$_REQUEST['mperm_maxwidth'] : 0;
 
-        $mperm_maxheight = (isset($_REQUEST['mperm_maxheight'])) ? intval($_REQUEST['mperm_maxheight']) : 0;
+        $mperm_maxheight = (isset($_REQUEST['mperm_maxheight'])) ? (int)$_REQUEST['mperm_maxheight'] : 0;
 
-        $mperm_maxsize = (isset($_REQUEST['mperm_maxsize'])) ? intval($_REQUEST['mperm_maxsize']) : 0;
+        $mperm_maxsize = (isset($_REQUEST['mperm_maxsize'])) ? (int)$_REQUEST['mperm_maxsize'] : 0;
 
         $result = true;
 
@@ -240,7 +240,7 @@ switch ($op) {
     redirect_header('mimetypes.php?' . $uri, 3, _AM_AM_DBUPDATED);
     break;
     case 'dele':
-    $mime_id = (isset($_REQUEST['mime_id'])) ? intval($_REQUEST['mime_id']) : intval($mime_id);
+    $mime_id = (isset($_REQUEST['mime_id'])) ? (int)$_REQUEST['mime_id'] : (int)$mime_id;
     $sql = 'SELECT p.mperm_id, t.mime_id, t.mime_name, m.name FROM ' . $xoopsDB->prefix('mimetypes_perms') . ' p LEFT JOIN ' .
     $xoopsDB->prefix('mimetypes') . ' t on p.mperm_mime = t.mime_id LEFT JOIN ' .
     $xoopsDB->prefix('modules') . ' m on p.mperm_module = m.mid WHERE mperm_id=' . $mime_id;

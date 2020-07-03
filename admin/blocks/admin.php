@@ -78,7 +78,7 @@ if (0 != $admintest) {
 
             $syspermHandler = xoops_getHandler('groupperm');
 
-            $category = !empty($modversion['category']) ? intval($modversion['category']) : 0;
+            $category = !empty($modversion['category']) ? (int)$modversion['category'] : 0;
 
             unset($modversion);
 
@@ -149,7 +149,7 @@ if (false !== $error) {
             include "{$admin_dir}/{$file}/xoops_version.php";
 
             if ($modversion['hasAdmin']) {
-                $category = isset($modversion['category']) ? intval($modversion['category']) : 0;
+                $category = isset($modversion['category']) ? (int)$modversion['category'] : 0;
 
                 if (false !== $all_ok || in_array($modversion['category'], $ok_syscats, true)) {
                     echo "<td class='$class center bottom' width='19%'>";
