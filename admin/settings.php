@@ -485,7 +485,7 @@ function settings_sub_menu($currentoption = '')
             foreach ($sub_menu as $submenu) {
                 $submenu['color'] = explode('|', $submenu['color']);
 
-                $tblColors = false !== mb_strpos(mb_strtolower($submenu['link']), 'etting') ? 'current' : $submenu['color'][0];
+                $tblColors = false !== mb_stripos($submenu['link'], 'etting') ? 'current' : $submenu['color'][0];
 
                 $ret .= '<li id="' . $tblColors . '"><a href="' . $submenu['link'] . '"><span>' . $submenu['title'] . '</span></a></li>
             ';
@@ -502,7 +502,7 @@ function settings_sub_menu($currentoption = '')
                           onchange="location=this.options[this.selectedIndex].value">
                  ';
             foreach ($sub_menu as $submenu) {
-                $selected = false !== mb_strpos(mb_strtolower($submenu['link']), 'etting') ? 'selected' : '';
+                $selected = false !== mb_stripos($submenu['link'], 'etting') ? 'selected' : '';
 
                 $nbsp = ++$i ? '&nbsp;&deg; ' : '';
 
