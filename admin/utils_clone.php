@@ -100,7 +100,9 @@ function cloneFileFolder($path)
         if (is_dir($path)) {
             // Create new dir
 
-            mkdir($newPath);
+            if (!mkdir($newPath) && !is_dir($newPath)) {
+                throw new \RuntimeException(sprintf('Directory "%s" was not created', $newPath));
+            }
 
             // check all files in dir, and process it
 
@@ -236,7 +238,9 @@ switch ($op) {
                             if (!is_dir($dir_paste)) {
                                 $oldumask = umask(0000);
 
-                                mkdir($dir_paste);
+                                if (!mkdir($dir_paste) && !is_dir($dir_paste)) {
+                                    throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir_paste));
+                                }
 
                                 umask($oldumask);
                             }
