@@ -22,9 +22,7 @@ declare(strict_types=1);
  * @author    XOOPS Module Development Team
  * @link      https://github.com/XoopsModules25x/edito
  */
-require_once dirname(__DIR__, 3) . '/mainfile.php';
-require_once dirname(__DIR__, 3) . '/include/cp_header.php';
-require_once dirname(__DIR__, 3) . '/include/functions.php';
+require __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
 require_once __DIR__ . '/mimetypes.php';

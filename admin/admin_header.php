@@ -22,37 +22,40 @@ declare(strict_types=1);
  * @author    XOOPS Module Development Team
  * @link      https://github.com/XoopsModules25x/edito
  */
-require_once dirname(__DIR__, 3) . '/mainfile.php';
-require_once XOOPS_ROOT_PATH . '/include/cp_header.php';
-require_once XOOPS_ROOT_PATH . '/include/functions.php';
-require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-//require_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php');
-//$eh = new ErrorHandler;
-$myts = MyTextSanitizer::getInstance();
 
-$moduleDirName = basename(__DIR__);
+
+
+include dirname(__DIR__) . '/preloads/autoloader.php';
+
+require  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+require $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
+require  dirname(__DIR__) . '/include/common.php';
+
+$moduleDirName = basename(dirname(__DIR__));
+
+/** @var \XoopsModules\Edito\Helper $helper */
+$helper = \XoopsModules\Edito\Helper::getInstance();
+
+/** @var \Xmf\Module\Admin $adminObject */
+$adminObject = \Xmf\Module\Admin::getInstance();
+
+// Load language files
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('common');
+$helper->loadLanguage('main');
+
+$myts = \MyTextSanitizer::getInstance();
+
 
 require_once dirname(__DIR__) . '/include/functions_edito.php';
-
-if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/common.php')) {
-    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/common.php';
-
-    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
-
-    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/main.php';
-} else {
-    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/english/common.php';
-
-    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/english/modinfo.php';
-
-    require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/english/main.php';
-}
 
 if ('index.php' == basename($_SERVER['PHP_SELF'])) {
     edito_UpdatedModule();
 }
 
-xoops_cp_header();
+//xoops_cp_header();
+
 echo '<style type="text/css">';
 echo 'th a:link {text-decoration: none; color: #ffff00; font-weight: bold; background-color: transparent;}';
 echo 'th a:active {text-decoration: none; color: #ffffff; font-weight: bold; background-color: transparent;}';

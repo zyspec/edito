@@ -17,14 +17,14 @@ function install_MimeTypes($dirname = '')
 {
     global $xoopsDB;
 
-    $hModule = xoops_getHandler('module');
+    $moduleHandler = xoops_getHandler('module');
 
-    if ($ModuleInfo = $hModule->getByDirname($dirname)) {
-        if (($hModule->getByDirname('xoopsinfo') && '2.0' == mb_substr(XOOPS_VERSION, 6, 3) && mb_substr(XOOPS_VERSION, 10, 2) < 16)
-            || ($hModule->getByDirname('xoopsinfo') && '2.2' == mb_substr(XOOPS_VERSION, 6, 3))) {
-            $ModuleInfo->loadInfoAsVar($dirname);
+    if ($$moduleInfo = $moduleHandler->getByDirname($dirname)) {
+        if (($moduleHandler->getByDirname('xoopsinfo') && '2.0' == mb_substr(XOOPS_VERSION, 6, 3) && mb_substr(XOOPS_VERSION, 10, 2) < 16)
+            || ($moduleHandler->getByDirname('xoopsinfo') && '2.2' == mb_substr(XOOPS_VERSION, 6, 3))) {
+            $$moduleInfo->loadInfoAsVar($dirname);
 
-            $mimeTypes = $ModuleInfo->getInfo('mimetypes');
+            $mimeTypes = $$moduleInfo->getInfo('mimetypes');
 
             foreach ($mimeTypes as $key => $mimeType) {
                 $mime_id = 0;
@@ -45,7 +45,7 @@ function install_MimeTypes($dirname = '')
                 }
 
                 if (0 != $mime_id) {
-                    $sql = 'INSERT INTO . ' . $xoopsDB->prefix('mimetypes_perms') . ' VALUES ( 0, ' . $mime_id . ', ' . $ModuleInfo->mid() . ', ' . XOOPS_GROUP_ADMIN . ', ' . $mimeType['mime_status'] . ', ' . $mimeType['mperm_maxwidth'] . ', '
+                    $sql = 'INSERT INTO . ' . $xoopsDB->prefix('mimetypes_perms') . ' VALUES ( 0, ' . $mime_id . ', ' . $$moduleInfo->mid() . ', ' . XOOPS_GROUP_ADMIN . ', ' . $mimeType['mime_status'] . ', ' . $mimeType['mperm_maxwidth'] . ', '
                            . $mimeType['mperm_maxheight'] . ', ' . $mimeType['mperm_maxsize'] . ')';
 
                     if ($result = $xoopsDB->queryF($sql)) {

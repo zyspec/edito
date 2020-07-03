@@ -26,8 +26,7 @@ declare(strict_types=1);
 
 use Xmf\Request;
 
-require_once dirname(__DIR__, 3) . '/mainfile.php';
-require_once dirname(__DIR__, 3) . '/include/cp_header.php';
+require __DIR__ . '/admin_header.php';
 
 $op           = Request::getCmd('op', '');
 $type_clonage = Request::getCmd('type_clonage', '');
@@ -46,7 +45,7 @@ function utilities()
 {
     global $xoopsConfig, $modify, $xoopsModuleConfig, $xoopsModule, $xoopsDB, $XOOPS_URL, $type_clonage;
 
-    $sform = new XoopsThemeForm(_AM_EDITO_CLONE, 'op', xoops_getenv('PHP_SELF'));
+    $sform = new \XoopsThemeForm(_AM_EDITO_CLONE, 'op', xoops_getenv('PHP_SELF'));
 
     $sform->setExtra('enctype="multipart/form-data"');
 
@@ -58,21 +57,21 @@ function utilities()
 
     $sform->addElement($help_display);
 
-    $sform->addElement(new XoopsFormText(_AM_EDITO_CLONENAME, 'clone', 12, 12, ''), true);
+    $sform->addElement(new \XoopsFormText(_AM_EDITO_CLONENAME, 'clone', 12, 12, ''), true);
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $hidden = new XoopsFormHidden('op', 'clonemodule');
+    $hidden = new \XoopsFormHidden('op', 'clonemodule');
 
     $button_tray->addElement($hidden);
 
-    $butt_create = new XoopsFormButton('', '', _AM_EDITO_SUBMIT, 'submit');
+    $butt_create = new \XoopsFormButton('', '', _AM_EDITO_SUBMIT, 'submit');
 
     $butt_create->setExtra('onclick="this.form.elements.op.value=\'clonemodule\'"');
 
     $button_tray->addElement($butt_create);
 
-    $butt_clear = new XoopsFormButton('', '', _AM_EDITO_CLEAR, 'reset');
+    $butt_clear = new \XoopsFormButton('', '', _AM_EDITO_CLEAR, 'reset');
 
     $button_tray->addElement($butt_clear);
 

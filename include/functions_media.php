@@ -47,7 +47,7 @@ function edito_media($media_url, $thumb, $media_size, $options, $description, $c
         }
     }
 
-    // $myts = MyTextSanitizer::getInstance();
+    // $myts = \MyTextSanitizer::getInstance();
 
     // $description = $myts->displayTarea($description);
 

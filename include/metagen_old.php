@@ -43,7 +43,7 @@ function edito_createMetaTags($page_title, $page_content, $module_meta_keywords,
 {
     global $xoopsTpl, $xoopsModule;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $ret = '';
 
@@ -167,7 +167,7 @@ function edito_createMetaTags($page_title, $page_content, $module_meta_keywords,
  */
 function edito_cleanContent($content)
 {
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $content = str_replace('<br>', ' ', $content);
 

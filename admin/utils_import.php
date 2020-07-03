@@ -26,8 +26,7 @@ declare(strict_types=1);
 
 use Xmf\Request;
 
-require_once dirname(__DIR__, 3) . '/mainfile.php';
-require_once dirname(__DIR__, 3) . '/include/cp_header.php';
+require __DIR__ . '/admin_header.php';
 
 $op = Request::getCmd('op', '');
 
@@ -44,7 +43,7 @@ function utilities()
 
     // DB feed
 
-    $sform = new XoopsThemeForm(_AM_EDITO_DB_IMPORT, 'op', xoops_getenv('PHP_SELF'));
+    $sform = new \XoopsThemeForm(_AM_EDITO_DB_IMPORT, 'op', xoops_getenv('PHP_SELF'));
 
     $sform->setExtra('enctype="multipart/form-data"');
 
@@ -65,28 +64,28 @@ function utilities()
                        }
 
                 $topics_array = $topics;
-                 $topics_select = new XoopsFormSelect( '', 'catid', ' ');
+                 $topics_select = new \XoopsFormSelect( '', 'catid', ' ');
                 $topics_select -> addOptionArray( $topics_array );
-                $topics_tray = new XoopsFormElementTray( _AM_EDITO_TOPIC._AM_EDITO_TOPIC_INFOS, '&nbsp;' );
+                $topics_tray = new \XoopsFormElementTray( _AM_EDITO_TOPIC._AM_EDITO_TOPIC_INFOS, '&nbsp;' );
                 $topics_tray -> addElement( $topics_select );
                 $sform -> addElement( $topics_tray );
     */
 
-    $sform->addElement(new XoopsFormTextArea(_AM_EDITO_DB_DATAS, 'db_datas', '', 20, 90), true);
+    $sform->addElement(new \XoopsFormTextArea(_AM_EDITO_DB_DATAS, 'db_datas', '', 20, 90), true);
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $hidden = new XoopsFormHidden('op', 'database_feed');
+    $hidden = new \XoopsFormHidden('op', 'database_feed');
 
     $button_tray->addElement($hidden);
 
-    $butt_create = new XoopsFormButton('', '', _AM_EDITO_SUBMIT, 'submit');
+    $butt_create = new \XoopsFormButton('', '', _AM_EDITO_SUBMIT, 'submit');
 
     $butt_create->setExtra('onclick="this.form.elements.op.value=\'database_feed\'"');
 
     $button_tray->addElement($butt_create);
 
-    $butt_clear = new XoopsFormButton('', '', _AM_EDITO_CLEAR, 'reset');
+    $butt_clear = new \XoopsFormButton('', '', _AM_EDITO_CLEAR, 'reset');
 
     $button_tray->addElement($butt_clear);
 

@@ -26,8 +26,9 @@ declare(strict_types=1);
 
 use Xmf\Request;
 
-require_once dirname(__DIR__, 3) . '/mainfile.php';
-require_once dirname(__DIR__, 3) . '/include/cp_header.php';
+require __DIR__ . '/admin_header.php';
+
+xoops_cp_header();
 
 require_once dirname(__DIR__) . '/include/functions_wysiwyg.php';
 
@@ -52,7 +53,7 @@ function editarticle($id = '', $op = '')
 {
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     edito_create_dir($xoopsModuleConfig['sbmediadir']);
 
@@ -225,7 +226,7 @@ function editarticle($id = '', $op = '')
         ]
             = $xoopsDB->fetchRow($result);
 
-        $sform = new XoopsThemeForm(_AM_EDITO_MODEDITO . ': ' . $subject . $block_help, 'op', xoops_getenv('SCRIPT_NAME'));
+        $sform = new \XoopsThemeForm(_AM_EDITO_MODEDITO . ': ' . $subject . $block_help, 'op', xoops_getenv('SCRIPT_NAME'));
 
         $groups = explode(' ', $groups);
 
@@ -263,7 +264,7 @@ function editarticle($id = '', $op = '')
 
         $cancomment = $option[6];
     } else { // there's no parameter, so we're adding an edito
-        $sform = new XoopsThemeForm(_AM_EDITO_CREATE . $block_help, 'op', xoops_getenv('SCRIPT_NAME'));
+        $sform = new \XoopsThemeForm(_AM_EDITO_CREATE . $block_help, 'op', xoops_getenv('SCRIPT_NAME'));
     }
 
     $script = '<script language="JavaScript" type="text/javascript" src="../assets/js/expandable.js"></script>
@@ -483,17 +484,17 @@ function editarticle($id = '', $op = '')
 
     //$sform->addElement($block_help_out);
 
-    $sform->addElement(new XoopsFormText(_AM_EDITO_SUBJECT, 'subject', 50, 255, $myts->htmlSpecialChars($subject)), true);
+    $sform->addElement(new \XoopsFormText(_AM_EDITO_SUBJECT, 'subject', 50, 255, $myts->htmlSpecialChars($subject)), true);
 
     // ONLINE
 
     // Code to take article offline, for maintenance purposes
 
-    //$status_radio = new XoopsFormRadioYN(_AM_EDITO_SWITCHOFFLINE, 'offline', $status, ' '._AM_EDITO_YES.'', ' '._AM_EDITO_NO.'');
+    //$status_radio = new \XoopsFormRadioYN(_AM_EDITO_SWITCHOFFLINE, 'offline', $status, ' '._AM_EDITO_YES.'', ' '._AM_EDITO_NO.'');
 
     //$sform -> addElement($status_radio);
 
-    $status_radio = new XoopsFormSelect(_AM_EDITO_STATUS, 'status', $status);
+    $status_radio = new \XoopsFormSelect(_AM_EDITO_STATUS, 'status', $status);
 
     $status_radio->addOption('0', _AM_EDITO_OFFLINE);
 
@@ -513,11 +514,11 @@ function editarticle($id = '', $op = '')
         if ( $xoopsModuleConfig['parents']){
     //        PARENT
             $db = \XoopsDatabaseFactory::getDatabaseConnection();
-            $xt = new XoopsTree($db->prefix("edito"), "id", "pid");
+            $xt = new \XoopsTree($db->prefix("edito"), "id", "pid");
 
             ob_start();
             $xt->makeMySelBox('subject', 'subject', $pid, 1,'pid');
-            $sform->addElement(new XoopsFormLabel(_AM_EDITO_FATHER_INDEX, ob_get_contents()));
+            $sform->addElement(new \XoopsFormLabel(_AM_EDITO_FATHER_INDEX, ob_get_contents()));
             ob_end_clean();
         }
     */
@@ -529,18 +530,18 @@ function editarticle($id = '', $op = '')
     /*
         if ( $xoopsModuleConfig['wysiwyg'] == 'koivi' AND is_file(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php') ) {
             require_once XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php';
-            $wysiwyg_text_area_01= new XoopsFormWysiwygTextArea( 'Koivi Editor<p>'._AM_EDITO_BLOCKTEXT, 'block_text', $block_text, '100%', '400px','');
+            $wysiwyg_text_area_01= new \XoopsFormWysiwygTextArea( 'Koivi Editor<p>'._AM_EDITO_BLOCKTEXT, 'block_text', $block_text, '100%', '400px','');
             $wysiwyg_text_area_01->setUrl("/class/wysiwyg");
             $wysiwyg_text_area_01->setSkin("default");
             $sform -> addElement( $wysiwyg_text_area_01, false );
         } elseif ( $xoopsModuleConfig['wysiwyg'] == 'tiny' AND is_file(XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php') ) {
             require_once XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php';
-            $sform->addElement(new XoopsFormTinyeditorTextArea(array('caption'=> 'Tiny Editor<p>'._AM_EDITO_BLOCKTEXT, 'name'=>'block_text', 'value'=>$block_text, 'width'=>'100%', 'height'=>'468px'),false));
+            $sform->addElement(new \XoopsFormTinyeditorTextArea(array('caption'=> 'Tiny Editor<p>'._AM_EDITO_BLOCKTEXT, 'name'=>'block_text', 'value'=>$block_text, 'width'=>'100%', 'height'=>'468px'),false));
         } elseif ( $xoopsModuleConfig['wysiwyg'] == 'inbetween' AND is_file(XOOPS_ROOT_PATH . '/class/xoopseditor/inbetween/forminbetweentextarea.php') ) {
             require_once XOOPS_ROOT_PATH . '/class/xoopseditor/inbetween/forminbetweentextarea.php';
-            $sform->addElement(new XoopsFormInbetweenTextArea(array('caption'=> 'Inbetween Editor<p>'._AM_EDITO_BLOCKTEXT, 'name'=>'block_text', 'value'=>$block_text, 'width'=>'100%', 'height'=>'468px'),false));
+            $sform->addElement(new \XoopsFormInbetweenTextArea(array('caption'=> 'Inbetween Editor<p>'._AM_EDITO_BLOCKTEXT, 'name'=>'block_text', 'value'=>$block_text, 'width'=>'100%', 'height'=>'468px'),false));
         } else {
-            $sform -> addElement( new XoopsFormDhtmlTextArea( 'DHTML Editor<p>'._AM_EDITO_BLOCKTEXT, 'block_text', $block_text, 15, 60 ) );
+            $sform -> addElement( new \XoopsFormDhtmlTextArea( 'DHTML Editor<p>'._AM_EDITO_BLOCKTEXT, 'block_text', $block_text, 15, 60 ) );
         }
     */
 
@@ -551,26 +552,26 @@ function editarticle($id = '', $op = '')
     /*
         if ( $xoopsModuleConfig['wysiwyg'] == 'koivi' AND is_file(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php') ) {
             require_once XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php';
-            $wysiwyg_text_area_02= new XoopsFormWysiwygTextArea( 'Koivi Editor<p>'._AM_EDITO_BLOCKTEXT, 'block_text', $block_text, '100%', '400px','');
+            $wysiwyg_text_area_02= new \XoopsFormWysiwygTextArea( 'Koivi Editor<p>'._AM_EDITO_BLOCKTEXT, 'block_text', $block_text, '100%', '400px','');
             $wysiwyg_text_area_02->setUrl("/class/wysiwyg");
             $wysiwyg_text_area_02->setSkin("default");
             $sform -> addElement( $wysiwyg_text_area_02, false );
         } elseif ( $xoopsModuleConfig['wysiwyg'] == 'tinyeditor'  AND is_file(XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php') ) {
             require_once XOOPS_ROOT_PATH . "/class/xoopseditor/tinyeditor/formtinyeditortextarea.php";
-            $sform->addElement(new XoopsFormTinyeditorTextArea(array('caption'=> 'Tiny Editor<p>'._AM_EDITO_BLOCKTEXT, 'name'=>'block_text', 'value'=>$block_text, 'width'=>'100%', 'height'=>'468px'),false));
+            $sform->addElement(new \XoopsFormTinyeditorTextArea(array('caption'=> 'Tiny Editor<p>'._AM_EDITO_BLOCKTEXT, 'name'=>'block_text', 'value'=>$block_text, 'width'=>'100%', 'height'=>'468px'),false));
         } elseif ( $xoopsModuleConfig['wysiwyg'] == 'inbetween' AND is_file(XOOPS_ROOT_PATH . '/class/xoopseditor/inbetween/forminbetweentextarea.php') ) {
             require_once XOOPS_ROOT_PATH . "/class/xoopseditor/inbetween/forminbetweentextarea.php";
-            $sform->addElement(new XoopsFormInbetweenTextArea(array('caption'=> 'Inbetween Editor<p>'._AM_EDITO_BLOCKTEXT, 'name'=>'block_text', 'value'=>$block_text, 'width'=>'100%', 'height'=>'468px'),false));
+            $sform->addElement(new \XoopsFormInbetweenTextArea(array('caption'=> 'Inbetween Editor<p>'._AM_EDITO_BLOCKTEXT, 'name'=>'block_text', 'value'=>$block_text, 'width'=>'100%', 'height'=>'468px'),false));
         } elseif ( $xoopsModuleConfig['wysiwyg'] == 'fck' AND is_file(XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php') ) {
             require_once XOOPS_ROOT_PATH . "/class/fckeditor/formfckeditor.php";
-            $sform->addElement(new XoopsFormFckeditor(array('caption'=> 'FCK Editor<p>'._AM_EDITO_FCK, 'name'=>'block_text', 'value'=>$block_text),false));
+            $sform->addElement(new \XoopsFormFckeditor(array('caption'=> 'FCK Editor<p>'._AM_EDITO_FCK, 'name'=>'block_text', 'value'=>$block_text),false));
         } elseif ( $xoopsModuleConfig['wysiwyg'] == 'spaw' AND is_file(XOOPS_ROOT_PATH . '/class/spaw/formspaw.php') ) {
             require_once XOOPS_ROOT_PATH . "/class/spaw/formspaw.php";
-            $sform->addElement(new XoopsFormSpaw(array('caption'=> 'Spaw Editor<p>'._AM_EDITO_SPAW, 'name'=>'block_text', 'value'=>$block_text),false));
+            $sform->addElement(new \XoopsFormSpaw(array('caption'=> 'Spaw Editor<p>'._AM_EDITO_SPAW, 'name'=>'block_text', 'value'=>$block_text),false));
         } elseif ( $xoopsModuleConfig['wysiwyg'] == 'textarea' AND is_file(XOOPS_ROOT_PATH . '/class/xoopseditor/inbetween/forminbetweentextarea.php') ) {
-            $sform->addElement(new XoopsFormTextArea(array('caption'=> 'Inbetween Editor<p>'._AM_EDITO_BLOCKTEXT, 'name'=>'block_text', 'value'=>$block_text),false));
+            $sform->addElement(new \XoopsFormTextArea(array('caption'=> 'Inbetween Editor<p>'._AM_EDITO_BLOCKTEXT, 'name'=>'block_text', 'value'=>$block_text),false));
         } else {
-            $sform -> addElement( new XoopsFormDhtmlTextArea( 'DHTML Editor<p>'._AM_EDITO_BLOCKTEXT, 'block_text', $block_text, 15, 60 ) );
+            $sform -> addElement( new \XoopsFormDhtmlTextArea( 'DHTML Editor<p>'._AM_EDITO_BLOCKTEXT, 'block_text', $block_text, 15, 60 ) );
         }
     */ //    require_once  '../include/functions_wysiwyg.php';
     //    edito_getWysiwygForm($type = 'dhtml', $caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental='')
@@ -581,7 +582,7 @@ function editarticle($id = '', $op = '')
 
     // Code to put article in block
 
-    $block_radio = new XoopsFormRadioYN(_AM_EDITO_BLOCK, 'block', $block, ' ' . _AM_EDITO_YES . '', ' ' . _AM_EDITO_NO . '');
+    $block_radio = new \XoopsFormRadioYN(_AM_EDITO_BLOCK, 'block', $block, ' ' . _AM_EDITO_YES . '', ' ' . _AM_EDITO_NO . '');
 
     $sform->addElement($block_radio);
 
@@ -596,26 +597,26 @@ function editarticle($id = '', $op = '')
     /*
         if ( $xoopsModuleConfig['wysiwyg'] == 'koivi' AND is_file(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php') AND $status != 5 ) {
             require_once XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php';
-            $wysiwyg_text_area_02= new XoopsFormWysiwygTextArea( 'Koivi Editor<p>'._AM_EDITO_BODYTEXT, 'body_text', $body_text, '100%', '400px','');
+            $wysiwyg_text_area_02= new \XoopsFormWysiwygTextArea( 'Koivi Editor<p>'._AM_EDITO_BODYTEXT, 'body_text', $body_text, '100%', '400px','');
             $wysiwyg_text_area_02->setUrl("/class/wysiwyg");
             $wysiwyg_text_area_02->setSkin("default");
             $sform -> addElement( $wysiwyg_text_area_02, false );
         } elseif ( $xoopsModuleConfig['wysiwyg'] == 'tinyeditor'  AND is_file(XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php') AND $status != 5 ) {
             require_once XOOPS_ROOT_PATH . "/class/xoopseditor/tinyeditor/formtinyeditortextarea.php";
-            $sform->addElement(new XoopsFormTinyeditorTextArea(array('caption'=> 'Tiny Editor<p>'._AM_EDITO_BODYTEXT, 'name'=>'body_text', 'value'=>$body_text, 'width'=>'100%', 'height'=>'468px'),false));
+            $sform->addElement(new \XoopsFormTinyeditorTextArea(array('caption'=> 'Tiny Editor<p>'._AM_EDITO_BODYTEXT, 'name'=>'body_text', 'value'=>$body_text, 'width'=>'100%', 'height'=>'468px'),false));
         } elseif ( $xoopsModuleConfig['wysiwyg'] == 'inbetween' AND is_file(XOOPS_ROOT_PATH . '/class/xoopseditor/inbetween/forminbetweentextarea.php') AND $status != 5 ) {
             require_once XOOPS_ROOT_PATH . "/class/xoopseditor/inbetween/forminbetweentextarea.php";
-            $sform->addElement(new XoopsFormInbetweenTextArea(array('caption'=> 'Inbetween Editor<p>'._AM_EDITO_BODYTEXT, 'name'=>'body_text', 'value'=>$body_text, 'width'=>'100%', 'height'=>'468px'),false));
+            $sform->addElement(new \XoopsFormInbetweenTextArea(array('caption'=> 'Inbetween Editor<p>'._AM_EDITO_BODYTEXT, 'name'=>'body_text', 'value'=>$body_text, 'width'=>'100%', 'height'=>'468px'),false));
         } elseif ( $xoopsModuleConfig['wysiwyg'] == 'fck' AND is_file(XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php') AND $status != 5 ) {
             require_once XOOPS_ROOT_PATH . "/class/fckeditor/formfckeditor.php";
-            $sform->addElement(new XoopsFormFckeditor(array('caption'=> 'FCK Editor<p>'._AM_EDITO_FCK, 'name'=>'body_text', 'value'=>$body_text),false));
+            $sform->addElement(new \XoopsFormFckeditor(array('caption'=> 'FCK Editor<p>'._AM_EDITO_FCK, 'name'=>'body_text', 'value'=>$body_text),false));
         } elseif ( $xoopsModuleConfig['wysiwyg'] == 'spaw' AND is_file(XOOPS_ROOT_PATH . '/class/spaw/formspaw.php') AND $status != 5 ) {
             require_once XOOPS_ROOT_PATH . "/class/spaw/formspaw.php";
-            $sform->addElement(new XoopsFormSpaw(array('caption'=> 'Spaw Editor<p>'._AM_EDITO_SPAW, 'name'=>'body_text', 'value'=>$body_text),false));
+            $sform->addElement(new \XoopsFormSpaw(array('caption'=> 'Spaw Editor<p>'._AM_EDITO_SPAW, 'name'=>'body_text', 'value'=>$body_text),false));
         } elseif ( $xoopsModuleConfig['wysiwyg'] == 'textarea' AND is_file(XOOPS_ROOT_PATH . '/class/xoopseditor/inbetween/forminbetweentextarea.php') AND $status != 5 ) {
-            $sform->addElement(new XoopsFormTextArea(array('caption'=> 'Inbetween Editor<p>'._AM_EDITO_BODYTEXT, 'name'=>'body_text', 'value'=>$body_text),false));
+            $sform->addElement(new \XoopsFormTextArea(array('caption'=> 'Inbetween Editor<p>'._AM_EDITO_BODYTEXT, 'name'=>'body_text', 'value'=>$body_text),false));
         } else {
-            $sform -> addElement( new XoopsFormDhtmlTextArea( 'DHTML Editor<p>'._AM_EDITO_BODYTEXT, 'body_text', $body_text, 15, 60 ) );
+            $sform -> addElement( new \XoopsFormDhtmlTextArea( 'DHTML Editor<p>'._AM_EDITO_BODYTEXT, 'body_text', $body_text, 15, 60 ) );
         }
     */ //    $wysiwyg2 = edito_getWysiwygForm( $xoopsModuleConfig['wysiwyg'], _AM_EDITO_BODYTEXT, 'body_text', $body_text, '100%', '468px', '');
     //    $sform -> addElement($wysiwyg2,false);
@@ -636,7 +637,7 @@ function editarticle($id = '', $op = '')
 
     $graph_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $xoopsModuleConfig['sbuploaddir']);
 
-    $image_select = new XoopsFormSelect('', 'image', $image);
+    $image_select = new \XoopsFormSelect('', 'image', $image);
 
     $image_select->addOption('blank.gif');
 
@@ -644,17 +645,17 @@ function editarticle($id = '', $op = '')
 
     $image_select->setExtra("onchange='showImgSelected(\"image5\", \"image\", \"" . $xoopsModuleConfig['sbuploaddir'] . '", "", "' . XOOPS_URL . "\")'");
 
-    $image_tray = new XoopsFormElementTray(_AM_EDITO_SELECT_IMG, '&nbsp;');
+    $image_tray = new \XoopsFormElementTray(_AM_EDITO_SELECT_IMG, '&nbsp;');
 
     $image_tray->addElement($image_select);
 
-    $image_tray->addElement(new XoopsFormLabel('', "<br><br><img src='" . XOOPS_URL . '/' . $xoopsModuleConfig['sbuploaddir'] . '/' . $image . "' name='image5' id='image5' alt='" . $image . "'>"));
+    $image_tray->addElement(new \XoopsFormLabel('', "<br><br><img src='" . XOOPS_URL . '/' . $xoopsModuleConfig['sbuploaddir'] . '/' . $image . "' name='image5' id='image5' alt='" . $image . "'>"));
 
     $sform->addElement($image_tray);
 
     // Code to call the file browser to select an image to upload
 
-    $sform->addElement(new XoopsFormFile(_AM_EDITO_UPLOADIMAGE, 'cimage', ''), false);
+    $sform->addElement(new \XoopsFormFile(_AM_EDITO_UPLOADIMAGE, 'cimage', ''), false);
 
     $sform->addElement($image_out);
 
@@ -676,7 +677,7 @@ function editarticle($id = '', $op = '')
 
     $media_array = XoopsLists::getFileListAsArray(XOOPS_ROOT_PATH . '/' . $xoopsModuleConfig['sbmediadir']);
 
-    $media_select = new XoopsFormSelect('', 'media_file', $media_file);
+    $media_select = new \XoopsFormSelect('', 'media_file', $media_file);
 
     $media_select->addOption('');
 
@@ -684,23 +685,23 @@ function editarticle($id = '', $op = '')
 
     //$media_select->setExtra("onchange='showImgSelected(\"media5\", \"media_file\", \"" . $xoopsModuleConfig['sbmediadir'] . "\", \"\", \"" . XOOPS_URL . "\")'");
 
-    $media_tray = new XoopsFormElementTray(_AM_EDITO_SELECT_MEDIA, '&nbsp;');
+    $media_tray = new \XoopsFormElementTray(_AM_EDITO_SELECT_MEDIA, '&nbsp;');
 
     $media_tray->addElement($media_select);
 
-    //$media_tray->addElement(new XoopsFormLabel("", "<br><br><img src='".XOOPS_URL . "/". $xoopsModuleConfig['sbmediadir'] ."/" . $display_media . "' name='media5' id='media5' alt='" . $media_file . "'>"));
+    //$media_tray->addElement(new \XoopsFormLabel("", "<br><br><img src='".XOOPS_URL . "/". $xoopsModuleConfig['sbmediadir'] ."/" . $display_media . "' name='media5' id='media5' alt='" . $media_file . "'>"));
 
     $sform->addElement($media_tray);
 
     // Code to call the file browser to select a media to upload
 
-    $sform->addElement(new XoopsFormFile(_AM_EDITO_UPLOADMEDIA, 'cmedia', ''), false);
+    $sform->addElement(new \XoopsFormFile(_AM_EDITO_UPLOADMEDIA, 'cmedia', ''), false);
 
     // MEDIA URL
 
     // Code for direct media url
 
-    $sform->addElement(new XoopsFormText(_AM_EDITO_MEDIAURL, 'media_url', 80, 255, $media_url), false);
+    $sform->addElement(new \XoopsFormText(_AM_EDITO_MEDIAURL, 'media_url', 80, 255, $media_url), false);
 
     // MEDIA SIZE
 
@@ -717,11 +718,11 @@ function editarticle($id = '', $op = '')
         'mv_large'  => _AM_EDITO_SELECT_MVBIG,
     ];
 
-    $media_s_select = new XoopsFormSelect('', 'media_size', $media_size);
+    $media_s_select = new \XoopsFormSelect('', 'media_size', $media_size);
 
     $media_s_select->addOptionArray($media_s_array);
 
-    $media_s_tray = new XoopsFormElementTray(_AM_EDITO_MEDIA_SIZE, '&nbsp;');
+    $media_s_tray = new \XoopsFormElementTray(_AM_EDITO_MEDIA_SIZE, '&nbsp;');
 
     $media_s_tray->addElement($media_s_select);
 
@@ -739,15 +740,15 @@ function editarticle($id = '', $op = '')
 
     // Meta Title
 
-    $sform->addElement(new XoopsFormText(_AM_EDITO_METATITLE, 'meta_title', 70, 512, $meta_title), false);
+    $sform->addElement(new \XoopsFormText(_AM_EDITO_METATITLE, 'meta_title', 70, 512, $meta_title), false);
 
     // Meta Description
 
-    $sform->addElement(new XoopsFormTextArea(_AM_EDITO_METADESCRIPTION, 'meta_description', $meta_description, 5, 512));
+    $sform->addElement(new \XoopsFormTextArea(_AM_EDITO_METADESCRIPTION, 'meta_description', $meta_description, 5, 512));
 
     // Meta Keywords
 
-    $sform->addElement(new XoopsFormTextArea(_AM_EDITO_METAKEYWORDS, 'meta_keywords', $meta_keywords, 5, 512));
+    $sform->addElement(new \XoopsFormTextArea(_AM_EDITO_METAKEYWORDS, 'meta_keywords', $meta_keywords, 5, 512));
 
     // Meta Keywords
 
@@ -765,56 +766,56 @@ function editarticle($id = '', $op = '')
 
     // GROUPS
 
-    $sform->addElement(new XoopsFormSelectGroup(_AM_EDITO_GROUPS, 'groups', true, $groups, 5, true));
+    $sform->addElement(new \XoopsFormSelectGroup(_AM_EDITO_GROUPS, 'groups', true, $groups, 5, true));
 
     //COUNTER
 
-    $sform->addElement(new XoopsFormText(_AM_EDITO_COUNTER, 'counter', 5, 11, $counter), false);
+    $sform->addElement(new \XoopsFormText(_AM_EDITO_COUNTER, 'counter', 5, 11, $counter), false);
 
     // LOGO
 
     // Code to display or hide image
 
     /*
-        $logo_radio = new XoopsFormRadioYN(_AM_EDITO_LOGO, 'logo', $logo, ' '._AM_EDITO_YES.'', ' '._AM_EDITO_NO.'');
+        $logo_radio = new \XoopsFormRadioYN(_AM_EDITO_LOGO, 'logo', $logo, ' '._AM_EDITO_YES.'', ' '._AM_EDITO_NO.'');
         $sform -> addElement($logo_radio);
     */
 
     // VARIOUS OPTIONS
 
-    $options_tray = new XoopsFormElementTray(_AM_EDITO_OPTIONS, '</input><br>');
+    $options_tray = new \XoopsFormElementTray(_AM_EDITO_OPTIONS, '</input><br>');
 
-    $title_checkbox = new XoopsFormCheckBox('', 'title', $title);
+    $title_checkbox = new \XoopsFormCheckBox('', 'title', $title);
 
     $title_checkbox->addOption(1, _AM_EDITO_TITLE);
 
     $options_tray->addElement($title_checkbox);
 
-    $logo_checkbox = new XoopsFormCheckBox('', 'logo', $logo);
+    $logo_checkbox = new \XoopsFormCheckBox('', 'logo', $logo);
 
     $logo_checkbox->addOption(1, _AM_EDITO_LOGO);
 
     $options_tray->addElement($logo_checkbox);
 
-    $comment_checkbox = new XoopsFormCheckBox('', 'cancomment', $cancomment);
+    $comment_checkbox = new \XoopsFormCheckBox('', 'cancomment', $cancomment);
 
     $comment_checkbox->addOption(1, _AM_EDITO_ALLOWCOMMENTS . '<hr>');
 
     $options_tray->addElement($comment_checkbox);
 
-    $html_checkbox = new XoopsFormCheckBox('', 'html', $html);
+    $html_checkbox = new \XoopsFormCheckBox('', 'html', $html);
 
     $html_checkbox->addOption(1, _AM_EDITO_HTML);
 
     $options_tray->addElement($html_checkbox);
 
-    $smiley_checkbox = new XoopsFormCheckBox('', 'smiley', $smiley);
+    $smiley_checkbox = new \XoopsFormCheckBox('', 'smiley', $smiley);
 
     $smiley_checkbox->addOption(1, _AM_EDITO_SMILEY);
 
     $options_tray->addElement($smiley_checkbox);
 
-    $xcodes_checkbox = new XoopsFormCheckBox('', 'xcode', $xcode);
+    $xcodes_checkbox = new \XoopsFormCheckBox('', 'xcode', $xcode);
 
     $xcodes_checkbox->addOption(1, _AM_EDITO_XCODE);
 
@@ -828,38 +829,38 @@ function editarticle($id = '', $op = '')
         $id = '';
     }
 
-    $sform->addElement(new XoopsFormHidden('id', $id));
+    $sform->addElement(new \XoopsFormHidden('id', $id));
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $hidden = new XoopsFormHidden('op', 'addart');
+    $hidden = new \XoopsFormHidden('op', 'addart');
 
     $button_tray->addElement($hidden);
 
     if (!$id || 'dup' == $op) { // there's no id? Then it's a new edito
-        $butt_create = new XoopsFormButton('', '', _AM_EDITO_SUBMIT, 'submit');
+        $butt_create = new \XoopsFormButton('', '', _AM_EDITO_SUBMIT, 'submit');
 
         $butt_create->setExtra('onclick="this.form.elements.op.value=\'addart\'"');
 
         $button_tray->addElement($butt_create);
 
-        $butt_clear = new XoopsFormButton('', '', _AM_EDITO_CLEAR, 'reset');
+        $butt_clear = new \XoopsFormButton('', '', _AM_EDITO_CLEAR, 'reset');
 
         $button_tray->addElement($butt_clear);
 
-        $butt_cancel = new XoopsFormButton('', '', _AM_EDITO_CANCEL, 'button');
+        $butt_cancel = new \XoopsFormButton('', '', _AM_EDITO_CANCEL, 'button');
 
         $butt_cancel->setExtra('onclick="history.go(-1)"');
 
         $button_tray->addElement($butt_cancel);
     } else { // we're editing an existing article
-        $butt_create = new XoopsFormButton('', '', _AM_EDITO_MODIFY, 'submit');
+        $butt_create = new \XoopsFormButton('', '', _AM_EDITO_MODIFY, 'submit');
 
         $butt_create->setExtra('onclick="this.form.elements.op.value=\'addart\'"');
 
         $button_tray->addElement($butt_create);
 
-        $butt_cancel = new XoopsFormButton('', '', _AM_EDITO_CANCEL, 'button');
+        $butt_cancel = new \XoopsFormButton('', '', _AM_EDITO_CANCEL, 'button');
 
         $butt_cancel->setExtra('onclick="history.go(-1)"');
 
@@ -889,7 +890,7 @@ switch ($op) {
         break;
     case 'addart':
         //require_once __DIR__ . '/admin_header.php';
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         require_once dirname(__DIR__) . '/include/functions_metagen.php';
         require_once dirname(__DIR__) . '/include/functions_edito.php';
         $id      = Request::getInt('id', 0, 'POST');

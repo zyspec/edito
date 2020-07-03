@@ -26,8 +26,7 @@ declare(strict_types=1);
 
 use Xmf\Request;
 
-require_once dirname(__DIR__, 3) . '/mainfile.php';
-require_once dirname(__DIR__, 3) . '/include/cp_header.php';
+require __DIR__ . '/admin_header.php';
 
 // foreach ( $_POST as $k => $v ) { ${$k} = $v; }
 // foreach ( $_GET as $k => $v ) { ${$k} = $v; }
@@ -87,7 +86,7 @@ function utilities($dir, $sitelist)
     }
     */
 
-    $sform = new XoopsThemeForm(_AM_EDITO_HTACCESS, 'op', xoops_getenv('PHP_SELF'));
+    $sform = new \XoopsThemeForm(_AM_EDITO_HTACCESS, 'op', xoops_getenv('PHP_SELF'));
 
     $sform->setExtra('enctype="multipart/form-data"');
 
@@ -100,33 +99,33 @@ function utilities($dir, $sitelist)
 
     $pagedir_array = $dirs;
 
-    $pagedir_select = new XoopsFormSelect('', 'dir', $dir);
+    $pagedir_select = new \XoopsFormSelect('', 'dir', $dir);
 
     $pagedir_select->addOptionArray($pagedir_array);
 
-    $pagedir_tray = new XoopsFormElementTray(_AM_EDITO_HTACCESS, '&nbsp;');
+    $pagedir_tray = new \XoopsFormElementTray(_AM_EDITO_HTACCESS, '&nbsp;');
 
     $pagedir_tray->addElement($pagedir_select);
 
     $sform->addElement($pagedir_tray);
 
-    $sform->addElement(new XoopsFormHidden('dir', $dir));
+    $sform->addElement(new \XoopsFormHidden('dir', $dir));
 
-    $sform->addElement(new XoopsFormTextArea(_AM_EDITO_SITELIST, 'sitelist', $sitelist, 5), false);
+    $sform->addElement(new \XoopsFormTextArea(_AM_EDITO_SITELIST, 'sitelist', $sitelist, 5), false);
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $hidden = new XoopsFormHidden('op', '');
+    $hidden = new \XoopsFormHidden('op', '');
 
     $button_tray->addElement($hidden);
 
-    $butt_create = new XoopsFormButton('', '', _AM_EDITO_SUBMIT, 'submit');
+    $butt_create = new \XoopsFormButton('', '', _AM_EDITO_SUBMIT, 'submit');
 
     $butt_create->setExtra('onclick="this.form.elements.op.value=\'protect\'"');
 
     $button_tray->addElement($butt_create);
 
-    $butt_cancel = new XoopsFormButton('', '', _AM_EDITO_CANCEL, 'button');
+    $butt_cancel = new \XoopsFormButton('', '', _AM_EDITO_CANCEL, 'button');
 
     $butt_cancel->setExtra('onclick="history.go(-1)"');
 
@@ -198,7 +197,7 @@ function display_htaccess($dir, $sitelist = '')
 {
     global $xoopsModule;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $info1 = _AM_EDITO_HTACCESS_INFO1;
 
@@ -275,7 +274,7 @@ RewriteRule [^/]+.(' . $media_list . ')$ ' . XOOPS_URL . '/assets/images/logo.gi
                  </td>
                  </tr>';
 
-    $sform = new XoopsThemeForm(_AM_EDITO_HTACCESS, '', '');
+    $sform = new \XoopsThemeForm(_AM_EDITO_HTACCESS, '', '');
 
     $sform->setExtra('enctype="multipart/form-data"');
 

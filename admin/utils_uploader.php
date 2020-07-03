@@ -15,8 +15,9 @@ declare(strict_types=1);
 
 use Xmf\Request;
 
-require_once dirname(__DIR__, 3) . '/mainfile.php';
-require_once dirname(__DIR__, 3) . '/include/cp_header.php';
+require __DIR__ . '/admin_header.php';
+
+xoops_cp_header();
 
 //@todo replace the following code - is is VERY insecure/dangerous
 foreach ($_POST as $k => $v) {
@@ -71,7 +72,8 @@ function utilities($dir)
                 </select>
     ';
 
-    $sform = new XoopsThemeForm(_AM_EDITO_UPLOAD . ' : ' . $select_form, 'op', xoops_getenv('PHP_SELF'));
+    xoops_load('XoopsThemeForm');
+    $sform = new \XoopsThemeForm(_AM_EDITO_UPLOAD . ' : ' . $select_form, 'op', xoops_getenv('PHP_SELF'));
 
     $sform->setExtra('enctype="multipart/form-data"');
 
@@ -84,37 +86,37 @@ function utilities($dir)
 
     $pagedir_array = $dirs;
 
-    $pagedir_select = new XoopsFormSelect('', 'dir', $dir);
+    $pagedir_select = new \XoopsFormSelect('', 'dir', $dir);
 
     $pagedir_select->addOptionArray($pagedir_array);
 
-    $pagedir_tray = new XoopsFormElementTray(_AM_EDITO_PAGE, '&nbsp;');
+    $pagedir_tray = new \XoopsFormElementTray(_AM_EDITO_PAGE, '&nbsp;');
 
     $pagedir_tray->addElement($pagedir_select);
 
-    $sform->addElement(new XoopsFormHidden('dir', $dir));
+    $sform->addElement(new \XoopsFormHidden('dir', $dir));
 
     // File selector
 
-    $sform->addElement(new XoopsFormFile(_AM_EDITO_UPLOADMEDIA, 'cmedia', ''), true);
+    $sform->addElement(new \XoopsFormFile(_AM_EDITO_UPLOADMEDIA, 'cmedia', ''), true);
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $hidden = new XoopsFormHidden('op', 'uploadmedia');
+    $hidden = new \XoopsFormHidden('op', 'uploadmedia');
 
     $button_tray->addElement($hidden);
 
-    $butt_create = new XoopsFormButton('', '', _AM_EDITO_SUBMIT, 'submit');
+    $butt_create = new \XoopsFormButton('', '', _AM_EDITO_SUBMIT, 'submit');
 
     $butt_create->setExtra('onclick="this.form.elements.op.value=\'uploadmedia\'"');
 
     $button_tray->addElement($butt_create);
 
-    $butt_clear = new XoopsFormButton('', '', _AM_EDITO_CLEAR, 'reset');
+    $butt_clear = new \XoopsFormButton('', '', _AM_EDITO_CLEAR, 'reset');
 
     $button_tray->addElement($butt_clear);
 
-    $butt_cancel = new XoopsFormButton('', '', _AM_EDITO_CANCEL, 'button');
+    $butt_cancel = new \XoopsFormButton('', '', _AM_EDITO_CANCEL, 'button');
 
     $butt_cancel->setExtra('onclick="history.go(-1)"');
 
@@ -126,17 +128,17 @@ function utilities($dir)
 
     $graph_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $current_dir);
 
-    $image_select = new XoopsFormSelect('', 'image', '');
+    $image_select = new \XoopsFormSelect('', 'image', '');
 
     $image_select->addOptionArray($graph_array);
 
     $image_select->setExtra('onchange=\'showImgSelected("image5", "image", "' . $current_dir . '", "", "' . XOOPS_URL . '")\'');
 
-    $image_tray = new XoopsFormElementTray(_AM_EDITO_MEDIA, '&nbsp;');
+    $image_tray = new \XoopsFormElementTray(_AM_EDITO_MEDIA, '&nbsp;');
 
     $image_tray->addElement($image_select);
 
-    $image_tray->addElement(new XoopsFormLabel('', '<p><img src="' . XOOPS_URL . '/modules/edito/assets/images/blank.gif" name="image5" id="image5" alt="">'));
+    $image_tray->addElement(new \XoopsFormLabel('', '<p><img src="' . XOOPS_URL . '/modules/edito/assets/images/blank.gif" name="image5" id="image5" alt="">'));
 
     $sform->addElement($image_tray);
 
@@ -178,7 +180,7 @@ function edito_uploader($file_name = '', $allowed_mimetypes = '', $dir = 'upload
         $comment = _AM_EDITO_UPDATED;
     }
 
-    $uploader = new XoopsMediaUploader($uploaddir, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
+    $uploader = new \XoopsMediaUploader($uploaddir, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
 
     if ($uploader->fetchMedia($_POST['xoops_upload_file'][$num])) {
         if (!$uploader->upload()) {

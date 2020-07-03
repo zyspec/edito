@@ -30,7 +30,7 @@ declare(strict_types=1);
 require dirname(__DIR__, 2) . '/mainfile.php';
 $com_itemid = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
 if ($com_itemid > 0) {
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $sql = ' SELECT subject, uid, image, block_text, body_text, options, datesub FROM ' . $xoopsDB->prefix('edito_content') . " WHERE id=$com_itemid AND status > 0";
 

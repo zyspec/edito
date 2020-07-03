@@ -85,7 +85,7 @@ function edito_uploading_image($filename)
 
     $redirect = 0;
 
-    $uploader = new XoopsMediaUploader($uploaddir, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
+    $uploader = new \XoopsMediaUploader($uploaddir, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
 
     if ($uploader->fetchMedia($filename)) {
         if (!$uploader->upload()) {
@@ -136,7 +136,7 @@ function edito_uploading_media($filename)
 
     $redirect = 0;
 
-    $uploader = new XoopsMediaUploader($uploaddir, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
+    $uploader = new \XoopsMediaUploader($uploaddir, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
 
     if ($uploader->fetchMedia($filename)) {
         if (!$uploader->upload()) {
@@ -189,7 +189,7 @@ function edito_media_uploading( $allowed_mimetypes, $httppostfiles, $redirecturl
     $maxfileheight = $image_size[1];
     $maxfilesize = $xoopsModuleConfig['maxfilesize'];
     $uploaddir = XOOPS_ROOT_PATH . "/" . $dir . "/";
-    $uploader = new XoopsMediaUploader( $uploaddir, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight );
+    $uploader = new \XoopsMediaUploader( $uploaddir, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight );
 
     if ( $uploader -> fetchMedia( $tmpmedia ) ) {
         if ( !$uploader -> upload() ) {
@@ -247,7 +247,7 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '')
 
     global $xoopsModule, $xoopsConfig;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $tblColors = array_fill(0, 8, '');
 
@@ -259,7 +259,7 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '')
         require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/french/modinfo.php';
     }
 
-    require __DIR__ . '/menu.php';
+//mb    require __DIR__ . '/menu.php';
 
     echo '<div id="buttontop">';
 
@@ -328,7 +328,7 @@ function edito_statmenu($currentoption = 0, $breadcrumb = '')
 
     global $xoopsModule, $xoopsConfig;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $tblColors = array_fill(0, 6, '');
 
@@ -340,7 +340,7 @@ function edito_statmenu($currentoption = 0, $breadcrumb = '')
         require_once XOOPS_ROOT_PATH . '/modules/edito/language/english/modinfo.php';
     }
 
-    require __DIR__ . '/menu.php';
+//    require __DIR__ . '/menu.php';
 
     /*
     echo '<div id="adminmenu" style="visibility:hidden;position:absolute;z-index:100;top:-100"></div>';
@@ -827,11 +827,12 @@ function edito_GetLastVersion()
 
 function edito_UpdatedModule()
 {
-    require_once dirname(__DIR__) . '/xoops_version.php';
-
-    if ($modversion['version'] != $GLOBALS['xoopsModule']->getVar('version') / 100) {
-        $redirect = XOOPS_URL . '/modules/system/admin.php?fct=modulesadmin&op=update&module=' . $xoopsModule->getVar('dirname');
-
-        redirect_header($redirect, 3, _MD_EDITO_MAKE_UPDATE);
-    }
+//    global $xoopsModule;
+//    require_once dirname(__DIR__) . '/xoops_version.php';
+//
+//    if ($modversion['version'] != $GLOBALS['xoopsModule']->getVar('version') / 100) {
+//        $redirect = XOOPS_URL . '/modules/system/admin.php?fct=modulesadmin&op=update&module=' . $xoopsModule->getVar('dirname');
+//
+//        redirect_header($redirect, 3, _MD_EDITO_MAKE_UPDATE);
+//    }
 }

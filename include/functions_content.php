@@ -271,7 +271,7 @@ function edito_pagebreak($body_text = '', $pagebreak = '[pagebreak]', $current_p
     if ($total_pages > 1) {
         global $xoopsTpl;
 
-        $pagenav = new XoopsPageNav($total_pages, 1, $current_page, 'page', $item);
+        $pagenav = new \XoopsPageNav($total_pages, 1, $current_page, 'page', $item);
 
         $xoopsTpl->assign('breaknav', $pagenav->renderImageNav());
 

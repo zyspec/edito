@@ -44,8 +44,9 @@ if (empty($fct)) {
 //if (isset($fct) && $fct == "users") {
 //	$xoopsOption['pagetype'] = "user";
 //}
-include dirname(__DIR__, 3) . '/mainfile.php';
-require XOOPS_ROOT_PATH . '/include/cp_functions.php';
+
+require __DIR__ . '/admin_header.php';
+
 require_once XOOPS_ROOT_PATH . '/class/xoopsmodule.php';
 
 $admintest = 0;

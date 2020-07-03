@@ -9,9 +9,10 @@ declare(strict_types=1);
 // ------------------------------------------------------------------------- //
 
 use Xmf\Request;
+use XoopsModules\Edito;
 
-require_once dirname(__DIR__, 3) . '/include/cp_header.php';
-require_once dirname(__DIR__) . '/class/EditoGroupPermForm.php';
+require __DIR__ . '/admin_header.php';
+
 require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
 
 // check $xoopsModule
@@ -78,7 +79,7 @@ $sql       = 'SELECT * FROM ' . $db->prefix('newblocks') . " WHERE mid='$target_
 $result    = $db->query($sql);
 $block_arr = [];
 while (false !== ($myrow = $db->fetchArray($result))) {
-    $block_arr[] = new XoopsBlock($myrow);
+    $block_arr[] = new \XoopsBlock($myrow);
 }
 
 function list_blocks()
@@ -385,6 +386,9 @@ if (!empty(Request::getString('submit', null, 'POST'))) {
 }
 
 require_once __DIR__ . '/admin_header.php';
+xoops_cp_header();
+
+
 edito_adminmenu(3, _AM_SYSTEM_BLOCKS_ADMIN);
 
 if (!empty($block_arr)) {
@@ -399,8 +403,8 @@ foreach (array_keys($block_arr) as $i) {
 }
 
 echo "<h4 class='left'>" . _AM_SYSTEM_ADGS . "</h4>\n";
-require_once dirname(__DIR__) . '/class/EditoGroupPermForm.php';
-$form = new EditoGroupPermForm('', 1, 'block_read', '');
+
+$form = new Edito\EditoGroupPermForm('', 1, 'block_read', '');
 if ($target_mid > 1) {
     $form->addAppendix('module_admin', $target_mid, $target_mname . ' ' . _AM_SYSTEM_GROUPS_ACTIVERIGHTS);
 

@@ -43,7 +43,7 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '')
 
     global $xoopsModule, $xoopsConfig;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $tblColors = array_fill(0, 8, '');
 
@@ -57,7 +57,7 @@ function edito_adminmenu($currentoption = 0, $breadcrumb = '')
         require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/french/modinfo.php';
     }
 
-    require __DIR__ . '/menu.php';
+//    require __DIR__ . '/menu.php';
 
     echo '<div id="buttontop">';
 
@@ -118,7 +118,7 @@ function edito_statmenu($currentoption = 0, $breadcrumb = '')
 
     global $xoopsModule, $xoopsConfig;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $tblColors = array_fill(0, 8, '');
 
@@ -130,7 +130,7 @@ function edito_statmenu($currentoption = 0, $breadcrumb = '')
         require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/french/modinfo.php';
     }
 
-    require __DIR__ . '/menu.php';
+//    require __DIR__ . '/menu.php';
 
     echo '<br><div id="statbar">';
 
@@ -169,7 +169,7 @@ function edito_metamenu($currentoption = 0, $breadcrumb = '')
 
     global $xoopsModule, $xoopsConfig;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $tblColors = array_fill(0, 8, '');
 
@@ -181,7 +181,7 @@ function edito_metamenu($currentoption = 0, $breadcrumb = '')
         require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/french/modinfo.php';
     }
 
-    require __DIR__ . '/menu.php';
+//    require __DIR__ . '/menu.php';
 
     echo '<br><div id="statbar">';
 

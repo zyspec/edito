@@ -154,7 +154,7 @@ switch ($op) {
         if ($display_help && 'Help' == $sub) {
             echo settings_sub_menu($sub);
 
-            $myts = MyTextSanitizer::getInstance();
+            $myts = \MyTextSanitizer::getInstance();
 
             echo '<p>' . themecenterposts(_PREFERENCES, $myts->displayTarea($help)) . '</p>';
         } else {
@@ -233,7 +233,7 @@ function settings_display($sub = '')
 
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-    $form = new XoopsThemeForm(_PREFERENCES, 'pref_form', 'settings.php?sub=' . $sub, 'post', true);
+    $form = new \XoopsThemeForm(_PREFERENCES, 'pref_form', 'settings.php?sub=' . $sub, 'post', true);
 
     $moduleHandler = xoops_getHandler('module');
 
@@ -262,7 +262,7 @@ function settings_display($sub = '')
     $modname = $module->getVar('name');
 
     if ($module->getInfo('adminindex')) {
-        $form->addElement(new XoopsFormHidden('redirect', XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/' . $module->getInfo('adminindex')));
+        $form->addElement(new \XoopsFormHidden('redirect', XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/' . $module->getInfo('adminindex')));
     }
 
     for ($i = 0; $i < $count; $i++) {
@@ -271,20 +271,20 @@ function settings_display($sub = '')
 
         switch ($config[$i]->getVar('conf_formtype')) {
             case 'textarea':
-                $myts = MyTextSanitizer::getInstance();
+                $myts = \MyTextSanitizer::getInstance();
                 if ('array' == $config[$i]->getVar('conf_valuetype')) {
                     // this is exceptional.. only when value type is arrayneed a smarter way for this
 
-                    $ele = '' != $config[$i]->getVar('conf_value') ? new XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlSpecialChars(implode('|', $config[$i]->getConfValueForOutput())), 5, 50) : new XoopsFormTextArea($title,
+                    $ele = '' != $config[$i]->getVar('conf_value') ? new \XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlSpecialChars(implode('|', $config[$i]->getConfValueForOutput())), 5, 50) : new \XoopsFormTextArea($title,
                                                                                                                                                                                                                                                  $config[$i]->getVar('conf_name'),
                                                                                                                                                                                                                                                  '', 5,
                                                                                                                                                                                                                                                  50);
                 } else {
-                    $ele = new XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlSpecialChars($config[$i]->getConfValueForOutput()), 5, 50);
+                    $ele = new \XoopsFormTextArea($title, $config[$i]->getVar('conf_name'), $myts->htmlSpecialChars($config[$i]->getConfValueForOutput()), 5, 50);
                 }
                 break;
             case 'select':
-                $ele     = new XoopsFormSelect($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
+                $ele     = new \XoopsFormSelect($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput());
                 $options = $configHandler->getConfigOptions(new Criteria('conf_id', $config[$i]->getVar('conf_id')));
                 $opcount = count($options);
                 for ($j = 0; $j < $opcount; $j++) {
@@ -296,7 +296,7 @@ function settings_display($sub = '')
                 }
                 break;
             case 'select_multi':
-                $ele     = new XoopsFormSelect($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput(), 5, true);
+                $ele     = new \XoopsFormSelect($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput(), 5, true);
                 $options = $configHandler->getConfigOptions(new Criteria('conf_id', $config[$i]->getVar('conf_id')));
                 $opcount = count($options);
                 for ($j = 0; $j < $opcount; $j++) {
@@ -308,45 +308,45 @@ function settings_display($sub = '')
                 }
                 break;
             case 'yesno':
-                $ele = new XoopsFormRadioYN($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput(), _YES, _NO);
+                $ele = new \XoopsFormRadioYN($title, $config[$i]->getVar('conf_name'), $config[$i]->getConfValueForOutput(), _YES, _NO);
                 break;
             case 'group':
                 require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-                $ele = new XoopsFormSelectGroup($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 1, false);
+                $ele = new \XoopsFormSelectGroup($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 1, false);
                 break;
             case 'group_multi':
                 require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-                $ele = new XoopsFormSelectGroup($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 5, true);
+                $ele = new \XoopsFormSelectGroup($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 5, true);
                 break;
             // RMV-NOTIFY: added 'user' and 'user_multi'
             case 'user':
                 require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-                $ele = new XoopsFormSelectUser($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 1, false);
+                $ele = new \XoopsFormSelectUser($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 1, false);
                 break;
             case 'user_multi':
                 require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-                $ele = new XoopsFormSelectUser($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 5, true);
+                $ele = new \XoopsFormSelectUser($title, $config[$i]->getVar('conf_name'), false, $config[$i]->getConfValueForOutput(), 5, true);
                 break;
             case 'password':
-                $myts = MyTextSanitizer::getInstance();
-                $ele  = new XoopsFormPassword($title, $config[$i]->getVar('conf_name'), 50, 255, $myts->htmlSpecialChars($config[$i]->getConfValueForOutput()));
+                $myts = \MyTextSanitizer::getInstance();
+                $ele  = new \XoopsFormPassword($title, $config[$i]->getVar('conf_name'), 50, 255, $myts->htmlSpecialChars($config[$i]->getConfValueForOutput()));
                 break;
             case 'color':
-                $myts = MyTextSanitizer::getInstance();
-                $ele  = new XoopsFormColorPicker($title, $config[$i]->getVar('conf_name'), 9, $myts->htmlSpecialChars($config[$i]->getConfValueForOutput()));
+                $myts = \MyTextSanitizer::getInstance();
+                $ele  = new \XoopsFormColorPicker($title, $config[$i]->getVar('conf_name'), 9, $myts->htmlSpecialChars($config[$i]->getConfValueForOutput()));
                 break;
             case 'hidden':
-                $myts = MyTextSanitizer::getInstance();
-                $ele  = new XoopsFormHidden($config[$i]->getVar('conf_name'), $myts->htmlSpecialChars($config[$i]->getConfValueForOutput()));
+                $myts = \MyTextSanitizer::getInstance();
+                $ele  = new \XoopsFormHidden($config[$i]->getVar('conf_name'), $myts->htmlSpecialChars($config[$i]->getConfValueForOutput()));
                 break;
             case 'textbox':
             default:
-                $myts = MyTextSanitizer::getInstance();
-                $ele  = new XoopsFormText($title, $config[$i]->getVar('conf_name'), 50, 255, $myts->htmlSpecialChars($config[$i]->getConfValueForOutput()));
+                $myts = \MyTextSanitizer::getInstance();
+                $ele  = new \XoopsFormText($title, $config[$i]->getVar('conf_name'), 50, 255, $myts->htmlSpecialChars($config[$i]->getConfValueForOutput()));
                 break;
         }
 
-        $hidden = new XoopsFormHidden('conf_ids[]', $config[$i]->getVar('conf_id'));
+        $hidden = new \XoopsFormHidden('conf_ids[]', $config[$i]->getVar('conf_id'));
 
         $form->addElement($ele);
 
@@ -357,9 +357,9 @@ function settings_display($sub = '')
         unset($hidden);
     }
 
-    $form->addElement(new XoopsFormHidden('op', 'save'));
+    $form->addElement(new \XoopsFormHidden('op', 'save'));
 
-    $form->addElement(new XoopsFormButton('', 'button', _GO, 'submit'));
+    $form->addElement(new \XoopsFormButton('', 'button', _GO, 'submit'));
 
     return $form->display();
 }

@@ -25,7 +25,7 @@ function a_edito_show($options)
 {
     global $xoopsDB, $xoopsUser;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $module = 'edito';
 
@@ -424,7 +424,7 @@ function a_edito_edit($options)
 {
     global $xoopsDB;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $i = 0;
 
@@ -635,7 +635,7 @@ function a_edito_menu_show($options)
 {
     global $xoopsDB, $xoopsUser;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $module = 'edito';
 

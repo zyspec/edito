@@ -40,7 +40,7 @@ if (empty($wysiwyg_editor)) {
 
 $avail_editors = XoopsLists::getDirListAsArray($GLOBALS['xoops']->path('/class/xoopseditor'));
 
-$sform = new XoopsThemeForm(_AM_EDITO_EDITORS, 'op', xoops_getenv('SCRIPT_NAMEF'));
+$sform = new \XoopsThemeForm(_AM_EDITO_EDITORS, 'op', xoops_getenv('SCRIPT_NAMEF'));
 $sform->setExtra('enctype="multipart/form-data"');
 
 $check = $on; // for now set this to ON since only avail editors will be in array
@@ -154,10 +154,10 @@ $inbetween = '<tr class="odd">
               <td>'.$check.'</td>
               </tr>';
 
-$sform = new XoopsThemeForm( _AM_EDITO_EDITORS, "op", xoops_getenv( 'PHP_SELF' ) );
+$sform = new \XoopsThemeForm( _AM_EDITO_EDITORS, "op", xoops_getenv( 'PHP_SELF' ) );
 $sform->setExtra( 'enctype="multipart/form-data"' );
 
-//$sform->addElement( new XoopsFormText( _AM_EDITO_CLONENAME, 'clone', 16, 16, '' ), true );
+//$sform->addElement( new \XoopsFormText( _AM_EDITO_CLONENAME, 'clone', 16, 16, '' ), true );
 $sform->addElement($compact);
 $sform->addElement($dhtml);
 $sform->addElement($tiny);

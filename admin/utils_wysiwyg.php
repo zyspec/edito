@@ -22,8 +22,7 @@ declare(strict_types=1);
  * @author    XOOPS Module Development Team
  * @link      https://github.com/XoopsModules25x/edito
  */
-require_once dirname(__DIR__, 3) . '//mainfile.php';
-require_once dirname(__DIR__, 3) . '//include/cp_header.php';
+
 require_once __DIR__ . '/admin_header.php';
 
 edito_adminmenu(2, _AM_EDITO_UTILITIES . '<br>' . _AM_EDITO_WYSIWYG);
@@ -39,7 +38,7 @@ if (empty($wysiwyg_editor)) {
 
 $avail_editors = XoopsLists::getDirListAsArray($GLOBALS['xoops']->path('/class/xoopseditor'));
 
-$sform = new XoopsThemeForm(_AM_EDITO_EDITORS, 'op', xoops_getenv('PHP_SELF'));
+$sform = new \XoopsThemeForm(_AM_EDITO_EDITORS, 'op', xoops_getenv('PHP_SELF'));
 $sform->setExtra('enctype="multipart/form-data"');
 
 foreach ($avail_editors as $this_editor) {
@@ -151,10 +150,10 @@ $tiny = '<tr class="odd">
                   <td>'.$check.'</td>
                   </tr>';
 
-$sform = new XoopsThemeForm( _AM_EDITO_EDITORS, "op", xoops_getenv( 'PHP_SELF' ) );
+$sform = new \XoopsThemeForm( _AM_EDITO_EDITORS, "op", xoops_getenv( 'PHP_SELF' ) );
 $sform -> setExtra( 'enctype="multipart/form-data"' );
 
-//$sform -> addElement( new XoopsFormText( _AM_EDITO_CLONENAME, 'clone', 16, 16, '' ), true );
+//$sform -> addElement( new \XoopsFormText( _AM_EDITO_CLONENAME, 'clone', 16, 16, '' ), true );
 $sform -> addElement($compact);
 $sform -> addElement($dhtml);
 $sform -> addElement($tiny);

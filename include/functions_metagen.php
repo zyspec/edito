@@ -55,7 +55,7 @@ function edito_createMetaTags($page_title = '', $page_meta_title = '', $page_met
 
     global $xoopsTpl, $xoopsModule;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $ret = '';
 
@@ -196,7 +196,7 @@ function edito_createMetaTags($page_title = '', $page_meta_title = '', $page_met
  */
 function edito_cleanContent($content)
 {
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $content = mb_strtolower($content);
 

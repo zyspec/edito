@@ -25,8 +25,7 @@ declare(strict_types=1);
 
 use Xmf\Request;
 
-require_once dirname(__DIR__, 3) . '/mainfile.php';
-require_once dirname(__DIR__, 3) . '/include/cp_header.php';
+require __DIR__ . '/admin_header.php';
 
 $op = Request::getCmd('op', '');
 /*
@@ -47,7 +46,7 @@ function select($table = '')
 
     // DB feed
 
-    $sform = new XoopsThemeForm(_AM_EDITO_DB_EXPORT, 'op', xoops_getenv('SCRIPT_NAME'));
+    $sform = new \XoopsThemeForm(_AM_EDITO_DB_EXPORT, 'op', xoops_getenv('SCRIPT_NAME'));
 
     $sform->setExtra('enctype="multipart/form-data"');
 
@@ -59,9 +58,9 @@ function select($table = '')
         $tables = array('edito_content');
 
         $tables_array = $tables;
-        $tables_select = new XoopsFormSelect( '', 'table', $table);
+        $tables_select = new \XoopsFormSelect( '', 'table', $table);
         $tables_select -> addOptionArray( $tables_array );
-        $tables_tray = new XoopsFormElementTray( _AM_EDITO_DB_DATAS, '&nbsp;' );
+        $tables_tray = new \XoopsFormElementTray( _AM_EDITO_DB_DATAS, '&nbsp;' );
         $tables_tray -> addElement( $tables_select );
         $sform -> addElement( $tables_tray );
     */
@@ -70,7 +69,7 @@ function select($table = '')
 
     // Code to define how to export datas
 
-    $export_radio = new XoopsFormRadio(_AM_EDITO_TYPE, 'op', $op, '<br>');
+    $export_radio = new \XoopsFormRadio(_AM_EDITO_TYPE, 'op', $op, '<br>');
 
     $export_radio->addOption('database_export_insert', _AM_EDITO_INSERT);
 
@@ -78,9 +77,9 @@ function select($table = '')
 
     $sform->addElement($export_radio);
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $butt_create = new XoopsFormButton('', '', _AM_EDITO_EXPORT, 'submit');
+    $butt_create = new \XoopsFormButton('', '', _AM_EDITO_EXPORT, 'submit');
 
     $button_tray->addElement($butt_create);
 
@@ -96,11 +95,11 @@ function select($table = '')
  */
 function display($result, $count, $table)
 {
-    $sform = new XoopsThemeForm(_AM_EDITO_DB_DATAS, '', '');
+    $sform = new \XoopsThemeForm(_AM_EDITO_DB_DATAS, '', '');
 
     $sform->addElement($javascript01);
 
-    $sform->addElement(new XoopsFormTextArea('Table : ' . $table . '<br>Total : ' . $count . ' ' . _AM_EDITO_DB_DATAS, '', $result, 20), false);
+    $sform->addElement(new \XoopsFormTextArea('Table : ' . $table . '<br>Total : ' . $count . ' ' . _AM_EDITO_DB_DATAS, '', $result, 20), false);
 
     $sform->display();
 }

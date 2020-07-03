@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
+namespace XoopsModules\Edito;
+
 /**
  * Renders checkbox options for a group permission form
  *
  * @author       Kazumi Ono    <onokazu@myweb.ne.jp>
  * @copyright    copyright (c) 2000-2003 XOOPS.org
  */
-class EditoGroupFormCheckBox extends XoopsFormElement
+class EditoGroupFormCheckBox extends \XoopsFormElement
 {
     /**
      * Pre-selected value(s)

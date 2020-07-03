@@ -118,7 +118,7 @@ if (isset($_POST['previewblock'])) {
 
     require_once XOOPS_ROOT_PATH . '/class/template.php';
 
-    $xoopsTpl = new XoopsTpl();
+    $xoopsTpl = new \XoopsTpl();
 
     $xoopsTpl->xoops_setCaching(0);
 
@@ -129,7 +129,7 @@ if (isset($_POST['previewblock'])) {
 
         $block['submit_button'] = _CLONE;
 
-        $myblock = new XoopsBlock();
+        $myblock = new \XoopsBlock();
 
         $myblock->setVar('block_type', 'C');
     } else {
@@ -139,7 +139,7 @@ if (isset($_POST['previewblock'])) {
 
         $block['submit_button'] = _SUBMIT;
 
-        $myblock = new XoopsBlock($bid);
+        $myblock = new \XoopsBlock($bid);
 
         $block['name'] = $myblock->getVar('name');
     }
@@ -187,7 +187,7 @@ if (isset($_POST['previewblock'])) {
 
     //require XOOPS_ROOT_PATH.'/modules/system/admin/blocksadmin/blockform.php';
 
-    $form->addElement(new XoopsFormHiddenToken());
+    $form->addElement(new \XoopsFormHiddenToken());
 
     $form->display();
 
@@ -406,7 +406,7 @@ if ('delete_ok' == $op) {
 
     // delete_block_ok($bid); GIJ imported from blocksadmin.php
 
-    $myblock = new XoopsBlock($bid);
+    $myblock = new \XoopsBlock($bid);
 
     if ('D' != $myblock->getVar('block_type') && 'C' != $myblock->getVar('block_type')) {
         redirect_header('../blocks.php', 4, 'Invalid block');
@@ -434,7 +434,7 @@ if ('delete' == $op) {
 
     // delete_block($bid); GIJ imported from blocksadmin.php
 
-    $myblock = new XoopsBlock($bid);
+    $myblock = new \XoopsBlock($bid);
 
     if ('S' == $myblock->getVar('block_type')) {
         $message = _AM_SYSTEMCANT;
@@ -464,7 +464,7 @@ if ('edit' == $op) {
 
     // edit_block($bid); GIJ imported from blocksadmin.php
 
-    $myblock = new XoopsBlock($bid);
+    $myblock = new \XoopsBlock($bid);
 
     $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
@@ -504,7 +504,7 @@ if ('edit' == $op) {
 
     require __DIR__ . '/myblockform.php'; //GIJ
 
-    $form->addElement(new XoopsFormHiddenToken());
+    $form->addElement(new \XoopsFormHiddenToken());
 
     $form->display();
 
@@ -518,7 +518,7 @@ if ('edit' == $op) {
 if ('clone' == $op) {
     xoops_cp_header();
 
-    $myblock = new XoopsBlock($bid);
+    $myblock = new \XoopsBlock($bid);
 
     $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
@@ -558,7 +558,7 @@ if ('clone' == $op) {
 
     include __DIR__ . '/myblockform.php';
 
-    $form->addElement(new XoopsFormHiddenToken());
+    $form->addElement(new \XoopsFormHiddenToken());
 
     $form->display();
 
@@ -574,7 +574,7 @@ if ('clone_ok' == $op) {
         redirect_header(XOOPS_URL . '/', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
     }
 
-    $block = new XoopsBlock($bid);
+    $block = new \XoopsBlock($bid);
 
     // block type check
 
@@ -596,7 +596,7 @@ if ('clone_ok' == $op) {
 
     // $cblock = $block->clone(); or $cblock = $block->xoopsClone();
 
-    $cblock = new XoopsBlock();
+    $cblock = new \XoopsBlock();
 
     foreach ($block->vars as $k => $v) {
         $cblock->assignVar($k, $v['value']);
@@ -710,7 +710,7 @@ function myblocksadmin_update_block($bid, $bside, $bweight, $bvisible, $btitle, 
         exit();
     } */
 
-    $myblock = new XoopsBlock($bid);
+    $myblock = new \XoopsBlock($bid);
 
     // $myblock->setVar('side', $bside); GIJ -
 
@@ -784,7 +784,7 @@ function myblocksadmin_update_block($bid, $bside, $bweight, $bvisible, $btitle, 
 
         require_once XOOPS_ROOT_PATH . '/class/template.php';
 
-        $xoopsTpl = new XoopsTpl();
+        $xoopsTpl = new \XoopsTpl();
 
         $xoopsTpl->xoops_setCaching(2);
 
@@ -913,7 +913,7 @@ function myblocksadmin_update_blockinstance($id, $bside, $bweight, $bvisible, $b
     */
     /*			// CLEAR TEMPLATE CACHE
                 require_once XOOPS_ROOT_PATH.'/class/template.php';
-                $xoopsTpl = new XoopsTpl();
+                $xoopsTpl = new \XoopsTpl();
                 $xoopsTpl->xoops_setCaching(2);
                 if ($instance->getVar('template') != '') {
                     if ($xoopsTpl->is_cached('db:'.$instance->getVar('template'))) {

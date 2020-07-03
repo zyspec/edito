@@ -35,7 +35,7 @@ if (0 == $id) {
     redirect_header('index.php', 2, _MD_EDITO_PL_SELECT);
 }
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 /* ----------------------------------------------------------------------- */
 /*                              Render Query                               */

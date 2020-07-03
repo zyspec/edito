@@ -81,7 +81,7 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
         $mimetypesHandler = xoops_getHandler('mimetypes_perms');
 
         if (0 != $mperm_id) {
-            $mimeObj = new XoopsMimetypes_perms($mperm_id);
+            $mimeObj = new \XoopsMimetypes_perms($mperm_id);
 
             if ($mperm_mime == $mimeObj->mperm_mime()) {
                 $result = $mimetypesHandler->deletebyMimeModule($mimeObj, true);
@@ -90,7 +90,7 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
 
         if ($result) {
             foreach ($mperm_groups as $key => $group) {
-                $mimeObj = new XoopsMimetypes_perms();
+                $mimeObj = new \XoopsMimetypes_perms();
                 $mimeObj->setVar('mperm_id', 0);
                 $mimeObj->setVar('mperm_mime', $mperm_mime);
                 $mimeObj->setVar('mperm_module', $mperm_module);
@@ -152,7 +152,7 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
             $newgroups = array_diff($mperm_groups, $groups);
 
             foreach ($newgroups as $key => $group) {
-                $mimeObj = new XoopsMimetypes_perms();
+                $mimeObj = new \XoopsMimetypes_perms();
                 $mimeObj->setVar('mperm_id', 0);
                 $mimeObj->setVar('mperm_mime', $mperm_mime);
                 $mimeObj->setVar('mperm_module', $mperm_module);
@@ -176,7 +176,7 @@ if ('POST' == $_SERVER['REQUEST_METHOD'] && !$create) {
     if ('dele' == $op && $confirm) {
         $mimetypesHandler = xoops_getHandler('mimetypes_perms');
 
-        $mimeObj = new XoopsMimetypes_perms($mperm_id);
+        $mimeObj = new \XoopsMimetypes_perms($mperm_id);
 
         if (!$mimetypesHandler->deletebyMime($mimeObj, true)) {
             redirect_header('mimetypes.php?' . $uri, 3, $mimetypesHandler->getHtmlErrors());
