@@ -164,7 +164,7 @@ if ($numrows > 0) {    // That is, if there ARE editos in the system
 
     /* ----------------------------------------------------------------------- */
 
-    $pagenav = new XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startart, 'startart', '');
+    $pagenav = new \XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startart, 'startart', '');
 
     $xoopsTpl->assign('pagenav', $pagenav->renderImageNav());
 
