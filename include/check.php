@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
+require_once dirname(__DIR__, 3) . '/mainfile.php';
 if (isset($_GET['id']) && isset($_GET['uid'])) {
     $id = (int)$_GET['id'];
 

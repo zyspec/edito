@@ -11,9 +11,9 @@ declare(strict_types=1);
  * Authors :
  *            - DuGris (http://www.dugris.info)
  */
-require_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
-require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
-require_once dirname(dirname(dirname(__DIR__))) . '/include/functions.php';
+require_once dirname(__DIR__, 3) . '/mainfile.php';
+require_once dirname(__DIR__, 3) . '/include/cp_header.php';
+require_once dirname(__DIR__, 3) . '/include/functions.php';
 
 xoops_cp_header();
 require_once __DIR__ . '/mimetypesadmin.php';
