@@ -210,7 +210,7 @@ class EditoGroupFormCheckBox extends XoopsFormElement
 
         if (isset($option['children'])) {
             foreach ($option['children'] as $child) {
-                array_push($parentIds, $option['id']);
+                $parentIds[] = $option['id'];
 
                 $this->_renderOptionTree($tree, $this->_optionTree[$child], $prefix . '&nbsp;-', $parentIds);
             }

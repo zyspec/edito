@@ -141,11 +141,11 @@ class MyXoopsGroupPermForm extends XoopsForm
             $first_child = $this->_itemTree[$itemId]['children'];
 
             foreach ($first_child as $fcid) {
-                array_push($childIds, $fcid);
+                $childIds[] = $fcid;
 
                 if (!empty($this->_itemTree[$fcid]['children'])) {
                     foreach ($this->_itemTree[$fcid]['children'] as $_fcid) {
-                        array_push($childIds, $_fcid);
+                        $childIds[] = $_fcid;
 
                         $this->_loadAllChildItemIds($_fcid, $childIds);
                     }
