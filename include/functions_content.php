@@ -48,7 +48,7 @@ function edito_cleankeywords($content, $urw)
 
     $content = mb_strtolower($content);
 
-    $content = htmlentities($content);
+    $content = htmlentities($content, ENT_QUOTES | ENT_HTML5);
 
     $content = preg_replace('/&([a-zA-Z])(uml|acute|grave|circ|tilde);/', '$1', $content);
 
