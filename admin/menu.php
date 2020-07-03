@@ -48,23 +48,29 @@ $adminmenu[] = [
 ];
 
 $adminmenu[] = [
+    'title' => _MI_EDITO_MENU_01,
+    'link'  => 'admin/main.php',
+    'icon' => $pathIcon32 . '/manage.png',
+];
+
+$adminmenu[] = [
     'title' => _MI_EDITO_CREATE,
     'link'  => 'admin/content.php',
-    'icon' => $pathIcon32 . '/home.png',
+    'icon' => $pathIcon32 . '/add.png',
 ];
 
 if ($id) {
     $adminmenu[] = [
         'title' => _MI_EDITO_SEE,
         'link'  => 'content.php?id=' . $id,
-        'icon' => $pathIcon32 . '/home.png',
+        'icon' => $pathIcon32 . '/album.png',
     ];
 }
 
 $adminmenu[] = [
     'title' => _MI_EDITO_UTILITIES,
     'link'  => 'admin/utils_uploader.php',
-    'icon' => $pathIcon32 . '/home.png',
+    'icon' => $pathIcon32 . '/administration.png',
 ];
 
 $adminmenu[] = [

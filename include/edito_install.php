@@ -34,7 +34,7 @@ edito_create_all_dir();
 
 function edito_create_all_dir()
 {
-    $img_edito = EDITO_ROOT_PATH . 'assets/images/edito_slogo.png';
+    $img_edito = EDITO_ROOT_PATH . 'assets/images/logoModule.png';
 
     $img_source = EDITO_ROOT_PATH . 'assets/images/blank.gif';
 
@@ -55,7 +55,7 @@ function edito_create_all_dir()
 
         $ind_dest = $dest . 'index.html';
 
-        $edito_dest = $dest . 'content_slogo.png';
+        $edito_dest = $dest . 'logoModule.png';
 
         edito_copyr($img_source, $img_dest);
 

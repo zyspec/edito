@@ -531,9 +531,9 @@ function edito_admin_mkdir($target)
 
             copy($blank_file, $final_target . '/blank.gif');
 
-            $logo_file = XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/assets/images/content_slogo.png';
+            $logo_file = XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/assets/images/logoModule.png';
 
-            copy($logo_file, $final_target . '/content_slogo.png');
+            copy($logo_file, $final_target . '/logoModule.png');
 
             return $res;
         }

@@ -30,6 +30,8 @@ require_once __DIR__ . '/admin_header.php';
 require_once dirname(__DIR__) . '/include/functions_mediasize.php';
 require_once dirname(__DIR__) . '/include/functions_content.php';
 
+xoops_cp_header();
+
 $op   = Request::getCmd('op', 'default');
 $ord  = Request::getCmd('ord', '');
 $stat = Request::getCmd('stat', '');

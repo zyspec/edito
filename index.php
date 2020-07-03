@@ -24,11 +24,14 @@ declare(strict_types=1);
  */
 
 // This script is used to display the page list
-require_once __DIR__ . '/header.php';
+
+require_once dirname(__DIR__, 2) . '/mainfile.php';
 
 /* ----------------------------------------------------------------------- */
 /*                              Select template                            */
 /* ----------------------------------------------------------------------- */
+global $xoopsModuleConfig;
+
 if ('table' == $xoopsModuleConfig['index_display']) {
     $GLOBALS['xoopsOption']['template_main'] = 'edito_index_ext.tpl';
 
@@ -46,6 +49,9 @@ if ('table' == $xoopsModuleConfig['index_display']) {
 
     $align = 'left';
 }
+
+require_once __DIR__ . '/header.php';
+
 require_once XOOPS_ROOT_PATH . '/header.php';
 $startart = isset($_GET['startart']) ? (int)$_GET['startart'] : 0;
 

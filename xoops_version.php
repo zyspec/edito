@@ -22,6 +22,10 @@
  * @link      https://github.com/XoopsModules25x/edito
  */
 
+use XoopsModules\Edito;
+
+include __DIR__ . '/preloads/autoloader.php';
+
 global $xoopsDB, $xoopsUser, $xoopsModule, $xoopsModuleConfig;
 require_once XOOPS_ROOT_PATH . '/modules/edito/include/functions_block.php';
 
@@ -540,7 +544,7 @@ $modversion['config'][] = [
 
 //* Editor to Use
 xoops_load('xoopslists');
-$modversion['config'][$i] = [
+$modversion['config'][] = [
     'name'        => 'wysiwyg',
     'title'       => '_MI_EDITO_WYSIWYG',
     'description' => '_MI_EDITO_WYSIWYGDSC',

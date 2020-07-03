@@ -36,6 +36,7 @@ define('_MD_EDITO_SUBJECT', 'Title');
 define('_MD_EDITO_BLOCK_TEXTE', 'Summary');
 define('_MD_EDITO_INFOS', 'Info');
 define('_MD_EDITO_READMORE', 'Read more...');
+define('_MD_EDITO_SEE_MEDIA', 'See the media');
 
 // content.php
 define('_MD_EDITO_PRINT', 'Print');
@@ -50,12 +51,15 @@ define('_MD_EDITO_DOWNLOAD', 'Download! Right-click and save as...');
 // admin links
 define('_MD_EDITO_ONLINE', 'Online');
 define('_MD_EDITO_OFFLINE', 'Offline');
-define('_MD_EDITO_HIDDEN', 'Hidden');
+define('_MD_EDITO_HTML', 'Mode html');
+define('_MD_EDITO_PHP', 'Mode php');
+define('_MD_EDITO_WAITING', 'Pending');
 define('_MD_EDITO_ADD', 'Create');
 define('_MD_EDITO_EDIT', 'Edit');
 define('_MD_EDITO_DELETE', 'Delete');
 define('_MD_EDITO_SETTINGS', 'Preferences');
 define('_MD_EDITO_UTILITIES', 'Utilities');
+define('_MD_EDITO_HIDDEN', 'Hidden');
 define('_MD_EDITO_LISTING', 'List');
 
 // popup.php
