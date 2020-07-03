@@ -556,7 +556,7 @@ if ('clone' == $op) {
 
     echo '<a href="../blocks.php">' . _AM_BADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . _AM_CLONEBLOCK . '<br><br>';
 
-    include __DIR__ . 'myblockform.php';
+    include __DIR__ . '/myblockform.php';
 
     $form->addElement(new XoopsFormHiddenToken());
 
