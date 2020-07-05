@@ -71,19 +71,19 @@ switch ($op) {
         $start    = (0 < $startart) ? "&startart={$startart}" : '';
 
         $on		 = "<a href='index.php?stat=on&ord={$ord}{$start}'>"
-				 . "<img src='../assets/images/icon/online.gif' alt='" . _AM_EDITO_ONLINE . "' class='middle'></a>\n";
+				 . "<img src='../assets/images/icon/online.gif' alt='" . _AM_EDITO_ONLINE . "' title='" . _AM_EDITO_ONLINE . "' class='middle'></a>\n";
         $off	 = "<a href='index.php?stat=off&ord={$ord}'>"
-				 . "<img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_OFFLINE . "' class='middle'></a>\n";
+				 . "<img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_OFFLINE . "' title='" . _AM_EDITO_OFFLINE . "' class='middle'></a>\n";
         $hide	 = "<a href='index.php?stat=hide&ord={$ord}'>"
-				 . "<img src='../assets/images/icon/hidden.gif' alt='" . _AM_EDITO_HIDDEN . "' class='middle'></a>\n";
+				 . "<img src='../assets/images/icon/hidden.gif' alt='" . _AM_EDITO_HIDDEN . "' title='" . _AM_EDITO_HIDDEN . "' class='middle'></a>\n";
         $html    = "<a href='index.php?stat=html&ord={$ord}'>"
-				 . "<img src='../assets/images/icon/html.gif' alt='" . _AM_EDITO_HTMLMODE . "' class='middle'></a>\n";
+				 . "<img src='../assets/images/icon/html.gif' alt='" . _AM_EDITO_HTMLMODE . "' title='" . _AM_EDITO_HTMLMODE . "' class='middle'></a>\n";
     	$php     = "<a href='index.php?stat=php&ord={$ord}'>"
-				 . "<img src='../assets/images/icon/php.gif' alt='" . _AM_EDITO_PHPMODE . "' class='middle'></a>\n";
+				 . "<img src='../assets/images/icon/php.gif' alt='" . _AM_EDITO_PHPMODE . "' title='" . _AM_EDITO_PHPMODE . "' class='middle'></a>\n";
         $all	 = "<a href='index.php?ord={$ord}'>"
-		         . "<img src='../assets/images/icon/all.gif' alt='" . _AM_EDITO_ALL . "' class='middle'></a>\n";
+		         . "<img src='../assets/images/icon/all.gif' alt='" . _AM_EDITO_ALL . "' title='" . _AM_EDITO_ALL . "' class='middle'></a>\n";
         $waiting = "<a href='index.php?stat=waiting&ord={$ord}'>"
-				 . "<img src='../assets/images/icon/waiting.gif' alt='"  . _AM_EDITO_WAITING . "' class='middle'></a>\n";
+				 . "<img src='../assets/images/icon/waiting.gif' alt='"  . _AM_EDITO_WAITING . "' title='"  . _AM_EDITO_WAITING . "' class='middle'></a>\n";
 
 		$waiting_c = $waiting;
         $blank	   = "<img src='../assets/images/icon/blank.gif'  alt='' class=''middle'>\n";
@@ -264,25 +264,25 @@ switch ($op) {
             echo "<td class='even center' style='width:70px;'>{$counter}</td>";
             switch ($status) {
                 case 0:
-				echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_OFFLINE . "'></td>";
+				echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_OFFLINE . "' title='" . _AM_EDITO_OFFLINE . "'></td>";
 				break;
                 case 1:
-                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/waiting.gif' alt='" . _AM_EDITO_WAITING . "'></td>";
+                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/waiting.gif' alt='" . _AM_EDITO_WAITING . "' title='" . _AM_EDITO_WAITING . "'></td>";
                     break;
                 case 2:
-                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/hidden.gif' alt='" . _AM_EDITO_HIDDEN . "'></td>";
+                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/hidden.gif' alt='" . _AM_EDITO_HIDDEN . "' title='" . _AM_EDITO_HIDDEN . "'></td>";
                     break;
                 case 3:
-                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/online.gif' alt='" . _AM_EDITO_ONLINE . "'></td>";
+                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/online.gif' alt='" . _AM_EDITO_ONLINE . "' title='" . _AM_EDITO_ONLINE . "'></td>";
                     break;
                 case 4:
-                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/html.gif' alt='" . _AM_EDITO_HTMLMODE . "'></td>";
+                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/html.gif' alt='" . _AM_EDITO_HTMLMODE . "' title='" . _AM_EDITO_HTMLMODE . "'></td>";
                     break;
                 case 5:
-                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/php.gif' alt='" . _AM_EDITO_PHPMODE . "'></td>";
+                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/php.gif' alt='" . _AM_EDITO_PHPMODE . "' title='" . _AM_EDITO_PHPMODE . "'></td>";
                     break;
                 default:
-                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_UNKNOWN . "'></td>";
+                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_UNKNOWN . "' title='" . _AM_EDITO_UNKNOWN . "'></td>";
                     break;
 			}
 
