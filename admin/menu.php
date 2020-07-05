@@ -28,9 +28,9 @@ $op = Request::getCmd('op', '');
 
 if (preg_match('/_ok/', $op)) {
 	$adminmenu[] = [
-        'title'	=> _MI_EDITO_GOTO_INDEX,
+        'title'	=> _MI_EDITO_INDEX,
 	    'link'	=> 'index.php',
-	    'desc'  => _MI_EDITO_GOTO_INDEX_DSC,
+	    'desc'  => _MI_EDITO_INDEX_DESC,
 	    'icon'  => \Xmf\Module\Admin::menuIconPath('home.png')
     ];
 }

@@ -179,7 +179,7 @@ define('_MI_EDITO_PARENTDSC', "Display et utiliser le syst�me de cat�gorie p
 
 // Edito 2.4
 // Navigation admin
-define('_MI_EDITO_INDEX', "Index");
+define('_MI_EDITO_INDEX', "Home");
 define('_MI_EDITO_LIST', "Page list");
 define('_MI_EDITO_CREATE', "Create new page");
 define('_MI_EDITO_SEE', "See current page");
