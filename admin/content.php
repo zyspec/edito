@@ -59,7 +59,7 @@ function editarticle($id = '', $op = '')
     if (!isset($status)) { $status = 1; } else { $status = (int)$status; }
     if (!isset($subject)) { $subject = ""; }
 
-    if (!isset($block_text)) { $block_text = ''; } else { $block_text = (int)$block_text; }
+    if (!isset($block_text)) { $block_text = ''; } else { $block_text = $myts->htmlSpecialChars($block_text); }
 
     if (!isset($body_text)) {
         $body_text = '{lorem}' == $xoopsModuleConfig['informations'] ? _MD_EDITO_LOREMIPSUM : $xoopsModuleConfig['informations'];
