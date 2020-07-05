@@ -132,9 +132,9 @@ define('_MI_EDITO_DEFAULTEXTDSC', "Default text for each and every new page.<br>
 <i><b>{lorem}</b> : Tag to display default Lorem Ipsum text.</i>");
 define('_MI_EDITO_DEFAULTEXTEXP', "Welcome to Edito.
 
-Type here the text you want to display in your page.
+Type the text you want to display in your page here.
 
-To edit or delete the current default text, see in the module settings.");
+See module Preferences to edit or delete the current default text.");
 
 // Options Meta
 define('_MI_EDITO_META_KEYW', "[META] Module keywords");
@@ -186,6 +186,16 @@ define('_MI_EDITO_SEE', "See current page");
 define('_MI_EDITO_BLOCKS_GRPS', "Blocks/Groups permissions");
 define('_MI_EDITO_MIMETYPES', "Mimetypes");
 define('_MI_EDITO_SUBMIT', "Submit a new page");
+
+define('_MI_EDITO_INDEX_DESC', "");
+define('_MI_EDITO_LIST_DESC', "");
+define('_MI_EDITO_CREATE_DESC', "");
+define('_MI_EDITO_SEE_DESC', "");
+define('_MI_EDITO_BLOCKS_GRPS_DESC', "");
+define('_MI_EDITO_MIMETYPES_DESC', "");
+define('_MI_EDITO_SUBMIT_DESC', "");
+define('_MI_EDITO_UTILITIES_DESC', "");
+define('_MI_EDITO_BLOCKS_DESC', "");
 
 // Edito 3.0
 // Option Media

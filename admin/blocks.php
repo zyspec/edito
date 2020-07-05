@@ -16,7 +16,7 @@ if (!is_object($xoopsModule)) {
     redirect_header(XOOPS_URL . '/user.php' , 1 , _NOPERM);
 }
 
-$xoops_system_path = XOOPS_ROOT_PATH . '/modules/system' ;
+$xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
 // language files
 $language = $xoopsConfig['language'] ;
@@ -36,14 +36,14 @@ error_reporting($error_reporting_level);
 $module_handler = xoops_gethandler('module');
 if (!empty($_GET['dirname'])) {
 	$target_module = $module_handler->getByDirname(Request::getPath('dirname', '', 'GET'));
-}/* else if( ! empty( $_GET['mid'] ) ) {
-	$target_module = $module_handler->get( intval( $_GET['mid'] ) );
+}/* else if(! empty($_GET['mid'])) {
+	$target_module = $module_handler->get((int)$_GET['mid']));
 }*/
 
 if (!empty($target_module) && is_object($target_module)) {
 	// specified by dirname
 	$target_mid     = $target_module->getVar('mid');
-	$target_mname   = $target_module->getVar('name') . "&nbsp;" . sprintf( "(%2.2f)" , $target_module->getVar('version') / 100.0);
+	$target_mname   = $target_module->getVar('name') . "&nbsp;" . sprintf("(%2.2f)" , $target_module->getVar('version') / 100.0);
 	$query4redirect = '?dirname=' . urlencode(strip_tags(Request::getPath('dirname', '', 'GET')));
 } elseif (Request::hasVar('mid', 'GET') && (0 == Request::getInt('mid', 0, 'GET')) || 'blocksadmin' == $GLOBALS['xoopsModule']->getVar('dirname')) {
 	$target_mid     = 0 ;
@@ -57,15 +57,15 @@ if (!empty($target_module) && is_object($target_module)) {
 
 // check access right (needs system_admin of BLOCK)
 $sysperm_handler = xoops_gethandler('groupperm');
-if (!$sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser->getGroups())) redirect_header( XOOPS_URL.'/user.php' , 1 , _NOPERM );
+if (!$sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser->getGroups())) redirect_header(XOOPS_URL.'/user.php' , 1 , _NOPERM);
 
 // get blocks owned by the module (Imported from xoopsblock.php then modified)
-//$block_arr = XoopsBlock::getByModule( $target_mid ) ;
+//$block_arr = XoopsBlock::getByModule($target_mid) ;
 $db        = \XoopsDatabaseFactory::getDatabaseConnection();
-$sql       = "SELECT * FROM " . $db->prefix("newblocks") . " WHERE mid='$target_mid' ORDER BY visible DESC,side,weight";
+$sql       = "SELECT * FROM " . $db->prefix("newblocks") . " WHERE mid='{$target_mid}' ORDER BY visible DESC,side,weight";
 $result    = $db->query($sql);
 $block_arr = [];
-while( $myrow = $db->fetchArray($result) ) {
+while($myrow = $db->fetchArray($result)) {
 	$block_arr[] = new XoopsBlock($myrow);
 }
 
@@ -193,7 +193,7 @@ function list_blocks()
 		$module_options = '' ;
 		foreach ($module_list as $mid => $mname) {
 			if (in_array($mid , $selected_mids)) {
-				$module_options .= "<option value='{$mid}' selected='selected'>{$mname}</option>\n";
+				$module_options .= "<option value='{$mid}' selected'>{$mname}</option>\n";
 			} else {
 				$module_options .= "<option value='{$mid}'>{$mname}</option>\n";
 			}
@@ -209,7 +209,7 @@ function list_blocks()
 			$can_clone = false;
 			// clone link if it is marked as cloneable block
 			foreach ($block_configs as $bconf) {
-			    if ($block_arr[$i]->getVar('show_func') == $bconf['show_func'] && $block_arr[$i]->getVar('func_file') == $bconf['file'] && ( empty( $bconf['template'] ) || $block_arr[$i]->getVar('template') == $bconf['template'])) {
+			    if ($block_arr[$i]->getVar('show_func') == $bconf['show_func'] && $block_arr[$i]->getVar('func_file') == $bconf['file'] && (empty($bconf['template']) || $block_arr[$i]->getVar('template') == $bconf['template'])) {
 			        if (!empty($bconf['can_clone'])) {
 			            $can_clone = true;
 			        }
@@ -230,7 +230,7 @@ function list_blocks()
 			</td>
 			<td class='{$class} center' nowrap='nowrap' width='125px'>";
 
-			//if (substr(XOOPS_VERSION , 10 , 2) >= 14 ) {
+			//if (substr(XOOPS_VERSION , 10 , 2) >= 14) {
 			echo "
                	<div class='center'>
            	        <input class='radio' style='background-color:{$scol2};' type='radio' name='side[{$bid}]' value='" . XOOPS_CENTERBLOCK_LEFT . "'{$ssel2}>

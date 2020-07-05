@@ -890,9 +890,9 @@ switch ($op) {
 
     case "default":
     default:
-    require_once __DIR__ . '/admin_header.php';
+        require_once __DIR__ . '/admin_header.php';
         edito_adminmenu(1, _AM_EDITO_CREATE);
         editarticle();
-        include_once( 'admin_footer.php' );
+        require_once __DIR__ . '/admin_footer.php';
     break;
 }

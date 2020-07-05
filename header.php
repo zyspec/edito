@@ -25,4 +25,5 @@ require_once dirname(__DIR__, 2) . '/mainfile.php';
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 require_once("include/functions_content.php");
 
-$myts = MyTextSanitizer::getInstance();
+$moduleDirName = basename(__DIR__);
+$myts          = MyTextSanitizer::getInstance();
