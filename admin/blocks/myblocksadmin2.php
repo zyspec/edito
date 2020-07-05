@@ -8,7 +8,7 @@
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 require_once dirname(__DIR__, 4) . '/include/cp_header.php';
-require_once __DIR__ . '/mygrouppermform.php';
+require_once dirname(__DIR__, 2) . '/class/EditoGroupPermForm.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system' ;
@@ -312,7 +312,7 @@ function list_groups2()
 		$item_list[$iid] = $title;
 	}
 
-	$form = new MyXoopsGroupPermForm(_AM_SYSTEM_ADGS, 1, 'block_read', '');
+	$form = new EditoGroupPermForm(_AM_SYSTEM_ADGS, 1, 'block_read', '');
 	if(1 < $target_mid) {
 	    $form->addAppendix('module_admin', $target_mid, $target_mname . ' ' . _AM_SYSTEM_GROUPS_ACTIVERIGHTS);
 	    $form->addAppendix('module_read', $target_mid, $target_mname .' ' . _AM_SYSTEM_GROUPS_ACTIVERIGHTS);
@@ -322,8 +322,6 @@ function list_groups2()
 	}
 	echo $form->render() ;
 }
-
-
 
 if (!empty($_POST['submit'])) {
     // Check to make sure this is from known location
