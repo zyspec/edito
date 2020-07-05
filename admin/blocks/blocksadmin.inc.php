@@ -512,8 +512,8 @@ if ('clone_ok' == $op) {
 					}
 				}
 			} else {
-				if ($xoopsTpl->is_cached('db:system_dummy.html', 'block'.$bid)) {
-					if (!$xoopsTpl->clear_cache('db:system_dummy.html', 'block'.$bid)) {
+				if ($xoopsTpl->is_cached('db:system_dummy.tpl', 'block'.$bid)) {
+					if (!$xoopsTpl->clear_cache('db:system_dummy.tpl', 'block'.$bid)) {
 						$msg = 'Unable to clear cache for block ID'.$bid;
 					}
 				}
@@ -597,8 +597,8 @@ if ('clone_ok' == $op) {
 					}
 				}
 			} else {
-				if ($xoopsTpl->is_cached('db:system_dummy.html', 'block'.$bid)) {
-					if (!$xoopsTpl->clear_cache('db:system_dummy.html', 'block'.$bid)) {
+				if ($xoopsTpl->is_cached('db:system_dummy.tpl', 'block'.$bid)) {
+					if (!$xoopsTpl->clear_cache('db:system_dummy.tpl', 'block'.$bid)) {
 						$msg = 'Unable to clear cache for block ID'.$bid;
 					}
 				}

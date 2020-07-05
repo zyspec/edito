@@ -2,12 +2,12 @@
  - change mimetype management to remove dependency on Xoopsinfo module
  - update Admin to XOOPS GUI admin (Xmf\Module\Admin)
  - convert to using namespace
- - rename templates from .html to .tpl
  - remove flash support
  - create class / handler for edito content
  - create update script to:
    - switch SQL table from content_edito to edito_content
    - remove old ./images, ./script and ./doc folders
+   - delete old .html templates
  - create new module logo image
  - harden var input by using Xmf\Request
  - remove code specifically created for XOOPS < 2.5
@@ -38,6 +38,7 @@
 - replaced GIJOE gticketing system with XOOPS Security
   - deleted unused gtickets files
 - rename ./doc folder to ./docs for consistency with other modules
+- rename templates from .html to .tpl
 
 <h5>3.07 [2007-10-19]</h5>
 Last known release by Wolfpackclan Solo and DuGris

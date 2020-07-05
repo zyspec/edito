@@ -30,16 +30,16 @@ require_once __DIR__ . '/header.php';
 /* ----------------------------------------------------------------------- */
 /*                              Select template                            */
 /* ----------------------------------------------------------------------- */
-$GLOBALS['xoopsoption']['template_main'] = 'edito_index.html';
+$GLOBALS['xoopsoption']['template_main'] = 'edito_index.tpl';
 $align = 'center';
 if ('table' == $GLOBALS['xoopsModuleConfig']['index_display']) {
-    $GLOBALS['xoopsoption']['template_main'] = 'edito_index_ext.html';
+    $GLOBALS['xoopsoption']['template_main'] = 'edito_index_ext.tpl';
     $align = 'center';
 } elseif ('news' == $GLOBALS['xoopsModuleConfig']['index_display']) {
-    $GLOBALS['xoopsoption']['template_main'] = 'edito_index_news.html';
+    $GLOBALS['xoopsoption']['template_main'] = 'edito_index_news.tpl';
     $align = 'left';
 } elseif ('blog' == $GLOBALS['xoopsModuleConfig']['index_display']) {
-    $GLOBALS['xoopsoption']['template_main'] = 'edito_index_blog.html';
+    $GLOBALS['xoopsoption']['template_main'] = 'edito_index_blog.tpl';
     $align = 'left';
 }
 include_once XOOPS_ROOT_PATH . '/header.php';
