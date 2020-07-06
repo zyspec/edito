@@ -27,14 +27,19 @@ require_once __DIR__ . '/admin_header.php';
 //$guide = $myts->displayTarea($guide);
 
 edito_adminmenu(-1, _AM_EDITO_NAV_HELP);
-OpenTable();
-$helpfile = XOOPS_ROOT_PATH . '/modules/edito/language/' . $xoopsConfig['language'] . '/help.html';
-if ( file_exists($helpfile) ) {
-	include_once ( $helpfile );
-} else {
-	include_once ( XOOPS_ROOT_PATH . '/modules/edito/language/english/help.html' );
-}
+echo "<table class='width100' cellspacing='1' cellpadding='8' style='border: 2px solid #2F5376;'>\n"
+   . "  <tr class='bg4'>\n"
+   . "    <td class='top'>\n";
 
 //echo $guide;
-CloseTable();
+$helpfile = XOOPS_ROOT_PATH . '/modules/edito/language/' . $xoopsConfig['language'] . '/help.html';
+if (file_exists($helpfile)) {
+	include_once ($helpfile);
+} else {
+	include_once (XOOPS_ROOT_PATH . '/modules/edito/language/english/help.html');
+}
+
+echo "    </td>\n"
+   . "  </tr>\n"
+   . "</table>\n";
 require_once __DIR__ . '/admin_footer.php';
