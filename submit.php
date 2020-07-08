@@ -57,7 +57,6 @@ if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
     $uid         = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->uid() : 0;
     $datesub     = time();
     $media       = '|' . edito_function_checkurl($media) . '|';
-
     if ($GLOBALS['xoopsDB']->queryF("INSERT INTO " . $GLOBALS['xoopsDB']->prefix('edito_content') .
         " (id,
            uid,
@@ -75,8 +74,8 @@ if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
                   '$uid',
                   '$datesub',
                   '1',
-                  '$subject',
-                  '$description',
+                  '" . $GLOBALS['xoopsDB']->escape($subject) . "',
+                  '" . $GLOBALS['xoopsDB']->escape($description) . "',
                   '$media',
                   '$meta',
                   '$groups',
@@ -86,7 +85,6 @@ if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
     } else {
         $redirect = _MD_EDITO_THANKS_NOSUBMIT;
     }
-
 	redirect_header('submit.php', 2, $redirect);
 }
 /* ----------------------------------------------------------------------- */
