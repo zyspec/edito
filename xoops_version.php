@@ -30,7 +30,7 @@ $moduleDirName                = basename(__DIR__);
 /*  @var array $modversion */
 $modversion['version']        = '3.10';
 $modversion['module_status']  = 'Alpha 1';
-$modversion['release_date']   = '2020/07/05';
+$modversion['release_date']   = '2020/07/08';
 $modversion['name']           = _MI_EDITO_NAME;
 $modversion['description']    = _MI_EDITO_DESC;
 $modversion['author']         = 'Brandycoke Productions, Dylian Melgert, Juan Garcés';

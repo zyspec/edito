@@ -22,7 +22,7 @@
  */
 
 // General
-define('_MI_EDITO_NAME', "Edito");
+define('_MI_EDITO_NAME', "Édito");
 define('_MI_EDITO_DESC', "Display multimedia content in a page or in a block");
 
 // Menu admin
@@ -53,7 +53,7 @@ define('_MI_EDITO_COLUMNS', "[INDEX] Index columns");
 define('_MI_EDITO_COLUMNSDSC', "Number of columns to be displayed in index.");
 define('_MI_EDITO_TEXTINDEX', "[INDEX] Intro");
 define('_MI_EDITO_TEXTINDEXDSC', "Introduction and index text.");
-define('_MI_EDITO_WELCOME', "Welcome to Edito, the multi-function and multimedia content module.");
+define('_MI_EDITO_WELCOME', "Welcome to &Eacute;dito, the multi-function and multimedia content module.");
 define('_MI_EDITO_ORD', "[INDEX] Order");
 define('_MI_EDITO_ORDDSC', "Default page and index link order.");
 define('_MI_EDITO_ORD_SUBJ_ASC', "Ascending title");
@@ -79,7 +79,7 @@ define('_MI_EDITO_INDEXDSC_CONTENT', "Display an alternative index page.<br>
 define('_MI_EDITO_FOOTERTEXT', "[INDEX] Footer");
 define('_MI_EDITO_FOOTERTEXTDSC', "Default module footer content");
 define('_MI_EDITO_FOOTER', "<div style='display: none;'>
-Module <b>Edito</b> developed by the <a href=\"http://wolfactory.wolfpackclan.com/\">WolFactory</a>,
+Module <b>&Eacute;dito</b> developed by the <a href=\"http://wolfactory.wolfpackclan.com/\">WolFactory</a>,
 a division of <a href=\"http://www.wolfpackclan.com/\">Xoops Wolf Pack Clan</a>.
 </div>");
 
@@ -130,7 +130,7 @@ define('_MI_EDITO_OPT_COMMENT', "[OPTION] Allow comments");
 define('_MI_EDITO_DEFAULTEXT', "[OPTION] Default text");
 define('_MI_EDITO_DEFAULTEXTDSC', "Default text for each and every new page.<br><br>
 <i><b>{lorem}</b> : Tag to display default Lorem Ipsum text.</i>");
-define('_MI_EDITO_DEFAULTEXTEXP', "Welcome to Edito.
+define('_MI_EDITO_DEFAULTEXTEXP', "Welcome to &Eacute;dito.
 
 Type the text you want to display in your page here.
 
@@ -138,11 +138,11 @@ See module Preferences to edit or delete the current default text.");
 
 // Options Meta
 define('_MI_EDITO_META_KEYW', "[META] Module keywords");
-define('_MI_EDITO_META_KEYWDSC', "The module automatically generate keywords from your texte. You can add default keywords here if necessary.");
+define('_MI_EDITO_META_KEYWDSC', "The module will automatically generate keywords from your text. You can add default keywords here if desired.");
 
 define('_MI_EDITO_META_DESC', "[META] Module description");
 define('_MI_EDITO_META_DESCDSC', "Change the default meta description of each and every page.
-Leave empty, for default Xoops site description.");
+Leave empty, for default XOOPS site description.");
 
 define('_MI_EDITO_META_MANAGER', "[META] Meta Generator");
 define('_MI_EDITO_META_MANAGERDSC', "Activate the automatic meta generator.<br>

@@ -9,7 +9,6 @@
    - remove old ./images, ./script and ./doc folders
    - delete old .html templates
  - create new module logo image
- - harden var input by using Xmf\Request
  - remove code specifically created for XOOPS < 2.5
  - convert arrays to use short array syntax (in process)
  - add meta property for Facebook (og:image, og:url)
