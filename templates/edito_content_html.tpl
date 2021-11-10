@@ -1,5 +1,5 @@
 <{if $infos.displaylogo AND $infos.logo}>
-	<{$infos.logo}><p>
+	<{$infos.logo}><p />
 <{/if}>
 <div>
 	<{$infos.media}>
@@ -7,12 +7,12 @@
 	<{$infos.body_text}>
 </div>
 
-<{if $infos.adminlink}><p>
+<{if $infos.adminlink}><p />
 	<div class="item">
 		<div class="itemFoot"><{$infos.adminlink}></div>
 	</div>
 <{/if}>
-<p>
+<p />
 	<div class="item">
 		<div class="itemFoot"><{$infos.adminlinks}></div>
-	</div><p>
+	</div><p />

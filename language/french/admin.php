@@ -79,7 +79,7 @@ define('_AM_EDITO_BODY', 'Contenu');
 define('_AM_EDITO_IMAGE', 'Image');
 define('_AM_EDITO_SELECT_IMG', 'Image');
 define('_AM_EDITO_UPLOADIMAGE', 'Charger une image');
-define('_AM_EDITO_STATE', 'Statuts');
+define('_AM_EDITO_STATUS', 'Statuts');
 define('_AM_EDITO_BLOCK', 'Afficher le contenu <br>du bloc<br>dans la page');
 
 define('_AM_EDITO_OPTIONS', 'Options');

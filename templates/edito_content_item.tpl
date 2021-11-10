@@ -37,41 +37,41 @@
 	</table>
 <{/if}>
 
-	<{if $infos.displaylogo AND $infos.logo}><br>
-			<{$infos.logo}><p>
+	<{if $infos.displaylogo AND $infos.logo}><br />
+			<{$infos.logo}><p />
 	<{/if}>
 
 <div class="itemText">
-	<{$infos.media}><br>
-	<{$infos.body_text}><p>
+	<{$infos.media}><br />
+	<{$infos.body_text}><p />
 	<{if $breaknav}><div class="itemPermaLink" style="text-align:right;width:160px;"><{$breaknav}></div><{/if}>
 </div>
 
-<{if $navlink AND $navlink_type == 'path'}><hr>
+<{if $navlink AND $navlink_type == 'path'}><hr />
 	<div style="text-align:center;"><a href="./"><{$index}></a>
 	<{foreach item=listing from=$liste}>
 	<{if $listing.cols}>
-	<br><{else}>&nbsp;|&nbsp;
+	<br /><{else}>&nbsp;|&nbsp;
 	<{/if}>
 	<{$listing.link}>
-	<{/foreach}><{$readmore}><br></div>
+	<{/foreach}><{$readmore}><br /></div>
 <{/if}>
 
-<p>
+<p />
 	<div class="itemFoot">
 		<{$infos.adminlink}>
 	</div>
 
 </div>
 
-<{if $infos.adminlinks}><p>
+<{if $infos.adminlinks}><p />
 	<div class="item">
 		<div class="itemFoot"><{$infos.adminlinks}></div>
 	</div>
 <{/if}>
 
 <{if $navlink AND $navlink_type == 'list'}>
-<p>
+<p />
 <div class="item">
 	<div class="itemHead"><{$list}></div>
 <table>
