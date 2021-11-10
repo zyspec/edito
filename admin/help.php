@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -34,12 +37,11 @@ echo "<table class='width100' cellspacing='1' cellpadding='8' style='border: 2px
 //echo $guide;
 $helpfile = XOOPS_ROOT_PATH . '/modules/edito/language/' . $xoopsConfig['language'] . '/help.html';
 if (file_exists($helpfile)) {
-	include_once ($helpfile);
+	require_once ($helpfile);
 } else {
-	include_once (XOOPS_ROOT_PATH . '/modules/edito/language/english/help.html');
+    require_once XOOPS_ROOT_PATH . '/modules/edito/language/english/help.tpl';
 }
 
-echo "    </td>\n"
-   . "  </tr>\n"
-   . "</table>\n";
+//echo $guide;
+CloseTable();
 require_once __DIR__ . '/admin_footer.php';

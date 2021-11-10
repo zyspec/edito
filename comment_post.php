@@ -21,5 +21,5 @@
  * @link      https://github.com/XoopsModules25x/edito
  */
 
-include dirname(__DIR__, 2) . '/mainfile.php';
-include XOOPS_ROOT_PATH . '/include/comment_post.php';
+require dirname(__DIR__, 2) . '/mainfile.php';
+require XOOPS_ROOT_PATH . '/include/comment_post.php';

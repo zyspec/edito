@@ -1,14 +1,7 @@
 <?php
-/*
- You may not change or alter any portion of this comment or credits of
- supporting developers from this source code or any supporting source code
- which is considered copyrighted (c) material of the original comment or credit
- authors.
 
- This program is distributed in the hope that it will be useful, but
- WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- */
+declare(strict_types=1);
+
 /**
  * Module: Edito
  *
@@ -23,17 +16,33 @@
 
 use Xmf\Request;
 
+include dirname(__DIR__) . '/preloads/autoloader.php';
+
+$moduleDirName = basename(dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+/** @var \XoopsModules\Edito\Helper $helper */
+$helper = \XoopsModules\Edito\Helper::getInstance();
+$helper->loadLanguage('common');
+$helper->loadLanguage('feedback');
+
+$pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
+if (is_object($helper->getModule())) {
+    //    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+    $pathModIcon32 = $helper->url($helper->getModule()->getInfo('modicons32'));
+}
+
 $id = Request::getInt('id', 0);
 $op = Request::getCmd('op', '');
 
 if (preg_match('/_ok/', $op)) {
-	$adminmenu[] = [
+    $adminmenu[] = [
         'title'	=> _MI_EDITO_INDEX,
-	    'link'	=> 'index.php',
-	    'desc'  => _MI_EDITO_INDEX_DESC,
-	    'icon'  => \Xmf\Module\Admin::menuIconPath('home.png')
+        'link'	=> 'index.php',
+        'desc'  => _MI_EDITO_INDEX_DESC,
+        'icon'  => \Xmf\Module\Admin::menuIconPath('home.png')
     ];
 }
+
 $adminmenu[] = [
     'title' => _MI_EDITO_LIST,
     'link'  => 'admin/index.php',
@@ -47,12 +56,12 @@ $adminmenu[] = [
     'icon'  => \Xmf\Module\Admin::menuIconPath('add.png')
 ];
 if (0 < $id) {
-	$adminmenu[] = [
+    $adminmenu[] = [
         'title' => _MI_EDITO_SEE,
-    	'link'  => "content.php?id={$id}",
-	    'desc'  => _MI_EDITO_SEE_DESC,
-    	'icon'  => \Xmf\Module\Admin::menuIconPath('album.png')
-	];
+        'link'  => "content.php?id={$id}",
+        'desc'  => _MI_EDITO_SEE_DESC,
+        'icon'  => \Xmf\Module\Admin::menuIconPath('album.png')
+    ];
 }
 
 $adminmenu[] = [
@@ -68,7 +77,12 @@ $adminmenu[] = [
     'icon'  => \Xmf\Module\Admin::menuIconPath('block.png')
 ];
 
-$hModule = xoops_gethandler('module');
+// Blocks Admin
+$adminmenu[] = [
+    'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'BLOCKS'),
+    'link' => 'admin/blocksadmin.php',
+    'icon' => $pathIcon32 . '/block.png',
+];
 
 include_once( XOOPS_ROOT_PATH . '/class/uploader.php');
 if (defined('_XI_MIMETYPE')) {
@@ -80,6 +94,31 @@ if (defined('_XI_MIMETYPE')) {
     ];
 }
 
+//Feedback
+$adminmenu[] = [
+    'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_FEEDBACK'),
+    'link'  => 'admin/feedback.php',
+    'icon'  => $pathIcon32 . '/mail_foward.png',
+];
+
+//Migration
+if (is_object($helper->getModule()) && $helper->getConfig('displayDeveloperTools')) {
+    $adminmenu[] = [
+        'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE'),
+        'link' => 'admin/migrate.php',
+        'icon' => $pathIcon32 . '/database_go.png',
+    ];
+}
+
+$adminmenu[] = [
+    'title' => _MI_EDITO_MENU_ABOUT,
+    'link' => 'admin/about.php',
+    'icon' => $pathIcon32 . '/about.png',
+];
+
+
+
+//headermenu
 if (isset($xoopsModule)) {
   	$i=0;
   	$headermenu[$i]['title']	= '<img src="../assets/images/icon/home.gif" align="absmiddle" alt="'._MI_EDITO_GOTO_INDEX.'"/>';

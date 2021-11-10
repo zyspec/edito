@@ -49,8 +49,10 @@ define('_MD_EDITO_DOWNLOAD', "Download! Right-click and save as...");
 // admin links
 define('_MD_EDITO_ONLINE', "Online");
 define('_MD_EDITO_OFFLINE', "Offline");
+define('_MD_EDITO_HTML', "Mode html");
+define('_MD_EDITO_PHP', "Mode php");
 define('_MD_EDITO_HIDDEN', "Hidden");
-define('_MD_EDITO_WAITING', 'Waiting');
+define('_MD_EDITO_WAITING', "Pending");
 define('_MD_EDITO_ADD', "Create");
 define('_MD_EDITO_EDIT', "Edit");
 define('_MD_EDITO_DELETE', "Delete");

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -42,7 +45,7 @@ if ('table' == $GLOBALS['xoopsModuleConfig']['index_display']) {
     $GLOBALS['xoopsoption']['template_main'] = 'edito_index_blog.tpl';
     $align = 'left';
 }
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 $startart = Request::getInt('startart', 0, 'GET');
 
 /* ----------------------------------------------------------------------- */
@@ -53,8 +56,8 @@ if ($GLOBALS['xoopsModuleConfig']['index_content']) {
         header ("location: " . $GLOBALS['xoopsModuleConfig']['index_content']);
         exit();
     } else {
-        $sql = "SELECT COUNT(*) FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . "_content") . "
-                WHERE id=" . $GLOBALS['xoopsModuleConfig']['index_content'] . " AND status=2";
+        $sql = "SELECT COUNT(*) FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content') . "
+                WHERE id=" . $GLOBALS['xoopsModuleConfig']['index_content'] . " AND state=2";
 
         $result        = $GLOBALS['xoopsDB']->queryF($sql);
         list($numrows) = $GLOBALS['xoopsDB']->fetchRow($result);
@@ -141,7 +144,7 @@ $GLOBALS['xoopsTpl']->assign('width', number_format(100 / $GLOBALS['xoopsModuleC
 /* ----------------------------------------------------------------------- */
 /*                              Count number of available pages            */
 /* ----------------------------------------------------------------------- */
-$result        = $GLOBALS['xoopsDB']->queryF("SELECT COUNT(*) FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . "_content") . " WHERE status>2");
+$result        = $GLOBALS['xoopsDB']->queryF("SELECT COUNT(*) FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content') . " WHERE state>2");
 list($numrows) = $GLOBALS['xoopsDB']->fetchRow($result);
 
 $count     = $startart;
@@ -154,15 +157,15 @@ if (0 < $numrows) { // That is, if there ARE editos in the system
     /* ----------------------------------------------------------------------- */
     /*                            Generate page navigation                     */
     /* ----------------------------------------------------------------------- */
-    $pagenav = new XoopsPageNav($numrows, $GLOBALS['xoopsModuleConfig']['perpage'], $startart, 'startart', '');
+    $pagenav = new \XoopsPageNav($numrows, $GLOBALS['xoopsModuleConfig']['perpage'], $startart, 'startart', '');
     $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderImageNav());
-    $group = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
+    $group = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS];
 
     /* ----------------------------------------------------------------------- */
     /*                              Create query                               */
     /* ----------------------------------------------------------------------- */
-    $sql = "SELECT id, uid, datesub, counter, subject,  block_text, body_text, image, media, meta, groups, options
-            FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . "_content") . " WHERE status>2 ORDER BY " . $GLOBALS['xoopsModuleConfig']['order'];
+	$sql = "SELECT id, uid, datesub, counter, subject,  block_text, body_text, image, media, meta, groups, options
+    		FROM " . $xoopsDB->prefix($xoopsModule->dirname() . '_content') . " WHERE state>2 ORDER BY " . $xoopsModuleConfig['order'];
 
     $result = $GLOBALS['xoopsDB']->queryF($sql, $GLOBALS['xoopsModuleConfig']['perpage'], $startart);
     while(list($id, $uid, $datesub, $counter, $subject, $block_text, $body_text, $image, $media, $meta, $groups, $options) = $GLOBALS['xoopsDB']->fetchRow($result)) {
@@ -179,20 +182,20 @@ if (0 < $numrows) { // That is, if there ARE editos in the system
             $fileinfo = '';
             $alt_user = XoopsUser::getUnameFromId($uid);
             $user     = '<a href="../userinfo.php?uid=' . $uid . '">' . $alt_user . '</a>';
-            $alt_date = formatTimestamp($datesub,'m');
+            $alt_date = formatTimestamp($datesub, 'm');
 
             /* ----------------------------------------------------------------------- */
             /*                              Retrieve options                           */
             /* ----------------------------------------------------------------------- */
-            $media      = explode("|", $media);
+            $media      = explode('|', $media);
             $media_file = $media[0];
             $media_url  = $media[1];
             $media_size = $media[2];
 
-            $meta       = explode("|", $meta);
+            $meta       = explode('|', $meta);
             $meta_title = $meta[0];
 
-            $option     = explode("|", $options);
+            $option     = explode('|', $options);
             $html       = $option[0];
             $xcode      = $option[1];
             $smiley     = $option[2];
@@ -217,13 +220,13 @@ if (0 < $numrows) { // That is, if there ARE editos in the system
                     /*                              Check media file type                      */
                     /* ----------------------------------------------------------------------- */
                     if ($media_file) {
-                        include_once __DIR__ . '/include/functions_mediasize.php';
+                        require_once __DIR__ . '/include/functions_mediasize.php';
                         $media    =  XOOPS_URL . '/' .  $GLOBALS['xoopsModuleConfig']['sbmediadir'] . '/' . $media_file;
                         $format   = edito_checkformat($media, $GLOBALS['xoopsModuleConfig']['custom_media']);
                         $filesize = edito_fileweight($media);
                         $fileinfo .= ' <img src="assets/images/icon/' . $format[1] . '.gif" alt="' . $format[1] . ': ' . $format[0] . ' [' . $filesize . '] [' . $media_file . ']">';
                     } elseif ($media_url) {
-                        include_once __DIR__ . '/include/functions_mediasize.php';
+                        require_once __DIR__ . '/include/functions_mediasize.php';
                         $media    =  $media_url;
                         $format   = edito_checkformat($media, $GLOBALS['xoopsModuleConfig']['custom_media']);
                         $fileinfo .= ' <img src="assets/images/icon/' . $format[1] . '.gif"
@@ -248,7 +251,7 @@ if (0 < $numrows) { // That is, if there ARE editos in the system
                 }
             }
 
-            $info['info']= $fileinfo;
+            $info['info'] = $fileinfo;
 
             /* ----------------------------------------------------------------------- */
             /*                            Create admin links                           */
@@ -285,7 +288,7 @@ if (0 < $numrows) { // That is, if there ARE editos in the system
             /* ----------------------------------------------------------------------- */
             $comment_link = '';
             if ($cancomment && 1 <= $GLOBALS['xoopsModuleConfig']['com_rule']) {
-                $comments     = $GLOBALS['xoopsDB']->query("SELECT COUNT(*) FROM " . $GLOBALS['xoopsDB']->prefix('xoopscomments') . " WHERE com_status=2 AND com_modid=" . $GLOBALS['xoopsModule']->mid() . " AND com_itemid={$id}");
+                $comments     = $GLOBALS['xoopsDB']->query("SELECT COUNT(*) FROM " . $GLOBALS['xoopsDB']->prefix('xoopscomments') . " WHERE com_state=2 AND com_modid=" . $GLOBALS['xoopsModule']->mid() . " AND com_itemid={$id}");
                 $numb         = $GLOBALS['xoopsDB']->fetchRow($comments);
                 $comments     = (1 <= $numb[0]) ? $numb[0] . ' ' . _COMMENTS : _NOCOMMENTS;
                 $comment_link = edito_createlink($link, ' | ' . $comments, '', '', '', '', '', $meta_title, $GLOBALS['xoopsModuleConfig']['url_rewriting']) . ' | ';
@@ -304,13 +307,13 @@ if (0 < $numrows) { // That is, if there ARE editos in the system
             }
 
             $readmore = '';
-            if ($GLOBALS['xoopsModuleConfig']['index_display'] != 'blog' || $readmore_on) {
+            if ('blog' != $GLOBALS['xoopsModuleConfig']['index_display'] || $readmore_on) {
                 $readmore    = edito_createlink($link, _MD_EDITO_READMORE, '', '', '', '', '', $meta_title, $GLOBALS['xoopsModuleConfig']['url_rewriting']);
             }
 
             $block_text = '';
-            if ($GLOBALS['xoopsModuleConfig']['index_display'] != 'image') {
-                $block_text      = $myts->displayTarea($block_text, $html, $smiley, $xcode);
+            if ('image' != $GLOBALS['xoopsModuleConfig']['index_display']) {
+                $block_text = $myts->displayTarea($block_text, $html, $smiley, $xcode);
             }
 
             $info['subject']     = edito_createlink($link, $subject, '', '', '', '', '', $meta_title, $GLOBALS['xoopsModuleConfig']['url_rewriting']);
@@ -338,7 +341,7 @@ if (0 < $numrows) { // That is, if there ARE editos in the system
 /*      Default Meta Keywords,  // The default current module meta keywords - if any
 /*      Page Meta Keywords,     // The default current page meta keywords - if any
 /*      Meta Description,       // The current page meta description
-/*      Page Status (0 / 1),    // Is the current page online of offline?
+/*      Page state (0 / 1),     // Is the current page online of offline?
 /*      Min keyword caracters,  // Minimu size a words must have to be considered
 /*      Min keyword occurence,  // How many time a word must appear to be considered
 /*      Max keyword occurence)  // Maximum time a word must appear to be considered

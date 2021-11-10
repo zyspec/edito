@@ -20,12 +20,92 @@
  * @author    XOOPS Module Development Team
  * @link      https://github.com/XoopsModules25x/edito
  */
-
+use XoopsModules\Edito\{
+    Common\Configurator,
+    Utility
+};
 use Xmf\Request;
 
-require_once __DIR__ . '/admin_header.php';
+require __DIR__ . '/admin_header.php';
 require_once dirname(__DIR__) . '/include/functions_mediasize.php';
 require_once dirname(__DIR__) . '/include/functions_content.php';
+
+// Display Admin header
+xoops_cp_header();
+$adminObject = \Xmf\Module\Admin::getInstance();
+
+//check or upload folders
+$configurator = new Configurator();
+//foreach (array_keys($configurator->uploadFolders) as $i) {
+    //Utility::createFolder($configurator->uploadFolders[$i]);
+    //$adminObject->addConfigBoxLine($configurator->uploadFolders[$i], 'folder');
+//}
+
+$adminObject->displayNavigation(basename(__FILE__));
+
+//check for latest release
+//$newRelease = Utility->checkVerModule($helper);
+//if (!empty($newRelease)) {
+//    $adminObject->addItemButton($newRelease[0], $newRelease[1], 'download', 'style="color : Red"');
+//}
+//------------- Test Data ----------------------------
+
+/**
+ * @var  \XoopsModules\Edito\Helper $helper
+ * @var  string  $moduleDirNameUpper
+ */
+if ($helper->getConfig('displaySampleButton')) {
+    $yamlFile            = dirname(__DIR__) . '/config/admin.yml';
+    $config              = loadAdminConfig($yamlFile);
+    $displaySampleButton = $config['displaySampleButton'];
+
+    if (1 == $displaySampleButton) {
+        xoops_loadLanguage('admin/modulesadmin', 'system');
+        require_once dirname(__DIR__) . '/testdata/index.php';
+
+        $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
+        $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'SAVE_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=save', 'add');
+        //    $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA'), '__DIR__ . /../../testdata/index.php?op=exportschema', 'add');
+        $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'HIDE_SAMPLEDATA_BUTTONS'), '?op=hide_buttons', 'delete');
+    } else {
+        $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLEDATA_BUTTONS'), '?op=show_buttons', 'add');
+        $displaySampleButton = $config['displaySampleButton'];
+    }
+    $adminObject->displayButton('left', '');
+}
+//------------- End Test Data ----------------------------
+
+$adminObject->displayIndex();
+
+/**
+ * @param $yamlFile
+ * @return array|bool
+ */
+function loadAdminConfig($yamlFile)
+{
+    $config = \Xmf\Yaml::readWrapped($yamlFile); // work with phpmyadmin YAML dumps
+    return $config;
+}
+
+/**
+ * @param $yamlFile
+ */
+function hideButtons($yamlFile)
+{
+    $app['displaySampleButton'] = 0;
+    \Xmf\Yaml::save($app, $yamlFile);
+    redirect_header('index.php', 0, '');
+}
+
+/**
+ * @param $yamlFile
+ */
+function showButtons($yamlFile)
+{
+    $app['displaySampleButton'] = 1;
+    \Xmf\Yaml::save($app, $yamlFile);
+    redirect_header('index.php', 0, '');
+}
 
 $op   = Request::getCmd('op', 'default');
 $ord  = Request::getCmd('ord', '');
@@ -58,9 +138,9 @@ switch ($ord) {
 	   $sort     = 'ASC';
 	   $ord_text = _AM_EDITO_BODY;
 	   break;
-    case 'status':
+    case 'state':
 	   $sort     = 'DESC';
-	   $ord_text = _AM_EDITO_STATUS;
+	   $ord_text = _AM_EDITO_STATE;
 	   break;
 }
 
@@ -90,43 +170,43 @@ switch ($op) {
 
         switch ($stat) {
             case 'off':
-                $off         = $blank;
-                $status      = '=0';
-                $status_text = _AM_EDITO_OFFLINE;
+                $off        = $blank;
+                $state      = '=0';
+                $state_text = _AM_EDITO_OFFLINE;
                 break;
 		    case 'waiting':
-    			$waiting     = $blank;
-                $status      = '=1';
-                $status_text = _AM_EDITO_WAITING;
+    			$waiting    = $blank;
+                $state      = '=1';
+                $state_text = _AM_EDITO_WAITING;
 			    break;
             case 'hide':
-                $hide        = $blank;
-                $status      = '=2';
-                $status_text = _AM_EDITO_HIDDEN;
+                $hide       = $blank;
+                $state      = '=2';
+                $state_text = _AM_EDITO_HIDDEN;
                 break;
             case 'on':
-                $on          = $blank;
-                $status      = '=3';
-                $status_text = _AM_EDITO_ONLINE;
+                $on         = $blank;
+                $state      = '=3';
+                $state_text = _AM_EDITO_ONLINE;
                 break;
             case 'html':
-    	        $html        = $blank;
-			    $status      = '=4';
-			    $status_text = _AM_EDITO_HTMLMODE;
+    	        $html       = $blank;
+			    $state      = '=4';
+			    $state_text = _AM_EDITO_HTMLMODE;
 			    break;
             case 'php':
-                $php         = $blank;
-			    $status      = '=5';
-			    $status_text = _AM_EDITO_PHPMODE;
+                $php        = $blank;
+			    $state      = '=5';
+			    $state_text = _AM_EDITO_PHPMODE;
                 break;
             default:
-                $all         = '';
-			    $status      = '>=0';
-			    $status_text = _AM_EDITO_ALL;
+                $all        = '';
+			    $state      = '>=0';
+			    $state_text = _AM_EDITO_ALL;
 		}
 
         // Count submited pages
-		$sql =  " (SELECT COUNT(id) FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content')." WHERE status = 1)";
+		$sql =  " (SELECT COUNT(id) FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content')." WHERE state = 1)";
         $result = $GLOBALS['xoopsDB']->queryF($sql);
         list($total_sub) = $GLOBALS['xoopsDB'] -> fetchRow($result);
         if ($total_sub) { // $waiting_c = "|".$waiting_c ."=<b>". $total_sub . "</b>";
@@ -146,7 +226,7 @@ switch ($op) {
 		// To create existing editos table
 		echo '<div id="popdata" style="visibility:hidden; position:absolute; z-index:1000; top:-100"></div>';
 		echo '<script language="JavaScript1.2" src="../assets/js/popmenu.js" type="text/javascript"></script>';
-		echo "<p class='left'><b>" . _AM_EDITO_ORDEREDBY . ":</b> {$ord_text} | {$status_text}{$urw}{$total_sub}</p>";
+		echo "<p class='left'><b>" . _AM_EDITO_ORDEREDBY . ":</b> {$ord_text} | {$state_text}{$urw}{$total_sub}</p>";
 		echo "<table cellspacing=1 cellpadding=3 class='outer bnone width100'>\n";
 		echo "<tr>\n";
 		echo "  <th class='bg3 center'><a href='index.php?stat={$stat}&ord=id{$start}'>    " . _AM_EDITO_ID . "</a></th>\n";
@@ -154,157 +234,165 @@ switch ($op) {
 		echo "  <th class='bg3 center width60'><a href='index.php?stat={$stat}&ord=media{$start}'> " . _AM_EDITO_MEDIA . "</a></th>\n";
 		echo "  <th class='bg3 center width20'><a href='index.php?stat={$stat}&ord=subject{$start}'>" . _AM_EDITO_SUBJECT . "</a></th>\n";
 		echo "  <th class='bg3 center' style='width:70px;'><a href='index.php?stat={$stat}&ord=counter{$start}'>" . _AM_EDITO_COUNTER . "</a></th>\n";
-		echo "  <th class='bg3 center' style='width:70px;'><a href='index.php?stat={$stat}&ord=status{$start}'> " . _AM_EDITO_STATUS . "</a><br>\n"
+		echo "  <th class='bg3 center' style='width:70px;'><a href='index.php?stat={$stat}&ord=state{$start}'> " . _AM_EDITO_STATE . "</a><br>\n"
 		   . "    {$all}<br>{$on}{$hide}{$off}<br>{$html}{$php}{$waiting}\n"
 		   . "  </th>\n";
 		echo "  <th class='bg3 center bold' style='width:110px;'>" . _AM_EDITO_ACTIONS . "</th>\n";
 		echo "</tr>\n";
 
         // Check edito total
-		$sql         =  " SELECT COUNT(id) FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content') . " WHERE status{$status}";
+		$sql         =  " SELECT COUNT(id) FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content') . " WHERE state{$state}";
         $result      = $GLOBALS['xoopsDB']->queryF($sql);
         list($total) = $GLOBALS['xoopsDB']->fetchRow($result);
 
 		$pagenav = new XoopsPageNav($total, $GLOBALS['xoopsModuleConfig']['perpage'], $startart, "stat={$stat}&ord={$ord}&startart");
 
 		if (0 < $total) {				// That is, if there ARE editos in the system
-			$sql = "SELECT id, subject, image, media, meta, counter, status
+			$sql = "SELECT id, subject, image, media, meta, counter, state
             		FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content')."
-                    WHERE status{$status} ORDER BY {$ord} {$sort}";
+                    WHERE state{$state} ORDER BY {$ord} {$sort}";
 
-		$pop_sql = "SELECT id, uid, subject, left(block_text, 260) as xblock_text, left(body_text, 360) as xbody_text, datesub
-					FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content') . "
-					WHERE status".$status." ORDER BY {$ord} {$sort}";
+            $pop_sql = "SELECT id, uid, subject, left(block_text, 260) as xblock_text, left(body_text, 360) as xbody_text, datesub
+                        FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content') . "
+                        WHERE state".$state." ORDER BY {$ord} {$sort}";
 
-		$result = $GLOBALS['xoopsDB']->queryF($sql, $GLOBALS['xoopsModuleConfig']['perpage'], $startart);
-		$pop_result = $GLOBALS['xoopsDB']->queryF($pop_sql, $GLOBALS['xoopsModuleConfig']['perpage'], $startart);
-
-		echo '
-                <script language="JavaScript1.2"  type="text/javascript">
-                Text[0]=["'._AM_EDITO_NOREWRITING.'","'._AM_EDITO_REWRITING_INFO.'"];
-                     ';
-
-        while (list($pop_id, $pop_uid, $pop_subject, $pop_xblock_text, $pop_xbody_text, $pop_date) = $GLOBALS['xoopsDB'] -> fetchrow( $pop_result)) {
-			$pop_xblock_text  = preg_replace('/\[(.*)\]/sU', ' ', $pop_xblock_text);
-            $pop_xblock_text  = strip_tags($myts->displayTarea($pop_xblock_text, 1, 1, 1));
-            $pop_xbody_text   = preg_replace('/\[(.*)\]/sU', ' ', $pop_xbody_text);
-            $pop_xbody_text   = strip_tags($myts->displayTarea($pop_xbody_text, 1, 1, 1));
-            $pop_text         = $pop_xblock_text . '<hr>' . $pop_xbody_text . '...';
-            $pop_subject      = $myts->displayTarea($pop_subject, 1, 1, 1);
+            $result = $GLOBALS['xoopsDB']->queryF($sql, $GLOBALS['xoopsModuleConfig']['perpage'], $startart);
+            $pop_result = $GLOBALS['xoopsDB']->queryF($pop_sql, $GLOBALS['xoopsModuleConfig']['perpage'], $startart);
 
             echo '
-            Text[' . $pop_id . ']=["' . XoopsUser::getUnameFromId($pop_uid) . '&nbsp;&nbsp;&nbsp;' . formatTimestamp($pop_date,'m') . '","' . addslashes($pop_text) . '"];
-            ';
-		}
+                    <script language="JavaScript1.2"  type="text/javascript">
+                    Text[0]=["'._AM_EDITO_NOREWRITING.'","'._AM_EDITO_REWRITING_INFO.'"];
+                         ';
+
+            while (list($pop_id, $pop_uid, $pop_subject, $pop_xblock_text, $pop_xbody_text, $pop_date) = $GLOBALS['xoopsDB'] -> fetchrow( $pop_result)) {
+                $pop_xblock_text  = preg_replace('/\[(.*)\]/sU', ' ', $pop_xblock_text);
+                $pop_xblock_text  = strip_tags($myts->displayTarea($pop_xblock_text, 1, 1, 1));
+                $pop_xbody_text   = preg_replace('/\[(.*)\]/sU', ' ', $pop_xbody_text);
+                $pop_xbody_text   = strip_tags($myts->displayTarea($pop_xbody_text, 1, 1, 1));
+                $pop_text         = $pop_xblock_text . '<hr>' . $pop_xbody_text . '...';
+                $pop_subject      = $myts->displayTarea($pop_subject, 1, 1, 1);
+
+                echo '
+                Text[' . $pop_id . ']=["' . XoopsUser::getUnameFromId($pop_uid) . '&nbsp;&nbsp;&nbsp;' . formatTimestamp($pop_date,'m') . '","' . addslashes($pop_text) . '"];
+                ';
+            }
 // The Style array parameters come in the following order
 //		Style[...]=[titleColor,TitleBgColor,TitleBgImag,TitleTextAlign,TitleFontFace,TitleFontSize,
 //		TextColor,TextBgColor,TextBgImag,TextTextAlign,TextFontFace,TextFontSize, Width,Height,BorderSize,BorderColor,Textpadding,transition number,Transition duration, Transparency level,shadow type,shadow color,Appearance behavior,TipPositionType,Xpos,Ypos]
 
 
-        echo '
-              Style[0]=["white","#2F5376","","","","","black","white","","center","",,300,,1,"#2F5376",2,,,95,2,"black",,,,];
-              var TipId="popdata";
-              var FiltersEnabled = 1;
-              mig_clay();
-              </script>
-              ';
+            echo '
+                  Style[0]=["white","#2F5376","","","","","black","white","","center","",,300,,1,"#2F5376",2,,,95,2,"black",,,,];
+                  var TipId="popdata";
+                  var FiltersEnabled = 1;
+                  mig_clay();
+                  </script>
+                  ';
 
 
-		while (list($id, $subject, $image, $media, $meta, $counter, $status) = $GLOBALS['xoopsDB']->fetchrow($result)) {
-        	$modify    = "<a href='content.php?op=mod&id={$id}' title='" . _AM_EDITO_EDIT . "'><img src=" . XOOPS_URL . "/modules/" . $GLOBALS['xoopsModule']->dirname() . "/assets/images/icon/edit.gif alt='" . _AM_EDITO_EDIT . "'></a>";
-            $duplicate = "<a href='content.php?op=dup&id={$id}' title='" . _AM_EDITO_DUPLICATE . "'><img src=" . XOOPS_URL . "/modules/" . $GLOBALS['xoopsModule']->dirname() . "/assets/images/icon/duplicate.gif alt='" . _AM_EDITO_DUPLICATE . "'></a>";
-            $delete    = "<a href='content.php?op=del&id={$id}' title='" . _AM_EDITO_DELETE . "'><img src=" . XOOPS_URL . "/modules/" . $GLOBALS['xoopsModule']->dirname() . "/assets/images/icon/delete.gif alt='" . _AM_EDITO_DELETE . "'></a>";
+            while (list($id, $subject, $image, $media, $meta, $counter, $state) = $GLOBALS['xoopsDB']->fetchrow($result)) {
+                $modify    = "<a href='content.php?op=mod&id={$id}' title='" . _AM_EDITO_EDIT . "'><img src=" . XOOPS_URL . "/modules/" . $GLOBALS['xoopsModule']->dirname() . "/assets/images/icon/edit.gif alt='" . _AM_EDITO_EDIT . "'></a>";
+                $duplicate = "<a href='content.php?op=dup&id={$id}' title='" . _AM_EDITO_DUPLICATE . "'><img src=" . XOOPS_URL . "/modules/" . $GLOBALS['xoopsModule']->dirname() . "/assets/images/icon/duplicate.gif alt='" . _AM_EDITO_DUPLICATE . "'></a>";
+                $delete    = "<a href='content.php?op=del&id={$id}' title='" . _AM_EDITO_DELETE . "'><img src=" . XOOPS_URL . "/modules/" . $GLOBALS['xoopsModule']->dirname() . "/assets/images/icon/delete.gif alt='" . _AM_EDITO_DELETE . "'></a>";
 
-            $logo = '';
-            if ($image) {
-                $logo = edito_createlink('../content.php?id=' . $id, '', '_self',
-                                        XOOPS_URL . '/' . $GLOBALS['xoopsModuleConfig']['sbuploaddir'] . '/' . $image, 'center', '90', '90',
-                                        $subject, $GLOBALS['xoopsModuleConfig']['url_rewriting']);
-                //$logo =  '<a href="../content.php?id=' . $id . '"><img src="' . XOOPS_URL . '/'. $GLOBALS['xoopsModuleConfig']['sbuploaddir'] . '/' . $image.'" width="60" alt="'. $image .'"></a>';
+                $logo = '';
+                if ($image) {
+                    $logo = edito_createlink('../content.php?id=' . $id, '', '_self',
+                                            XOOPS_URL . '/' . $GLOBALS['xoopsModuleConfig']['sbuploaddir'] . '/' . $image, 'center', '90', '90',
+                                            $subject, $GLOBALS['xoopsModuleConfig']['url_rewriting']);
+                    //$logo =  '<a href="../content.php?id=' . $id . '"><img src="' . XOOPS_URL . '/'. $GLOBALS['xoopsModuleConfig']['sbuploaddir'] . '/' . $image.'" width="60" alt="'. $image .'"></a>';
+                }
+
+                $urw_url = '';
+                if ($urw) {
+                    $meta = explode("|", $meta);
+                    $meta_title       =  $meta[0];
+                    //$urw_url = '<br>'.edito_createlink('../content.php?id=' . $id, $subject, '_self',
+                    //           XOOPS_URL . '/modules/edito/assets/images/icon/rewriting.gif', '', '', '',
+                    //           $meta_title, $GLOBALS['xoopsModuleConfig']['url_rewriting']);
+                      $urw_url = '<a href="../' . edito_urw('content.php?id=' . $id, $subject, $meta_title, $GLOBALS['xoopsModuleConfig']['url_rewriting']) . '" title="' . _AM_EDITO_REWRITING . '">
+                                  <img src="../assets/images/icon/rewriting.gif" align="absmiddle" width="24"></a>';
+                }
+
+                $media      = explode("|", $media);
+                $media_info = '';
+                if ($media[0]) {
+                    $media_url  = XOOPS_URL . '/'. $GLOBALS['xoopsModuleConfig']['sbmediadir'] .'/'. $media[0];
+                    $format     = edito_checkformat($media_url, $GLOBALS['xoopsModuleConfig']['custom_media']);
+                    $filesize   = edito_fileweight($media_url);
+                    $media_info = ' <a href="' . $media_url . '" target="_blank" title="' . _AM_EDITO_MEDIALOCAL . ' : ' . $format[1] . ': ' . $media[0] .'  [' . $filesize . ']">
+                                    <img src="../assets/images/icon/' . $format[1] . '.gif" alt="' . _AM_EDITO_MEDIALOCAL . ' : ' . $format[1] . ': ' . $media[0] . '  [' . $filesize . ']">
+                                    </a>';
+                } elseif ($media[1]) {
+                    $media_url  = $media[1];
+                    $format     = edito_checkformat($media_url, $GLOBALS['xoopsModuleConfig']['custom_media']);
+                    $media_info = ' <a href="' . $media_url . '" target="_blank" title="'._AM_EDITO_MEDIAURL.' : ' . $format[1] . ': ' . $media[1] . '">
+                                    <img src="../assets/images/icon/' . $format[1] . '.gif" alt="' . $format[1] . ': ' . $media[1] . '">
+                                    <img src="../assets/images/icon/ext.gif" alt="'._AM_EDITO_MEDIAURL.'">
+                                    </a>';
+                }
+
+                $subject    = $myts->displayTarea($subject, 1, 1, 1);
+
+                echo "<tr>";
+                echo "<td class='head center'> " . $id . "</td>";
+                echo "<td class='even center'> " . $logo . "</td>";
+                echo "<td class='even center'> " . $media_info . "</td>";
+                echo "<td class='even left'> " . $urw_url . "
+                      <a onMouseOver='stm(Text[" . $id . "],Style[0])' onMouseOut='htm()' href='../content.php?id={$id}'>
+                     " . $subject . "</a></td>";
+                echo "<td class='even center' style='width:70px;'>{$counter}</td>";
+                switch ($state) {
+                    case 0:
+                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_OFFLINE . "' title='" . _AM_EDITO_OFFLINE . "'></td>";
+                    break;
+                    case 1:
+                        echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/waiting.gif' alt='" . _AM_EDITO_WAITING . "' title='" . _AM_EDITO_WAITING . "'></td>";
+                        break;
+                    case 2:
+                        echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/hidden.gif' alt='" . _AM_EDITO_HIDDEN . "' title='" . _AM_EDITO_HIDDEN . "'></td>";
+                        break;
+                    case 3:
+                        echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/online.gif' alt='" . _AM_EDITO_ONLINE . "' title='" . _AM_EDITO_ONLINE . "'></td>";
+                        break;
+                    case 4:
+                        echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/html.gif' alt='" . _AM_EDITO_HTMLMODE . "' title='" . _AM_EDITO_HTMLMODE . "'></td>";
+                        break;
+                    case 5:
+                        echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/php.gif' alt='" . _AM_EDITO_PHPMODE . "' title='" . _AM_EDITO_PHPMODE . "'></td>";
+                        break;
+                    default:
+                        echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_UNKNOWN . "' title='" . _AM_EDITO_UNKNOWN . "'></td>";
+                        break;
+                }
+
+                echo "<td class='even' style='text-align:center; width:110px;'><nobr>". $modify . $duplicate . $delete."</nobr></td>";
+                echo "</tr>";
             }
-
-            $urw_url = '';
-            if ($urw) {
-                $meta = explode("|", $meta);
-                $meta_title       =  $meta[0];
-                //$urw_url = '<br>'.edito_createlink('../content.php?id=' . $id, $subject, '_self',
-                //           XOOPS_URL . '/modules/edito/assets/images/icon/rewriting.gif', '', '', '',
-                //           $meta_title, $GLOBALS['xoopsModuleConfig']['url_rewriting']);
-                  $urw_url = '<a href="../' . edito_urw('content.php?id=' . $id, $subject, $meta_title, $GLOBALS['xoopsModuleConfig']['url_rewriting']) . '" title="' . _AM_EDITO_REWRITING . '">
-                              <img src="../assets/images/icon/rewriting.gif" align="absmiddle" width="24"></a>';
-            }
-
-            $media      = explode("|", $media);
-            $media_info = '';
-            if ($media[0]) {
-            	$media_url  = XOOPS_URL . '/'. $GLOBALS['xoopsModuleConfig']['sbmediadir'] .'/'. $media[0];
-                $format     = edito_checkformat($media_url, $GLOBALS['xoopsModuleConfig']['custom_media']);
-                $filesize   = edito_fileweight($media_url);
-                $media_info = ' <a href="' . $media_url . '" target="_blank" title="' . _AM_EDITO_MEDIALOCAL . ' : ' . $format[1] . ': ' . $media[0] .'  [' . $filesize . ']">
-                				<img src="../assets/images/icon/' . $format[1] . '.gif" alt="' . _AM_EDITO_MEDIALOCAL . ' : ' . $format[1] . ': ' . $media[0] . '  [' . $filesize . ']">
-                                </a>';
-			} elseif ($media[1]) {
-				$media_url  = $media[1];
-                $format     = edito_checkformat($media_url, $GLOBALS['xoopsModuleConfig']['custom_media']);
-                $media_info = ' <a href="' . $media_url . '" target="_blank" title="'._AM_EDITO_MEDIAURL.' : ' . $format[1] . ': ' . $media[1] . '">
-								<img src="../assets/images/icon/' . $format[1] . '.gif" alt="' . $format[1] . ': ' . $media[1] . '">
-								<img src="../assets/images/icon/ext.gif" alt="'._AM_EDITO_MEDIAURL.'">
-								</a>';
-            }
-
-            $subject    = $myts->displayTarea($subject, 1, 1, 1);
-
+        } else {		// that is, $numrows = 0, there's no columns yet
             echo "<tr>";
-            echo "<td class='head center'> " . $id . "</td>";
-            echo "<td class='even center'> " . $logo . "</td>";
-            echo "<td class='even center'> " . $media_info . "</td>";
-            echo "<td class='even left'> " . $urw_url . "
-                  <a onMouseOver='stm(Text[" . $id . "],Style[0])' onMouseOut='htm()' href='../content.php?id={$id}'>
-                 " . $subject . "</a></td>";
-            echo "<td class='even center' style='width:70px;'>{$counter}</td>";
-            switch ($status) {
-                case 0:
-				echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_OFFLINE . "' title='" . _AM_EDITO_OFFLINE . "'></td>";
-				break;
-                case 1:
-                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/waiting.gif' alt='" . _AM_EDITO_WAITING . "' title='" . _AM_EDITO_WAITING . "'></td>";
-                    break;
-                case 2:
-                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/hidden.gif' alt='" . _AM_EDITO_HIDDEN . "' title='" . _AM_EDITO_HIDDEN . "'></td>";
-                    break;
-                case 3:
-                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/online.gif' alt='" . _AM_EDITO_ONLINE . "' title='" . _AM_EDITO_ONLINE . "'></td>";
-                    break;
-                case 4:
-                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/html.gif' alt='" . _AM_EDITO_HTMLMODE . "' title='" . _AM_EDITO_HTMLMODE . "'></td>";
-                    break;
-                case 5:
-                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/php.gif' alt='" . _AM_EDITO_PHPMODE . "' title='" . _AM_EDITO_PHPMODE . "'></td>";
-                    break;
-                default:
-                    echo "<td class='even center middle' style='width:70px;'><img src='../assets/images/icon/offline.gif' alt='" . _AM_EDITO_UNKNOWN . "' title='" . _AM_EDITO_UNKNOWN . "'></td>";
-                    break;
-			}
+            echo "<td class='head center' colspan= '8'>" . _AM_EDITO_NO_EDITO . "</td>";
+            echo "</tr>";
+        }
 
-            echo "<td class='even' style='text-align:center; width:110px;'><nobr>". $modify . $duplicate . $delete."</nobr></td>";
-			echo "</tr>";
-		}
-	} else {		// that is, $numrows = 0, there's no columns yet
-    	echo "<tr>";
-        echo "<td class='head center' colspan= '8'>" . _AM_EDITO_NO_EDITO . "</td>";
-        echo "</tr>";
-	}
-
-    echo "<tr>
-              <td class='even center' colspan='9'>
-                  <form name='addedito' method='post' action='content.php'>
-                      <input type='submit' name='go' value='" . _AM_EDITO_CREATE . "'>
-                  </form>
-              </td>
-          </tr>\n";
-	echo "</table>\n";
-	echo "<div class='right'>" . $pagenav->renderNav() . "</div>\n";
-	echo "<br>\n";
+        echo "<tr>
+                  <td class='even center' colspan='9'>
+                      <form name='addedito' method='post' action='content.php'>
+                          <input type='submit' name='go' value='" . _AM_EDITO_CREATE . "'>
+                      </form>
+                  </td>
+              </tr>\n";
+        echo "</table>\n";
+        echo "<div class='right'>" . $pagenav->renderNav() . "</div>\n";
+        echo "<br>\n";
+        break;
+    case 'hide_buttons':
+        hideButtons($yamlFile);
+        break;
+    case 'show_buttons':
+        showButtons($yamlFile);
+        break;
 }
+echo Utility::getServerStats();
 
-require_once __DIR__ . '/admin_footer.php';
+require __DIR__ . '/admin_footer.php';

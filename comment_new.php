@@ -23,11 +23,11 @@
 
 use Xmf\Request;
 
-include dirname(__DIR__, 2) . '/mainfile.php';
+require dirname(__DIR__, 2) . '/mainfile.php';
 $com_itemid = Request::getInt('com_itemid', 0);
 if (0 < $com_itemid) {
-    $myts   = MyTextSanitizer::getInstance();
-    $sql    ="SELECT subject, uid, image, block_text, body_text, options, datesub FROM " . $GLOBALS['xoopsDB']->prefix('edito_content') . " WHERE id={$com_itemid} AND status > 0";
+    $myts   = \MyTextSanitizer::getInstance();
+    $sql    ='SELECT subject, uid, image, block_text, body_text, options, datesub FROM ' . $GLOBALS['xoopsDB']->prefix('edito_content') . ' WHERE id={$com_itemid} AND state > 0';
     $result = $GLOBALS['xoopsDB']->queryF($sql);
     $myrow 	= $GLOBALS['xoopsDB']->fetchArray($result);
     $image      = $myrow['image'];
@@ -41,19 +41,24 @@ if (0 < $com_itemid) {
     $title      = $option[5];
     $cancomment = $option[6];
 
-    $logo = '';
-	if ($image) {
-        require_once __DIR__ . '/include/functions_content.php';
-		$logo       = $GLOBALS['xoopsModuleConfig']['sbuploaddir'] . '/' . $image;
-		$image_size = explode('|', $GLOBALS['xoopsModuleConfig']['logo_size']);
-		$logo       = edito_createlink('', '', '', $logo, $GLOBALS['xoopsModuleConfig']['logo_align'], '800', '600', $myrow['subject']);
+	if ( $image ) {
+                require_once __DIR__ . '/include/functions_content.php';
+		$logo =  $xoopsModuleConfig['sbuploaddir'] .'/'. $image;
+		$image_size = explode('|', $xoopsModuleConfig['logo_size']);
+		$logo = edito_createlink('', '', '', $logo, $xoopsModuleConfig['logo_align'], '800', '600', $myrow['subject']);
+	} else {
+		$logo = '';
 	}
 
-    $text = $block ? $myrow["block_text"] : '';
-    $text .= $myrow["body_text"];
 
-    $com_replytext  = _POSTEDBY . '&nbsp;<b>' . XoopsUser::getUnameFromId($myrow['uid']) . '</b>&nbsp;' . _DATE . '&nbsp;<b>' . formatTimestamp($myrow["datesub"],'m').'</b><br /><br />'.$logo . $myts->displayTarea($text, $html, $smiley, $xcode);
+    $text = '';
+    if($block) {
+        $text .= $myrow['block_text'];
+    }
+    $text .= $myrow['body_text'];
+
+    $com_replytext = _POSTEDBY . '&nbsp;<b>' . XoopsUser::getUnameFromId($myrow['uid']) . '</b>&nbsp;' . _DATE . '&nbsp;<b>' . formatTimestamp($myrow['datesub'], 'm') . '</b><br><br>' . $logo.$myts->displayTarea($text, $html, $smiley, $xcode);
     $com_replytitle = $myrow['subject'];
 
-	require_once XOOPS_ROOT_PATH . '/include/comment_new.php';
+	include_once XOOPS_ROOT_PATH . '/include/comment_new.php';
 }

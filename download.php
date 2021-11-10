@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -21,7 +24,6 @@
  * @link      https://github.com/XoopsModules25x/edito
  */
 
-use Xmf\Request;
 
 // Script used to display a media in a pop up
 
@@ -32,7 +34,7 @@ if (0 >= $id) {
 	redirect_header('index.php', 2, _MD_EDITO_PL_SELECT);
 }
 
-$sql    = "SELECT media, groups FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content' )." WHERE id = {$id} AND status != 0 ";
+$sql    = "SELECT media, groups FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content' )." WHERE id = {$id} AND state != 0 ";
 $result = $GLOBALS['xoopsDB']->queryF($sql);
 
 // Does edito exist?

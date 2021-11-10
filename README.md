@@ -1,4 +1,4 @@
-![Edito Module](./assets/images/edito_slogo.png)
+![Edito Module](./assets/images/logoModule.png)
 ![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
 ## Edito module for [XOOPS CMS 2.5.10+](https://xoops.org)
 [![XOOPS CMS Module](https://img.shields.io/badge/XOOPS%20CMS-Module-blue.svg)](https://xoops.org)
@@ -15,17 +15,17 @@ Edito is a powerful but easy to use content manager which allows you to create w
   * Pictures uploader
   * Index page
   * Logo, title
-  * Ranking (date, alphabet, popularity,…)
+  * Ranking (date, alphabet, popularity,ï¿½)
   * Up to 4 different blocks with multiple possibilities (see above)
   * Default text
   * Default and restricted configuration
   * Group access management
 
 ### Settings
-There are many way to use edito. Almost each and every things you see in this module can be changed easily, for each edito, or generally with module settings. The admin can define general settings for each edito, or let each edito being settled up…
+There are many way to use edito. Almost each and every things you see in this module can be changed easily, for each edito, or generally with module settings. The admin can define general settings for each edito, or let each edito being settled upï¿½
   * Show picture
   * Show title
-  * Show block’s content or not
+  * Show blockï¿½s content or not
   * Show link in navigation blocks
   * Possibility to display icons for popularity or for recent editos
 
@@ -36,7 +36,7 @@ There are many way to use edito. Almost each and every things you see in this mo
   * pictures size
   * index order
   * default text for new editos
-  * possible extended options for each editos…
+  * possible extended options for each editosï¿½
 
 ### Blocks
 There are 4 available multipurpose blocks with edito. Each and everyone of them can have various functions :

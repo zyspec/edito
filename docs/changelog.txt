@@ -1,24 +1,32 @@
 <!-- TODO
  - change mimetype management to remove dependency on Xoopsinfo module
- - update Admin to XOOPS GUI admin (Xmf\Module\Admin)
- - convert to using namespace
+ - add webp mimetype graphics format support (in process)
  - remove flash support
- - create class / handler for edito content
+ - refactor to implement/utilize Content/ContentHandler class
  - create update script to:
    - switch SQL table from content_edito to edito_content
    - remove old ./images, ./script and ./doc folders
-   - delete old .html templates
  - create new module logo image
  - remove code specifically created for XOOPS < 2.5
- - convert arrays to use short array syntax (in process)
  - add meta property for Facebook (og:image, og:url)
  - reduce/eliminate use of globals (in process)
  - cleanup file includes (use require where appropriate), eliminate duplicate inclusions
- - sanitize input vars using Xmf\Request (in process)
- - create upload directories on module install, not during 'normal' admin operation
+ - harden/sanitize input vars using Xmf\Request (in process)
  - determine if there's sufficient benefit to keeping block management in module vs using XOOPS UI
+ - move sample data from ./sql/mysql table install to test data folder
+ - update / replace ./js/popmenu.js
 -->
+<h5>3.1 Alpha.2 [Unreleased]<h5>  Dev: XOOPS 2.5.10, PHP 7.2.31
+<hr>
+- changed from index.html to index.php
+- change name of 'status' field in MySQL to 'state' - 'status' is a reserved SQL keyword
+- updated install/update/uninstall scripts
+- created Content/ContentHandler classes
+- created Constants interface class
+- removed ./include/updateblock.inc.php - XOOPS < 2.1 no longer supported
+
 <h5>3.1 Alpha 1 [Unreleased]<h5>  Dev: XOOPS 2.5.10, PHP 7.2.31
+<hr>
 - replaced WYSIWYG editors with XOOPS Editor class
 - updated SQL - changed table name from 'content_edito' to 'edito_content'
 - changed ereg[i] & ereg[i]_replace with preg_match & preg_replace respectively
@@ -37,7 +45,14 @@
 - replaced GIJOE gticketing system with XOOPS Security
   - deleted unused gtickets files
 - rename ./doc folder to ./docs for consistency with other modules
-- rename templates from .html to .tpl
+- rename templates from .html to .tpl (mamba)
+- convert to using namespace (mamba)
+- update Admin to XOOPS GUI admin (Xmf\Module\Admin) (mamba)
+- convert arrays to use short array syntax
+- create upload directories on module install, not during 'normal' admin operation
+- create new module logo image (mamba)
+- added Feedback tab (mamba)
 
 <h5>3.07 [2007-10-19]</h5>
+<hr>
 Last known release by Wolfpackclan Solo and DuGris

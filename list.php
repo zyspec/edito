@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -23,34 +26,39 @@
 
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
+$myts = \MyTextSanitizer::getInstance();
+
 $count_list    = 0;
 $new_list      = '';
 $pop_list      = '';
 $readmore_list = '';
 
-$result         = "SELECT COUNT(*) FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content') . " WHERE status > 2";
+$result         = "SELECT COUNT(*) FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . '_content') . " WHERE state > 2";
 list( $totals ) = $GLOBALS['xoopsDB']->fetchRow($GLOBALS['xoopsDB']->queryF($result));
 
-$total_list = $totals/$GLOBALS['xoopsModuleConfig']['columns'];
+$total_list = $totals / $GLOBALS['xoopsModuleConfig']['columns'];
 if( $totals > $GLOBALS['xoopsModuleConfig']['perpage'] ) {
-	$readmore_list = '<div class="right"><a href="index.php?startart='.$GLOBALS['xoopsModuleConfig']['perpage'].'">' . _MD_EDITO_READMORE . '</a></div>';
+	$readmore_list = '<div class="right"><a href="index.php?startart=' . $GLOBALS['xoopsModuleConfig']['perpage'] . '">' . _MD_EDITO_READMORE . '</a></div>';
 }
 
 $GLOBALS['xoopsTpl']->assign('readmore', $readmore_list);
 
-$sql = "SELECT id, subject, groups, datesub, counter, meta FROM ".$GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . "_content")."
-		WHERE status > 2 ORDER BY " . $GLOBALS['xoopsModuleConfig']['order'];
+$sql = "SELECT id, subject, groups, datesub, counter, meta FROM " . $GLOBALS['xoopsDB']->prefix($GLOBALS['xoopsModule']->dirname() . "_content") . "
+		WHERE state > 2 ORDER BY " . $GLOBALS['xoopsModuleConfig']['order'];
 
-$listing = $GLOBALS['xoopsDB']->queryF($sql, $GLOBALS['xoopsModuleConfig']['perpage'], 0 );
+$listing = $GLOBALS['xoopsDB']->queryF($sql, $GLOBALS['xoopsModuleConfig']['perpage'], 0);
 
-while(list( $ids, $subject_list, $groups_list, $datesub_list, $counter_list, $meta_list) = $GLOBALS['xoopsDB']->fetchRow($listing)) {
-	$groups_list = explode(" ",$groups_list);
-	if (count(array_intersect($group,$groups_list)) > 0 ) {
-
-$meta_list = explode("|", $meta_list);
-$meta_title_list       =  $meta_list[0];
-if( $meta_title_list ) { $alt_subject_list=$meta_title_list; } else { $alt_subject_list=$subject_list; }
-		$liste = array();
+while (list($ids, $subject_list, $groups_list, $datesub_list, $counter_list, $meta_list) = $GLOBALS['xoopsDB']->fetchRow($listing)) {
+	$groups_list = explode(' ', $groups_list);
+	if (count(array_intersect($groups, $groups_list)) > 0 ) {
+        $meta_list       = explode('|', $meta_list);
+        $meta_title_list =  $meta_list[0];
+        if ($meta_title_list) {
+            $alt_subject_list = $meta_title_list;
+        } else {
+            $alt_subject_list = $subject_list;
+        }
+		$liste = [];
 
 		/* ----------------------------------------------------------------------- */
 		/*                            Display icons                                */
@@ -96,11 +104,11 @@ if( $meta_title_list ) { $alt_subject_list=$meta_title_list; } else { $alt_subje
 		$subject_list = $myts->displayTarea($subject_list);
 
         if ($ids != $id) {
-			$liste['link'] = "<nobr>" .edito_createlink('content.php?id='.$ids, $subject_list, '', '', '', '', '', $alt_subject_list, $GLOBALS['xoopsModuleConfig']['url_rewriting'])."</nobr>";
-                        // "<a href='content.php?id=$ids' alt='".$alt_subject."'><nobr>" . $subject . "</nobr></a>";
-		} else {
-			$liste['link'] = "<nobr><i>" . $subject_list . "</i></nobr>";
-   		}
+            $liste['link'] = '<nobr>' . edito_createlink('content.php?id=' . $ids, $subject_list, '', '', '', '', '', $alt_subject_list, $GLOBALS['xoopsModuleConfig']['url_rewriting']) . '</nobr>';
+            // "<a href='content.php?id=$ids' alt='" . $alt_subject . "'><nobr>" . $subject . "</nobr></a>";
+        } else {
+            $liste['link'] = '<nobr><i>' . $subject_list . '</i></nobr>';
+        }
 
         $GLOBALS['xoopsTpl']->append('liste', $liste);
         unset($liste);

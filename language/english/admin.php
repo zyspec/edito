@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -28,7 +31,6 @@
 define('_AM_EDITO_CREATE', "Create a new page");
 define('_AM_EDITO_DUPLICATE', "Duplicate");
 define('_AM_EDITO_HELP', "Help");
-define('_AM_EDITO_MODIFIED', "Page Modified");
 
 define('_AM_EDITO_ADD', "Add");
 define('_AM_EDITO_LIST', "Page list");
@@ -37,7 +39,7 @@ define('_AM_EDITO_SUBJECT', "Subject");
 define('_AM_EDITO_METATITLE', "[META] Title");
 define('_AM_EDITO_METAKEYWORDS', "[META] Keywords");
 define('_AM_EDITO_METADESCRIPTION', "[META] Description");
-define('_AM_EDITO_METAGEN', "[METAGEN] <p />Keywords generated<br>automatically<br>by MetaGen script.");
+define('_AM_EDITO_METAGEN', "[METAGEN] <p>Keywords generated<br>automatically<br>by MetaGen script.");
 define('_AM_EDITO_BEGIN', "Starting text");
 define('_AM_EDITO_COUNTER', "Read");
 define('_AM_EDITO_ONLINE', "Online");
@@ -51,7 +53,7 @@ define('_AM_EDITO_ALL', "All");
 define('_AM_EDITO_ORDEREDBY', "Ranking");
 define('_AM_EDITO_REWRITING', "Url Rewriting actived");
 define('_AM_EDITO_NOREWRITING', "Url Rewriting deactivated");
-define('_AM_EDITO_REWRITING_INFO', "A problem occured while writing the .htaccess file on the server.<p />
+define('_AM_EDITO_REWRITING_INFO', "A problem occured while writing the .htaccess file on the server.<p>
 To solve this problem, copy the <br><b>'modules/edito/doc/htaccess/.htaccess'</b>file<br>
 into the <br><b>'modules/edito/'</b> directory.");
 
@@ -80,7 +82,7 @@ define('_AM_EDITO_BODY', "Content");
 define('_AM_EDITO_IMAGE', "Image");
 define('_AM_EDITO_SELECT_IMG', "Image");
 define('_AM_EDITO_UPLOADIMAGE', "Upload image");
-define('_AM_EDITO_STATUS', "Status");
+define('_AM_EDITO_STATE', "State");
 define('_AM_EDITO_BLOCK', "Display block's<br>content<br>in the page");
 
 define('_AM_EDITO_OPTIONS', "Options");
@@ -104,6 +106,10 @@ define('_AM_EDITO_EDITOMODIFIED', "Database successfully updated!");
 define('_AM_EDITO_EDITONOTUPDATED', "Error: Database not updated");
 define('_AM_EDITO_EDITODELETED', "Page successfully deleted");
 define('_AM_EDITO_DELETETHISEDITO', "Do you really want to delete this page:");
+
+// Installation / Update / Uninstall
+define('_AM_EDITO_ERR_BAD_INDEX', 'Could not create %s file');
+define('_AM_EDITO_ERR_BAD_UPLOAD_PATH', 'Could not create %s directory');
 
 // Modifications  - Herve
 define('_AM_EDITO_YES', _YES);
@@ -143,7 +149,7 @@ define('_AM_EDITO_BLOCK_MENU', "Menu blocs");
 define('_AM_EDITO_SELECT_MEDIA', "Local media <br><br>
                                          <i><font color='red'>
                                          Directory files from:<br>
-                                         '".$xoopsModuleConfig['sbmediadir']."'
+                                         '" . $GLOBALS['xoopsModuleConfig']['sbmediadir'] . "'
                                          </font><br>
                                          *Priority given on external media.</i>");
 define('_AM_EDITO_MEDIA', "Media");
@@ -205,7 +211,8 @@ Clone name<br><i>
   </ul></i>
 Sample : 'Mon Module 01'.
 ");
-
+define('_AM_EDITO_EDITORS', 'Content Editors');
+define('_AM_EDITO_DB_DATAS', 'SQL Statements to Import');
 define('_AM_EDITO_IMPORT', "Import");
 define('_AM_EDITO_EXPORT', "Export");
 define('_AM_EDITO_DB_IMPORT', "Import SQL");
@@ -213,14 +220,16 @@ define('_AM_EDITO_DB_EXPORT', "Export SQL");
 define('_AM_EDITO_INSERT', "Insert into database");
 define('_AM_EDITO_UPDATE', "Update database");
 define('_AM_EDITO_TYPE', 'Action Type');
-define('_AM_EDITO_DB_DATAS', "SQL Statements to Import");
-define('_AM_EDITO_EDITORS', "Content Editors");
+define('_AM_EDITO_SITELIST', 'Allowed sites (separated by | [pipe])
+<i>Example :<br>
+www.frxoops.org|<br>
+wolfpackclan.com|<br>
+127.0.0.1</i>');
 
 
 // Anti-leech
-define('_AM_EDITO_HTACCESS', "Media anti-leeching protection");
-define('_AM_EDITO_COPY', "Copy code");
-define('_AM_EDITO_SITELIST', "Allowed sites (separated by | [pipe])");
+define('_AM_EDITO_HTACCESS', 'Media anti-leeching protection');
+define('_AM_EDITO_COPY', 'Copy code');
 define('_AM_EDITO_HTACCESS_INFO1', "If you'd like to prevent other sites from leeching medias from your site, this guide will assist you in doing so using the .htaccess file.
 <ol><li>Open Notepad (or equivalent software depending on your OS) and paste in the following code:</li></ol>");
 
@@ -237,17 +246,17 @@ define('_AM_EDITO_CONTENT_HELP', "
 <ul><b>1) <u>Topic</u></b>
 Indicate the short title of the page (See also meta title). This title is used in the navigation links, and by default in the absence of a meta-title.
 </ul>
-<ul><b>2) <u>Statuses</u></b>
-There are 6 possible statuses for your page.
+<ul><b>2) <u>States</u></b>
+There are 6 possible states for your page.
 <ul><ol>
-    <li><img src='../assets/images/icon/online.gif' align='absmiddle' /> <b>Display: </b> Normal display of the page in the module.</li>
-    <li><img src='../assets/images/icon/waiting.gif' align='absmiddle' /> <b>Pending: </b> The page is awaiting validation. It is only visible to administrators.</li>
-    <li><img src='../assets/images/icon/hidden.gif' align='absmiddle' /> <b>Cacher :</b> Display of the page regardless of any information relating to the module.
+    <li><img src='../assets/images/icon/online.gif' align='absmiddle'> <b>Display: </b> Normal display of the page in the module.</li>
+    <li><img src='../assets/images/icon/waiting.gif' align='absmiddle'> <b>Pending: </b> The page is awaiting validation. It is only visible to administrators.</li>
+    <li><img src='../assets/images/icon/hidden.gif' align='absmiddle'> <b>Cacher :</b> Display of the page regardless of any information relating to the module.
 The page is not included in the module indexes, nor in the menu block.</li>
-	<li><img src='../assets/images/icon/offline.gif' align='absmiddle' /> <b>Disable: </b> The page is completely inaccessible.</li>
-    <li><img src='../assets/images/icon/html.gif' align='absmiddle' /> <b>Mode HTML :</b> Displays the content of the page only in html mode.
+	<li><img src='../assets/images/icon/offline.gif' align='absmiddle'> <b>Disable: </b> The page is completely inaccessible.</li>
+    <li><img src='../assets/images/icon/html.gif' align='absmiddle'> <b>Mode HTML :</b> Displays the content of the page only in html mode.
 Does not interpret XOOPS codes and any other line breaks.</li>
-	<li><img src='../assets/images/icon/php.gif' align='absmiddle' /> <b>Mode php :</b> Interprets the content of the page as php code.</li>
+	<li><img src='../assets/images/icon/php.gif' align='absmiddle'> <b>Mode php :</b> Interprets the content of the page as php code.</li>
 </ol></ul>
 <ul>
 <b>3) <u>Content of the Block</u></b>
@@ -263,7 +272,7 @@ By checking this option, the content of the block will be displayed in the linke
 The content entered in this text box is used on the main page.
 The content of this area is also used to automatically generate metakeywords.
 In php mode, it is in this area that the php code to be interpreted must be indicated. Note that the <b> &#139; tags should not be filled in? php </b> and <b>? &#155; </b> usual.</ul>
-<img src='../assets/images/icon/tip.gif' align='absleft' /><b>Special tags </b>: The following tags can be used in the text:
+<img src='../assets/images/icon/tip.gif' align='absleft'><b>Special tags </b>: The following tags can be used in the text:
 <ul><ol>
     <li><i><b>[pagebreak]</b></i> : to display content on multiple pages.</li>
     <li><i><b>{media}</b></i> to display the current media in the text. By using this tag, the media will no longer be displayed at the top of the page.</li>
@@ -365,19 +374,19 @@ In the absence of data, the module will generate the metas automatically accordi
 </td>
   <td> <ul><li>The meta-description of the page.</li>
 <li>The first 255 letters of the page content (block and content combined).</li>
-<li>Meta-title or page title <br /> & nbsp; & nbsp; + module description (module prefs).</li>
+<li>Meta-title or page title <br> & nbsp; & nbsp; + module description (module prefs).</li>
 <li>Core (site prefs.).</li>
 </ul>
 </td>
-  <td> <ul><li>The metas keywords of the page <br /> & nbsp; & nbsp; + the metas keywords from the content, not generated by the metagen script <br /> & nbsp; & nbsp; + the metas keywords of the module (pref. of the module).</li>
-<li>The metas keywords from the content and automatically generated by the metagen script <br /> & nbsp; & nbsp; + Module keywords (module prefs).</li>
+  <td> <ul><li>The metas keywords of the page <br> & nbsp; & nbsp; + the metas keywords from the content, not generated by the metagen script <br> & nbsp; & nbsp; + the metas keywords of the module (pref. of the module).</li>
+<li>The metas keywords from the content and automatically generated by the metagen script <br> & nbsp; & nbsp; + Module keywords (module prefs).</li>
 <li>
-Title or meta-title of the page <br /> & nbsp; & nbsp; + Keywords of the module (module prefs.).</li>
+Title or meta-title of the page <br> & nbsp; & nbsp; + Keywords of the module (module prefs.).</li>
 </ul>
 </td>
  </tr>
  </table>
- <u><b>Script Metagen</b></u><br />
+ <u><b>Script Metagen</b></u><br>
 The metagen script works like this:
  <ol><li>
  Retrieving all page content

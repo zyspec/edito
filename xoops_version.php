@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -21,409 +24,484 @@
  * @link      https://github.com/XoopsModules25x/edito
  */
 
-global $xoopsDB, $xoopsUser, $xoopsModule, $xoopsModuleConfig;
-include_once (XOOPS_ROOT_PATH . "/modules/edito/include/functions_block.php");
+use XoopsModules\Edito;
 
-$moduleDirName                = basename(__DIR__);
+include __DIR__ . '/preloads/autoloader.php';
+
+require_once XOOPS_ROOT_PATH . '/modules/edito/include/functions_block.php';
+
+$moduleDirName      = basename(__DIR__);
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
+/** @var \XoopsModules\Edito\Helper $helper */
+$helper = \XoopsModules\Edito\Helper::getInstance();
+$helper->loadLanguage('common');
+$helper->loadLanguage('feedback');
+$helper->loadLanguage('modinfo');
 
 //InfoModule
-/*  @var array $modversion */
-$modversion['version']        = '3.10';
-$modversion['module_status']  = 'Alpha 1';
-$modversion['release_date']   = '2020/07/08';
-$modversion['name']           = _MI_EDITO_NAME;
-$modversion['description']    = _MI_EDITO_DESC;
-$modversion['author']         = 'Brandycoke Productions, Dylian Melgert, Juan Garcés';
-$modversion['credits']        = 'XOOPS Development Team: Black_beard, Cesag, Philou, Mamba, ZySpec';
-$modversion['license']        = 'GNU GPL 2.0 or later';
-$modversion['license_url']    = 'www.gnu.org/licenses/gpl-2.0.html';
-$modversion['official']       = 0;
-$modversion['image']          = 'assets/images/edito_slogo.png';
-$modversion['dirname']        = $moduleDirName;
+/*  @var  array  $modversion */
+$modversion = [
+    'version'             => 3.10,
+    'module_status'       => 'Alpha.2',
+    'release_date'        => '2021/11/08',
+    'name'                => _MI_EDITO_NAME,
+    'description'         => _MI_EDITO_DESC,
+    'official'            => 0, //1 indicates official XOOPS module supported by XOOPS Dev Team, 0 means 3rd party supported
+    'author'              => 'Brandycoke Productions, Dylian Melgert, Juan Garcés',
+    'author_website_url'  => 'https://xoops.org/',
+    'author_website_name' => 'XOOPS',
+    'credits'             => 'XOOPS Development Team: Black_beard, Cesag, Philou, Mamba, ZySpec',
+    'license'             => 'GNU GPL 2.0 or later',
+    'license_url'         => 'www.gnu.org/licenses/gpl-2.0.html',
+    'image'               => 'assets/images/edito_slogo.png',
+    'dirname'             => $moduleDirName,
 
-//About
-$modversion['module_website_url']  = 'https://xoops.org/';
-$modversion['module_website_name'] = 'XOOPS';
-$modversion['min_php']             = '5.6';
-$modversion['min_xoops']           = '2.5.10';
-$modversion['min_admin']           = '1.2';
-$modversion['min_db']              = ['mysql' => '5.6', 'mysqli' => '5.6'];
+    // ------------------- Folders & Files -------------------
+    'release_info'        => 'Changelog',
+    'release_file'        => XOOPS_URL . "/modules/$moduleDirName/docs/changelog.txt",
 
-//install
-$modversion['onInstall']      = 'include/edito_install.php';
-//update
-$modversion['onUpdate']       = 'include/edito_update.php';
-//uninstall
-$modversion['onUninstall']    = 'include/edito_uninstall.php';
+    'manual'              => 'link to manual file',
+    'manual_file'         => XOOPS_URL . "/modules/$moduleDirName/docs/install.txt",
+    // Local path icons
+    'modicons16'          => 'assets/images/icons/16',
+    'modicons32'          => 'assets/images/icons/32',
+    //About
+    'demo_site_url'       => 'https://xoops.org',
+    'demo_site_name'      => 'XOOPS Demo Site',
+    'support_url'         => 'https://xoops.org/modules/newbb/viewforum.php?forum=28/',
+    'support_name'        => 'Support Forum',
+    'submit_bug'          => 'https://github.com/XoopsModules25x/' . $moduleDirName . '/issues',
+    'module_website_url'  => 'www.xoops.org',
+    'module_website_name' => 'XOOPS Project',
+    // ------------------- Min Requirements -------------------
+    'min_php'             => '7.1',
+    'min_xoops'           => '2.5.10',
+    'min_admin'           => '1.2',
+    'min_db'              => ['mysql' => '5.6', 'mysqli' => '5.6'],
 
-//SQL
-$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
-$modversion['tables'][0]        = $modversion['dirname'] . "_content";
+    // ------------------- Mysql -----------------------------
+    'sqlfile'             => ['mysql' => 'sql/mysql.sql'],
+    // ------------------- Tables ----------------------------
+    'tables'              => [
+        $moduleDirName . '_' . 'content',
+    ],
+    // ------------------- Install/Update -------------------
+    'onInstall'           => 'include/oninstall.php',
+    'onUpdate'            => 'include/edito_update.php',
+    'onUninstall'         => 'include/onuninstall.php',
+    // -------------------  PayPal ---------------------------
+    'paypal'              => [
+        'business'      => 'xoopsfoundation@gmail.com',
+        'item_name'     => 'Donation : ' . _MI_EDITO_NAME,
+        'amount'        => 0,
+        'currency_code' => 'USD'
+    ],
+    // ------------------- Search ---------------------------
+    'hasSearch'           => 1,
+    'search'              => [
+        'file' => 'include/search.inc.php',
+        'func' => 'edito_search'
+    ],
+    // ------------------- Comments -------------------------
+    'hasComments'         => 1,
+    'comments'            => [
+        'pageName'     => 'content.php',
+        'itemName'     => 'id',
+        'callbackFile' => 'include/comment_functions.php',
+        'callback'     => [
+            'approve' => 'edito_comments_approve',
+            'update'  => 'edito_comments_update'
+        ],
+    ],
+    // ------------------- Notification ----------------------
+    'hasNotification'     => 0,
 
-//Admin
-$modversion['hasAdmin']   = 1;
-$modversion['adminindex'] = "admin/index.php";
-$modversion['adminmenu']  = "admin/menu.php";
+    // ------------------- Admin -------------------------
+    'hasAdmin'   => 1,
+    'adminindex' => 'admin/index.php',
+    'adminmenu'  => 'admin/menu.php',
 
-// Search
-$modversion['hasSearch']      = 1;
-$modversion['search']['file'] = "include/search.inc.php";
-$modversion['search']['func'] = "edito_search";
+    // ------------------- Help files ------------------- //
+    'help'        => 'page=help',
+    'helpsection' => [
+        ['name' => _MI_EDITO_OVERVIEW, 'link' => 'page=help'],
+        ['name' => _MI_EDITO_DISCLAIMER, 'link' => 'page=disclaimer'],
+        ['name' => _MI_EDITO_LICENSE, 'link' => 'page=license'],
+        ['name' => _MI_EDITO_SUPPORT, 'link' => 'page=support'],
+    ],
+    // ------------------- Menu ------------------- //
+    'hasMain'     => 1,
+];
+if ($GLOBALS['xoopsModule'] && $GLOBALS['xoopsModule']->getVar('dirname') == $modversion['dirname']) {
+    require_once XOOPS_ROOT_PATH . '/modules/edito/include/functions_content.php';
+    $group = $GLOBALS['xoopsUser'] instanceof \XoopsUser ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS];
+    $i     = 0;
 
-//Menu
-$modversion['hasMain'] = 1;
-if ($xoopsModule && $xoopsModule -> getVar( 'dirname' ) == $modversion['dirname']) {
-include_once XOOPS_ROOT_PATH . '/modules/edito/include/functions_content.php';
-$group = is_object($xoopsUser) ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
-$i = 0;
+    // Menu admin links
+    if (@defined('_MD_EDITO_ADD')) {
+        if (count(array_intersect($group, $GLOBALS['xoopsModuleConfig']['submit_groups'])) > 0) {
+            $modversion['sub'][$i]['name']  = '<img src="assets/images/icon/submit.gif" align="absmiddle" width="20px;" alt="' . _MD_EDITO_SUBMIT . '">&nbsp;<i>' . _MD_EDITO_SUBMIT . '</i></img>';
+            $modversion['sub'][$i++]['url'] = 'submit.php';
+        }
 
-// Menu admin links
-if (@defined('_MD_EDITO_ADD')) {
-    if (count(array_intersect($group, $xoopsModuleConfig['submit_groups'])) > 0) {
- 		$modversion['sub'][$i]['name'] = "<img src='assets/images/icon/submit.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_SUBMIT . "' />&nbsp;<i>" . _MD_EDITO_SUBMIT . "</i></img>";
-		$modversion['sub'][$i++]['url'] = 'submit.php';
+        if ($GLOBALS['xoopsUser'] instanceof \XoopsUser && $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid())) {
+            $modversion['sub'][$i]['name']  = '<img src="assets/images/icon/add.gif" align="absmiddle" width="20px;" alt="' . _MD_EDITO_ADD . '">&nbsp;<i>' . _MD_EDITO_ADD . '</i></img>';
+            $modversion['sub'][$i++]['url'] = 'admin/content.php';
+            $modversion['sub'][$i]['name']  = '<img src="assets/images/icon/list.gif" align="absmiddle" width="20px;" alt="' . _MD_EDITO_LIST . '">&nbsp;<i>' . _MD_EDITO_LIST . '</i></img>';
+            $modversion['sub'][$i++]['url'] = 'admin/index.php';
+            $modversion['sub'][$i]['name']  = '<img src="assets/images/icon/utilities.gif" align="absmiddle" width="20px;" alt="' . _MD_EDITO_UTILITIES . '">&nbsp;<i>' . _MD_EDITO_UTILITIES . '</i></img>';
+            $modversion['sub'][$i++]['url'] = 'admin/utils_uploader.php';
+            $modversion['sub'][$i]['name']  = '<img src="assets/images/icon/settings.gif" align="absmiddle" width="20px;" alt="' . _MD_EDITO_SETTINGS . '">&nbsp;<i>' . _MD_EDITO_SETTINGS . '</i></img>';
+            $modversion['sub'][$i++]['url'] = '../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=' . $GLOBALS['xoopsModule']->getVar('mid');
+            $modversion['sub'][$i]['name']  = '<img src="assets/images/icon/blocks.gif" align="absmiddle" width="20px;" alt="' . _MD_EDITO_BLOCKS . '">&nbsp;<i>' . _MD_EDITO_BLOCKS . '</i></img>';
+            $modversion['sub'][$i++]['url'] = 'admin/blocks.php';
+        }
     }
-
-	if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
- 		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/add.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_ADD . "'>&nbsp;<i>" . _MD_EDITO_ADD . "</i></img>";
-		$modversion['sub'][$i++]['url'] = 'admin/content.php';
-		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/list.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_LIST . "'>&nbsp;<i>" . _MD_EDITO_LIST . "</i></img>";
-		$modversion['sub'][$i++]['url'] = 'admin/index.php';
-		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/utilities.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_UTILITIES . "'>&nbsp;<i>" . _MD_EDITO_UTILITIES . "</i></img>";
-		$modversion['sub'][$i++]['url'] = 'admin/utils_uploader.php';
-        $modversion['sub'][$i]['name']  = "<img src='assets/images/icon/settings.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_SETTINGS . "'>&nbsp;<i>" . _MD_EDITO_SETTINGS . "</i></img>";
-		$modversion['sub'][$i++]['url'] = '../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=' . $xoopsModule->getVar('mid');
-		$modversion['sub'][$i]['name']  = "<img src='assets/images/icon/blocks.gif' align='absmiddle' width='20px;' alt='" . _MD_EDITO_BLOCKS . "'>&nbsp;<i>" . _MD_EDITO_BLOCKS . "</i></img>";
-		$modversion['sub'][$i++]['url'] = 'admin/blocks.php';
-	}
-}
 
     // Display menu pages list
 	// Start comment here to not display pages'list
-$sql = "SELECT id, subject, meta, groups FROM ".$xoopsDB->prefix($modversion['dirname'] . "_content")."
-          WHERE status >= 3 ORDER BY " . edito_getmoduleoption('order');
+    $sql = "SELECT id, subject, meta, groups FROM " . $GLOBALS['xoopsDB']->prefix($modversion['dirname'] . '_content') . "
+            WHERE state >= 3 ORDER BY " . edito_getmoduleoption('order');
 
-$result = $xoopsDB->queryF($sql, edito_getmoduleoption('perpage'), 0 ) ;
+    $result = $GLOBALS['xoopsDB']->queryF($sql, edito_getmoduleoption('perpage'), 0);
 
-//	$group = is_object($xoopsUser) ? $xoopsUser->getGroups() : [XOOPS_GROUP_ANONYMOUS];
-	while (list($id, $subject, $meta, $groups) = $xoopsDB->fetchRow($result)) {
-		$groups = explode(' ', $groups);
-		if (count(array_intersect($group, $groups))) {
-            $meta = explode("|", $meta);
-            $meta_title       =  $meta[0];
-            $meta_description =  $meta[1];
+    //	$group = $GLOBALS['xoopsUser'] instanceof \XoopsUser ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS];
+    while (list($id, $subject, $meta, $groups) = $GLOBALS['xoopsDB']->fetchRow($result)) {
+        $groups = explode(' ', $groups);
+        if (count(array_intersect($group, $groups))) {
+            $meta             = explode('|', $meta);
+            $meta_title       = $meta[0];
+            $meta_description = $meta[1];
 
-            $link = edito_createlink('content.php?id='.$id, $subject, '', '', '', '', '', $meta_title, $xoopsModuleConfig['url_rewriting']);
-            $link = explode('"', $link); if( $link[1] ) { $link = $link[1]; } else { $link = 'content.php?id='.$id; }
-			$modversion['sub'][$i]['name'] = $subject ;
-			$modversion['sub'][$i++]['url'] = $link ;
-		} // Groups
-	} // While
-	// End comment here to not display pages'list
+            $link = edito_createlink('content.php?id=' . $id, $subject, '', '', '', '', '', $meta_title, $GLOBALS['xoopsModuleConfig']['url_rewriting']);
+            $link = explode('"', $link);
+            if ($link[1]) {
+                $link = $link[1];
+            } else {
+                $link = 'content.php?id=' . $id;
+            }
+            $modversion['sub'][$i]['name']  = $subject;
+            $modversion['sub'][$i++]['url'] = $link;
+        } // Groups
+    } // While
+    // End comment here to not display pages'list
 }  // Active module
 
-// Templates
-$i = 1;
-// Module blocks templates
-  // Header and footer
-$modversion['templates'][$i]['file'] = 'edito_head.tpl';
-$modversion['templates'][$i++]['description'] = "";
-$modversion['templates'][$i]['file'] = 'edito_foot.tpl';
-$modversion['templates'][$i++]['description'] = "";
-  // Index templates
-$modversion['templates'][$i]['file'] = 'edito_index.tpl';
-$modversion['templates'][$i++]['description'] = "";
-$modversion['templates'][$i]['file'] = 'edito_index_ext.tpl';
-$modversion['templates'][$i++]['description'] = "";
-$modversion['templates'][$i]['file'] = 'edito_index_news.tpl';
-$modversion['templates'][$i++]['description'] = "";
-$modversion['templates'][$i]['file'] = 'edito_index_blog.tpl';
-$modversion['templates'][$i++]['description'] = "";
-// Pages templates
-$modversion['templates'][$i]['file'] = 'edito_content_index.tpl';
-$modversion['templates'][$i++]['description'] = "";
-$modversion['templates'][$i]['file'] = 'edito_content_item.tpl';
-$modversion['templates'][$i++]['description'] = "";
-$modversion['templates'][$i]['file'] = 'edito_content_html.tpl';
-$modversion['templates'][$i++]['description'] = "";
-$modversion['templates'][$i]['file'] = 'edito_content_php.tpl';
-$modversion['templates'][$i++]['description'] = "";
-  // Content blocks templates
-$modversion['templates'][$i]['file'] = 'edito_block_content.tpl';
-$modversion['templates'][$i++]['description'] = "";
-  // Menu blocks templates
-$modversion['templates'][$i]['file'] = 'edito_block_menu.tpl';
-$modversion['templates'][$i++]['description'] = "";
-$modversion['templates'][$i]['file'] = 'edito_block_image.tpl';
-$modversion['templates'][$i++]['description'] = "";
-$modversion['templates'][$i]['file'] = 'edito_block_list.tpl';
-$modversion['templates'][$i++]['description'] = "";
-$modversion['templates'][$i]['file'] = 'edito_block_ext.tpl';
-$modversion['templates'][$i++]['description'] = "";
-  // Submit templates
-$modversion['templates'][$i]['file'] = 'edito_content_submit.tpl';
-$modversion['templates'][$i++]['description'] = "";
+// ------------------- Templates ------------------- //
+$modversion['templates'] = [
+    // Header and footer
+    ['file'        => 'edito_head.tpl',
+     'description' => ''],
+    ['file'        => 'edito_foot.tpl',
+     'description' => ''],
+    // Index templates
+    ['file'        => 'edito_index.tpl',
+    'description'  => ''],
+    ['file'        => 'edito_index_ext.tpl',
+     'description' => ''],
+    ['file'        => 'edito_index_news.tpl',
+     'description' => ''],
+    ['file'        => 'edito_index_blog.tpl',
+     'description' => ''],
+    // Pages templates
+    ['file'        => 'edito_content_index.tpl',
+     'description' => ''],
+    ['file'        => 'edito_content_item.tpl',
+     'description' => ''],
+    ['file'        => 'edito_content_html.tpl',
+     'description' => ''],
+    ['file'        => 'edito_content_php.tpl',
+     'description' => ''],
+    // Content blocks templates
+    ['file'        => 'edito_block_content.tpl',
+     'description' => ''],
+    // Menu blocks templates
+    ['file'        => 'edito_block_menu.tpl',
+     'description' => ''],
+    ['file'        => 'edito_block_image.tpl',
+     'description' => ''],
+    ['file'        => 'edito_block_list.tpl',
+     'description' => ''],
+    ['file'        => 'edito_block_ext.tpl',
+     'description' => ''],
+    // Submit template
+    ['file'        => 'edito_content_submit.tpl',
+     'description' => ''],
+    // Breadcrumb template
+    ['file'        => 'edito_common_breadcrumb.tpl',
+     'description' => ''],
+];
 
 // Blocks
-$i = 1;
-$modversion['blocks'][$i]['file'] = "content.php";
-$modversion['blocks'][$i]['name'] = _MI_EDITO_BLOCNAME_01;
-$modversion['blocks'][$i]['description'] ="";
-$modversion['blocks'][$i]['show_func'] = 'a_edito_show';
-$modversion['blocks'][$i]['edit_func'] = 'a_edito_edit';
-$modversion['blocks'][$i]['options'] = '512|1|1|0|';
-$modversion['blocks'][$i]['template'] = 'edito_block_01.tpl';
-$i++;
-$modversion['blocks'][$i]['file'] = "content.php";
-$modversion['blocks'][$i]['name'] = _MI_EDITO_BLOCNAME_02;
-$modversion['blocks'][$i]['description'] = "";
-$modversion['blocks'][$i]['show_func'] = 'a_edito_show';
-$modversion['blocks'][$i]['edit_func'] = 'a_edito_edit';
-$modversion['blocks'][$i]['options'] = '512|random|1|0|';
-$modversion['blocks'][$i]['template'] = 'edito_block_02.tpl';
-$i++;
-$modversion['blocks'][$i]['file'] = "content.php";
-$modversion['blocks'][$i]['name'] = _MI_EDITO_BLOCNAME_03;
-$modversion['blocks'][$i]['description'] = "";
-$modversion['blocks'][$i]['show_func'] = 'a_edito_show';
-$modversion['blocks'][$i]['edit_func'] = 'a_edito_edit';
-$modversion['blocks'][$i]['options'] = '512|latest|1|0|10';
-$modversion['blocks'][$i]['template'] = 'edito_block_03.tpl';
-$i++;
-$modversion['blocks'][$i]['file'] = "content.php";
-$modversion['blocks'][$i]['name'] = _MI_EDITO_BLOCNAME_04;
-$modversion['blocks'][$i]['description'] = "";
-$modversion['blocks'][$i]['show_func'] = 'a_edito_show';
-$modversion['blocks'][$i]['edit_func'] = 'a_edito_edit';
-$modversion['blocks'][$i]['options'] = '512|read|1|0|';
-$modversion['blocks'][$i]['template'] = 'edito_block_04.tpl';
-$i++;
-$modversion['blocks'][$i]['file'] = "content.php";
-$modversion['blocks'][$i]['name'] = _MI_EDITO_BLOCNAME_05;
-$modversion['blocks'][$i]['description'] = "";
-$modversion['blocks'][$i]['show_func'] = 'a_edito_menu_show';
-$modversion['blocks'][$i]['edit_func'] = 'a_edito_menu_edit';
-$modversion['blocks'][$i]['options'] = 'menu|120-120|1|subject ASC|6';
-$modversion['blocks'][$i]['template'] = 'edito_menu_block_01.tpl';
-$i++;
-$modversion['blocks'][$i]['file'] = "content.php";
-$modversion['blocks'][$i]['name'] = _MI_EDITO_BLOCNAME_06;
-$modversion['blocks'][$i]['description'] = "";
-$modversion['blocks'][$i]['show_func'] = 'a_edito_menu_show';
-$modversion['blocks'][$i]['edit_func'] = 'a_edito_menu_edit';
-$modversion['blocks'][$i]['options'] = 'menu|120-120|1|subject ASC|6';
-$modversion['blocks'][$i]['template'] = 'edito_menu_block_02.tpl';
+$modversion['blocks'] = [
+    ['file'        => 'content.php',
+     'name'        => _MI_EDITO_BLOCNAME_01,
+     'description' => '',
+     'show_func'   => 'a_edito_show',
+     'edit_func'   => 'a_edito_edit',
+     'options'     => '512|1|1|0|',
+     'template'    => 'edito_block_01.tpl'],
 
-// Search
-$modversion['hasSearch'] = 1;
-$modversion['search']['file'] = "include/search.inc.php";
-$modversion['search']['func'] = "edito_search";
+    ['file'        => 'content.php',
+     'name'        => _MI_EDITO_BLOCNAME_02,
+     'description' => '',
+     'show_func'   => 'a_edito_show',
+     'edit_func'   => 'a_edito_edit',
+     'options'     => '512|random|1|0|',
+     'template'    => 'edito_block_02.tpl'],
+
+    ['file'        => 'content.php',
+     'name'        => _MI_EDITO_BLOCNAME_03,
+     'description' => '',
+     'show_func'   => 'a_edito_show',
+     'edit_func'   => 'a_edito_edit',
+     'options'     => '512|latest|1|0|10',
+     'template'    => 'edito_block_03.tpl'],
+
+    ['file'        => 'content.php',
+     'name'        => _MI_EDITO_BLOCNAME_04,
+     'description' => '',
+     'show_func'   => 'a_edito_show',
+     'edit_func'   => 'a_edito_edit',
+     'options'     => '512|read|1|0|',
+     'template'    => 'edito_block_04.tpl'],
+
+    ['file'        => 'content.php',
+     'name'        => _MI_EDITO_BLOCNAME_05,
+     'description' => '',
+     'show_func'   => 'a_edito_menu_show',
+     'edit_func'   => 'a_edito_menu_edit',
+     'options'     => 'menu|120-120|1|subject ASC|6',
+     'template'    => 'edito_menu_block_01.tpl'],
+
+    ['file'        => 'content.php',
+     'name'        => _MI_EDITO_BLOCNAME_06,
+     'description' => '',
+     'show_func'   => 'a_edito_menu_show',
+     'edit_func'   => 'a_edito_menu_edit',
+     'options'     => 'menu|120-120|1|subject ASC|6',
+     'template'    => 'edito_menu_block_02.tpl'],
+];
 
 // Module options
-$i = 1;
-$modversion['config'][$i]['name'] = 'index_logo';
-$modversion['config'][$i]['title'] = '_MI_EDITO_INDEX_LOGO';
-$modversion['config'][$i]['description'] = '_MI_EDITO_INDEX_LOGODSC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'modules/edito/assets/images/logo.gif';
-$i++;
-$modversion['config'][$i]['name'] = 'textindex';
-$modversion['config'][$i]['title'] = '_MI_EDITO_TEXTINDEX';
-$modversion['config'][$i]['description'] = '_MI_EDITO_TEXTINDEXDSC';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = _MI_EDITO_WELCOME;
-$i++;
-$modversion['config'][$i]['name'] = 'informations';
-$modversion['config'][$i]['title'] = '_MI_EDITO_DEFAULTEXT';
-$modversion['config'][$i]['description'] = '_MI_EDITO_DEFAULTEXTDSC';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = _MI_EDITO_DEFAULTEXTEXP;
-$i++;
-$modversion['config'][$i]['name'] = 'footer';
-$modversion['config'][$i]['title'] = '_MI_EDITO_FOOTERTEXT';
-$modversion['config'][$i]['description'] = '_MI_EDITO_FOOTERTEXTDSC';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = _MI_EDITO_FOOTER;
-$i++;
-$modversion['config'][$i]['name'] = 'index_display';
-$modversion['config'][$i]['title'] = '_MI_EDITO_INDEX_DISP';
-$modversion['config'][$i]['description'] = '_MI_EDITO_INDEX_DISPDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'image';
-$modversion['config'][$i]['options'] = [
-    '_MI_EDITO_INDEX_DISP_IMAGE' => 'image',
-    '_MI_EDITO_INDEX_DISP_TABLE' => 'table',
-    '_MI_EDITO_INDEX_DISP_BLOG'  => 'blog',
-    '_MI_EDITO_INDEX_DISP_NEWS'  =>  'news'
-];
-$i++;
-$modversion['config'][$i]['name'] = 'columns';
-$modversion['config'][$i]['title'] = '_MI_EDITO_COLUMNS';
-$modversion['config'][$i]['description'] = '_MI_EDITO_COLUMNSDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 2;
-$modversion['config'][$i]['options'] = [
-    '1' => 1,
-    '2' => 2,
-    '3' => 3,
-    '4' => 4,
-    '5' => 5
-];
-$i++;
-$modversion['config'][$i]['name'] = 'order';
-$modversion['config'][$i]['title'] = '_MI_EDITO_ORD';
-$modversion['config'][$i]['description'] = '_MI_EDITO_ORDDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'subject ASC';
-$modversion['config'][$i]['options'] = [
-    '_MI_EDITO_ORD_SUBJ_ASC' => 'subject ASC',
-    '_MI_EDITO_ORD_DATE_DESC'   => 'datesub DESC',
-    '_MI_EDITO_ORD_READ_DESC'   => 'counter DESC'
-];
-$i++;
-$modversion['config'][$i]['name'] = 'perpage';
-$modversion['config'][$i]['title'] = '_MI_EDITO_PERPAGE';
-$modversion['config'][$i]['description'] = '_MI_EDITO_PERPAGEDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 10;
-$modversion['config'][$i]['options'] = [
-    '6'  => 6,
-    '10' => 10,
-    '16' => 16,
-    '20' => 20,
-    '26' => 26,
-    '30' => 30,
-    '50' => 50
-];
-$i++;
-$modversion['config'][$i]['name'] = 'logo_size';
-$modversion['config'][$i]['title'] = '_MI_EDITO_LOGOWIDTH';
-$modversion['config'][$i]['description'] = '_MI_EDITO_LOGOWIDTHDSC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '160|160';
-$i++;
-$modversion['config'][$i]['name'] = 'logo_align';
-$modversion['config'][$i]['title'] = '_MI_EDITO_LOGO_ALIGN';
-$modversion['config'][$i]['description'] = '_MI_EDITO_LOGO_ALIGNDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'center';
-$modversion['config'][$i]['options'] = [
-    '_MI_EDITO_LOGO_ALIGN_LEFT' => 'left',
-    '_MI_EDITO_LOGO_ALIGN_CENTER' => 'center',
-    '_MI_EDITO_LOGO_ALIGN_RIGHT' => 'right'
-];
-$i++;
-$modversion['config'][$i]['name'] = 'adminhits';
-$modversion['config'][$i]['title'] = '_MI_EDITO_ADMINHITS';
-$modversion['config'][$i]['description'] = '_MI_EDITO_ADMINHITSDSC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
-$i++;
-/*
-$modversion['config'][$i]['name'] = 'maxfilesize';
-$modversion['config'][$i]['title'] = "_MI_EDITO_MAXFILESIZE";
-$modversion['config'][$i]['description'] = "_MI_EDITO_MAXFILESIZEDSC";
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 250000;
-*/
-$i++;
-$modversion['config'][$i]['name'] = 'maximgsize';
-$modversion['config'][$i]['title'] = '_MI_EDITO_IMGSIZE';
-$modversion['config'][$i]['description'] = '_MI_EDITO_IMGSIZEDSC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '800|600|250000';
-$i++;
-$modversion['config'][$i]['name'] = 'sbuploaddir';
-$modversion['config'][$i]['title'] = '_MI_EDITO_UPLOADDIR';
-$modversion['config'][$i]['description'] = '_MI_EDITO_UPLOADDIRDSC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'uploads/'.$modversion['dirname'].'/images';
-$i++;
-$modversion['config'][$i]['name'] = 'sbmediadir';
-$modversion['config'][$i]['title'] = '_MI_EDITO_MEDIADIR';
-$modversion['config'][$i]['description'] = '_MI_EDITO_MEDIADIRDSC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'uploads/'.$modversion['dirname'].'/media';
-$i++;
-$modversion['config'][$i]['name'] = 'downloadable';
-$modversion['config'][$i]['title'] = '_MI_EDITO_DWNL';
-$modversion['config'][$i]['description'] = '_MI_EDITO_DWNLDSC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
+$modversion['config'] = [
+    ['name'        => 'index_logo',
+     'title'       => '_MI_EDITO_INDEX_LOGO',
+     'description' => '_MI_EDITO_INDEX_LOGODSC',
+     'formtype'    => 'textbox',
+     'valuetype'   => 'text',
+     'default'     => 'modules/edito/assets/images/logo.gif'],
 
-if ( $xoopsModule && $xoopsModule -> getVar( 'dirname' ) == 'system' ) {
-	$member_handler = xoops_gethandler('member');
-	$xoopsgroups    = $member_handler->getGroupList();
+    ['name'        => 'textindex',
+     'title'       => '_MI_EDITO_TEXTINDEX',
+     'description' => '_MI_EDITO_TEXTINDEXDSC',
+     'formtype'    => 'textarea',
+     'valuetype'   => 'text',
+     'default'     => _MI_EDITO_WELCOME],
+
+    ['name'        => 'informations',
+     'title'       => '_MI_EDITO_DEFAULTEXT',
+     'description' => '_MI_EDITO_DEFAULTEXTDSC',
+     'formtype'    => 'textarea',
+     'valuetype'   => 'text',
+     'default'     => _MI_EDITO_DEFAULTEXTEXP],
+
+    ['name'        => 'footer',
+     'title'       => '_MI_EDITO_FOOTERTEXT',
+     'description' => '_MI_EDITO_FOOTERTEXTDSC',
+     'formtype'    => 'textarea',
+     'valuetype'   => 'text',
+     'default'     => _MI_EDITO_FOOTER],
+
+    ['name'        => 'index_display',
+     'title'       => '_MI_EDITO_INDEX_DISP',
+     'description' => '_MI_EDITO_INDEX_DISPDSC',
+     'formtype'    => 'select',
+     'valuetype'   => 'text',
+     'default'     => 'image',
+     'options'     => [
+        '_MI_EDITO_INDEX_DISP_IMAGE' => 'image',
+        '_MI_EDITO_INDEX_DISP_TABLE' => 'table',
+        '_MI_EDITO_INDEX_DISP_BLOG'  => 'blog',
+        '_MI_EDITO_INDEX_DISP_NEWS'  => 'news',
+     ]],
+
+    ['name'        => 'columns',
+     'title'       => '_MI_EDITO_COLUMNS',
+     'description' => '_MI_EDITO_COLUMNSDSC',
+     'formtype'    => 'select',
+     'valuetype'   => 'int',
+     'default'     => 2,
+     'options'     => [
+        '1' => 1,
+        '2' => 2,
+        '3' => 3,
+        '4' => 4,
+        '5' => 5,
+    ]],
+
+    ['name'        => 'order',
+     'title'       => '_MI_EDITO_ORD',
+     'description' => '_MI_EDITO_ORDDSC',
+     'formtype'    => 'select',
+     'valuetype'   => 'text',
+     'default'     => 'subject ASC',
+     'options'     => [
+        '_MI_EDITO_ORD_SUBJ_ASC'  => 'subject ASC',
+        '_MI_EDITO_ORD_DATE_DESC' => 'datesub DESC',
+        '_MI_EDITO_ORD_READ_DESC' => 'counter DESC',
+    ]],
+
+    ['name'        => 'perpage',
+     'title'       => '_MI_EDITO_PERPAGE',
+     'description' => '_MI_EDITO_PERPAGEDSC',
+     'formtype'    => 'select',
+     'valuetype'   => 'int',
+     'default'     => 10,
+     'options'     => [
+        '6'  => 6,
+        '10' => 10,
+        '16' => 16,
+        '20' => 20,
+        '26' => 26,
+        '30' => 30,
+        '50' => 50,
+    ]],
+
+    ['name'        => 'logo_size',
+     'title'       => '_MI_EDITO_LOGOWIDTH',
+     'description' => '_MI_EDITO_LOGOWIDTHDSC',
+     'formtype'    => 'textbox',
+     'valuetype'   => 'text',
+     'default'     => '160|160'],
+
+    ['name'        => 'logo_align',
+     'title'       => '_MI_EDITO_LOGO_ALIGN',
+     'description' => '_MI_EDITO_LOGO_ALIGNDSC',
+     'formtype'    => 'select',
+     'valuetype'   => 'text',
+     'default'     => 'center',
+     'options'     => [
+        '_MI_EDITO_LOGO_ALIGN_LEFT'   => 'left',
+        '_MI_EDITO_LOGO_ALIGN_CENTER' => 'center',
+        '_MI_EDITO_LOGO_ALIGN_RIGHT'  => 'right',
+    ]],
+
+    ['name'        => 'adminhits',
+     'title'       => '_MI_EDITO_ADMINHITS',
+     'description' => '_MI_EDITO_ADMINHITSDSC',
+     'formtype'    => 'yesno',
+     'valuetype'   => 'int',
+     'default'     => 0],
+
+/*
+    ['name'        =>  'maxfilesize',
+     'title'       =>  "_MI_EDITO_MAXFILESIZE",
+     'description' =>  "_MI_EDITO_MAXFILESIZEDSC",
+     'formtype'    =>  'textbox',
+     'valuetype'   =>  'int',
+     'default'     =>  250000],
+*/
+
+    ['name'        => 'maximgsize',
+     'title'       => '_MI_EDITO_IMGSIZE',
+     'description' => '_MI_EDITO_IMGSIZEDSC',
+     'formtype'    => 'textbox',
+     'valuetype'   => 'text',
+     'default'     => '800|600|250000'],
+
+    ['name'        => 'sbuploaddir',
+     'title'       => '_MI_EDITO_UPLOADDIR',
+     'description' => '_MI_EDITO_UPLOADDIRDSC',
+     'formtype'    => 'textbox',
+     'valuetype'   => 'text',
+     'default'     => 'uploads/' . $modversion['dirname'] . '/images'],
+
+    ['name'        => 'sbmediadir',
+     'title'       => '_MI_EDITO_MEDIADIR',
+     'description' => '_MI_EDITO_MEDIADIRDSC',
+     'formtype'    => 'textbox',
+     'valuetype'   => 'text',
+     'default'     => 'uploads/' . $modversion['dirname'] . '/media'],
+
+    ['name'        => 'downloadable',
+     'title'       => '_MI_EDITO_DWNL',
+     'description' => '_MI_EDITO_DWNLDSC',
+     'formtype'    => 'yesno',
+     'valuetype'   => 'int',
+     'default'     => 0],
+];
+
+if ( $GLOBALS['xoopsModule'] && $GLOBALS['xoopsModule'] -> getVar( 'dirname' ) == 'system' ) {
+    /** @var  \XoopsMemberHandler  $memberHandler */
+	$memberHandler = xoops_getHandler('member');
+	$xoopsgroups    = $memberHandler->getGroupList();
 	foreach ($xoopsgroups as $key=>$group) {
 		$groups[$group] = $key;
 	}
 	$def_group[1] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'groups';
-$modversion['config'][$i]['title'] = '_MI_EDITO_OPT_GRPS';
-$modversion['config'][$i]['description'] = '_MI_EDITO_OPT_GRPSDSC';
-$modversion['config'][$i]['formtype'] = 'select_multi';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['options'] = $groups;
-$modversion['config'][$i]['default'] = $groups;
-$i++;
-$modversion['config'][$i]['name'] = 'submit_groups';
-$modversion['config'][$i]['title'] = '_MI_EDITO_SUB_GRPS';
-$modversion['config'][$i]['description'] = '_MI_EDITO_SUB_GRPSDSC';
-$modversion['config'][$i]['formtype'] = 'select_multi';
-$modversion['config'][$i]['valuetype'] = 'array';
-$modversion['config'][$i]['options'] = $groups;
-$modversion['config'][$i]['default'] = $def_group;
+
+    $modversion['config'][] = [
+        'name'        => 'groups',
+        'title'       => '_MI_EDITO_OPT_GRPS',
+        'description' => '_MI_EDITO_OPT_GRPSDSC',
+        'formtype'    => 'select_multi',
+        'valuetype'   => 'array',
+        'options'     => $groups,
+        'default'     => $groups,
+    ];
+
+    $modversion['config'][] = [
+        'name'        => 'submit_groups',
+        'title'       => '_MI_EDITO_SUB_GRPS',
+        'description' => '_MI_EDITO_SUB_GRPSDSC',
+        'formtype'    => 'select_multi',
+        'valuetype'   => 'array',
+        'options'     => $groups,
+        'default'     => $def_group,
+    ];
 }
-$i++;
-$modversion['config'][$i]['name'] = 'option_block';
-$modversion['config'][$i]['title'] = '_MI_EDITO_OPT_BLOCK';
-$modversion['config'][$i]['description'] = '_MI_EDITO_OPT_BLOCKDSC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'option_title';
-$modversion['config'][$i]['title'] = '_MI_EDITO_OPT_TITLE';
-$modversion['config'][$i]['description'] = '_MI_EDITO_OPT_TITLEDSC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'option_logo';
-$modversion['config'][$i]['title'] = '_MI_EDITO_OPT_LOGO';
-$modversion['config'][$i]['description'] = '_MI_EDITO_OPT_LOGODSC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'cancomment';
-$modversion['config'][$i]['title'] = '_MI_EDITO_OPT_COMMENT';
-$modversion['config'][$i]['description'] = '_MI_EDITO_OPT_COMMENTDSC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
+
+$modversion['config'][] = [
+    'name'        => 'option_block',
+    'title'       => '_MI_EDITO_OPT_BLOCK',
+    'description' => '_MI_EDITO_OPT_BLOCKDSC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+$modversion['config'][] = [
+    'name'        => 'option_title',
+    'title'       => '_MI_EDITO_OPT_TITLE',
+    'description' => '_MI_EDITO_OPT_TITLEDSC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+$modversion['config'][] = [
+    'name'        => 'option_logo',
+    'title'       => '_MI_EDITO_OPT_LOGO',
+    'description' => '_MI_EDITO_OPT_LOGODSC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+$modversion['config'][] = [
+    'name'        => 'cancomment',
+    'title'       => '_MI_EDITO_OPT_COMMENT',
+    'description' => '_MI_EDITO_OPT_COMMENTDSC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
 
 //* Editor to Use
 xoops_load('xoopslists');
-$modversion['config'][$i] = [
+$modversion['config'][] = [
     'name'        => 'wysiwyg',
     'title'       => '_MI_EDITO_WYSIWYG',
     'description' => '_MI_EDITO_WYSIWYGDSC',
@@ -432,305 +510,412 @@ $modversion['config'][$i] = [
     'options'     => XoopsLists::getDirListAsArray($GLOBALS['xoops']->path('/class/xoopseditor')),
     'default'     => 'dhtmltextarea'
 ];
+
 /*
-$modversion['config'][$i]['name'] = 'wysiwyg';
-$modversion['config'][$i]['title'] = '_MI_EDITO_WYSIWYG';
-$modversion['config'][$i]['description'] = '_MI_EDITO_WYSIWYGDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'dhtml';
-$modversion['config'][$i]['options'] = [
-    _MI_EDITO_FORM_DHTML       => 'dhtml',
-    _MI_EDITO_FORM_COMPACT     => 'textarea',
-	_MI_EDITO_FORM_SPAW        => 'spaw',
-	_MI_EDITO_FORM_HTMLAREA    => 'htmlarea',
-	_MI_EDITO_FORM_KOIVI       => 'koivi',
-	_MI_EDITO_FORM_FCK         => 'fck',
-	_MI_EDITO_FORM_INBETWEEN   => 'inbetween',
-	_MI_EDITO_FORM_TINYEDITOR  => 'tinyeditor'
+$modversion['config'][] = [
+    'name'        => 'wysiwyg',
+    'title'       => '_MI_EDITO_WYSIWYG',
+    'description' => '_MI_EDITO_WYSIWYGDSC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'dhtml',
+    'options'     => [
+        _MI_EDITO_FORM_DHTML      => 'dhtml',
+        _MI_EDITO_FORM_COMPACT    => 'textarea',
+        _MI_EDITO_FORM_SPAW       => 'spaw',
+        _MI_EDITO_FORM_HTMLAREA   => 'htmlarea',
+        _MI_EDITO_FORM_KOIVI      => 'koivi',
+        _MI_EDITO_FORM_FCK        => 'fck',
+        _MI_EDITO_FORM_INBETWEEN  => 'inbetween',
+        _MI_EDITO_FORM_TINYEDITOR => 'tinyeditor'
+    ],
 ];
 */
-$i++;
-$modversion['config'][$i]['name'] = 'tags';
-$modversion['config'][$i]['title'] = '_MI_EDITO_TAGS';
-$modversion['config'][$i]['description'] = '_MI_EDITO_TAGSDSC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'tags_new';
-$modversion['config'][$i]['title'] = '_MI_EDITO_TAGS_NEW';
-$modversion['config'][$i]['description'] = '_MI_EDITO_TAGS_NEWDSC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 7;
-$i++;
-$modversion['config'][$i]['name'] = 'tags_pop';
-$modversion['config'][$i]['title'] = '_MI_EDITO_TAGS_POP';
-$modversion['config'][$i]['description'] = '_MI_EDITO_TAGS_POPDSC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 100;
-$i++;
-$modversion['config'][$i]['name'] = 'metamanager';
-$modversion['config'][$i]['title'] = '_MI_EDITO_META_MANAGER';
-$modversion['config'][$i]['description'] = '_MI_EDITO_META_MANAGERDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'auto';
-$modversion['config'][$i]['options'] = [
-    '_MI_EDITO_META_MANUAL' => 'manual',
-    '_MI_EDITO_META_SEMI' => 'semi',
-    '_MI_EDITO_META_AUTO' => 'auto'
-];
-$i++;
-$modversion['config'][$i]['name'] = 'moduleMetaDescription';
-$modversion['config'][$i]['title'] = '_MI_EDITO_META_DESC';
-$modversion['config'][$i]['description'] = '_MI_EDITO_META_DESCDSC';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '';
-$i++;
-$modversion['config'][$i]['name'] = 'moduleMetaKeywords';
-$modversion['config'][$i]['title'] = '_MI_EDITO_META_KEYW';
-$modversion['config'][$i]['description'] = '_MI_EDITO_META_KEYWDSC';
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '';
-$i++;
-$modversion['config'][$i]['name'] = 'index_content';
-$modversion['config'][$i]['title'] = '_MI_EDITO_INDEX_CONTENT';
-$modversion['config'][$i]['description'] = '_MI_EDITO_INDEX_CONTENTDSC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '';
-$i++;
-$modversion['config'][$i]['name'] = 'navlink_type';
-$modversion['config'][$i]['title'] = '_MI_EDITO_NAV_LINKS';
-$modversion['config'][$i]['description'] = '_MI_EDITO_NAV_LINKSDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'list';
-$modversion['config'][$i]['options'] = [
-    '_MI_EDITO_NAV_LINKS_NONE'  => 'none',
-    '_MI_EDITO_NAV_LINKS_BLOCK' => 'bloc',
-    '_MI_EDITO_NAV_LINKS_LIST'  => 'list',
-    '_MI_EDITO_NAV_LINKS_PATH'  => 'path'
-];
-$i++;
-$modversion['config'][$i]['name'] = 'url_rewriting';
-$modversion['config'][$i]['title'] = '_MI_EDITO_REWRITING';
-$modversion['config'][$i]['description'] = '_MI_EDITO_REWRITINGDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '0';
-$modversion['config'][$i]['options'] = [
-    '_MI_EDITO_URW_NONE'  => '0',
-    '_MI_EDITO_URW_MIN_3' => '3',
-    '_MI_EDITO_URW_MIN_5' => '5',
-    '_MI_EDITO_URW_ALL'   => '1'
-];
-$i++;
-$modversion['config'][$i]['name'] = 'media_display';
-$modversion['config'][$i]['title'] = '_MI_EDITO_MEDIA_DISP';
-$modversion['config'][$i]['description'] = '_MI_EDITO_MEDIA_DISPDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'both';
-$modversion['config'][$i]['options'] = [
-    '_MI_EDITO_MEDIA_POPUP' => 'popup',
-    '_MI_EDITO_MEDIA_PAGE'  => 'page',
-    '_MI_EDITO_MEDIA_BOTH'  => 'both'
-];
-$i++;
-$modversion['config'][$i]['name'] = 'custom';
-$modversion['config'][$i]['title'] = '_MI_EDITO_CUSTOM';
-$modversion['config'][$i]['description'] = '_MI_EDITO_CUSTOMDSC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '480|360';
-$i++;
-$modversion['config'][$i]['name'] = 'custom_media';
-$modversion['config'][$i]['title'] = '_MI_EDITO_CUSTOM_MEDIA';
-$modversion['config'][$i]['description'] = '_MI_EDITO_CUSTOM_MEDIADSC';
-$modversion['config'][$i]['formtype'] = 'textbox';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = '.asp|.php';
-$i++;
-$modversion['config'][$i]['name'] = 'repeat';
-$modversion['config'][$i]['title'] = '_MI_EDITO_REPEAT';
-$modversion['config'][$i]['description'] = '_MI_EDITO_REPEATDSC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 1;
-$i++;
-$modversion['config'][$i]['name'] = 'media_size';
-$modversion['config'][$i]['title'] = '_MI_EDITO_MEDIA_SIZE';
-$modversion['config'][$i]['description'] = '_MI_EDITO_MEDIA_SIZEDSC';
-$modversion['config'][$i]['formtype'] = 'select';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'medium';
-$modversion['config'][$i]['options'] = [
-    '_MI_EDITO_SIZE_DEFAULT'  => 'default',
-    '_MI_EDITO_SIZE_CUSTOM'   => 'custom',
-    '_MI_EDITO_SIZE_TVSMALL'  => 'tv_small',
-    '_MI_EDITO_SIZE_TVMEDIUM' => 'tv_medium',
-    '_MI_EDITO_SIZE_TVBIG'    => 'tv_big',
-    '_MI_EDITO_SIZE_MVSMALL'  => 'mv_small',
-    '_MI_EDITO_SIZE_MVMEDIUM' => 'mv_medium',
-    '_MI_EDITO_SIZE_MVBIG'    => 'mv_big'
+$modversion['config'][] = [
+    'name'        => 'tags',
+    'title'       => '_MI_EDITO_TAGS',
+    'description' => '_MI_EDITO_TAGSDSC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
 ];
 
-// Comments
-$modversion['hasComments'] = 1;
-$modversion['comments']['pageName'] = 'content.php';
-$modversion['comments']['itemName'] = 'id';
+$modversion['config'][] = [
+    'name'        => 'tags_new',
+    'title'       => '_MI_EDITO_TAGS_NEW',
+    'description' => '_MI_EDITO_TAGS_NEWDSC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 7,
+];
 
-// Comment callback functions
-$modversion['comments']['callbackFile'] = 'include/comment_functions.php';
-$modversion['comments']['callback']['approve'] = 'edito_com_approve';
-$modversion['comments']['callback']['update'] = 'edito_com_update';
+$modversion['config'][] = [
+    'name'        => 'tags_pop',
+    'title'       => '_MI_EDITO_TAGS_POP',
+    'description' => '_MI_EDITO_TAGS_POPDSC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 100,
+];
 
-// Notification
-$modversion['hasNotification'] = 0;
+$modversion['config'][] = [
+    'name'        => 'metamanager',
+    'title'       => '_MI_EDITO_META_MANAGER',
+    'description' => '_MI_EDITO_META_MANAGERDSC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'auto',
+    'options'     => [
+        '_MI_EDITO_META_MANUAL' => 'manual',
+        '_MI_EDITO_META_SEMI'   => 'semi',
+        '_MI_EDITO_META_AUTO'   => 'auto',
+    ],
+];
+
+$modversion['config'][] = [
+    'name'        => 'moduleMetaDescription',
+    'title'       => '_MI_EDITO_META_DESC',
+    'description' => '_MI_EDITO_META_DESCDSC',
+    'formtype'    => 'textarea',
+    'valuetype'   => 'text',
+    'default'     => '',
+];
+
+$modversion['config'][] = [
+    'name'        => 'moduleMetaKeywords',
+    'title'       => '_MI_EDITO_META_KEYW',
+    'description' => '_MI_EDITO_META_KEYWDSC',
+    'formtype'    => 'textarea',
+    'valuetype'   => 'text',
+    'default'     => '',
+];
+
+$modversion['config'][] = [
+    'name'        => 'index_content',
+    'title'       => '_MI_EDITO_INDEX_CONTENT',
+    'description' => '_MI_EDITO_INDEX_CONTENTDSC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => '',
+];
+
+$modversion['config'][] = [
+    'name'        => 'navlink_type',
+    'title'       => '_MI_EDITO_NAV_LINKS',
+    'description' => '_MI_EDITO_NAV_LINKSDSC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'list',
+    'options'     => [
+        '_MI_EDITO_NAV_LINKS_NONE'  => 'none',
+        '_MI_EDITO_NAV_LINKS_BLOCK' => 'bloc',
+        '_MI_EDITO_NAV_LINKS_LIST'  => 'list',
+        '_MI_EDITO_NAV_LINKS_PATH'  => 'path',
+    ],
+];
+
+$modversion['config'][] = [
+    'name'        => 'url_rewriting',
+    'title'       => '_MI_EDITO_REWRITING',
+    'description' => '_MI_EDITO_REWRITINGDSC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => '0',
+    'options'     => [
+        '_MI_EDITO_URW_NONE'  => '0',
+        '_MI_EDITO_URW_MIN_3' => '3',
+        '_MI_EDITO_URW_MIN_5' => '5',
+        '_MI_EDITO_URW_ALL'   => '1',
+    ],
+];
+
+$modversion['config'][] = [
+    'name'        => 'media_display',
+    'title'       => '_MI_EDITO_MEDIA_DISP',
+    'description' => '_MI_EDITO_MEDIA_DISPDSC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'both',
+    'options'     => [
+        '_MI_EDITO_MEDIA_POPUP' => 'popup',
+        '_MI_EDITO_MEDIA_PAGE'  => 'page',
+        '_MI_EDITO_MEDIA_BOTH'  => 'both',
+    ],
+];
+
+$modversion['config'][] = [
+    'name'        => 'custom',
+    'title'       => '_MI_EDITO_CUSTOM',
+    'description' => '_MI_EDITO_CUSTOMDSC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => '480|360',
+];
+
+$modversion['config'][] = [
+    'name'        => 'custom_media',
+    'title'       => '_MI_EDITO_CUSTOM_MEDIA',
+    'description' => '_MI_EDITO_CUSTOM_MEDIADSC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => '.asp|.php',
+];
+
+$modversion['config'][] = [
+    'name'        => 'repeat',
+    'title'       => '_MI_EDITO_REPEAT',
+    'description' => '_MI_EDITO_REPEATDSC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+$modversion['config'][] = [
+    'name'        => 'media_size',
+    'title'       => '_MI_EDITO_MEDIA_SIZE',
+    'description' => '_MI_EDITO_MEDIA_SIZEDSC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'medium',
+    'options'     => [
+        '_MI_EDITO_SIZE_DEFAULT'  => 'default',
+        '_MI_EDITO_SIZE_CUSTOM'   => 'custom',
+        '_MI_EDITO_SIZE_TVSMALL'  => 'tv_small',
+        '_MI_EDITO_SIZE_TVMEDIUM' => 'tv_medium',
+        '_MI_EDITO_SIZE_TVBIG'    => 'tv_big',
+        '_MI_EDITO_SIZE_MVSMALL'  => 'mv_small',
+        '_MI_EDITO_SIZE_MVMEDIUM' => 'mv_medium',
+        '_MI_EDITO_SIZE_MVBIG'    => 'mv_big',
+    ],
+];
+
+// default admin editor
+xoops_load('XoopsEditorHandler');
+$editorHandler = \XoopsEditorHandler::getInstance();
+$editorList    = array_flip($editorHandler->getList());
+
+$modversion['config'][] = [
+    'name'        => 'editorAdmin',
+    'title'       => '_MI_EDITO_EDITOR_ADMIN',
+    'description' => '_MI_EDITO_EDITOR_ADMIN_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'dhtmltextarea',
+    'options'     => $editorList,
+];
+
+$modversion['config'][] = [
+    'name'        => 'editorUser',
+    'title'       => '_MI_EDITO_EDITOR_USER',
+    'description' => '_MI_EDITO_EDITOR_USER_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'default'     => 'dhtmltextarea',
+    'options'     => $editorList,
+];
+
+/**
+ * Make Sample button visible?
+ */
+$modversion['config'][] = [
+    'name'        => 'displaySampleButton',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON',
+    'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+/**
+ * Show Developer Tools?
+ */
+$modversion['config'][] = [
+    'name'        => 'displayDeveloperTools',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS',
+    'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0,
+];
 
 // MimeTypes
-$modversion['mimetypes'][1]['mime_ext']			= 'gif';
-$modversion['mimetypes'][1]['mime_types']		= 'image/gif';
-$modversion['mimetypes'][1]['mime_name']		= 'Graphic Interchange Format';
-$modversion['mimetypes'][1]['mime_status'] 		= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][1]['mperm_maxwidth']	= 240;
-$modversion['mimetypes'][1]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][1]['mperm_maxsize']	= 100000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'gif',
+    'mime_types'      => 'image/gif',
+    'mime_name'       => 'Graphic Interchange Format',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 240,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 100000,
+];
 
-$modversion['mimetypes'][2]['mime_ext']			= 'jpg';
-$modversion['mimetypes'][2]['mime_types']		= 'image/jpeg';
-$modversion['mimetypes'][2]['mime_name']		= 'JPEG/JIFF Image';
-$modversion['mimetypes'][2]['mime_status'] 		= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][2]['mperm_maxwidth']	= 240;
-$modversion['mimetypes'][2]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][2]['mperm_maxsize']	= 100000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'jpg',
+    'mime_types'      => 'image/jpeg',
+    'mime_name'       => 'JPEG/JIFF Image',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 240,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 100000,
+];
 
-$modversion['mimetypes'][3]['mime_ext']			= 'png';
-$modversion['mimetypes'][3]['mime_types']		= 'image/png';
-$modversion['mimetypes'][3]['mime_name']		= 'Portable (Public) Network Graphic';
-$modversion['mimetypes'][3]['mime_status'] 		= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][3]['mperm_maxwidth']	= 240;
-$modversion['mimetypes'][3]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][3]['mperm_maxsize']	= 100000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'png',
+    'mime_types'      => 'image/png',
+    'mime_name'       => 'Portable (Public) Network Graphic',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 240,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 100000,
+];
 
-$modversion['mimetypes'][4]['mime_ext']			= 'aiff';
-$modversion['mimetypes'][4]['mime_types']		= 'audio/aiff';
-$modversion['mimetypes'][4]['mime_name']		= 'Audio Interchange File';
-$modversion['mimetypes'][4]['mime_status'] 		= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][4]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][4]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][4]['mperm_maxsize']	= 500000;
 
-$modversion['mimetypes'][5]['mime_ext']			= 'mid';
-$modversion['mimetypes'][5]['mime_types']		= 'audio/mid';
-$modversion['mimetypes'][5]['mime_name']		= 'Musical Instrument Digital Interface MIDI-sequention Sound';
-$modversion['mimetypes'][5]['mime_status'] 		= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][5]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][5]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][5]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'webp',
+    'mime_types'      => 'image/webp',
+    'mime_name'       => 'Web Picture',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 240,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 100000,
+];
 
-$modversion['mimetypes'][6]['mime_ext']			= 'mpg';
-$modversion['mimetypes'][6]['mime_types']		= 'audio/mpeg|video/mpeg';
-$modversion['mimetypes'][6]['mime_name']		= 'MPEG 1 System Stream';
-$modversion['mimetypes'][6]['mime_status'] 		= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][6]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][6]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][6]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'aiff',
+    'mime_types'      => 'audio/aiff',
+    'mime_name'       => 'Audio Interchange File',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
 
-$modversion['mimetypes'][6]['mime_ext']			= 'wav';
-$modversion['mimetypes'][6]['mime_types']		= 'audio/wav';
-$modversion['mimetypes'][6]['mime_name']		= 'Waveform Audio';
-$modversion['mimetypes'][6]['mime_status'] 		= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][6]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][6]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][6]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'mid',
+    'mime_types'      => 'audio/mid',
+    'mime_name'       => 'Musical Instrument Digital Interface MIDI-sequention Sound',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
 
-$modversion['mimetypes'][7]['mime_ext']			= 'vma';
-$modversion['mimetypes'][7]['mime_types']		= 'audio/x-ms-wma';
-$modversion['mimetypes'][7]['mime_name']		= 'Windows Media Audio File';
-$modversion['mimetypes'][7]['mime_status'] 		= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][7]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][7]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][7]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'mpg',
+    'mime_types'      => 'audio/mpeg|video/mpeg',
+    'mime_name'       => 'MPEG 1 System Stream',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
 
-$modversion['mimetypes'][8]['mime_ext']			= 'asf';
-$modversion['mimetypes'][8]['mime_types']		= 'video/x-ms-asf';
-$modversion['mimetypes'][8]['mime_name']		= 'Advanced Streaming Format';
-$modversion['mimetypes'][8]['mime_status'] 		= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][8]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][8]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][8]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'wav',
+    'mime_types'      => 'audio/wav',
+    'mime_name'       => 'Waveform Audio',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
 
-$modversion['mimetypes'][9]['mime_ext']			= 'avi';
-$modversion['mimetypes'][9]['mime_types']		= 'video/avi';
-$modversion['mimetypes'][9]['mime_name']		= 'Audio Video Interleave File';
-$modversion['mimetypes'][9]['mime_status'] 		= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][9]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][9]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][9]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'vma',
+    'mime_types'      => 'audio/x-ms-wma',
+    'mime_name'       => 'Windows Media Audio File',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
 
-$modversion['mimetypes'][10]['mime_ext']		= 'wmv';
-$modversion['mimetypes'][10]['mime_types']		= 'video/x-ms-wmv';
-$modversion['mimetypes'][10]['mime_name']		= 'Windows Media File';
-$modversion['mimetypes'][10]['mime_status'] 	= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][10]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][10]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][10]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'asf',
+    'mime_types'      => 'video/x-ms-asf',
+    'mime_name'       => 'Advanced Streaming Format',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
 
-$modversion['mimetypes'][11]['mime_ext']		= 'vmx';
-$modversion['mimetypes'][11]['mime_types']		= 'video/x-ms-wmx';
-$modversion['mimetypes'][11]['mime_name']		= 'Windows Media Redirector';
-$modversion['mimetypes'][11]['mime_status'] 	= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][11]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][11]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][11]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'avi',
+    'mime_types'      => 'video/avi',
+    'mime_name'       => 'Audio Video Interleave File',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
 
-$modversion['mimetypes'][12]['mime_ext']		= 'qt';
-$modversion['mimetypes'][12]['mime_types']		= 'video/quicktime';
-$modversion['mimetypes'][12]['mime_name']		= 'QuickTime Movie';
-$modversion['mimetypes'][12]['mime_status'] 	= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][12]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][12]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][12]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'wmv',
+    'mime_types'      => 'video/x-ms-wmv',
+    'mime_name'       => 'Windows Media File',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
 
-$modversion['mimetypes'][13]['mime_ext']		= 'swf';
-$modversion['mimetypes'][13]['mime_types']		= 'application/x-shockwave-flash';
-$modversion['mimetypes'][13]['mime_name']		= 'Macromedia Flash Format File';
-$modversion['mimetypes'][13]['mime_status'] 	= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][13]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][13]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][13]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'vmx',
+    'mime_types'      => 'video/x-ms-wmx',
+    'mime_name'       => 'Windows Media Redirector',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
 
-$modversion['mimetypes'][14]['mime_ext']		= 'ra';
-$modversion['mimetypes'][14]['mime_types']		= 'audio/vnd.rn-realaudio';
-$modversion['mimetypes'][14]['mime_name']		= 'RealMedia Streaming Media';
-$modversion['mimetypes'][14]['mime_status'] 	= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][14]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][14]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][14]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'qt',
+    'mime_types'      => 'video/quicktime',
+    'mime_name'       => 'QuickTime Movie',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
 
-$modversion['mimetypes'][15]['mime_ext']		= 'ram';
-$modversion['mimetypes'][15]['mime_types']		= 'audio/x-pn-realaudio';
-$modversion['mimetypes'][15]['mime_name']		= 'RealMedia Metafile';
-$modversion['mimetypes'][15]['mime_status'] 	= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][15]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][15]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][15]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'swf',
+    'mime_types'      => 'application/x-shockwave-flash',
+    'mime_name'       => 'Macromedia Flash Format File',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
 
-$modversion['mimetypes'][15]['mime_ext']		= 'rm';
-$modversion['mimetypes'][15]['mime_types']		= 'application/vnd.rn-realmedia';
-$modversion['mimetypes'][15]['mime_name']		= 'RealMedia Streaming Media';
-$modversion['mimetypes'][15]['mime_status'] 	= 1; // 1 = visible - 0 = hidden
-$modversion['mimetypes'][15]['mperm_maxwidth']	= 320;
-$modversion['mimetypes'][15]['mperm_maxheight']	= 240;
-$modversion['mimetypes'][15]['mperm_maxsize']	= 500000;
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'ra',
+    'mime_types'      => 'audio/vnd.rn-realaudio',
+    'mime_name'       => 'RealMedia Streaming Media',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
 
-if( ! empty( $_POST['fct'] ) && ! empty( $_POST['op'] ) && $_POST['fct'] == 'modulesadmin' && $_POST['op'] == 'update_ok' && $_POST['dirname'] == $modversion['dirname'] ) {
-	include __DIR__ . "/include/onupdate.inc.php" ;
-}
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'ram',
+    'mime_types'      => 'audio/x-pn-realaudio',
+    'mime_name'       => 'RealMedia Metafile',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];
+
+$modversion['mimetypes'][] = [
+    'mime_ext'        => 'rm',
+    'mime_types'      => 'application/vnd.rn-realmedia',
+    'mime_name'       => 'RealMedia Streaming Media',
+    'mime_status'     => 1,    // 1 = visible - 0 = hidden
+    'mperm_maxwidth'  => 320,
+    'mperm_maxheight' => 240,
+    'mperm_maxsize'   => 500000,
+];

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -26,10 +29,10 @@ use Xmf\Request;
 require_once __DIR__ . '/admin_header.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 
-if (!is_object($xoopsUser) or (is_object($xoopsUser) and !$xoopsUser->isadmin() ) ){
-    redirect_header("javascript:history.go(-1)", 1, _NOPERM);
+if (!is_object($GLOBALS['xoopsUser']) || (is_object($GLOBALS['xoopsUser']) && !$GLOBALS['xoopsUser']->isAdmin())) {
+    redirect_header('javascript:history.go(-1)', 1, _NOPERM);
 }
-/*
+
 $op = '';
 //@todo sanitize this input - this is VERY dangerous
 foreach ($_POST as $k => $v) {
@@ -41,15 +44,14 @@ foreach ($_GET as $k => $v) {
 }
 
 $myts = MyTextSanitizer::getInstance();
-*/
 edito_adminmenu(6, _AM_EDITO_PERMISSIONS);
 
-//$item_list_view = [];
-//$block_view     = [];
+$item_list_view = [];
+$block_view     = [];
 
-//echo "<h3 style='color: #2F5376; font-weight: bold; font-size: 14px; margin: 6px 0 0 0; '>" . _AM_EDITO_PERMISSIONS_DESC . "</h3>";
+echo "<h3 style='color: #2F5376; font-weight: bold; font-size: 14px; margin: 6px 0 0 0; '>" . _AM_EDITO_PERMISSIONS_DSC . '</h3>';
 
-$form_view = new XoopsGroupPermForm('', $GLOBALS['xoopsModule']->getVar('mid'), 'myReferer_view', "<h3>" . _AM_EDITO_PERMISSIONS_DESC . "</h3>");
+$form_view = new \XoopsGroupPermForm('', $GLOBALS['xoopsModule']->getVar('mid'), 'edito_view', '<h3>' . _AM_EDITO_PERMISSIONS_DESC . '</h3>');
 $form_view->addItem(1, _AM_EDITO_REFERER);
 $form_view->addItem(2, _AM_EDITO_ENGINE);
 $form_view->addItem(3, _AM_EDITO_KEYWORDS);

@@ -33,11 +33,11 @@ if (0 >= $id) {
 	redirect_header('index.php', 2, _MD_EDITO_PL_SELECT);
 }
 
-include_once XOOPS_ROOT_PATH . "/modules/{$moduleDirName}/include/functions_media.php";
-include_once XOOPS_ROOT_PATH . "/modules/{$moduleDirName}/include/functions_mediasize.php";
-include_once XOOPS_ROOT_PATH . "/modules/{$moduleDirName}/include/functions_block.php";
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions_media.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions_mediasize.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions_block.php';
 
-$sql    = "SELECT * FROM " . $GLOBALS['xoopsDB']->prefix( $GLOBALS['xoopsModule']->dirname() . '_content' )." WHERE id = {$id} AND status != 0 ";
+$sql    = "SELECT * FROM " . $GLOBALS['xoopsDB']->prefix( $GLOBALS['xoopsModule']->dirname() . '_content' )." WHERE id = {$id} AND  state != 0 ";
 $result = $GLOBALS['xoopsDB']->queryF($sql);
 
 // Does edito exist?
@@ -59,23 +59,23 @@ if (0 >= count(array_intersect($group, $groups))) {
 
 // Retrieve options data
 $media      = explode('|', $myrow['media']);
-$media_file =  $media[0];
-$media_url  =  $media[1];
-$media_size =  $media[2];
+$media_file = $media[0];
+$media_url  = $media[1];
+$media_size = $media[2];
 
 $meta             = explode('|', $myrow['meta']);
-$meta_title       =  $meta[0];
-$meta_description =  $meta[1];
-$meta_keywords    =  $meta[2];
+$meta_title       = $meta[0];
+$meta_description = $meta[1];
+$meta_keywords    = $meta[2];
 
 $option     = explode('|', $myrow['options']);
-$html       =  $option[0];
-$xcode      =  $option[1];
-$smiley     =  $option[2];
-$logo       =  $option[3];
-$block      =  $option[4];
-$title      =  $option[5];
-$cancomment =  $option[6];
+$html       = $option[0];
+$xcode      = $option[1];
+$smiley     = $option[2];
+$logo       = $option[3];
+$block      = $option[4];
+$title      = $option[5];
+$cancomment = $option[6];
 
 // Display title
 $subject = '';
@@ -84,7 +84,7 @@ if ($title) {
 }
 
 // Media
-$option .= 'AutoStart=1, ShowControls=1, ShowTracker=1, AnimationAtStart=1, TransparentAtStart=0, enableContextMenu=0, BufferingProgress=1, PreBuffer=1, VideoDelay=999, VideoBufferSize=9, align='. $GLOBALS['xoopsModuleConfig']['logo_align'];
+$option .= 'AutoStart=1, ShowControls=1, ShowTracker=1, AnimationAtStart=1, TransparentAtStart=0, enableContextMenu=0, BufferingProgress=1, PreBuffer=1, VideoDelay=999, VideoBufferSize=9, align=' . $GLOBALS['xoopsModuleConfig']['logo_align'];
 
 if ($GLOBALS['xoopsModuleConfig']['repeat']) {
 	$option .= ', Loop=1';
@@ -121,10 +121,10 @@ echo "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>\n";
 echo "<html>\n<head>\n";
 echo "<meta http-equiv='Content-Type' content='text/html; charset=" . _CHARSET . "' />\n";
 echo "<meta name='AUTHOR' content='" . $GLOBALS['xoopsConfig']['sitename'] . "' />\n";
-echo "<meta name='COPYRIGHT' content='Copyright (c) 2020 by " . $GLOBALS['xoopsConfig']['sitename'] . "' />\n";
-echo "<meta name='DESCRIPTION' content='" . $xoopsConfig ["slogan"] . "' />\n";
+echo "<meta name='COPYRIGHT' content='Copyright (c) 2021 by " . $GLOBALS['xoopsConfig']['sitename'] . "' />\n";
+echo "<meta name='DESCRIPTION' content='" . $xoopsConfig ['slogan'] . "' />\n";
 echo "<meta name='GENERATOR' content='" . XOOPS_VERSION . "' />\n";
-echo "<title>" . strip_tags($myrow["subject"]) . "</title>\n";
+echo "<title>" . strip_tags($myrow['subject']) . "</title>\n";
 echo "</head>\n\n\n";
 echo "<link rel='stylesheet' type='text/css' media='screen' href='../../xoops.css' />\n";
 echo "<link rel='stylesheet' type='text/css' media='screen' href='../../themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/styleNN.css' />\n";

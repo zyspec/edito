@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits of
  supporting developers from this source code or any supporting source code
@@ -35,23 +38,35 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 //			 Min keyword occurence, // How many time a word must appear to be considered
 //			 Max keyword occurence) // Maximum time a word must appear to be considered
 
-
+/**
+ * @param  null|string $page_title
+ * @param  null|string $page_meta_title
+ * @param  null|string $page_meta_description
+ * @param  null|string $module_meta_description
+ * @param  null|string $page_content
+ * @param  null|string $page_meta_keywords
+ * @param  null|string $module_meta_keywords
+ * @param  null|int    $minChar
+ * @param  null|int    $min_occ
+ * @param  null|int    $max_occ
+ * @return  array
+ */
 function edito_createMetaTags(
-    $page_title='',
-    $page_meta_title='',
-    $page_meta_description='',
-    $module_meta_description='',
-    $page_content='',
-    $page_meta_keywords='',
-    $module_meta_keywords='',
-    $minChar=3,
-    $min_occ=1,
-    $max_occ=12)
+    $page_title = '',
+    $page_meta_title = '',
+    $page_meta_description = '',
+    $module_meta_description = '',
+    $page_content = '',
+    $page_meta_keywords = '',
+    $module_meta_keywords = '',
+    $minChar = 3,
+    $min_occ = 1,
+    $max_occ = 12)
 {
 
     //echo  $module_meta_description;
 	global $xoopsTpl, $xoopsModule;
-	$myts         = MyTextSanitizer::getInstance();
+	$myts         = \MyTextSanitizer::getInstance();
     $ret          = '';
     $metakeywords = [];
     $metagen      = [];
@@ -69,7 +84,7 @@ function edito_createMetaTags(
 	$page_meta_title = $myts->displayTarea($page_meta_title);
 	$page_meta_title = strip_tags($page_meta_title);
     //$page_meta_title = $myts->undoHtmlSpecialChars($page_meta_title );
-    //$page_meta_title = eregi_replace('[[:punct:]]','', $page_meta_title);
+    //$page_meta_title = eregi_replace('[[:punct:]]', '', $page_meta_title);
 
     $metagen['title'] = $page_meta_title;
 
@@ -79,7 +94,7 @@ function edito_createMetaTags(
 		 $metagen['description'] = $page_meta_description;
 		 $metagen['description'] = preg_replace('#\r\n|\n|\r#', ' ', trim($metagen['description']));
 	} elseif ($page_content) {
-                 $metagen['description'] = $myts -> htmlSpecialChars(substr(strip_tags($page_content), 0, 256));
+                 $metagen['description'] = $myts->htmlSpecialChars(mb_substr(strip_tags($page_content), 0, 256));
 				 $metagen['description'] = preg_replace('#\r\n|\n|\r#', ' ', trim($metagen['description']));
 	} elseif ($module_meta_description) {
                  $metagen['description'] = $module_meta_description;
@@ -100,7 +115,7 @@ function edito_createMetaTags(
     //if ($page_content) {
 	// a. Add custom page keywords - if any
 	if ($page_meta_keywords) {
-		$pageKeywords = explode(",", $page_meta_keywords);
+		$pageKeywords = explode(',', $page_meta_keywords);
 		foreach ($pageKeywords as $pageKeyword) {
         	$metakeywords[] = trim($pageKeyword);
 		}
@@ -117,43 +132,51 @@ function edito_createMetaTags(
 //	}
 
         // c. Add module custom keywords - if any
-	if ( $module_meta_keywords ) {
-		$moduleKeywords = explode(",",  $module_meta_keywords );
-		foreach ($moduleKeywords as $moduleKeyword) {
-		$metakeywords[] = trim($moduleKeyword);
-		}
-	}
+	    if ($module_meta_keywords) {
+		    $moduleKeywords = explode(',', $module_meta_keywords);
+		    foreach ($moduleKeywords as $moduleKeyword) {
+		        $metakeywords[] = trim($moduleKeyword);
+		    }
+	    }
 
 
-	// c. Limit Metas to 90 keywords
-	if ( $metakeywords ) {
-		$keywordsCount = count( $metakeywords );
-		for ($i = 0; $i < $keywordsCount AND $i < 90; $i++) {
-        	$ret .= $metakeywords[$i];
-			if ($i < $keywordsCount -1 AND $i < 89) {
-				$ret .= ', ';
-			}
-		}
-	$ret_let = ''; $ret_caps = '';
-	if ( $i <= 45 ) { $ret_let  = ', ' . ucwords($ret); } 	// Add a majucule if less than 45 keywords
-	if ( $i <= 30 ) { $ret_caps = ', ' . strtoupper($ret); }	// All words in majucule if less than 30 keywords
- }
-    $metagen['keywords'] = $myts -> htmlSpecialChars($ret.$ret_let.$ret_caps);
+	    // d. Limit Metas to 90 keywords
+    	if ($metakeywords) {
+	    	$keywordsCount = count($metakeywords);
+		    for ($i = 0; $i < $keywordsCount && $i < 90; $i++) {
+        	    $ret .= $metakeywords[$i];
+			    if ($i < $keywordsCount -1 && $i < 89) {
+				    $ret .= ', ';
+			    }
+		    }
+	        $ret_let = ''; $ret_caps = '';
+	        if ($i <= 45) {
+                $ret_let = ', ' . ucwords($ret);
+            }
+            // Add a majucule if less than 45 keywords
+	        if ($i <= 30) {
+                $ret_caps = ', ' . mb_strtoupper($ret);
+            }
+            // All words in majucule if less than 30 keywords
+        }
+        $metagen['keywords'] = $myts -> htmlSpecialChars($ret.$ret_let.$ret_caps);
 	}
 
     return $metagen;
-
 } // End of function
 
-
-
 // Remove useless code from original content (html, code, numbers, etc.)
-function edito_cleanContent( $content ) {
-        $myts = MyTextSanitizer::getInstance();
+/**
+ * @param  string  $content
+ * @return  string
+ */
+function edito_cleanContent($content)
+{
+        $myts = \MyTextSanitizer::getInstance();
 
-        $content = strtolower($content);
+        $content = mb_strtolower($content);
 
-        $i=0;
+        $i = 0;
         $patterns[$i++] = '<br />';
         $patterns[$i++] = '<br>';
 //        $patterns[$i++] = '<p>';
@@ -164,7 +187,7 @@ function edito_cleanContent( $content ) {
         $patterns[$i++] = '<div>';
         $patterns[$i++] = '</div>';
 
-        $i=0;
+        $i = 0;
         $replacements[$i++] = ' ';
         $replacements[$i++] = ' ';
 //        $replacements[$i++] = ' ';
@@ -180,14 +203,14 @@ function edito_cleanContent( $content ) {
 
         $content = html_entity_decode($content);
         $content = strip_tags($content);
-        $content = preg_replace('/\"/',' ', $content);
-        $content = preg_replace("/\'/",' ', $content);
+        $content = preg_replace('/\"/', ' ', $content);
+        $content = preg_replace("/\'/", ' ', $content);
         $content = $myts->displayTarea($content);
 
         $content = strip_tags($content);
-        $content = preg_replace('/\[\[:punct:\]\]/i','', $content);
-        $content = preg_replace('/\[\[:digit:\]\]/','', $content);
-        $content = substr($content, 0, 61464);
+        $content = preg_replace('/\[\[:punct:\]\]/i', '', $content);
+        $content = preg_replace('/\[\[:digit:\]\]/', '', $content);
+        $content = mb_substr($content, 0, 61464);
         $content = trim($content);
 
 	return $content;
@@ -196,17 +219,24 @@ function edito_cleanContent( $content ) {
 
 
 // Keywords selection
+/**
+ * @param  string  $content
+ * @param  int  $minChar
+ * @param int  $min_occ
+ * @param int  $max_occ
+ * @return array
+ */
 function edito_findKeyWordsInString($content, $minChar, $min_occ, $max_occ)
 {
     $arr = explode(' ', $content);
     arsort($arr);
 	// Random variable
 	if (count($arr) > 250) {
-        $MIN_SIZE       = rand($minChar, $minChar + 1);
+        $MIN_SIZE       = random_int($minChar, $minChar + 1);
 		$MIN_OCCURENCES = $min_occ;
-		$MAX_OCCURENCES = rand($min_occ + $MIN_SIZE, $max_occ + $MIN_SIZE);
+		$MAX_OCCURENCES = random_int($min_occ + $MIN_SIZE, $max_occ + $MIN_SIZE);
 	} else {
-		$MIN_SIZE       = rand(2, 4);
+		$MIN_SIZE       = random_int(2, 4);
 		$MIN_OCCURENCES = 1;
 		$MAX_OCCURENCES = $max_occ;
 	}
@@ -215,10 +245,10 @@ function edito_findKeyWordsInString($content, $minChar, $min_occ, $max_occ)
 	$idx = [];
 	foreach($arr as $word) {
 		$word = trim($word);
-		if(strlen($word) >= $MIN_SIZE) {
+		if (strlen($word) >= $MIN_SIZE) {
 			if (!isset($idx[$word])) {
                 $idx[$word] = 0;
-			}
+            }
 			++$idx[$word];
 		}
 	}
@@ -228,7 +258,7 @@ function edito_findKeyWordsInString($content, $minChar, $min_occ, $max_occ)
 	$content = [];
 	arsort($idx);
 
-	foreach($idx as $word => $cnt) {
+	foreach ($idx as $word => $cnt) {
 		if ($cnt >= $MIN_OCCURENCES && $cnt <= $MAX_OCCURENCES) {
 			$content[$i++] = $word;
 			if (90 == $i) {

@@ -25,9 +25,9 @@ use Xmf\Request;
 
 // Script used to display an edito's content, for example when it was too short
 // on the main page
-require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'edito_content_submit.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once __DIR__ . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 $group = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS];
 // $groups = explode(" ",$xoopsModuleConfig['submit_groups']);
@@ -36,18 +36,13 @@ if (0 >= count(array_intersect($group, $GLOBALS['xoopsModuleConfig']['submit_gro
 }
 
 if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
-    // Check to make sure this is from known location
-    if (!$GLOBALS['xoopsSecurity']->check()) {
-        redirect_header(XOOPS_URL . '/', 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
-    }
-
     $subject     = Request::getString('subject', '', 'POST');
     $media       = Request::getUrl('media', '', 'POST');
     $description = Request::getString('description', '', 'POST');
-    $groups      = (is_array($GLOBALS['xoopsModuleConfig']['groups'])) ? implode(' ', $GLOBALS['xoopsModuleConfig']['groups']) : '';
-	$html        = 1; // disallow HTML
-	$xcode       = 1; // disallow xcode
-	$smiley      = 1; // disallow smilies
+    $groups      = is_array($GLOBALS['xoopsModuleConfig']['groups']) ? implode(' ', $GLOBALS['xoopsModuleConfig']['groups']) : '';
+	$html        = 1; // allow HTML
+	$xcode       = 1; // allow xcode
+	$smiley      = 1; // allow smilies
     $logo        = $GLOBALS['xoopsModuleConfig']['option_logo'];
 	$block       = $GLOBALS['xoopsModuleConfig']['option_block'];
 	$title       = $GLOBALS['xoopsModuleConfig']['option_title'];
@@ -56,12 +51,14 @@ if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
     $meta        = '|||';
     $uid         = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->uid() : 0;
     $datesub     = time();
-    $media       = '|' . edito_function_checkurl($media) . '|';
+    $media       = edito_function_checkurl($media);
+    $media       = '|' . $media . '|';
+
     if ($GLOBALS['xoopsDB']->queryF("INSERT INTO " . $GLOBALS['xoopsDB']->prefix('edito_content') .
         " (id,
            uid,
            datesub,
-           status,
+           state,
            subject,
            body_text,
            media,
@@ -74,8 +71,8 @@ if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
                   '$uid',
                   '$datesub',
                   '1',
-                  '" . $GLOBALS['xoopsDB']->escape($subject) . "',
-                  '" . $GLOBALS['xoopsDB']->escape($description) . "',
+                  '$subject',
+                  '$description',
                   '$media',
                   '$meta',
                   '$groups',
@@ -85,6 +82,7 @@ if (Request::hasVar('subject', 'POST') && '' !== $_POST['subject']) {
     } else {
         $redirect = _MD_EDITO_THANKS_NOSUBMIT;
     }
+
 	redirect_header('submit.php', 2, $redirect);
 }
 /* ----------------------------------------------------------------------- */
@@ -111,35 +109,32 @@ if (preg_match('/.swf/i', $GLOBALS['xoopsModuleConfig']['index_logo'])) {
 } elseif ($GLOBALS['xoopsModuleConfig']['index_logo']) {
 	$banner = edito_createlink(XOOPS_URL . '/modules/' . $GLOBALS['xoopsModule']->dirname(), '', '', $GLOBALS['xoopsModuleConfig']['index_logo'], 'center', '800', '600', $GLOBALS['xoopsModule']->getVar( 'name' ).' '. $GLOBALS['xoopsModuleConfig']['moduleMetaDescription'], $GLOBALS['xoopsModuleConfig']['url_rewriting']);
 } else {
-	$banner = '';
+    $banner = '';
 }
 $GLOBALS['xoopsTpl']->assign('banner', $banner);
 
 /* ----------------------------------------------------------------------- */
 /*                              Render  variables                          */
 /* ----------------------------------------------------------------------- */
-$GLOBALS['xoopsTpl']->assign([
-    'submit'         => _MD_EDITO_SUBMIT,
-    'submitext'      => _MD_EDITO_SUBMITEXT,
-    'subject'        => _MD_EDITO_SUBJECT,
-    'media'          => _MD_EDITO_MEDIA,
-    'text'           => _MD_EDITO_TEXT,
-    'security_token' => $GLOBALS['xoopsSecurity']->getTokenHTML(),
-    'footer'         => $myts->displayTarea($xoopsModuleConfig['footer'], 1)
-]);
+$GLOBALS['xoopsTpl']->assign('submit',  _MD_EDITO_SUBMIT);
+$GLOBALS['xoopsTpl']->assign('submitext',  _MD_EDITO_SUBMITEXT);
+$GLOBALS['xoopsTpl']->assign('subject', _MD_EDITO_SUBJECT);
+$GLOBALS['xoopsTpl']->assign('media',   _MD_EDITO_MEDIA);
+$GLOBALS['xoopsTpl']->assign('text',    _MD_EDITO_TEXT);
+$GLOBALS['xoopsTpl']->assign('footer',  $myts->displayTarea($xoopsModuleConfig['footer'], 1));
 
 /* ----------------------------------------------------------------------- */
 /*                             Admin links                                 */
 /* ----------------------------------------------------------------------- */
 $adminlinks = ''; //init administration links
 if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid())) {
-	$adminlinks = "<a href='admin/content.php' title='" . _MD_EDITO_ADD . "'>
+    $adminlinks = "<a href='admin/content.php' title='" . _MD_EDITO_ADD . "'>
     			 <img src='assets/images/icon/add.gif' alt='" . _MD_EDITO_ADD . "'></a> |
                  <a href='admin/index.php' title='" . _MD_EDITO_LIST . "'>
                  <img src='assets/images/icon/list.gif' alt='" . _MD_EDITO_LIST . "'></a> |
                  <a href='admin/utils_uploader.php' title='" . _MD_EDITO_UTILITIES . "'>
                  <img src='assets/images/icon/utilities.gif' alt='" . _MD_EDITO_UTILITIES . "'></a> |
-                 <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid'). "' title='"._MD_EDITO_SETTINGS."'>
+                 <a href='../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid') . "' title='" . _MD_EDITO_SETTINGS . "'>
                  <img src='assets/images/icon/settings.gif' alt='" . _MD_EDITO_SETTINGS . "'></a> |
                  <a href='admin/myblocksadmin.php' title='" . _MD_EDITO_BLOCKS . "'>
                  <img src='assets/images/icon/blocks.gif' alt='" . _MD_EDITO_BLOCKS . "'></a> |
