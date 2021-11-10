@@ -22,12 +22,11 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Edito\Utility;
 
 require __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
-
-require_once dirname(__DIR__) . '/include/functions_wysiwyg.php';
 
 //@todo replace this code - it's VERY dangerous
 foreach ($_POST as $k => $v) {
@@ -481,7 +480,7 @@ function editarticle($id = '', $op = '')
 */
 
     $block_text = $myts->htmlSpecialChars($block_text);
-    $sform->addElement(edito_getWysiwygForm('dhtml', _AM_EDITO_BLOCKTEXT, 'block_text', $block_text));
+    $sform->addElement(Utility::getWysiwygForm('dhtml', _AM_EDITO_BLOCKTEXT, 'block_text', $block_text));
 /*
     if ($xoopsModuleConfig['wysiwyg'] == 'koivi' AND is_file(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php')) {
         require_once XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php';
@@ -507,9 +506,8 @@ function editarticle($id = '', $op = '')
         $sform -> addElement(new \XoopsFormDhtmlTextArea('DHTML Editor<p>'._AM_EDITO_BLOCKTEXT, 'block_text', $block_text, 15, 60));
     }
 */
-//    require_once '../include/functions_wysiwyg.php';
-//    edito_getWysiwygForm($type = 'dhtml', $caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental='')
-//    $wysiwyg1 = edito_getWysiwygForm($xoopsModuleConfig['wysiwyg'], _AM_EDITO_BLOCKTEXT, 'block_text', $block_text, '100%', '468px', '');
+//    Utility::getWysiwygForm($type = 'dhtml', $caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental='')
+//    $wysiwyg1 = Utility::getWysiwygForm($xoopsModuleConfig['wysiwyg'], _AM_EDITO_BLOCKTEXT, 'block_text', $block_text, '100%', '468px', '');
 //    $sform -> addElement($wysiwyg1,false);
 
     // Block content in article?
@@ -520,7 +518,7 @@ function editarticle($id = '', $op = '')
 
     // Body text
     $body_text = $myts->htmlSpecialChars($body_text);
-    $sform->addElement(edito_getWysiwygForm('dhtml', _AM_EDITO_BODYTEXT, 'body_text', $body_text));
+    $sform->addElement(Utility::getWysiwygForm('dhtml', _AM_EDITO_BODYTEXT, 'body_text', $body_text));
 /*
     if ($xoopsModuleConfig['wysiwyg'] == 'koivi' AND is_file(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php') AND $state != 5) {
         require_once XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php';
@@ -546,7 +544,7 @@ function editarticle($id = '', $op = '')
         $sform->addElement(new \XoopsFormDhtmlTextArea('DHTML Editor<p>'._AM_EDITO_BODYTEXT, 'body_text', $body_text, 15, 60));
     }
 */
-//    $wysiwyg2 = edito_getWysiwygForm($xoopsModuleConfig['wysiwyg'], _AM_EDITO_BODYTEXT, 'body_text', $body_text, '100%', '468px', '');
+//    $wysiwyg2 = Utility::getWysiwygForm($xoopsModuleConfig['wysiwyg'], _AM_EDITO_BODYTEXT, 'body_text', $body_text, '100%', '468px', '');
 //    $sform->addElement($wysiwyg2,false);
 
     $sform->addElement($image_in);

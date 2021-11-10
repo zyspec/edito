@@ -37,5 +37,34 @@ class Utility extends Common\SysUtility
     use Common\FilesManagement; // Files Management Trait
 
     //--------------- Custom module methods -----------------------------
+    /**
+     * @param  null|string  $type
+     * @param  string  $caption
+     * @param  string  $name
+     * @param  null|string  $value
+     * @param  null|string  $width
+     * @param  null|string  $height
+     * @param  null|string  $supplemental
+     * @return  \XoopsFormEditor
+     */
+    public static function getWysiwygForm($type = 'dhtml', $caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental='')
+    {
 
+        $wysiwyg_editor = $GLOBALS['xoopsModuleConfig']['wysiwyg'];
+        if (empty($wysiwyg_editor)) {
+            $wysiwyg_editor = 'dhtmltextarea';
+        }
+        $editorConfigs = [
+            'editor' => $wysiwyg_editor,
+            'rows'   => 35,
+            'cols'   => 60,
+            'width'  => $width,
+            'height' => $height,
+            'name'   => $type,
+            'value'  => $value
+        ];
+        $wysiwyg = new \XoopsFormEditor($caption, $name, $editorConfigs);
+
+        return $wysiwyg;
+    }
 }
