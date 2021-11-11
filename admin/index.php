@@ -24,23 +24,34 @@ use XoopsModules\Edito\{
     Common\Configurator,
     Utility
 };
-use Xmf\Request;
+use Xmf\{
+    Module\Admin,
+    Yaml,
+    Request
+};
 
+/**
+ * @var  string  $moduleDirName
+ * @var  string  $moduleDirNameUpper
+ * @var  \XoopsModules\Edito\Helper $helper
+ * @var \Xmf\Module\Admin $adminObject
+ * @var  \MyTextSanitizer  $myts
+ */
 require __DIR__ . '/admin_header.php';
 require_once dirname(__DIR__) . '/include/functions_mediasize.php';
 require_once dirname(__DIR__) . '/include/functions_content.php';
 
 // Display Admin header
 xoops_cp_header();
-$adminObject = \Xmf\Module\Admin::getInstance();
 
-//check or upload folders
+//check for upload folders
+/*
 $configurator = new Configurator();
-//foreach (array_keys($configurator->uploadFolders) as $i) {
-    //Utility::createFolder($configurator->uploadFolders[$i]);
-    //$adminObject->addConfigBoxLine($configurator->uploadFolders[$i], 'folder');
-//}
-
+foreach (array_keys($configurator->uploadFolders) as $i) {
+    Utility::createFolder($configurator->uploadFolders[$i]);
+    $adminObject->addConfigBoxLine($configurator->uploadFolders[$i], 'folder');
+}
+*/
 $adminObject->displayNavigation(basename(__FILE__));
 
 //check for latest release
@@ -78,32 +89,40 @@ if ($helper->getConfig('displaySampleButton')) {
 $adminObject->displayIndex();
 
 /**
- * @param $yamlFile
+ * Load PHP Admin Config
+ *
+ * @param  string  $yamlFile
  * @return array|bool
  */
 function loadAdminConfig($yamlFile)
 {
-    $config = \Xmf\Yaml::readWrapped($yamlFile); // work with phpmyadmin YAML dumps
+    $config = Yaml::readWrapped($yamlFile); // work with phpmyadmin YAML dumps
     return $config;
 }
 
 /**
- * @param $yamlFile
+ * Hide Sample buttons
+ *
+ * @param  string  $yamlFile
+ * @return  void
  */
 function hideButtons($yamlFile)
 {
     $app['displaySampleButton'] = 0;
-    \Xmf\Yaml::save($app, $yamlFile);
+    Yaml::save($app, $yamlFile);
     redirect_header('index.php', 0, '');
 }
 
 /**
- * @param $yamlFile
+ * Show Sample buttons
+ *
+ * @param  string  $yamlFile
+ * @return  void
  */
 function showButtons($yamlFile)
 {
     $app['displaySampleButton'] = 1;
-    \Xmf\Yaml::save($app, $yamlFile);
+    Yaml::save($app, $yamlFile);
     redirect_header('index.php', 0, '');
 }
 
@@ -114,40 +133,39 @@ $stat = Request::getCmd('stat', '');
 switch ($ord) {
     default:
     case 'id':
-    	$ord      = 'id';
-	   $sort     = "DESC";
-	   $ord_text = _AM_EDITO_ID;
-	   break;
+	    $sort    = 'DESC';
+	    $ordText = _AM_EDITO_ID;
+	    break;
     case 'subject':
-	   $sort     = 'ASC';
-	   $ord_text = _AM_EDITO_SUBJECT;
-	   break;
+        $sort     = 'ASC';
+	    $ordText = _AM_EDITO_SUBJECT;
+	    break;
     case 'media':
-	   $sort     = 'ASC';
-	   $ord_text = _AM_EDITO_MEDIA;
-	   break;
+	    $sort    = 'ASC';
+	    $ordTxt = _AM_EDITO_MEDIA;
+	    break;
     case 'image':
-	   $sort     = 'DESC';
-	   $ord_text = _AM_EDITO_IMAGE;
-	   break;
+	    $sort    = 'DESC';
+	    $ordText = _AM_EDITO_IMAGE;
+	    break;
     case 'counter':
-	   $sort     = 'DESC';
-	   $ord_text = _AM_EDITO_COUNTER;
-	   break;
+	    $sort    = 'DESC';
+	    $ordText = _AM_EDITO_COUNTER;
+        break;
     case 'body_text':
-	   $sort     = 'ASC';
-	   $ord_text = _AM_EDITO_BODY;
-	   break;
+	    $sort    = 'ASC';
+	    $ordText = _AM_EDITO_BODY;
+	    break;
     case 'state':
-	   $sort     = 'DESC';
-	   $ord_text = _AM_EDITO_STATE;
-	   break;
+	    $sort    = 'DESC';
+	    $ordText = _AM_EDITO_STATE;
+	    break;
 }
 
 switch ($op) {
-	case "default":
+    case 'default':
 	default:
-	    $startart = Request::getInt('startart', 0, 'GET');
+        $startart = Request::getInt('startart', 0, 'GET');
         $start    = (0 < $startart) ? "&startart={$startart}" : '';
 
         $on		 = "<a href='index.php?stat=on&ord={$ord}{$start}'>"
@@ -170,39 +188,39 @@ switch ($op) {
 
         switch ($stat) {
             case 'off':
-                $off        = $blank;
-                $state      = '=0';
-                $state_text = _AM_EDITO_OFFLINE;
+                $off       = $blank;
+                $state     = '=0';
+                $stateText = _AM_EDITO_OFFLINE;
                 break;
 		    case 'waiting':
-    			$waiting    = $blank;
-                $state      = '=1';
-                $state_text = _AM_EDITO_WAITING;
+    			$waiting   = $blank;
+                $state     = '=1';
+                $stateText = _AM_EDITO_WAITING;
 			    break;
             case 'hide':
-                $hide       = $blank;
-                $state      = '=2';
-                $state_text = _AM_EDITO_HIDDEN;
+                $hide      = $blank;
+                $state     = '=2';
+                $stateText = _AM_EDITO_HIDDEN;
                 break;
             case 'on':
-                $on         = $blank;
-                $state      = '=3';
-                $state_text = _AM_EDITO_ONLINE;
+                $on        = $blank;
+                $state     = '=3';
+                $stateText = _AM_EDITO_ONLINE;
                 break;
             case 'html':
-    	        $html       = $blank;
-			    $state      = '=4';
-			    $state_text = _AM_EDITO_HTMLMODE;
+    	        $html      = $blank;
+			    $state     = '=4';
+			    $stateText = _AM_EDITO_HTMLMODE;
 			    break;
             case 'php':
-                $php        = $blank;
-			    $state      = '=5';
-			    $state_text = _AM_EDITO_PHPMODE;
+                $php       = $blank;
+			    $state     = '=5';
+			    $stateText = _AM_EDITO_PHPMODE;
                 break;
             default:
-                $all        = '';
-			    $state      = '>=0';
-			    $state_text = _AM_EDITO_ALL;
+                $all       = '';
+			    $state     = '>=0';
+			    $stateText = _AM_EDITO_ALL;
 		}
 
         // Count submited pages
@@ -226,7 +244,7 @@ switch ($op) {
 		// To create existing editos table
 		echo '<div id="popdata" style="visibility:hidden; position:absolute; z-index:1000; top:-100"></div>';
 		echo '<script language="JavaScript1.2" src="../assets/js/popmenu.js" type="text/javascript"></script>';
-		echo "<p class='left'><b>" . _AM_EDITO_ORDEREDBY . ":</b> {$ord_text} | {$state_text}{$urw}{$total_sub}</p>";
+		echo "<p class='left'><b>" . _AM_EDITO_ORDEREDBY . ":</b> {$ordText} | {$stateText}{$urw}{$total_sub}</p>";
 		echo "<table cellspacing=1 cellpadding=3 class='outer bnone width100'>\n";
 		echo "<tr>\n";
 		echo "  <th class='bg3 center'><a href='index.php?stat={$stat}&ord=id{$start}'>    " . _AM_EDITO_ID . "</a></th>\n";
@@ -393,6 +411,6 @@ switch ($op) {
         showButtons($yamlFile);
         break;
 }
-echo Utility::getServerStats();
+Utility::displayServerStats();
 
 require __DIR__ . '/admin_footer.php';
