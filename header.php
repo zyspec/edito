@@ -29,8 +29,6 @@ use \XoopsModules\Edito\Helper;
 include __DIR__ . '/preloads/autoloader.php';
 
 require_once dirname(__DIR__, 2) . '/mainfile.php';
-require XOOPS_ROOT_PATH . '/header.php';
-
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 require_once __DIR__ . '/include/functions_content.php';
 
@@ -45,12 +43,12 @@ $myts          = \MyTextSanitizer::getInstance();
 // Load language files
 $helper->loadLanguage('main');
 
-if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
+if (!isset($GLOBALS['xoTheme']) || !($GLOBALS['xoTheme'] instanceof \xos_opal_Theme)) {
     require $GLOBALS['xoops']->path('class/theme.php');
     $GLOBALS['xoTheme'] = new \xos_opal_Theme();
 }
 
-if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof \XoopsTpl)) {
     require $GLOBALS['xoops']->path('class/template.php');
     $xoopsTpl = new \XoopsTpl();
 }
