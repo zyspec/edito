@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XoopsModules\Xyp4all;
+namespace XoopsModules\Edito;
 
 /*
  * You may not change or alter any portion of this comment or credits of
