@@ -34,52 +34,62 @@ interface Constants
     /**
      * XOOPSTOKEN Request Timeout value
      */
-    const TOKEN_TIMEOUT = 360;
+    public const TOKEN_TIMEOUT = 360;
     /**
      * DO NOT Hide YAML Sample Button in Admin
      */
-    const DO_NOT_DISP_SAMPLE_BTN = 0;
-    const HIDE_SAMPLE_BTN = 0;
+    public const DO_NOT_DISP_SAMPLE_BTN = 0;
+    public const HIDE_SAMPLE_BTN = 0;
     /**
      * Show YAML Sample Button in Admin
      */
-    const DISP_SAMPLE_BTN = 1;
+    public const DISP_SAMPLE_BTN = 1;
     /**
      * default items to show per page in lists
      */
-    const DEFAULT_PER_PAGE = 25;
+    public const DEFAULT_PER_PAGE = 25;
     /**
      * Default download file size
      */
-    const DEFAULT_FILE_SIZE = 2097152; // 2MB
+    public const DEFAULT_FILE_SIZE = 2097152; // 2MB
     /**
      * Default Image height
      */
-    const DEFAULT_IMAGE_HEIGHT = 1000;
+    public const DEFAULT_IMAGE_HEIGHT = 1000;
     /**
      * Default Image width
      */
-    const DEFAULT_IMAGE_WIDTH = 1500;
+    public const DEFAULT_IMAGE_WIDTH = 1500;
     /**
      * Default Thumbnail widths
      */
-    const DEFAULT_THUMB_WIDTH = 150;
+    public const DEFAULT_THUMB_WIDTH = 150;
     /**
      * default order
      */
-    const DEFAULT_ORDER = 0;
+    public const DEFAULT_ORDER = 0;
     /**
      * start / beginning
      */
-    const BEGINNING = 0;
+    public const BEGINNING = 0;
+
+    // State Variables
+    public const CONTENT_ALL     = 0;
+    public const CONTENT_OFF     = 0;
+    public const CONTENT_WAITING = 1;
+    public const CONTENT_HIDDEN  = 2;
+    public const CONTENT_ON      = 3;
+    public const CONTENT_HTML    = 4;
+    public const CONTENT_PHP     = 5;
+
     /**
      * item is not active
      */
-    const IS_NOT_PUBLISHED = 0;
+    public const IS_NOT_PUBLISHED = 0;
     /**
      * item is active
      */
-    const IS_PUBLISHED = 1;
+    public const IS_PUBLISHED = 1;
     /**
      * is not locked
      */
@@ -88,26 +98,26 @@ interface Constants
     /**
      * no delay XOOPS redirect delay (in seconds)
      */
-    const REDIRECT_DELAY_NONE = 0;
+    public const REDIRECT_DELAY_NONE = 0;
     /**
      * short XOOPS redirect delay (in seconds)
      */
-    const REDIRECT_DELAY_SHORT = 1;
+    public const REDIRECT_DELAY_SHORT = 1;
     /**
      * medium XOOPS redirect delay (in seconds)
      */
-    const REDIRECT_DELAY_MEDIUM = 3;
+    public const REDIRECT_DELAY_MEDIUM = 3;
     /**
      * long XOOPS redirect delay (in seconds)
      */
-    const REDIRECT_DELAY_LONG = 7;
+    public const REDIRECT_DELAY_LONG = 7;
     /**
      * confirm not ok to take action
      */
-    const CONFIRM_NOT_OK = 0;
+    public const CONFIRM_NOT_OK = 0;
     /**
      * confirm ok to take action
      */
-    const CONFIRM_OK = 1;
+    public const CONFIRM_OK = 1;
     /**#@-*/
 }
