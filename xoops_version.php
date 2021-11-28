@@ -44,7 +44,7 @@ $helper->loadLanguage('modinfo');
 $modversion = [
     'version'             => 3.10,
     'module_status'       => 'Alpha.2',
-    'release_date'        => '2021/11/08',
+    'release_date'        => '2021/11/28',
     'name'                => _MI_EDITO_NAME,
     'description'         => _MI_EDITO_DESC,
     'official'            => 0, //1 indicates official XOOPS module supported by XOOPS Dev Team, 0 means 3rd party supported
@@ -118,8 +118,10 @@ $modversion = [
     'hasNotification'     => 0,
 
     // ------------------- Admin -------------------------
-    'hasAdmin'   => 1,
-    'adminindex' => 'admin/index.php',
+    'hasAdmin'    => 1,
+    'system_menu' => 1,
+
+'adminindex' => 'admin/index.php',
     'adminmenu'  => 'admin/menu.php',
 
     // ------------------- Help files ------------------- //
@@ -133,7 +135,7 @@ $modversion = [
     // ------------------- Menu ------------------- //
     'hasMain'     => 1,
 ];
-if ($GLOBALS['xoopsModule'] && $GLOBALS['xoopsModule']->getVar('dirname') == $modversion['dirname']) {
+if (isset($GLOBALS['xoopsModule']) && $GLOBALS['xoopsModule']->getVar('dirname') == $modversion['dirname']) {
     require_once XOOPS_ROOT_PATH . '/modules/edito/include/functions_content.php';
     $group = $GLOBALS['xoopsUser'] instanceof \XoopsUser ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS];
     $i     = 0;
@@ -141,20 +143,20 @@ if ($GLOBALS['xoopsModule'] && $GLOBALS['xoopsModule']->getVar('dirname') == $mo
     // Menu admin links
     if (@defined('_MD_EDITO_ADD')) {
         if (count(array_intersect($group, $GLOBALS['xoopsModuleConfig']['submit_groups'])) > 0) {
-            $modversion['sub'][$i]['name']  = '<img src="assets/images/icon/submit.gif" align="absmiddle" width="20px;" alt="' . _MD_EDITO_SUBMIT . '">&nbsp;<i>' . _MD_EDITO_SUBMIT . '</i></img>';
+            $modversion['sub'][$i]['name']  = '<img src=\'assets/images/icon/submit.gif\' class=\'middle\' width=\'20px;\' alt=\'' . _MD_EDITO_SUBMIT . '\'>&nbsp;<i>' . _MD_EDITO_SUBMIT . '</i>';
             $modversion['sub'][$i++]['url'] = 'submit.php';
         }
 
         if ($GLOBALS['xoopsUser'] instanceof \XoopsUser && $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid())) {
-            $modversion['sub'][$i]['name']  = '<img src="assets/images/icon/add.gif" align="absmiddle" width="20px;" alt="' . _MD_EDITO_ADD . '">&nbsp;<i>' . _MD_EDITO_ADD . '</i></img>';
+            $modversion['sub'][$i]['name']  = '<img src=\'assets/images/icon/add.gif\' class=\'middle\' width=\'20px;\' alt=\'' . _MD_EDITO_ADD . '\'>&nbsp;<i>' . _MD_EDITO_ADD . '</i>';
             $modversion['sub'][$i++]['url'] = 'admin/content.php';
-            $modversion['sub'][$i]['name']  = '<img src="assets/images/icon/list.gif" align="absmiddle" width="20px;" alt="' . _MD_EDITO_LIST . '">&nbsp;<i>' . _MD_EDITO_LIST . '</i></img>';
+            $modversion['sub'][$i]['name']  = '<img src=\'assets/images/icon/list.gif\' class=\'middle\' width=\'20px;\' alt=\'' . _MD_EDITO_LIST . '\'>&nbsp;<i>' . _MD_EDITO_LIST . '</i>';
             $modversion['sub'][$i++]['url'] = 'admin/index.php';
-            $modversion['sub'][$i]['name']  = '<img src="assets/images/icon/utilities.gif" align="absmiddle" width="20px;" alt="' . _MD_EDITO_UTILITIES . '">&nbsp;<i>' . _MD_EDITO_UTILITIES . '</i></img>';
+            $modversion['sub'][$i]['name']  = '<img src=\'assets/images/icon/utilities.gif\' class=\'middle\' width=\'20px;\' alt=\'' . _MD_EDITO_UTILITIES . '\'>&nbsp;<i>' . _MD_EDITO_UTILITIES . '</i>';
             $modversion['sub'][$i++]['url'] = 'admin/utils_uploader.php';
-            $modversion['sub'][$i]['name']  = '<img src="assets/images/icon/settings.gif" align="absmiddle" width="20px;" alt="' . _MD_EDITO_SETTINGS . '">&nbsp;<i>' . _MD_EDITO_SETTINGS . '</i></img>';
+            $modversion['sub'][$i]['name']  = '<img src=\'assets/images/icon/settings.gif\' class=\'middle\' width=\'20px;\' alt=\'' . _MD_EDITO_SETTINGS . '\'>&nbsp;<i>' . _MD_EDITO_SETTINGS . '</i>';
             $modversion['sub'][$i++]['url'] = '../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=' . $GLOBALS['xoopsModule']->getVar('mid');
-            $modversion['sub'][$i]['name']  = '<img src="assets/images/icon/blocks.gif" align="absmiddle" width="20px;" alt="' . _MD_EDITO_BLOCKS . '">&nbsp;<i>' . _MD_EDITO_BLOCKS . '</i></img>';
+            $modversion['sub'][$i]['name']  = '<img src=\'assets/images/icon/blocks.gif\' class=\'middle\' width=\'20px;\' alt=\'' . _MD_EDITO_BLOCKS . '\'>&nbsp;<i>' . _MD_EDITO_BLOCKS . '</i>';
             $modversion['sub'][$i++]['url'] = 'admin/blocks.php';
         }
     }
@@ -433,7 +435,7 @@ $modversion['config'] = [
      'default'     => 0],
 ];
 
-if ( $GLOBALS['xoopsModule'] && $GLOBALS['xoopsModule'] -> getVar( 'dirname' ) == 'system' ) {
+if (isset($GLOBALS['xoopsModule']) && $GLOBALS['xoopsModule'] -> getVar( 'dirname' ) == 'system' ) {
     /** @var  \XoopsMemberHandler  $memberHandler */
 	$memberHandler = xoops_getHandler('member');
 	$xoopsgroups    = $memberHandler->getGroupList();
